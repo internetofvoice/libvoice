@@ -64,16 +64,16 @@ class Request {
 	/**
 	 * Instance the correct type of Request, based on the $jons->request->type
 	 * value.
-	 * @param type $data
+	 * @param bool $validateCertificate
 	 * @return \Alexa\Request\Request   base class
 	 * @throws RuntimeException
 	 */
-	public function fromData() {
+	public function fromData($validateCertificate = true) {
 		$data = $this->data;
 
 		// Instantiate a new Certificate validator if none is injected
 		// as our dependency.
-		if (!isset($this->certificate)) {
+		if (!isset($this->certificate) && $validateCertificate === true) {
 			$this->certificate = new Certificate($_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
 		}
 		if (!isset($this->application)) {
@@ -83,8 +83,9 @@ class Request {
 		// We need to ensure that the request Application ID matches our Application ID.
 		$this->application->validateApplicationId($data['session']['application']['applicationId']);
 		// Validate that the request signature matches the certificate.
-		$this->certificate->validateRequest($this->rawData);
-
+		if ($validateCertificate === true) {
+			$this->certificate->validateRequest($this->rawData);
+		}
 
 		$requestType = $data['request']['type'];
 		if (!class_exists('\\Alexa\\Request\\' . $requestType)) {
