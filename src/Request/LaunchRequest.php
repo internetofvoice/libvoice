@@ -2,13 +2,19 @@
 
 namespace Alexa\Request;
 
-class LaunchRequest extends Request {
-	public $applicationId;
+class LaunchRequest extends Request
+{
+    public $applicationId;
 
-	public function __construct($rawData) {
-                parent::__construct($rawData);                                           
-                $data = $this->data;
+    /**
+     * LaunchRequest constructor.
+     * @param string $rawData
+     */
+    public function __construct($rawData)
+    {
+        parent::__construct($rawData);
+        $data = $this->data;
 
-		$this->applicationId = $data['session']['application']['applicationId'];
-	}
+        $this->applicationId = $data['session']['application']['applicationId'];
+    }
 }
