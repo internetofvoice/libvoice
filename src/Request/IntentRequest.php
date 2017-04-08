@@ -6,7 +6,6 @@ class IntentRequest extends Request
 {
     public $intentName;
     public $slots = array();
-    public $locale;
 
     /**
      * IntentRequest constructor.
@@ -18,8 +17,6 @@ class IntentRequest extends Request
         $data = $this->data;
 
         $this->intentName = $data['request']['intent']['name'];
-        $this->locale = $data['request']['locale'];
-
         if (isset($data['request']['intent']['slots'])) {
             foreach ($data['request']['intent']['slots'] as $slot) {
                 if (isset($slot['value'])) {
