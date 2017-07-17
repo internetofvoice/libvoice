@@ -119,10 +119,13 @@ class Response
      * Add a session attribute that will be passed in every requests.
      * @param string $key
      * @param mixed $value
+     * @return \Alexa\Response\Response
      */
     public function addSessionAttribute($key, $value)
     {
         $this->sessionAttributes[$key] = $value;
+
+        return $this;
     }
 
     /**
