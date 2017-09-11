@@ -1,38 +1,32 @@
 # Amazon Alexa PHP Library
 
-This is an extension of the amazon-alexa-php library by minicodemonkey/jakubsuchy (https://github.com/MiniCodeMonkey | https://github.com/jakubsuchy)
+> A PHP library for developing Amazon Alexa skills. 
+
+This is an extension of the amazon-alexa-php library by [minicodemonkey](https://github.com/MiniCodeMonkey),
+[jakubsuchy](https://github.com/jakubsuchy) and [danstreeter](https://github.com/danstreeter/amazon-alexa-php).
 
 ## Usage
-
-
-
-Install via composer: 
+Require the library in your composer.json: 
 ```php
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/danstreeter/amazon-alexa-php"
-        }
-    ],
     "require": {
-        "jakubsuchy/amazon-alexa-php": "dev-master"
+        "internetofvoice/amazon-alexa-php": "~0.2"
     }
 }
 ```
 
 ### Requests
-When Amazon Alexa triggers your skill, a HTTP request will be sent to the URL you specified for your app.
+When Amazon Alexa triggers your skill, a HTTP request will be sent to the URL you configured for your skill.
 
 You can get the `JSON` body of the request like so:
 ```php
-$applicationId = "your-application-id-from-alexa"; // See developer.amazon.com and your Application. Will start with "amzn1.echo-sdk-ams.app."
+$applicationId = "your-application-id-from-alexa"; // Insert your Skill ID from developer.amazon.com.
 $rawRequest = $request->getContent();
 $alexa = new \Alexa\Request\Request($rawRequest, $applicationId);
 $alexaRequest = $alexa->fromData();
 ```
 
-The library expect raw request data, not parsed JSON as it needs to validate the request signature.
+This library expects raw request data, not parsed JSON as it needs to validate the request signature.
 
 You can determine the type of the request with `instanceof`, e.g.:
 ```php
@@ -49,7 +43,9 @@ if ($alexaRequest instanceof \Alexa\Request\IntentRequest) {
 ```
 
 ### Certificate validation
-By default the system validates the request signature by fetching Amazon's signing certificate and decrypting the signature. You need CURL to be able to get the certificate. No caching is done but you can override the Certificate class easily if you want to implement certificate caching yourself based on what your app provides:
+By default the system validates the request signature by fetching Amazon's signing certificate and decrypting the 
+signature. You need CURL to be able to get the certificate. No caching is done but you can override the Certificate 
+class easily if you want to implement certificate caching yourself based on what your app provides:
 
 Here is a basic example:
 ```php
@@ -78,16 +74,18 @@ $alexaRequest = $alexa->fromData();
 ```
 
 ### Application Id validation
-The library will automatically validate your Application Id matches the one of the incoming request - you don't need to do anything for that. If and only if you wish to change how the validation happens, you might use a similar scenario to the certificate validation - provide your own Application class extending the \Alexa\Request\Application and providing a validateApplicationId() function as part of that. Pass your application to the Request library in a same way as the certificate:
+The library will automatically validate your Application Id matches the one of the incoming request - you don't need 
+to do anything for that. If and only if you wish to change how the validation happens, you might use a similar 
+scenario to the certificate validation - provide your own Application class extending the \Alexa\Request\Application 
+and providing a validateApplicationId() function as part of that. Pass your application to the Request library in a 
+same way as the certificate:
 ```php
-
 $application = new MyAppApplication($myappId);
 $alexa = new \Alexa\Request\Request($rawRequest, $myappId);
 $alexa->setApplicationDependency($application);
 
 $alexaRequest = $alexa->fromData();
 ```
-
 
 ### Response
 You can build an Alexa response with the `Response` class. You can optionally set a card or a reprompt too.
