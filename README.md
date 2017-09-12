@@ -3,7 +3,7 @@
 > A PHP library for developing Amazon Alexa skills. 
 
 This is an extension of the amazon-alexa-php library by [minicodemonkey](https://github.com/MiniCodeMonkey),
-[jakubsuchy](https://github.com/jakubsuchy) and [danstreeter](https://github.com/danstreeter/amazon-alexa-php).
+[jakubsuchy](https://github.com/jakubsuchy) and [danstreeter](https://github.com/danstreeter).
 
 ## Usage
 Require the library in your composer.json: 
