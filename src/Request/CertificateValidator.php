@@ -1,19 +1,12 @@
 <?php
 
-/**
- * @file Certificate.php
- * Validate the request signature
- * Based on code from alexa-app: https://github.com/develpr/alexa-app by Kevin Mitchell
- * */
-
 namespace Alexa\Request;
 
-use RuntimeException;
-use InvalidArgumentException;
-use DateTime;
+use \RuntimeException;
+use \InvalidArgumentException;
+use \DateTime;
 
-class Certificate
-{
+class CertificateValidator {
     const TIMESTAMP_VALID_TOLERANCE_SECONDS = 30;
     const SIGNATURE_VALID_PROTOCOL = 'https';
     const SIGNATURE_VALID_HOSTNAME = 's3.amazonaws.com';
@@ -165,7 +158,9 @@ class Certificate
 
     /**
      * Parse the X509 certificate
-     * @param $certificate certificate contents
+     *
+     * @param $certificate CertificateValidator contents
+     *
      * @return array
      */
     public function parseCertificate($certificate)
