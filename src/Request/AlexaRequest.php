@@ -30,10 +30,17 @@ class AlexaRequest
 	 * @param   array       $validApplicationIds
 	 * @param   string      $signatureCertChainUrl
 	 * @param   string      $signature
+	 * @param   bool        $checkRequestTimestamp
 	 *
 	 * @throws  InvalidArgumentException
 	 */
-	public function __construct($rawData, $validApplicationIds, $signatureCertChainUrl, $signature) {
+	public function __construct(
+		$rawData,
+		$validApplicationIds,
+		$signatureCertChainUrl,
+		$signature,
+		$checkRequestTimestamp = true
+	) {
 		// Handle request data
 		$this->rawData = $rawData;
 		$this->data = json_decode($rawData, true);
@@ -63,8 +70,7 @@ class AlexaRequest
 
 		// Validate certificate
 		$certificateValidator = new CertificateValidator($signatureCertChainUrl, $signature);
-		$certificateValidator->validateCertificate();
-
+		$certificateValidator->validateRequest($rawData, $checkRequestTimestamp);
 
 		// @TODO RequestType
 	}
