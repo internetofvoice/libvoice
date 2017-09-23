@@ -25,7 +25,7 @@ class Session {
 	public function __construct($sessionData) {
 		$this->new = boolval($sessionData['new']);
 		$this->sessionId = $sessionData['sessionId'];
-        $this->attributes = $sessionData['attributes'];
+        $this->attributes = isset($sessionData['attributes']) ? $sessionData['attributes'] : [];
 		$this->application = new Application($sessionData['application']);
 		$this->user = new User($sessionData['user']);
 	}

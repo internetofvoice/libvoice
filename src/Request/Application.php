@@ -11,7 +11,7 @@ class Application {
 	 * @param   array $applicationData
 	 */
 	public function __construct($applicationData) {
-		$this->applicationIdId = $applicationData['applicationId'];
+		$this->applicationId = $applicationData['applicationId'];
 	}
 
 
