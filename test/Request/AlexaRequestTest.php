@@ -7,7 +7,7 @@ use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
 
-class RequestTest extends TestCase {
+class AlexaRequestTest extends TestCase {
 	/**
 	 * testIntentRequest
 	 */
