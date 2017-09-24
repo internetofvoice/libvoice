@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Request;
+namespace Tests\Request\Context;
 
 use \Alexa\Request\Context\AudioPlayer;
 use \PHPUnit\Framework\TestCase;
