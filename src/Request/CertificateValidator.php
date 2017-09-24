@@ -38,6 +38,7 @@ class CertificateValidator {
 	 * @param   string  $requestData
 	 * @param   bool    $checkTimeStamp     MUST be true for production, see Amazons policy on verifying requests
 	 *
+     * @return  bool
 	 * @see     https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#verifying-that-the-request-was-sent-by-alexa
 	 */
 	public function validateRequest($requestData, $checkTimeStamp = true) {
@@ -50,6 +51,8 @@ class CertificateValidator {
 		$this->verifySignatureCertificateURL();
 		$this->validateCertificate();
 		$this->validateRequestSignature($requestData);
+
+        return true;
 	}
 
 	/**

@@ -70,7 +70,9 @@ class AlexaRequest
 
 		// Validate certificate
 		$certificateValidator = new CertificateValidator($signatureCertChainUrl, $signature);
-		$certificateValidator->validateRequest($rawData, $checkRequestTimestamp);
+        if (false === $certificateValidator->validateRequest($rawData, $checkRequestTimestamp)) {
+            throw new InvalidArgumentException('Certificate is not valid.');
+        }
 
 		// @TODO RequestType
 	}
