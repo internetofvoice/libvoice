@@ -22,12 +22,19 @@ class AlexaRequestTest extends TestCase {
 			false
 		);
 
+		// Test various properties and sub objects
 		$this->assertEquals('1.0', $alexaRequest->getVersion());
 		$this->assertTrue($alexaRequest->getSession()->isNew());
 		$this->assertStringStartsWith('amzn1.echo-api.session.', $alexaRequest->getSession()->getSessionId());
 		$this->assertStringStartsWith('amzn1.ask.skill.', $alexaRequest->getSession()->getApplication()->getApplicationId());
 		$this->assertStringStartsWith('amzn1.ask.account.', $alexaRequest->getSession()->getUser()->getUserId());
 		$this->assertEquals('lo6539ti9xbd54ng', $alexaRequest->getSession()->getUser()->getAccessToken());
+
+		// Test shortcuts to sub objects
+		$this->assertEquals('Alexa\Request\Application', get_class($alexaRequest->getApplication()));
+		$this->assertStringStartsWith('amzn1.ask.skill.', $alexaRequest->getApplication()->getApplicationId());
+		$this->assertEquals('Alexa\Request\User', get_class($alexaRequest->getUser()));
+		$this->assertStringStartsWith('amzn1.ask.account.', $alexaRequest->getUser()->getUserId());
 	}
 
 	/**

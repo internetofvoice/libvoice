@@ -64,7 +64,7 @@ class AlexaRequest
 			throw new InvalidArgumentException('AlexaRequest requires at least one valid applicationId.');
 		}
 
-		if (false === $this->getSession()->getApplication()->validateApplicationId($validApplicationIds)) {
+		if (false === $this->getApplication()->validateApplicationId($validApplicationIds)) {
 			throw new InvalidArgumentException('ApplicationIds do not match.');
 		}
 
@@ -114,4 +114,30 @@ class AlexaRequest
 	}
 
 	// @TODO RequestType
+
+	/**
+	 * Shortcut to Application object, either provided by Session or by Context
+	 *
+	 * @return Application
+	 */
+	public function getApplication() {
+		if(!is_null($this->session)) {
+			return $this->session->getApplication();
+		} else {
+			return $this->context->getSystem()->getApplication();
+		}
+	}
+
+	/**
+	 * Shortcut to User object, either provided by Session or by Context
+	 *
+	 * @return User
+	 */
+	public function getUser() {
+		if(!is_null($this->session)) {
+			return $this->session->getUser();
+		} else {
+			return $this->context->getSystem()->getUser();
+		}
+	}
 }
