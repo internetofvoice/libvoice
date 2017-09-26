@@ -26,7 +26,7 @@ abstract class AbstractRequest {
 		$this->locale = $requestData['locale'];
 		$this->requestId = $requestData['requestId'];
 
-		$timestamp = is_numeric($requestData['requestId']) ? '@' . substr($requestData['requestId'], 0, 10) : $requestData['requestId'];
+		$timestamp = is_numeric($requestData['timestamp']) ? '@' . substr($requestData['timestamp'], 0, 10) : $requestData['timestamp'];
 		$this->timestamp = new DateTime($timestamp);
 	}
 

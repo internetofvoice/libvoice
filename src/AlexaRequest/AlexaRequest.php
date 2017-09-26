@@ -3,13 +3,12 @@
 namespace InternetOfVoice\LibVoice\AlexaRequest;
 
 use InvalidArgumentException;
-use InternetOfVoice\LibVoice\AlexaRequest\Request\AbstractRequest;
+use InternetOfVoice\LibVoice\AlexaRequest\Request\IntentRequest;
+use InternetOfVoice\LibVoice\AlexaRequest\Request\LaunchRequest;
+use InternetOfVoice\LibVoice\AlexaRequest\Request\SessionEndedRequest;
 
 class AlexaRequest
 {
-	/** @var string $rawData */
-	protected $rawData;
-
 	/** @var array $data */
 	protected $data;
 
@@ -23,7 +22,7 @@ class AlexaRequest
 	/** @var Context $context */
 	protected $context;
 
-	/** @var AbstractRequest $request */
+	/** @var mixed $request */
 	protected $request;
 
 
@@ -50,7 +49,6 @@ class AlexaRequest
 	 * @throws  InvalidArgumentException
 	 */
 	private function handleRequestData($rawData) {
-		$this->rawData = $rawData;
 		$this->data = json_decode($rawData, true);
 		if (is_null($this->data)) {
 			throw new InvalidArgumentException('AlexaRequest requires raw JSON data.');
@@ -118,33 +116,25 @@ class AlexaRequest
 			throw new InvalidArgumentException('AlexaRequest requires a Request type.');
 		}
 
-//		@TODO
-//		switch ($this->data['request']['type']) {
-//			case 'LaunchRequest':
-//				$this->request = new LaunchRequest($this->data['request']);
-//			break;
-//
-//			case 'SessionEndedRequest':
-//				$this->request = new SessionEndedRequest($this->data['request']);
-//			break;
-//
-//			case 'IntentRequest':
-//				$this->request = new IntentRequest($this->data['request']);
-//			break;
-//
-//			default:
-//				throw new InvalidArgumentException('Unknown Request type "' . $this->data['request']['type'] . '"');
-//			break;
-//		}
+		switch ($this->data['request']['type']) {
+			case 'LaunchRequest':
+				$this->request = new LaunchRequest($this->data['request']);
+			break;
+
+			case 'SessionEndedRequest':
+				$this->request = new SessionEndedRequest($this->data['request']);
+			break;
+
+			case 'IntentRequest':
+				$this->request = new IntentRequest($this->data['request']);
+			break;
+
+			default:
+				throw new InvalidArgumentException('Unknown Request type "' . $this->data['request']['type'] . '"');
+			break;
+		}
 	}
 
-
-	/**
-	 * @return string
-	 */
-	public function getRawData() {
-		return $this->rawData;
-	}
 
 	/**
 	 * @return array
@@ -175,7 +165,7 @@ class AlexaRequest
 	}
 
 	/**
-	 * @return AbstractRequest
+	 * @return mixed
 	 */
 	public function getRequest() {
 		return $this->request;
