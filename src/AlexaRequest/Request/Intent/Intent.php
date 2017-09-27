@@ -45,16 +45,16 @@ class Intent {
 	}
 
 	/**
-	 * @return array
+	 * @return Slot[]
 	 */
 	public function getSlots() {
 		return $this->slots;
 	}
 
 	/**
-	 * @return mixed
+	 * @return Slot
 	 */
-	public function getSlot($name, $default = false) {
-		return isset($this->slots[$name]) ? $this->slots[$name] : $default;
+	public function getSlot($name) {
+		return isset($this->slots[$name]) ? $this->slots[$name] : null;
 	}
 }

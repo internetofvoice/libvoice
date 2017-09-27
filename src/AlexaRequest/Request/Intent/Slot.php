@@ -19,7 +19,11 @@ class Slot {
 	 */
 	public function __construct($slotData) {
 		$this->name = $slotData['name'];
-		$this->value = $slotData['value'];
+
+		if(isset($slotData['value'])) {
+			$this->value = $slotData['value'];
+		}
+
 		if(isset($slotData['confirmationStatus'])) {
 			$this->confirmationStatus = $slotData['confirmationStatus'];
 		}

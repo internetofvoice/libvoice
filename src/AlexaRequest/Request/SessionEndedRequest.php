@@ -22,7 +22,7 @@ class SessionEndedRequest extends AbstractRequest {
 		}
 
 		if(isset($requestData['error'])) {
-			$this->error = json_encode(json_decode($requestData['error']));
+			$this->error = json_decode(json_encode($requestData['error']));
 		}
 	}
 

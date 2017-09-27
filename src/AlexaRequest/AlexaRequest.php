@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\AlexaRequest;
 
 use InvalidArgumentException;
+use InternetOfVoice\LibVoice\AlexaRequest\Request\AbstractRequest;
 use InternetOfVoice\LibVoice\AlexaRequest\Request\IntentRequest;
 use InternetOfVoice\LibVoice\AlexaRequest\Request\LaunchRequest;
 use InternetOfVoice\LibVoice\AlexaRequest\Request\SessionEndedRequest;
@@ -22,7 +23,7 @@ class AlexaRequest
 	/** @var Context $context */
 	protected $context;
 
-	/** @var mixed $request */
+	/** @var AbstractRequest $request */
 	protected $request;
 
 
@@ -118,14 +119,17 @@ class AlexaRequest
 
 		switch ($this->data['request']['type']) {
 			case 'LaunchRequest':
+				/** @var LaunchRequest request */
 				$this->request = new LaunchRequest($this->data['request']);
 			break;
 
 			case 'SessionEndedRequest':
+				/** @var SessionEndedRequest request */
 				$this->request = new SessionEndedRequest($this->data['request']);
 			break;
 
 			case 'IntentRequest':
+				/** @var IntentRequest request */
 				$this->request = new IntentRequest($this->data['request']);
 			break;
 
@@ -165,7 +169,7 @@ class AlexaRequest
 	}
 
 	/**
-	 * @return mixed
+	 * @return AbstractRequest
 	 */
 	public function getRequest() {
 		return $this->request;
