@@ -13,7 +13,6 @@ class AlexaRequest
 	/** @var array $data */
 	protected $data;
 
-
 	/** @var string $version */
 	protected $version;
 
@@ -35,35 +34,15 @@ class AlexaRequest
 	 * @param   bool        $checkTimestamp
 	 */
 	public function __construct($rawData, $validAppIds, $signatureCertChainUrl, $signature, $checkTimestamp = true) {
-		$this->handleRequestData($rawData);
-		$this->handleSessionAndContext();
-		$this->validateApplication($validAppIds);
-		$this->validateCertificate($rawData, $signatureCertChainUrl, $signature, $checkTimestamp);
-		$this->handleRequest();
-	}
-
-	/**
-	 * Handle request data
-	 *
-	 * @param   string      $rawData
-	 *
-	 * @throws  InvalidArgumentException
-	 */
-	private function handleRequestData($rawData) {
+		// Request data
 		$this->data = json_decode($rawData, true);
 		if (is_null($this->data)) {
 			throw new InvalidArgumentException('AlexaRequest requires raw JSON data.');
 		}
 
 		$this->version = $this->data['version'];
-	}
 
-	/**
-	 * Extract Session and / or Context object
-	 *
-	 * @throws  InvalidArgumentException
-	 */
-	private function handleSessionAndContext() {
+		// Session and Context
 		if (isset($this->data['session'])) {
 			$this->session = new Session($this->data['session']);
 		} elseif (isset($this->data['context'])) {
@@ -71,16 +50,8 @@ class AlexaRequest
 		} else {
 			throw new InvalidArgumentException('AlexaRequest expects a Session or Context object.');
 		}
-	}
 
-	/**
-	 * Validate provided applicationId against valid applicationId(s)
-	 *
-	 * @param   array       $validAppIds
-	 *
-	 * @throws  InvalidArgumentException
-	 */
-	private function validateApplication($validAppIds) {
+		// Validate Application
 		if (!is_array($validAppIds) && count($validAppIds) < 1) {
 			throw new InvalidArgumentException('AlexaRequest requires at least one valid applicationId.');
 		}
@@ -88,31 +59,23 @@ class AlexaRequest
 		if (false === $this->getApplication()->validateApplicationId($validAppIds)) {
 			throw new InvalidArgumentException('ApplicationId does not match.');
 		}
-	}
 
-	/**
-	 * Validate certificate
-	 *
-	 * @param   string      $rawData
-	 * @param   string      $signatureCertChainUrl
-	 * @param   string      $signature
-	 * @param   bool        $checkTimestamp
-	 *
-	 * @throws  InvalidArgumentException
-	 */
-	private function validateCertificate($rawData, $signatureCertChainUrl, $signature, $checkTimestamp) {
+		// Validate Certificate
 		$certificateValidator = new CertificateValidator($signatureCertChainUrl, $signature);
 		if (false === $certificateValidator->validateRequest($rawData, $checkTimestamp)) {
 			throw new InvalidArgumentException('Certificate is not valid.');
 		}
+
+		$this->createRequestFromType();
 	}
 
+
 	/**
-	 * Handle Request
+	 * Create Request from request type
 	 *
 	 * @throws  InvalidArgumentException
 	 */
-	private function handleRequest() {
+	private function createRequestFromType() {
 		if(!isset($this->data['request']['type'])) {
 			throw new InvalidArgumentException('AlexaRequest requires a Request type.');
 		}
