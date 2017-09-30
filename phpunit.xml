@@ -20,7 +20,7 @@
         </testsuite>
     </testsuites>
 
-    <!--filter>
+    <filter>
         <whitelist>
             <directory suffix=".php">./src</directory>
         </whitelist>
@@ -28,5 +28,5 @@
 
     <logging>
         <log type="coverage-html" target="./coverage" charset="UTF-8" highlight="true" />
-    </logging-->
+    </logging>
 </phpunit>
