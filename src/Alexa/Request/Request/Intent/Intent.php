@@ -58,6 +58,8 @@ class Intent {
 	}
 
 	/**
+	 * @param string $name
+	 *
 	 * @return Slot
 	 */
 	public function getSlot($name) {

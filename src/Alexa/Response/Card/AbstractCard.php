@@ -9,8 +9,9 @@ namespace Alexa\Alexa\Response\Card;
  * @license http://opensource.org/licenses/MIT
  */
 abstract class AbstractCard {
-	const MAX_TITLE_CHARS = 64;
-	const MAX_CONTENT_CHARS = 6000;
+	const MAX_CONTENT_CHARS = 8000;
+	const MAX_URL_CHARS     = 2000;
+
 
 	/** @var  string $type */
 	protected $type;

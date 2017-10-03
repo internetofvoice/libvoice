@@ -20,9 +20,10 @@ class Simple extends AbstractCard {
 	 * @param string $title
 	 * @param string $content
 	 */
-	public function __construct($title = '', $content = '') {
+	public function __construct($title, $content) {
 		parent::__construct();
 
+		$this->type = 'Simple';
 		$this->setTitle($title);
 		$this->setContent($content);
 	}
@@ -41,7 +42,7 @@ class Simple extends AbstractCard {
 	 * @return Simple
 	 */
 	public function setTitle($title) {
-		$this->title = mb_substr($title, 0, self::MAX_TITLE_CHARS, 'UTF-8');
+		$this->title = $title;
 
 		return $this;
 	}

@@ -2,71 +2,36 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
+use Alexa\Alexa\Response\Card\AbstractCard;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
 
 class Response {
 	/** @var  AbstractOutputSpeech $outputSpeech */
 	protected $outputSpeech;
 
-
+	/** @var  AbstractCard $card */
 	protected $card;
 
-	/** @var  Reprompt $repromptSpeech */
-	protected $repromptSpeech;
+	/** @var  Reprompt $reprompt */
+	protected $reprompt;
 
 	// @TODO
-	protected $directives;
+	// protected $directives;
 
 	/** @var  bool $shouldEndSession */
 	protected $shouldEndSession;
 
 
 	/**
-	 * @param string $text
+	 * @param AbstractOutputSpeech $outputSpeech
 	 *
 	 * @return Response
 	 */
-	public function respond($text) {
-		$this->outputSpeech = new PlainText($text);
+	public function setOutputSpeech($outputSpeech) {
+		$this->outputSpeech = $outputSpeech;
 
 		return $this;
 	}
-
-	/**
-	 * @param string $ssml
-	 *
-	 * @return Response
-	 */
-	public function respondSSML($ssml) {
-		$this->outputSpeech = new SSML($ssml);
-
-		return $this;
-	}
-
-	/**
-	 * @param string $text
-	 *
-	 * @return Response
-	 */
-	public function reprompt($text) {
-		$this->repromptSpeech = new Reprompt('PlainText', $text);
-
-		return $this;
-	}
-
-	/**
-	 * @param string $ssml
-	 *
-	 * @return Response
-	 */
-	public function repromptSSML($ssml) {
-		$this->repromptSpeech = new Reprompt('SSML', $ssml);
-
-		return $this;
-	}
-
 
 	/**
 	 * @return AbstractOutputSpeech
@@ -76,16 +41,45 @@ class Response {
 	}
 
 	/**
+	 * @param AbstractCard $card
+	 *
+	 * @return Response
+	 */
+	public function setCard($card) {
+		$this->card = $card;
+
+		return $this;
+	}
+
+	/**
+	 * @return AbstractCard
+	 */
+	public function getCard() {
+		return $this->card;
+	}
+
+	/**
+	 * @param Reprompt $reprompt
+	 *
+	 * @return Response
+	 */
+	public function setReprompt($reprompt) {
+		$this->reprompt = $reprompt;
+
+		return $this;
+	}
+
+	/**
 	 * @return Reprompt
 	 */
 	public function getReprompt() {
-		return $this->repromptSpeech;
+		return $this->reprompt;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function isShouldEndSession() {
+	public function getShouldEndSession() {
 		return $this->shouldEndSession;
 	}
 
@@ -95,8 +89,40 @@ class Response {
 	 * @return Response
 	 */
 	public function setShouldEndSession($shouldEndSession) {
-		$this->shouldEndSession = boolval($shouldEndSession);
+		$this->shouldEndSession = $shouldEndSession;
 
 		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function render() {
+		$rendered = array();
+		if (!is_null($this->outputSpeech)) {
+			$rendered['outputSpeech'] = $this->outputSpeech->render();
+
+		}
+
+		if (!is_null($this->card)) {
+			$rendered['card'] = $this->card->render();
+
+		}
+
+		if (!is_null($this->reprompt)) {
+			$rendered['reprompt'] = $this->reprompt->render();
+
+		}
+
+		/*
+		 * @TODO
+		if(!is_null($this->directives)) {
+			$rendered['directives'] = $this->directives->render();
+		}
+		*/
+
+		$rendered['shouldEndSession'] = $this->shouldEndSession;
+
+		return $rendered;
 	}
 }
