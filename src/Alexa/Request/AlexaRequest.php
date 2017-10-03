@@ -8,6 +8,12 @@ use InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
 use InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
 
+/**
+ * Class AlexaRequest
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class AlexaRequest {
 	/** @var array $data */
 	protected $data;
@@ -26,11 +32,11 @@ class AlexaRequest {
 
 
 	/**
-	 * @param   string      $rawData
-	 * @param   array       $validAppIds
-	 * @param   string      $signatureCertChainUrl
-	 * @param   string      $signature
-	 * @param   bool        $checkTimestamp
+	 * @param string $rawData
+	 * @param array  $validAppIds
+	 * @param string $signatureCertChainUrl
+	 * @param string $signature
+	 * @param bool   $checkTimestamp
 	 */
 	public function __construct($rawData, $validAppIds, $signatureCertChainUrl, $signature, $checkTimestamp = true) {
 		// Request data
@@ -70,12 +76,10 @@ class AlexaRequest {
 
 
 	/**
-	 * Create Request from request type
-	 *
-	 * @throws  InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 */
 	private function createRequestFromType() {
-		if(!isset($this->data['request']['type'])) {
+		if (!isset($this->data['request']['type'])) {
 			throw new InvalidArgumentException('AlexaRequest requires a Request type.');
 		}
 
@@ -143,7 +147,7 @@ class AlexaRequest {
 	 * @return Application
 	 */
 	public function getApplication() {
-		if(!is_null($this->session)) {
+		if (!is_null($this->session)) {
 			return $this->session->getApplication();
 		} else {
 			return $this->context->getSystem()->getApplication();
@@ -156,7 +160,7 @@ class AlexaRequest {
 	 * @return User
 	 */
 	public function getUser() {
-		if(!is_null($this->session)) {
+		if (!is_null($this->session)) {
 			return $this->session->getUser();
 		} else {
 			return $this->context->getSystem()->getUser();

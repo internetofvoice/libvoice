@@ -2,6 +2,12 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
+/**
+ * Class Session
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class Session {
 	/** @var bool $new */
 	protected $new;
@@ -23,11 +29,11 @@ class Session {
 	 * @param   array $sessionData
 	 */
 	public function __construct($sessionData) {
-		$this->new = boolval($sessionData['new']);
-		$this->sessionId = $sessionData['sessionId'];
-        $this->attributes = isset($sessionData['attributes']) ? $sessionData['attributes'] : [];
+		$this->new         = boolval($sessionData['new']);
+		$this->sessionId   = $sessionData['sessionId'];
+		$this->attributes  = isset($sessionData['attributes']) ? $sessionData['attributes'] : [];
 		$this->application = new Application($sessionData['application']);
-		$this->user = new User($sessionData['user']);
+		$this->user        = new User($sessionData['user']);
 	}
 
 

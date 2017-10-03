@@ -2,17 +2,24 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\OutputSpeech;
+use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
 
 class Response {
-	/** @var  OutputSpeech $outputSpeech */
+	/** @var  AbstractOutputSpeech $outputSpeech */
 	protected $outputSpeech;
 
+
 	protected $card;
-	protected $reprompt;
+
+	/** @var  Reprompt $repromptSpeech */
+	protected $repromptSpeech;
+
+	// @TODO
 	protected $directives;
+
+	/** @var  bool $shouldEndSession */
 	protected $shouldEndSession;
 
 
@@ -39,9 +46,57 @@ class Response {
 	}
 
 	/**
-	 * @return OutputSpeech
+	 * @param string $text
+	 *
+	 * @return Response
+	 */
+	public function reprompt($text) {
+		$this->repromptSpeech = new Reprompt('PlainText', $text);
+
+		return $this;
+	}
+
+	/**
+	 * @param string $ssml
+	 *
+	 * @return Response
+	 */
+	public function repromptSSML($ssml) {
+		$this->repromptSpeech = new Reprompt('SSML', $ssml);
+
+		return $this;
+	}
+
+
+	/**
+	 * @return AbstractOutputSpeech
 	 */
 	public function getOutputSpeech() {
 		return $this->outputSpeech;
+	}
+
+	/**
+	 * @return Reprompt
+	 */
+	public function getReprompt() {
+		return $this->repromptSpeech;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isShouldEndSession() {
+		return $this->shouldEndSession;
+	}
+
+	/**
+	 * @param bool $shouldEndSession
+	 *
+	 * @return Response
+	 */
+	public function setShouldEndSession($shouldEndSession) {
+		$this->shouldEndSession = boolval($shouldEndSession);
+
+		return $this;
 	}
 }

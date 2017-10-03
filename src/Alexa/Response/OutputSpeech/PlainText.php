@@ -2,10 +2,13 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech;
 
-
-class PlainText extends OutputSpeech {
-	const MAX_CONTENT_LENGTH = 6000;
-
+/**
+ * Class PlainText
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
+class PlainText extends AbstractOutputSpeech {
 	/** @var string $text */
 	protected $text;
 
@@ -34,7 +37,7 @@ class PlainText extends OutputSpeech {
 	 * @return PlainText
 	 */
 	public function setText($text) {
-		$this->text = mb_substr($text, 0, self::MAX_CONTENT_LENGTH, 'UTF-8');
+		$this->text = mb_substr($text, 0, self::MAX_CONTENT_CHARS, 'UTF-8');
 
 		return $this;
 	}

@@ -6,6 +6,11 @@ use DateTime;
 use InvalidArgumentException;
 use RuntimeException;
 
+/**
+ * Class CertificateValidator
+ *
+ * @license http://opensource.org/licenses/MIT
+ */
 class CertificateValidator {
 	const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
 	const SIGNATURE_VALID_PROTOCOL = 'https';
@@ -30,21 +35,21 @@ class CertificateValidator {
 	 * @param string $signature
 	 */
 	public function __construct($certificateUrl, $signature) {
-		$this->certificateUrl = $certificateUrl;
+		$this->certificateUrl   = $certificateUrl;
 		$this->requestSignature = $signature;
 	}
 
 	/**
-	 * @param   string  $requestData
-	 * @param   bool    $checkTimeStamp     MUST be true for production, see Amazons policy on verifying requests
+	 * @param   string $requestData
+	 * @param   bool   $checkTimeStamp MUST be true for production, see Amazons policy on verifying requests
 	 *
-     * @return  bool
+	 * @return  bool
 	 * @see     https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#verifying-that-the-request-was-sent-by-alexa
 	 */
 	public function validateRequest($requestData, $checkTimeStamp = true) {
 		$requestParsed = json_decode($requestData, true);
 
-		if($checkTimeStamp) {
+		if ($checkTimeStamp) {
 			$this->validateTimestamp($requestParsed['request']['timestamp']);
 		}
 
@@ -52,7 +57,7 @@ class CertificateValidator {
 		$this->validateCertificate();
 		$this->validateRequestSignature($requestData);
 
-        return true;
+		return true;
 	}
 
 	/**
@@ -92,7 +97,7 @@ class CertificateValidator {
 	 */
 	public function validateRequestSignature($requestData) {
 		$certKey = openssl_pkey_get_public($this->certificateContent);
-		$valid = openssl_verify($requestData, base64_decode($this->requestSignature), $certKey, self::ENCRYPT_METHOD);
+		$valid   = openssl_verify($requestData, base64_decode($this->requestSignature), $certKey, self::ENCRYPT_METHOD);
 		if (!$valid) {
 			throw new InvalidArgumentException('Request signature could not be verified');
 		}
@@ -170,6 +175,7 @@ class CertificateValidator {
 
 	/**
 	 * Perform the actual download of the certificate
+	 *
 	 * @return mixed
 	 */
 	public function fetchCertificate() {

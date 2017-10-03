@@ -2,8 +2,15 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech;
 
+/**
+ * Abstract Class AbstractOutputSpeech
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
+abstract class AbstractOutputSpeech {
+	const MAX_CONTENT_CHARS = 6000;
 
-abstract class OutputSpeech {
 	/** @var string $type */
 	protected $type;
 

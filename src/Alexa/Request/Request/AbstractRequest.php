@@ -4,6 +4,12 @@ namespace InternetOfVoice\LibVoice\Alexa\Request\Request;
 
 use DateTime;
 
+/**
+ * Abstract Class AbstractRequest
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 abstract class AbstractRequest {
 	/** @var string $type */
 	protected $type;
@@ -19,11 +25,11 @@ abstract class AbstractRequest {
 
 
 	/**
-	 * @param   array $requestData
+	 * @param array $requestData
 	 */
 	public function __construct($requestData) {
-		$this->type = $requestData['type'];
-		$this->locale = $requestData['locale'];
+		$this->type      = $requestData['type'];
+		$this->locale    = $requestData['locale'];
 		$this->requestId = $requestData['requestId'];
 
 		$timestamp = is_numeric($requestData['timestamp']) ? '@' . substr($requestData['timestamp'], 0, 10) : $requestData['timestamp'];

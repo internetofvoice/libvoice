@@ -2,13 +2,19 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
+/**
+ * Class Application
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class Application {
 	/** @var string $applicationId */
 	protected $applicationId;
 
 
 	/**
-	 * @param   array $applicationData
+	 * @param array $applicationData
 	 */
 	public function __construct($applicationData) {
 		$this->applicationId = $applicationData['applicationId'];
@@ -16,11 +22,9 @@ class Application {
 
 
 	/**
-	 * Validate request applicationId against valid applicationId(s)
+	 * @param  array $validApplicationIds
 	 *
-	 * @param   array $validApplicationIds
-	 *
-	 * @return  bool
+	 * @return bool
 	 */
 	public function validateApplicationId($validApplicationIds) {
 		return in_array($this->applicationId, $validApplicationIds);

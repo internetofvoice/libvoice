@@ -2,6 +2,12 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request\Intent;
 
+/**
+ * Class Intent
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class Intent {
 	/** @var string $name */
 	protected $name;
@@ -18,12 +24,12 @@ class Intent {
 	 */
 	public function __construct($intentData) {
 		$this->name = $intentData['name'];
-		if(isset($intentData['confirmationStatus'])) {
+		if (isset($intentData['confirmationStatus'])) {
 			$this->confirmationStatus = $intentData['confirmationStatus'];
 		}
 
-		if(isset($intentData['slots']) && is_array($intentData['slots'])) {
-			foreach($intentData['slots'] as $slotData) {
+		if (isset($intentData['slots']) && is_array($intentData['slots'])) {
+			foreach ($intentData['slots'] as $slotData) {
 				$this->slots[$slotData['name']] = new Slot($slotData);
 			}
 		}

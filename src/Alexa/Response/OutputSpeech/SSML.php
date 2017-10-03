@@ -2,10 +2,13 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech;
 
-
-class SSML extends OutputSpeech {
-	const MAX_CONTENT_LENGTH = 6000;
-
+/**
+ * Class SSML
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
+class SSML extends AbstractOutputSpeech {
 	/** @var string $ssml */
 	protected $ssml;
 
@@ -34,7 +37,7 @@ class SSML extends OutputSpeech {
 	 * @return SSML
 	 */
 	public function setSSML($ssml) {
-		$this->ssml = mb_substr($ssml, 0, self::MAX_CONTENT_LENGTH, 'UTF-8');
+		$this->ssml = mb_substr($ssml, 0, self::MAX_CONTENT_CHARS, 'UTF-8');
 
 		return $this;
 	}
