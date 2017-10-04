@@ -5,6 +5,7 @@ namespace InternetOfVoice\LibVoice\Alexa\Response;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
+use InvalidArgumentException;
 
 /**
  * Class Reprompt
@@ -20,6 +21,8 @@ class Reprompt {
 	/**
 	 * @param string $type
 	 * @param string $text
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function __construct($type, $text) {
 		switch ($type) {
@@ -28,8 +31,11 @@ class Reprompt {
 			break;
 
 			case 'PlainText':
-			default:
 				$this->outputSpeech = new PlainText($text);
+			break;
+
+			default:
+				throw new InvalidArgumentException('Reprompt type must be PlainText or SSML.');
 			break;
 		}
 	}
