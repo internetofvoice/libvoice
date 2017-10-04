@@ -9,7 +9,7 @@ namespace InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech;
  * @license http://opensource.org/licenses/MIT
  */
 abstract class AbstractOutputSpeech {
-	const MAX_CONTENT_CHARS = 6000;
+	const MAX_CONTENT_CHARS = 8000;
 
 	/** @var string $type */
 	protected $type;

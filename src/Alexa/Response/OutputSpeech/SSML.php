@@ -16,7 +16,7 @@ class SSML extends AbstractOutputSpeech {
 	/**
 	 * @param string $ssml
 	 */
-	public function __construct($ssml = '') {
+	public function __construct($ssml) {
 		parent::__construct();
 
 		$this->type = 'SSML';

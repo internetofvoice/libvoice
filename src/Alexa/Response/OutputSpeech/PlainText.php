@@ -16,7 +16,7 @@ class PlainText extends AbstractOutputSpeech {
 	/**
 	 * @param string $text
 	 */
-	public function __construct($text = '') {
+	public function __construct($text) {
 		parent::__construct();
 
 		$this->type = 'PlainText';
