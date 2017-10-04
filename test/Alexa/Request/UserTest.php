@@ -6,6 +6,12 @@ use InternetOfVoice\LibVoice\Alexa\Request\User;
 use PHPUnit\Framework\TestCase;
 
 
+/**
+ * Class UserTest
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class UserTest extends TestCase {
 	/**
 	 * testUser

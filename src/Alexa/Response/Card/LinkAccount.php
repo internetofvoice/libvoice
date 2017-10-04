@@ -1,6 +1,6 @@
 <?php
 
-namespace Alexa\Alexa\Response\Card;
+namespace InternetOfVoice\LibVoice\Alexa\Response\Card;
 
 /**
  * Class LinkAccount

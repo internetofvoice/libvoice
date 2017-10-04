@@ -6,6 +6,12 @@ use InternetOfVoice\LibVoice\Alexa\Request\Context\System;
 use \PHPUnit\Framework\TestCase;
 
 
+/**
+ * Class SystemTest
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class SystemTest extends TestCase {
 	/**
 	 * testSystem

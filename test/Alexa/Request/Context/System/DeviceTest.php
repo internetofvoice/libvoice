@@ -6,6 +6,12 @@ use InternetOfVoice\LibVoice\Alexa\Request\Context\System\Device;
 use PHPUnit\Framework\TestCase;
 
 
+/**
+ * Class DeviceTest
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class DeviceTest extends TestCase {
 	/**
 	 * testDevice

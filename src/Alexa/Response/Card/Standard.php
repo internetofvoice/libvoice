@@ -1,6 +1,6 @@
 <?php
 
-namespace Alexa\Alexa\Response\Card;
+namespace InternetOfVoice\LibVoice\Alexa\Response\Card;
 
 use InvalidArgumentException;
 
@@ -93,7 +93,7 @@ class Standard extends AbstractCard {
 	 * @throws InvalidArgumentException
 	 */
 	public function setSmallImageUrl($smallImageUrl) {
-		if (strlen($smallImageUrl > self::MAX_URL_CHARS)) {
+		if (strlen($smallImageUrl) > self::MAX_URL_CHARS) {
 			throw new InvalidArgumentException('Small image URL exceeds ' . self::MAX_URL_CHARS . ' characters.');
 		}
 
@@ -119,7 +119,7 @@ class Standard extends AbstractCard {
 	 * @throws InvalidArgumentException
 	 */
 	public function setLargeImageUrl($largeImageUrl) {
-		if (strlen($largeImageUrl > self::MAX_URL_CHARS)) {
+		if (strlen($largeImageUrl) > self::MAX_URL_CHARS) {
 			throw new InvalidArgumentException('Large image URL exceeds ' . self::MAX_URL_CHARS . ' characters.');
 		}
 

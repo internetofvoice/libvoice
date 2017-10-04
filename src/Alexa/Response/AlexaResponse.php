@@ -2,9 +2,9 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use Alexa\Alexa\Response\Card\LinkAccount;
-use Alexa\Alexa\Response\Card\Simple as SimpleCard;
-use Alexa\Alexa\Response\Card\Standard as StandardCard;
+use InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
+use InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
+use InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
 

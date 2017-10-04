@@ -8,6 +8,12 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 
+/**
+ * Class AlexaRequestTest
+ *
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @license http://opensource.org/licenses/MIT
+ */
 class AlexaRequestTest extends TestCase {
 	/**
 	 * testIntentRequest

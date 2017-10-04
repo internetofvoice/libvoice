@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use Alexa\Alexa\Response\Card\AbstractCard;
+use InternetOfVoice\LibVoice\Alexa\Response\Card\AbstractCard;
 use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
 
 class Response {
