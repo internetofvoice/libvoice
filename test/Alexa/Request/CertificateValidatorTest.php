@@ -27,6 +27,8 @@ class CertificateValidatorTest extends TestCase {
 
         $this->assertTrue($validator->validateRequest($fixtureBody, false));
 
+        $this->assertTrue($validator->validateTimestamp(strval(time() * 1000)));
+
         $this->expectException(InvalidArgumentException::class);
         $validator->validateRequest($fixtureBody);
 	}

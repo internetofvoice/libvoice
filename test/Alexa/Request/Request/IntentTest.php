@@ -24,6 +24,7 @@ class IntentTest extends TestCase {
 		$this->assertEquals('IntentRequest', $request->getType());
 		$this->assertStringStartsWith('amzn1.echo-api.request.', $request->getRequestId());
 		$this->assertEquals('de-DE', $request->getLocale());
+		$this->assertEquals('2017-09-18 09:24:55', $request->getTimestamp()->format('Y-m-d H:i:s'));
 
 		// Intent
 		$intent = $request->getIntent();
@@ -38,5 +39,9 @@ class IntentTest extends TestCase {
 		$slot = $intent->getSlot('time');
 		$this->assertEquals('time', $slot->getName());
 		$this->assertNull($slot->getValue());
+		$this->assertEquals('NONE', $slot->getConfirmationStatus());
+
+		$this->assertArrayHasKey('day', $intent->getSlots());
+
 	}
 }

@@ -10,6 +10,10 @@ use RuntimeException;
  * Class CertificateValidator
  *
  * @license http://opensource.org/licenses/MIT
+ * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
+ * @author  Emanuele Corradini <emanuele@evensi.com>
+ * @author  Mathias Hansen <me@codemonkey.io>
+ * @author  Jakub Suchy <info@jsuchy.cz>
  */
 class CertificateValidator {
 	const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
@@ -42,7 +46,6 @@ class CertificateValidator {
 	/**
 	 * @param   string $requestData
 	 * @param   bool   $checkTimeStamp MUST be true for production, see Amazons policy on verifying requests
-	 *
 	 * @return  bool
 	 * @see     https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#verifying-that-the-request-was-sent-by-alexa
 	 */
@@ -62,7 +65,7 @@ class CertificateValidator {
 
 	/**
 	 * @param string $timestamp
-	 *
+	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
 	public function validateTimestamp($timestamp) {
@@ -76,10 +79,16 @@ class CertificateValidator {
 		if ($diff > self::TIMESTAMP_VALID_TOLERANCE_SECONDS) {
 			throw new InvalidArgumentException('Request timestamp was too old. Possible replay attack.');
 		}
+
+		return true;
 	}
 
+	/**
+	 * @return bool
+	 * @throws InvalidArgumentException
+	 */
 	public function validateCertificate() {
-		$this->certificateContent = $this->getCertificate();
+		$this->certificateContent = $this->fetchCertificate();
 		$parsedCertificate        = $this->parseCertificate($this->certificateContent);
 
 		if ($parsedCertificate == null ||
@@ -88,11 +97,13 @@ class CertificateValidator {
 		) {
 			throw new InvalidArgumentException('Certificate does not contain a valid SAN, is expired or was not found.');
 		}
+
+		return true;
 	}
 
 	/*
-	 * @params $requestData
-	 *
+	 * @params string $requestData
+	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
 	public function validateRequestSignature($requestData) {
@@ -101,14 +112,13 @@ class CertificateValidator {
 		if (!$valid) {
 			throw new InvalidArgumentException('Request signature could not be verified');
 		}
+
+		return true;
 	}
 
 	/**
-	 * Returns true if the certificate is not expired.
-	 *
 	 * @param array $parsedCertificate
-	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function validateCertificateDate(array $parsedCertificate) {
 		$validFrom = $parsedCertificate['validFrom_time_t'];
@@ -119,12 +129,9 @@ class CertificateValidator {
 	}
 
 	/**
-	 * Returns true if the configured service domain is present/valid, false if invalid/not present
-	 *
 	 * @param array  $parsedCertificate
 	 * @param string $amazonServiceDomain
-	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function validateCertificateSAN(array $parsedCertificate, $amazonServiceDomain) {
 		if (strpos($parsedCertificate['extensions']['subjectAltName'], $amazonServiceDomain) === false) {
@@ -135,9 +142,8 @@ class CertificateValidator {
 	}
 
 	/**
-	 * Verify URL of the certificate
+	 * @return bool
 	 * @throws InvalidArgumentException
-	 * @author Emanuele Corradini <emanuele@evensi.com>
 	 */
 	public function verifySignatureCertificateURL() {
 		$url = parse_url($this->certificateUrl);
@@ -151,14 +157,13 @@ class CertificateValidator {
 		} else if (isset($url['port']) && $url['port'] !== static::SIGNATURE_VALID_PORT) {
 			throw new InvalidArgumentException('Certificate port not valid.');
 		}
+
+		return true;
 	}
 
 
 	/**
-	 * Parse the X509 certificate
-	 *
-	 * @param $certificate CertificateValidator contents
-	 *
+	 * @param mixed $certificate
 	 * @return array
 	 */
 	public function parseCertificate($certificate) {
@@ -166,16 +171,6 @@ class CertificateValidator {
 	}
 
 	/**
-	 * Return the certificate to the underlying code by fetching it from its location.
-	 * Override this function if you wish to cache the certificate for a specific time.
-	 */
-	public function getCertificate() {
-		return $this->fetchCertificate();
-	}
-
-	/**
-	 * Perform the actual download of the certificate
-	 *
 	 * @return mixed
 	 */
 	public function fetchCertificate() {
