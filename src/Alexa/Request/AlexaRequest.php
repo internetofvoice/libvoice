@@ -45,6 +45,11 @@ class AlexaRequest {
 			throw new InvalidArgumentException('AlexaRequest requires raw JSON data.');
 		}
 
+		// Validate Certificate
+		$certificateValidator = new CertificateValidator($signatureCertChainUrl, $signature);
+		$certificateValidator->validateRequest($rawData, $checkTimestamp);
+
+		// Request version
 		$this->version = $this->data['version'];
 
 		// Session and Context
@@ -57,7 +62,7 @@ class AlexaRequest {
 		}
 
 		// Validate Application
-		if (!is_array($validAppIds) && count($validAppIds) < 1) {
+		if (!is_array($validAppIds) || count($validAppIds) < 1) {
 			throw new InvalidArgumentException('AlexaRequest requires at least one valid applicationId.');
 		}
 
@@ -65,12 +70,7 @@ class AlexaRequest {
 			throw new InvalidArgumentException('ApplicationId does not match.');
 		}
 
-		// Validate Certificate
-		$certificateValidator = new CertificateValidator($signatureCertChainUrl, $signature);
-		if (false === $certificateValidator->validateRequest($rawData, $checkTimestamp)) {
-			throw new InvalidArgumentException('Certificate is not valid.');
-		}
-
+		// Create request object
 		$this->createRequestFromType();
 	}
 

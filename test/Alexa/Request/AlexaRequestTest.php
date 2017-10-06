@@ -31,6 +31,8 @@ class AlexaRequestTest extends TestCase {
 
 		// Test various properties and sub objects
 		$this->assertEquals('1.0', $alexaRequest->getVersion());
+		$this->assertArrayHasKey('request', $alexaRequest->getData());
+		$this->assertNull($alexaRequest->getContext());
 		$this->assertTrue($alexaRequest->getSession()->isNew());
 		$this->assertStringStartsWith('amzn1.echo-api.session.', $alexaRequest->getSession()->getSessionId());
 		$this->assertStringStartsWith('amzn1.ask.skill.', $alexaRequest->getSession()->getApplication()->getApplicationId());
@@ -91,6 +93,23 @@ class AlexaRequestTest extends TestCase {
 		$this->expectException(InvalidArgumentException::class);
 		new AlexaRequest(
 			$fixtureBody,
+			[], // empty applicationId
+			$fixtureHeader['Signaturecertchainurl'],
+			$fixtureHeader['Signature'],
+			false
+		);
+	}
+
+	/**
+	 * testInvalidApplicationId2
+	 */
+	public function testInvalidApplicationId2() {
+		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
+		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
+
+		$this->expectException(InvalidArgumentException::class);
+		new AlexaRequest(
+			$fixtureBody,
 			['amzn1.ask.skill.INVALID_APP_ID'], // invalid applicationId
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature'],
@@ -145,6 +164,52 @@ class AlexaRequestTest extends TestCase {
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature']
 			// Timestamp in fixture is too old
+		);
+	}
+
+	/**
+	 * testContext
+	 */
+	public function testContext() {
+		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
+		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
+
+		// Destroy session and Context
+		$temp = json_decode($fixtureBody, true);
+		unset($temp['session']);
+		$fixtureBody = json_encode($temp);
+
+		// Expect Exception due to modified contents (wrong signature)
+		$this->expectException(InvalidArgumentException::class);
+		new AlexaRequest(
+			$fixtureBody,
+			['amzn1.ask.skill.e5427198-b2de-4f89-ac18-b54a4877927f'],
+			$fixtureHeader['Signaturecertchainurl'],
+			$fixtureHeader['Signature'],
+			false
+		);
+	}
+
+	/**
+	 * testMissingSessionAndContext
+	 */
+	public function testMissingSessionAndContext() {
+		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
+		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
+
+		// Destroy session and Context
+		$temp = json_decode($fixtureBody, true);
+		unset($temp['session']);
+		unset($temp['context']);
+		$fixtureBody = json_encode($temp);
+
+		$this->expectException(InvalidArgumentException::class);
+		new AlexaRequest(
+			$fixtureBody,
+			['amzn1.ask.skill.e5427198-b2de-4f89-ac18-b54a4877927f'],
+			$fixtureHeader['Signaturecertchainurl'],
+			$fixtureHeader['Signature'],
+			false
 		);
 	}
 }

@@ -18,13 +18,17 @@ class IntentTest extends TestCase {
 	 */
 	public function testIntent() {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/IntentRequest2-Body.txt'), true);
+
+		// Mock additional data
+		$fixture['request']['dialogState'] = 'IDLE';
 		$request = new IntentRequest($fixture['request']);
 
 		// Request
 		$this->assertEquals('IntentRequest', $request->getType());
 		$this->assertStringStartsWith('amzn1.echo-api.request.', $request->getRequestId());
-		$this->assertEquals('de-DE', $request->getLocale());
 		$this->assertEquals('2017-09-18 09:24:55', $request->getTimestamp()->format('Y-m-d H:i:s'));
+		$this->assertEquals('de-DE', $request->getLocale());
+		$this->assertEquals('IDLE', $request->getDialogState());
 
 		// Intent
 		$intent = $request->getIntent();
