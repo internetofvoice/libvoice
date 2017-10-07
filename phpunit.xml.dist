@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <phpunit
-        bootstrap="test/bootstrap.php"
-        checkForUnintentionallyCoveredCode="true"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-        processIsolation="false"
-        stopOnFailure="false"
-        syntaxCheck="false"
-        verbose="true"
-        >
+    bootstrap="vendor/autoload.php"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+>
     <testsuites>
-        <testsuite name="unit">
-            <directory>./test/tests/unit</directory>
+        <testsuite name="all">
+            <directory>test</directory>
+        </testsuite>
+
+        <testsuite name="request">
+            <directory>test/Request</directory>
+        </testsuite>
+
+        <testsuite name="response">
+            <directory>test/Response</directory>
         </testsuite>
     </testsuites>
+
     <filter>
         <whitelist>
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
+
     <logging>
-        <log type="coverage-html" target="./coverage" charset="UTF-8" hightlight="true" />
+        <log type="coverage-html" target="./coverage" charset="UTF-8" highlight="true" />
     </logging>
 </phpunit>

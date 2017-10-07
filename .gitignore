@@ -1,8 +1,11 @@
 # Composer
-vendor/
+/vendor/
 
 # Code coverage report
-coverage/
+/coverage/
+
+# PHPUnit
+/phpunit.xml
 
 # IDE
-.idea/
+/.idea/
