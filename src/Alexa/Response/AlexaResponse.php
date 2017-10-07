@@ -57,6 +57,18 @@ class AlexaResponse {
 	}
 
 	/**
+	 * Alias for $this->withSimpleCard()
+	 *
+	 * @param string $title
+	 * @param string $content
+	 *
+	 * @return AlexaResponse
+	 */
+	public function withCard($title, $content) {
+		return $this->withSimpleCard($title, $content);
+	}
+
+	/**
 	 * Shortcut to Response->setCard(SimpleCard)
 	 *
 	 * @param string $title
