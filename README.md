@@ -22,7 +22,7 @@ Require the library in your composer.json:
 }
 ```
 
-### Alexa Requests
+### Alexa Request
 (TODO)
 
 ### Alexa Response
