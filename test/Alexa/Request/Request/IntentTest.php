@@ -35,6 +35,13 @@ class IntentTest extends TestCase {
 		$this->assertEquals('ValuesAtIntent', $intent->getName());
 		$this->assertEquals('NONE', $intent->getConfirmationStatus());
 
+		$expect = [
+			'day' => '2017-09-17',
+			'time' => null,
+		];
+
+		$this->assertEquals($expect, $intent->getSlotsAsArray());
+
 		// Slots
 		$slot = $intent->getSlot('day');
 		$this->assertEquals('day', $slot->getName());
@@ -46,6 +53,5 @@ class IntentTest extends TestCase {
 		$this->assertEquals('NONE', $slot->getConfirmationStatus());
 
 		$this->assertArrayHasKey('day', $intent->getSlots());
-
 	}
 }
