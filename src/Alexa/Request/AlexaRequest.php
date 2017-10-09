@@ -5,6 +5,7 @@ namespace InternetOfVoice\LibVoice\Alexa\Request;
 use InvalidArgumentException;
 use InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
 use InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
+use InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
 use InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
 
@@ -165,5 +166,20 @@ class AlexaRequest {
 		} else {
 			return $this->context->getSystem()->getUser();
 		}
+	}
+
+	/**
+	 * Shortcut to Intent object
+	 *
+	 * @return Intent
+	 */
+	public function getIntent() {
+		if($this->getRequest()->getType() != 'IntentRequest') {
+			throw new InvalidArgumentException('This request is not an IntentRequest.');
+		}
+
+		/** @var IntentRequest $request */
+		$request = $this->getRequest();
+		return $request->getIntent();
 	}
 }
