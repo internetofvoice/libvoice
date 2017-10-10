@@ -54,4 +54,19 @@ class IntentTest extends TestCase {
 
 		$this->assertArrayHasKey('day', $intent->getSlots());
 	}
+
+	/**
+	 * testNoSlots
+	 */
+	public function testNoSlots() {
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/IntentRequest2-Body.txt'), true);
+
+		// Mock additional data
+		$fixture['request']['dialogState'] = 'IDLE';
+		unset($fixture['request']['intent']['slots']);
+		$request = new IntentRequest($fixture['request']);
+
+		// Request
+		$this->assertEquals([], $request->getIntent()->getSlotsAsArray());
+	}
 }

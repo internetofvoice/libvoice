@@ -64,6 +64,10 @@ class Intent {
 	 */
 	public function getSlotsAsArray() {
 		$slots = [];
+		if(!is_array($this->getSlots())) {
+			return $slots;
+		}
+
 		foreach($this->getSlots() as $key => $slot) {
 			$slots[$key] = $slot->getValue();
 		}
