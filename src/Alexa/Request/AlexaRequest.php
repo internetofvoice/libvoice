@@ -37,18 +37,38 @@ class AlexaRequest {
 	 * @param array  $validAppIds
 	 * @param string $signatureCertChainUrl
 	 * @param string $signature
-	 * @param bool   $checkTimestamp
+	 * @param bool   $checkTimestamp        please see comment on Certificate Validation below
+	 * @param bool   $checkCertificate      please see comment on Certificate Validation below
 	 */
-	public function __construct($rawData, $validAppIds, $signatureCertChainUrl, $signature, $checkTimestamp = true) {
+	public function __construct(
+	    $rawData,
+        $validAppIds,
+        $signatureCertChainUrl,
+        $signature,
+        $checkTimestamp = true,
+        $checkCertificate = true
+    ) {
 		// Request data
 		$this->data = json_decode($rawData, true);
 		if (is_null($this->data)) {
 			throw new InvalidArgumentException('AlexaRequest requires raw JSON data.');
 		}
 
-		// Validate Certificate
-		$certificateValidator = new CertificateValidator($signatureCertChainUrl, $signature);
-		$certificateValidator->validateRequest($rawData, $checkTimestamp);
+		// Certificate Validation. For development (NEVER in production!) you may use two bypasses:
+        // 1. $checkCertificate => false: full bypass - no certificate / signature checks at all
+        // 2. $checkTimestamp   => false: bypass only timestamp checking
+        //
+        // This is useful for unit tests. Your fixtures will have timestamps in the past and thus timestamp
+        // checking will fail - use timestamp check bypassing by setting $checkTimestamp to false.
+        // If you are not able to produce fixtures without breaking the request signature, you may use
+        // full bypass by setting $checkCertificate to false. Please be aware that this should be used with
+        // caution and NEVER in production, as proper certificate validation is required (and tested) by Amazon.
+        //
+        // ** If your production skill accepts request with a wrong signature, it will not be certified (go live). **
+        if($checkCertificate) {
+            $certificateValidator = new CertificateValidator($signatureCertChainUrl, $signature);
+            $certificateValidator->validateRequest($rawData, $checkTimestamp);
+        }
 
 		// Request version
 		$this->version = $this->data['version'];
