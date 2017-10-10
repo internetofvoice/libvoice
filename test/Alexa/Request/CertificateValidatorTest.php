@@ -32,4 +32,40 @@ class CertificateValidatorTest extends TestCase {
         $this->expectException(InvalidArgumentException::class);
         $validator->validateRequest($fixtureBody);
 	}
+
+    /**
+     * testSignatureCertificateURLProtocol
+     */
+    public function testSignatureCertificateURLProtocol() {
+        $validator = new CertificateValidator('http://www.example.com', 'SIGNATURE');
+        $this->expectException(InvalidArgumentException::class);
+        $validator->verifySignatureCertificateURL();
+    }
+
+    /**
+     * testSignatureCertificateURLHost
+     */
+    public function testSignatureCertificateURLHost() {
+        $validator = new CertificateValidator('https://www.example.com', 'SIGNATURE');
+        $this->expectException(InvalidArgumentException::class);
+        $validator->verifySignatureCertificateURL();
+    }
+
+    /**
+     * testSignatureCertificateURLPath
+     */
+    public function testSignatureCertificateURLPath() {
+        $validator = new CertificateValidator('https://s3.amazonaws.com:443/path', 'SIGNATURE');
+        $this->expectException(InvalidArgumentException::class);
+        $validator->verifySignatureCertificateURL();
+    }
+
+    /**
+     * testSignatureCertificateURLPort
+     */
+    public function testSignatureCertificateURLPort() {
+        $validator = new CertificateValidator('https://s3.amazonaws.com:80/echo.api/', 'SIGNATURE');
+        $this->expectException(InvalidArgumentException::class);
+        $validator->verifySignatureCertificateURL();
+    }
 }
