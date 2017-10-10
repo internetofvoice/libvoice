@@ -1,6 +1,6 @@
 {
     "name": "internetofvoice/libvoice",
-    "description": "A PHP library for developing custom voice assistant skills",
+    "description": "A PHP library for developing custom voice assistant interactions (skills)",
     "license": "MIT",
     "type": "library",
     "homepage": "http://www.internet-of-voice.de",
