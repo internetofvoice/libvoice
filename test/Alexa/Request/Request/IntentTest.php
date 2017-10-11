@@ -35,6 +35,13 @@ class IntentTest extends TestCase {
 		$this->assertEquals('ValuesAtIntent', $intent->getName());
 		$this->assertEquals('NONE', $intent->getConfirmationStatus());
 
+		$expect = [
+			'day' => '2017-09-17',
+			'time' => null,
+		];
+
+		$this->assertEquals($expect, $intent->getSlotsAsArray());
+
 		// Slots
 		$slot = $intent->getSlot('day');
 		$this->assertEquals('day', $slot->getName());
@@ -46,6 +53,20 @@ class IntentTest extends TestCase {
 		$this->assertEquals('NONE', $slot->getConfirmationStatus());
 
 		$this->assertArrayHasKey('day', $intent->getSlots());
+	}
 
+	/**
+	 * testNoSlots
+	 */
+	public function testNoSlots() {
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/IntentRequest2-Body.txt'), true);
+
+		// Mock additional data
+		$fixture['request']['dialogState'] = 'IDLE';
+		unset($fixture['request']['intent']['slots']);
+		$request = new IntentRequest($fixture['request']);
+
+		// Request
+		$this->assertEquals([], $request->getIntent()->getSlotsAsArray());
 	}
 }

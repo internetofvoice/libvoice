@@ -44,6 +44,7 @@ class AlexaRequestTest extends TestCase {
 		$this->assertStringStartsWith('amzn1.ask.skill.', $alexaRequest->getApplication()->getApplicationId());
 		$this->assertEquals('InternetOfVoice\LibVoice\Alexa\Request\User', get_class($alexaRequest->getUser()));
 		$this->assertStringStartsWith('amzn1.ask.account.', $alexaRequest->getUser()->getUserId());
+		$this->assertEquals('InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent', get_class($alexaRequest->getIntent()));
 	}
 
 	/**

@@ -15,7 +15,7 @@ class Intent {
 	/** @var string $confirmationStatus */
 	protected $confirmationStatus;
 
-	/** @var array $slots */
+	/** @var Slot[] $slots */
 	protected $slots;
 
 
@@ -55,6 +55,24 @@ class Intent {
 	 */
 	public function getSlots() {
 		return $this->slots;
+	}
+
+	/**
+	 * Get slots as [key1 => value1, key2 => value2, ...]
+	 *
+	 * @return array
+	 */
+	public function getSlotsAsArray() {
+		$slots = [];
+		if(!is_array($this->getSlots())) {
+			return $slots;
+		}
+
+		foreach($this->getSlots() as $key => $slot) {
+			$slots[$key] = $slot->getValue();
+		}
+
+		return $slots;
 	}
 
 	/**
