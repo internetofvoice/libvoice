@@ -2,12 +2,12 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
-use InvalidArgumentException;
-use InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
-use InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
-use InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
-use InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
-use InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InvalidArgumentException;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
 
 /**
  * Class AlexaRequest

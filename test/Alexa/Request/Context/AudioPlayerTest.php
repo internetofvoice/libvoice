@@ -2,9 +2,8 @@
 
 namespace Tests\Alexa\Request\Context;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Context\AudioPlayer;
+use \InternetOfVoice\LibVoice\Alexa\Request\Context\AudioPlayer;
 use \PHPUnit\Framework\TestCase;
-
 
 /**
  * Class AudioPlayerTest

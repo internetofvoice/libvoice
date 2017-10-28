@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\Card;
 
-use InvalidArgumentException;
+use \InvalidArgumentException;
 
 /**
  * Class Standard

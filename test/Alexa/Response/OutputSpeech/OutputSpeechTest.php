@@ -2,9 +2,9 @@
 
 namespace Tests\Alexa\Response\OutputSpeech;
 
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
-use PHPUnit\Framework\TestCase;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class OutputSpeechTest

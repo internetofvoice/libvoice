@@ -2,11 +2,11 @@
 
 namespace Tests\Alexa\Response\Card;
 
-use InvalidArgumentException;
-use InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
-use InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
-use InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
-use PHPUnit\Framework\TestCase;
+use \InvalidArgumentException;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class CardTest

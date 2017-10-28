@@ -2,11 +2,10 @@
 
 namespace Tests\Alexa\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
-use InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
-use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
-
+use \InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InvalidArgumentException;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class AlexaRequestTest

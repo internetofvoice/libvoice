@@ -2,9 +2,9 @@
 
 namespace Tests\Alexa\Response;
 
-use InternetOfVoice\LibVoice\Alexa\Response\Reprompt;
-use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
+use \InternetOfVoice\LibVoice\Alexa\Response\Reprompt;
+use \InvalidArgumentException;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class RepromptTest

@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request;
 
-use DateTime;
+use \DateTime;
 
 /**
  * Abstract Class AbstractRequest

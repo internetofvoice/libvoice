@@ -2,9 +2,8 @@
 
 namespace Tests\Alexa\Request\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \PHPUnit\Framework\TestCase;
-
 
 /**
  * Class IntentTest

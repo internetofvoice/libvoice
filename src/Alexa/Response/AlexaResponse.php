@@ -2,11 +2,11 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
-use InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
-use InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
 
 /**
  * Class AlexaResponse

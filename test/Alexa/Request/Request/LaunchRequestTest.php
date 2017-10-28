@@ -2,9 +2,8 @@
 
 namespace Tests\Alexa\Request\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
 use \PHPUnit\Framework\TestCase;
-
 
 /**
  * Class LaunchRequestTest

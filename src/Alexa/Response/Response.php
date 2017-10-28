@@ -2,8 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use InternetOfVoice\LibVoice\Alexa\Response\Card\AbstractCard;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\AbstractCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
 
 class Response {
 	/** @var  AbstractOutputSpeech $outputSpeech */
