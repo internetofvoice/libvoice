@@ -2,10 +2,9 @@
 
 namespace Tests\Alexa\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\CertificateValidator;
-use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
-
+use \InternetOfVoice\LibVoice\Alexa\Request\CertificateValidator;
+use \InvalidArgumentException;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class CertificateValidatorTest

@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Context\System;
 
-use stdClass;
+use \stdClass;
 
 /**
  * Class Device

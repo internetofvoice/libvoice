@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 
 /**
  * Class IntentRequest

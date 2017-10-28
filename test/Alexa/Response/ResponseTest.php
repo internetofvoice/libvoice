@@ -2,11 +2,11 @@
 
 namespace Tests\Alexa\Response;
 
-use InternetOfVoice\LibVoice\Alexa\Response\Response;
-use InternetOfVoice\LibVoice\Alexa\Response\Reprompt;
-use InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
-use PHPUnit\Framework\TestCase;
+use \InternetOfVoice\LibVoice\Alexa\Response\Response;
+use \InternetOfVoice\LibVoice\Alexa\Response\Reprompt;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class ResponseTest

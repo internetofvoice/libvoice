@@ -2,9 +2,9 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Context;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Application;
-use InternetOfVoice\LibVoice\Alexa\Request\Context\System\Device;
-use InternetOfVoice\LibVoice\Alexa\Request\User;
+use \InternetOfVoice\LibVoice\Alexa\Request\Application;
+use \InternetOfVoice\LibVoice\Alexa\Request\Context\System\Device;
+use \InternetOfVoice\LibVoice\Alexa\Request\User;
 
 /**
  * Class System

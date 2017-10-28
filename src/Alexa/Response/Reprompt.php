@@ -2,10 +2,10 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
-use InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
-use InvalidArgumentException;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
+use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
+use \InvalidArgumentException;
 
 /**
  * Class Reprompt

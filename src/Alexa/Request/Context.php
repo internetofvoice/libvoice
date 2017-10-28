@@ -2,8 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Context\AudioPlayer;
-use InternetOfVoice\LibVoice\Alexa\Request\Context\System;
+use \InternetOfVoice\LibVoice\Alexa\Request\Context\AudioPlayer;
+use \InternetOfVoice\LibVoice\Alexa\Request\Context\System;
 
 /**
  * Class Context

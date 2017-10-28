@@ -2,9 +2,8 @@
 
 namespace Tests\Alexa\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Application;
-use PHPUnit\Framework\TestCase;
-
+use \InternetOfVoice\LibVoice\Alexa\Request\Application;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class ApplicationTest

@@ -4,8 +4,8 @@
 
 ## Introduction
 This is a major rewrite of the amazon-alexa-php library by [minicodemonkey](https://github.com/MiniCodeMonkey),
-[jakubsuchy](https://github.com/jakubsuchy) and [danstreeter](https://github.com/danstreeter). It sticks closer
-to [Amazon's Reference for Custom Skills](https://developer.amazon.com/de/docs/custom-skills/request-and-response-json-reference.html)
+[jakubsuchy](https://github.com/jakubsuchy) and [danstreeter](https://github.com/danstreeter). It sticks closer to
+[Amazon's Reference for Custom Skills](https://developer.amazon.com/docs/custom-skills/request-and-response-json-reference.html)
 while keeping preparation for future updates.
 
 ## Requirements
@@ -28,7 +28,7 @@ need to grab some request headers and the raw request body (text representation 
 the signature needs to be validated - any modification of the body will make the validation fail.
 
 The following example shows how to get an AlexaRequest object and what information is required to do so.
-Example code refers to [Slim framework](https://www.slimframework.com), but can easily adopted to your setup:
+Example code refers to [Slim Framework](https://www.slimframework.com), but can easily adopted to your setup:
 ```php
 // $request is the HTTP request object, provided by Slim
 
@@ -43,9 +43,9 @@ $alexaRequest = new AlexaRequest(
 
 ```
 
-Please be aware that the last two parameters **need to be `true` in production** as Amazon requires this step. For 
-development or unit tests, validation process may exclude timestamp validation (recommended) or the whole validation 
-process at all (not recommended).
+Please be aware that the last two parameters **need to be `true` in production** as Amazon requires certificate 
+validation. For development or unit tests, validation process may exclude timestamp validation (recommended) or 
+the whole validation process at all (not recommended).
 
 The resulting AlexaRequest object resembles the JSON structure of Amazons Skills Kit Request Body Syntax - see the
 documentation at
@@ -74,7 +74,7 @@ for "Voice Skill Management System" and uses this library to provide a developme
 assistant interactions.
 
 ### Alexa Response
-As most AlexaRequests expect a proper response, we could send one like this (again, example with Slim framework)
+As most AlexaRequests expect a proper response, we could send one like this (again, code example with Slim Framework):
 ```php
 // $response is the HTTP response object, provided by Slim
 

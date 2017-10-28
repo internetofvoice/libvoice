@@ -1,7 +1,9 @@
 # Changelog
 
-Changes to this library are documented in reverse chronological order.
+Changes are documented in reverse chronological order.
 
-## 1.0.0 (2017-10-10) 
+## Version 1.0.1 (2017-10-28) 
+* Fix namespace references
 
-First public release.
+## Version 1.0.0 (2017-10-10) 
+* First public release

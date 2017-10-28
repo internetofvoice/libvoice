@@ -2,9 +2,8 @@
 
 namespace Tests\Alexa\Request;
 
-use InternetOfVoice\LibVoice\Alexa\Request\Session;
-use PHPUnit\Framework\TestCase;
-
+use \InternetOfVoice\LibVoice\Alexa\Request\Session;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class SessionTest

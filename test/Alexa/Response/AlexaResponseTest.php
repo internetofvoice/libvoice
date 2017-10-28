@@ -2,8 +2,8 @@
 
 namespace Tests\Alexa\Response;
 
-use InternetOfVoice\LibVoice\Alexa\Response\AlexaResponse;
-use PHPUnit\Framework\TestCase;
+use \InternetOfVoice\LibVoice\Alexa\Response\AlexaResponse;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Class AlexaResponseTest
