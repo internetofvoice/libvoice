@@ -29,6 +29,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "test-smarthome": "vendor/bin/phpunit --group smarthome"
     }
 }
