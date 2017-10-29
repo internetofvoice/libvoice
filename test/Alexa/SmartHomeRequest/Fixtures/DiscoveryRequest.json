@@ -10,7 +10,7 @@
             "payload": {
                 "scope": {
                     "type": "BearerToken",
-                    "token": "Atza|IwEBINjuEht_261xDKr4TyzmKkfeQcYNpVpLqRGCOxBZEFRcWWQ2qRjavGg74oO3ghBZKO5a1mQyMLTnsmrgBJIK7wGCdcDvSnhgy9QxqCwLMO20V3Yhs_N6hYIaANAOEopMw3KM3uyIlv4zoxalYW2GZk8v932ZoBVZ8EB2s_c9HPYqItctAoPfQSks6mxy5f3cuQSi_TCsxQKpM_5vJcj8Ghy1NSLu_XOSUTuVlF6_oH0c_gE145K23UXh0Z-goMrmta95FK13uqjnN7GIyUWFAnDqLyP_k-wmuH66vrGaypld7Cc6X9EMK9O8FHbj_WqbZaf9zcF-Lez9hpeL1Jumepung4205GRx99E8WgNaWB31_PRVdI_YEOux95iO7XvEWrJduyKQbbTTHTj0jjmvfipGZOriOacqRQcOLBOljV26aASQeuLfHlfmBAO4JCANumT56Lt_h5JZB5n4k8e5id6mrMd-tviTgmxQe6xlrTelPPuHc1H8C1xueGPEcXTFx7ntq5TwxW2G_6HzSCzqdg7cKp_tMAM0zJS9WYjeK30phPOOHHXj4a_C48APhI_ggkU"
+                    "token": "access-token-send-by-skill"
                 }
             }
         }

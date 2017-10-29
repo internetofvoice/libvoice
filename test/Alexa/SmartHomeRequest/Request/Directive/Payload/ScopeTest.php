@@ -22,6 +22,6 @@ class ScopeTest extends TestCase {
 		$scope   = new Scope($fixture['request']['directive']['payload']['scope']);
 
 		$this->assertEquals('BearerToken', $scope->getType());
-		$this->assertTrue(strlen($scope->getToken()) > 128);
+		$this->assertEquals('access-token-send-by-skill', $scope->getToken());
 	}
 }

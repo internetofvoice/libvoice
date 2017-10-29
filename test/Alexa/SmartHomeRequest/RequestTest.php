@@ -27,6 +27,6 @@ class RequestTest extends TestCase {
 		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $request->getDirective()->getHeader()->getMessageId());
 
         $this->assertEquals('BearerToken', $request->getDirective()->getPayload()->getScope()->getType());
-        $this->assertTrue(strlen($request->getDirective()->getPayload()->getScope()->getToken()) > 128);
+        $this->assertEquals('access-token-send-by-skill', $request->getDirective()->getPayload()->getScope()->getToken());
 	}
 }

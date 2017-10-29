@@ -27,6 +27,6 @@ class DirectiveTest extends TestCase {
 		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $directive->getHeader()->getMessageId());
 
         $this->assertEquals('BearerToken', $directive->getPayload()->getScope()->getType());
-        $this->assertTrue(strlen($directive->getPayload()->getScope()->getToken()) > 128);
+        $this->assertEquals('access-token-send-by-skill', $directive->getPayload()->getScope()->getToken());
 	}
 }

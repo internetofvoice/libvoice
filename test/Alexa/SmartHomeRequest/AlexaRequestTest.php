@@ -27,7 +27,7 @@ class AlexaRequestTest extends TestCase {
 		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $alexaRequest->getRequest()->getDirective()->getHeader()->getMessageId());
 
         $this->assertEquals('BearerToken', $alexaRequest->getRequest()->getDirective()->getPayload()->getScope()->getType());
-        $this->assertTrue(strlen($alexaRequest->getRequest()->getDirective()->getPayload()->getScope()->getToken()) > 128);
+        $this->assertEquals('access-token-send-by-skill', $alexaRequest->getRequest()->getDirective()->getPayload()->getScope()->getToken());
 
         $this->assertEquals('ReConSkillAdapter', $alexaRequest->getContext()->getData()['functionName']);
 

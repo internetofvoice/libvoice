@@ -22,6 +22,6 @@ class PayloadTest extends TestCase {
 		$payload = new Payload($fixture['request']['directive']['payload']);
 
 		$this->assertEquals('BearerToken', $payload->getScope()->getType());
-        $this->assertTrue(strlen($payload->getScope()->getToken()) > 128);
+        $this->assertEquals('access-token-send-by-skill', $payload->getScope()->getToken());
 	}
 }
