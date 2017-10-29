@@ -2,6 +2,9 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response;
 
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Header;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload;
+
 /**
  * Class Event
  *
@@ -9,18 +12,55 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response;
  * @license http://opensource.org/licenses/MIT
  */
 class Event {
-	/** @var $header */
+	/** @var Header $header */
 	protected $header;
 
-	/** @var $payload */
+	/** @var Payload $payload */
 	protected $payload;
 
 
-	/**
-	 * @param array $eventData
-	 */
-	public function __construct($eventData) {
-//		$this->header = new Header($eventData['header']);
-//		$this->payload = new Payload($eventData['payload']);
-	}
+    /**
+     * @return Header
+     */
+    public function getHeader() {
+        return $this->header;
+    }
+
+    /**
+     * @param Header $header
+     * @return Event
+     */
+    public function setHeader($header) {
+        $this->header = $header;
+        return $this;
+    }
+
+    /**
+     * @return Payload
+     */
+    public function getPayload() {
+        return $this->payload;
+    }
+
+    /**
+     * @param Payload $payload
+     * @return Event
+     */
+    public function setPayload($payload) {
+        $this->payload = $payload;
+        return $this;
+    }
+
+
+    /**
+     * @return  array
+     */
+    function render() {
+        $rendered = [
+            'header' => $this->getHeader()->render(),
+            'payload' => $this->getPayload()->render(),
+        ];
+
+        return $rendered;
+    }
 }

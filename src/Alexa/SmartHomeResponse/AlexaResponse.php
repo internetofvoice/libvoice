@@ -17,15 +17,6 @@ class AlexaResponse {
 	protected $context;
 
 
-	/**
-	 * @param array $data
-	 */
-	public function __construct($data) {
-		$this->response = new Response($data['response']);
-		$this->context = new Context($data['context']);
-	}
-
-
     /**
      * @return Response
      */
@@ -34,9 +25,40 @@ class AlexaResponse {
     }
 
     /**
+     * @param Response $response
+     * @return AlexaResponse
+     */
+    public function setResponse($response) {
+        $this->response = $response;
+        return $this;
+    }
+
+    /**
      * @return Context
      */
     public function getContext() {
         return $this->context;
+    }
+
+    /**
+     * @param Context $context
+     * @return AlexaResponse
+     */
+    public function setContext($context) {
+        $this->context = $context;
+        return $this;
+    }
+
+
+    /**
+     * @return  array
+     */
+    function render() {
+        $rendered = [
+            'response' => $this->getResponse()->render(),
+            'context' => $this->getContext()->render(),
+        ];
+
+        return $rendered;
     }
 }

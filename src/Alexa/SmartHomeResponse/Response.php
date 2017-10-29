@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse;
 
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event;
+
 /**
  * Class Response
  *
@@ -9,14 +11,35 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse;
  * @license http://opensource.org/licenses/MIT
  */
 class Response {
-	/** @var $event */
+	/** @var Event $event */
 	protected $event;
 
 
-	/**
-	 * @param array $responseData
-	 */
-	public function __construct($responseData) {
-//		$this->event = new Event($response['event']);
-	}
+    /**
+     * @return  Event
+     */
+    public function getEvent() {
+        return $this->event;
+    }
+
+    /**
+     * @param   Event $event
+     * @return  Response
+     */
+    public function setEvent($event) {
+        $this->event = $event;
+        return $this;
+    }
+
+
+    /**
+     * @return  array
+     */
+    function render() {
+        $rendered = [
+            'event' => $this->getEvent()->render(),
+        ];
+
+        return $rendered;
+    }
 }
