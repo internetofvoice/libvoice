@@ -34,6 +34,10 @@ class AlexaResponseTest extends TestCase {
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\Simple';
 		$this->assertEquals($expect, get_class($response->getResponse()->getCard()));
 
+        $response->withCard('Title', 'Content');
+        $expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\Simple';
+        $this->assertEquals($expect, get_class($response->getResponse()->getCard()));
+
 		$response->withStandardCard('Title', 'Text', 'IMG1', 'IMG2');
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\Standard';
 		$this->assertEquals($expect, get_class($response->getResponse()->getCard()));

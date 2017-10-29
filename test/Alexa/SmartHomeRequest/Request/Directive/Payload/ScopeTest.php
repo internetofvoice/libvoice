@@ -19,10 +19,9 @@ class ScopeTest extends TestCase {
 	 */
 	public function testScope() {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/../../../Fixtures/DiscoveryRequest.json'), true);
-
-		$scope = new Scope($fixture['request']['directive']['payload']['scope']);
+		$scope   = new Scope($fixture['request']['directive']['payload']['scope']);
 
 		$this->assertEquals('BearerToken', $scope->getType());
-		$this->assertTrue(strlen($scope->getToken()) > 32);
+		$this->assertTrue(strlen($scope->getToken()) > 128);
 	}
 }
