@@ -1,36 +1,68 @@
 <?php
 
-namespace Tests\Alexa\SmartHomeRequest\Request\Directive;
+namespace Tests\Alexa\SmartHomeResponse;
 
-use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\AlexaRequest;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Header as RequestHeader;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\AlexaResponse;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Header;
 use \PHPUnit\Framework\TestCase;
 
 /**
- * Class AlexaRequestTest
+ * Class AlexaResponseTest
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class AlexaRequestTest extends TestCase {
+class AlexaResponseTest extends TestCase {
 	/**
-	 * testAlexaRequest
+	 * testAlexaResponse
 	 *
 	 * @group smarthome
 	 */
-	public function testAlexaRequest() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryRequest.json'), true);
-		$alexaRequest = new AlexaRequest($fixture);
+	public function testAlexaResponse() {
+		$alexaResponse = AlexaResponse::create();
+		$alexaResponse->getHeader()
+			->setNamespace('Alexa.Discovery')
+			->setName('Discover.Response')
+			->setPayloadVersion('3')
+			->setMessageId('0a58ace0-e6ab-47de-b6af-b600b5ab8a7a')
+		;
 
-		$this->assertEquals('Alexa.Discovery', $alexaRequest->getRequest()->getDirective()->getHeader()->getNamespace());
-		$this->assertEquals('Discover', $alexaRequest->getRequest()->getDirective()->getHeader()->getName());
-		$this->assertEquals('3', $alexaRequest->getRequest()->getDirective()->getHeader()->getPayloadVersion());
-		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $alexaRequest->getRequest()->getDirective()->getHeader()->getMessageId());
+		$expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryResponse.json'), true);
+		unset($expect['response']['event']['payload']['endpoints']);
+		$this->assertEquals($expect, $alexaResponse->render());
+	}
 
-        $this->assertEquals('BearerToken', $alexaRequest->getRequest()->getDirective()->getPayload()->getScope()->getType());
-        $this->assertEquals('access-token-send-by-skill', $alexaRequest->getRequest()->getDirective()->getPayload()->getScope()->getToken());
+	/**
+	 * testAlexaResponseHeaderFromRequestHeader
+	 *
+	 * @group smarthome
+	 */
+	public function testAlexaResponseHeaderFromRequestHeader() {
+		$fixture = [
+			'namespace'      => 'Alexa.Discovery',
+			'name'           => 'Discover.Response',
+			'payloadVersion' => '3',
+			'messageId'      => '0a58ace0-e6ab-47de-b6af-b600b5ab8a7a',
+		];
 
-        $this->assertEquals('ReConSkillAdapter', $alexaRequest->getContext()->getData()['functionName']);
+		// 1. via constructor params
+		$header = new Header($fixture);
+		$this->assertEquals($fixture, $header->render());
 
-        $this->assertEquals('Alexa.Discovery', $alexaRequest->getRequestInterface());
+
+		// 2. via createFromRequestHeader (keep messageId)
+		$requestHeader = new RequestHeader($fixture);
+		$header->createFromRequestHeader($requestHeader, false);
+		$this->assertEquals($fixture, $header->render());
+
+		// 2. via createFromRequestHeader (new messageId)
+		$requestHeader = new RequestHeader($fixture);
+		$header->createFromRequestHeader($requestHeader);
+		$rendered = $header->render();
+		$this->assertNotEquals($fixture, $rendered);
+
+		unset($fixture['messageId'], $rendered['messageId']);
+		$this->assertEquals($fixture, $rendered);
 	}
 }
