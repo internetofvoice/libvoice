@@ -19,7 +19,17 @@ class Event {
 	protected $payload;
 
 
-    /**
+	/**
+	 * @param Header $header
+	 * @param Payload $payload
+	 */
+	public function __construct($header = null, $payload = null) {
+		$this->setHeader($header);
+		$this->setPayload($payload);
+	}
+
+
+	/**
      * @return Header
      */
     public function getHeader() {
@@ -57,8 +67,8 @@ class Event {
      */
     function render() {
         $rendered = [
-            'header' => $this->getHeader()->render(),
-            'payload' => $this->getPayload()->render(),
+	        'header'  => $this->getHeader()->render(),
+	        'payload' => $this->getPayload()->render(),
         ];
 
         return $rendered;

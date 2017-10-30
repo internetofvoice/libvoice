@@ -15,6 +15,14 @@ class Response {
 	protected $event;
 
 
+	/**
+	 * @param Event $event
+	 */
+	public function __construct($event = null) {
+		$this->setEvent($event);
+	}
+
+
     /**
      * @return  Event
      */

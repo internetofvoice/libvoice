@@ -24,7 +24,29 @@ class Header {
 	protected $messageId;
 
 
-    /**
+	/**
+	 * @param array $headerData
+	 */
+	public function __construct($headerData = []) {
+		if(isset($headerData['namespace'])) {
+			$this->setNamespace($headerData['namespace']);
+		}
+
+		if(isset($headerData['name'])) {
+			$this->setName($headerData['name']);
+		}
+
+		if(isset($headerData['payloadVersion'])) {
+			$this->setPayloadVersion($headerData['payloadVersion']);
+		}
+
+		if(isset($headerData['messageId'])) {
+			$this->setMessageId($headerData['messageId']);
+		}
+	}
+
+
+	/**
      * @param RequestHeader $requestHeader
      * @param bool $overrideMessageId
      */
@@ -134,10 +156,10 @@ class Header {
      */
     function render() {
         $rendered = [
-            'namespace' => $this->getNamespace(),
-            'name' => $this->getName(),
-            'payloadVersion' => $this->getPayloadVersion(),
-            'messageId' => $this->getMessageId(),
+	        'namespace'      => $this->getNamespace(),
+	        'name'           => $this->getName(),
+	        'payloadVersion' => $this->getPayloadVersion(),
+	        'messageId'      => $this->getMessageId(),
         ];
 
         return $rendered;

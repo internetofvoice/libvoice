@@ -14,7 +14,17 @@ class Payload {
     protected $endpoints = [];
 
 
-    /**
+	/**
+	 * @param array $payloadData
+	 */
+	public function __construct($payloadData = []) {
+		if(isset($payloadData['endpoints'])) {
+			$this->setEndpoints($payloadData['endpoints']);
+		}
+	}
+
+
+	/**
      * @return  array
      */
     public function getEndpoints() {

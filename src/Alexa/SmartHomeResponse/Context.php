@@ -14,7 +14,15 @@ class Context {
     protected $data;
 
 
-    /**
+	/**
+	 * @param array $contextData
+	 */
+	public function __construct($contextData = []) {
+		$this->setData($contextData);
+	}
+
+
+	/**
      * @return  array
      */
     public function getData() {
