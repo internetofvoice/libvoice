@@ -2,15 +2,24 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event;
 
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint;
+use \InvalidArgumentException;
+
+
 /**
  * Class Payload
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
- * @TODO    Add type hinting of every endpoint(s) parameter occurance
  */
 class Payload {
-    /** @var array $endpoints */
+	/**
+	 * @var int MAX_ENDPOINTS
+	 * @see https://developer.amazon.com/de/docs/device-apis/alexa-discovery.html#discoverresponse
+	 */
+	const MAX_ENDPOINTS = 300;
+
+    /** @var Endpoint[] $endpoints */
     protected $endpoints = [];
 
 
@@ -25,27 +34,37 @@ class Payload {
 
 
 	/**
-     * @return  array
+     * @return  Endpoint[]
      */
     public function getEndpoints() {
         return $this->endpoints;
     }
 
     /**
-     * @param   array $endpoints
+     * @param   Endpoint[] $endpoints
      * @return  Payload
      */
     public function setEndpoints($endpoints) {
+    	if(count($endpoints) > self::MAX_ENDPOINTS) {
+			$endpoints = array_slice($endpoints, 0, self::MAX_ENDPOINTS);
+	    }
+
         $this->endpoints = $endpoints;
         return $this;
     }
 
     /**
-     * @param   $endpoint
+     * @param   Endpoint $endpoint
      * @return  Payload
+     * @throws InvalidArgumentException
      */
     public function addEndpoint($endpoint) {
-        array_push($this->endpoints, $endpoint);
+	    if(count($this->endpoints) < self::MAX_ENDPOINTS) {
+		    array_push($this->endpoints, $endpoint);
+	    } else {
+		    throw new InvalidArgumentException('Allowed maximum of Endpoints (' . self::MAX_ENDPOINTS . ') reached.');
+	    }
+
         return $this;
     }
 
@@ -58,9 +77,14 @@ class Payload {
 
         // Endpoints
         if(count($this->endpoints)) {
-            $rendered['endpoints'] = $this->getEndpoints();
+	        $renderedEndpoints = array();
+	        foreach($this->getEndpoints() as $endpoint) {
+		        array_push($renderedEndpoints, $endpoint->render());
+	        }
+
+	        $rendered['endpoints'] = $renderedEndpoints;
         }
 
-        return $rendered;
+	    return $rendered;
     }
 }
