@@ -186,8 +186,8 @@ class AlexaResponse {
 	}
 
 	/**
-	 * @var string $key
-	 * @var mixed  $default
+	 * @param string $key
+	 * @param mixed  $default
 	 *
 	 * @return mixed
 	 */
@@ -196,8 +196,8 @@ class AlexaResponse {
 	}
 
 	/**
-	 * @var string $key
-	 * @var mixed  $value
+	 * @param string $key
+	 * @param mixed  $value
 	 *
 	 * @return AlexaResponse
 	 */
