@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload;
 
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\AbstractCapability;
+use \InvalidArgumentException;
 
 /**
  * Class Endpoint
@@ -189,10 +190,14 @@ class Endpoint {
 	 * @param string $displayCategory
 	 *
 	 * @return Endpoint
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function addDisplayCategory($displayCategory) {
 		if(in_array($displayCategory, self::validDisplayCategories)) {
 			array_push($this->displayCategories, $displayCategory);
+		} else {
+			throw new InvalidArgumentException('Invalid display category: ' . $displayCategory);
 		}
 
 		return $this;

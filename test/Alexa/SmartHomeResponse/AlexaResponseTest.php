@@ -5,6 +5,10 @@ namespace Tests\Alexa\SmartHomeResponse;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Header as RequestHeader;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\AlexaResponse;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Header;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\Alexa;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\EndpointHealth;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\PowerController;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -15,11 +19,11 @@ use \PHPUnit\Framework\TestCase;
  */
 class AlexaResponseTest extends TestCase {
 	/**
-	 * testAlexaResponse
+	 * testAlexaResponseWithoutPayload
 	 *
 	 * @group smarthome
 	 */
-	public function testAlexaResponse() {
+	public function testAlexaResponseWithoutPayload() {
 		$alexaResponse = AlexaResponse::create();
 		$alexaResponse->getHeader()
 			->setNamespace('Alexa.Discovery')
@@ -64,5 +68,50 @@ class AlexaResponseTest extends TestCase {
 
 		unset($fixture['messageId'], $rendered['messageId']);
 		$this->assertEquals($fixture, $rendered);
+	}
+
+	/**
+	 * testAlexaResponse
+	 *
+	 * @group smarthome
+	 */
+	public function testAlexaResponse() {
+		$alexaResponse = AlexaResponse::create();
+		$alexaResponse->getHeader()
+			->setNamespace('Alexa.Discovery')
+			->setName('Discover.Response')
+			->setPayloadVersion('3')
+			->setMessageId('0a58ace0-e6ab-47de-b6af-b600b5ab8a7a')
+		;
+
+		// Endpoint 1
+		$displayCategories = [
+			'SWITCH'
+		];
+
+		$cookie = [
+			'detail1' => 'For simplicity, this is the only appliance',
+            'detail2' => 'that has some values in the additionalApplianceDetails',
+		];
+
+		$capabilities = [
+			new Alexa(),
+			new PowerController(['powerState'], true, true),
+			new EndpointHealth(['connectivity'], true, true),
+		];
+
+		$alexaResponse->getPayload()->addEndpoint(new Endpoint([
+			'endpointId' => 'endpoint-001',
+            'manufacturerName' => 'Sample Manufacturer',
+            'friendlyName' => 'Switch',
+            'description' => '001 Switch that can only be turned on/off',
+			'displayCategories' => $displayCategories,
+			'cookie' => $cookie,
+			'capabilities' => $capabilities,
+		]));
+
+		$expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryResponse.json'), true);
+		$expect['response']['event']['payload']['endpoints'] = array_slice($expect['response']['event']['payload']['endpoints'], 0, 1);
+		$this->assertEquals($expect, $alexaResponse->render());
 	}
 }
