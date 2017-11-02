@@ -7,8 +7,13 @@ use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\AlexaResponse;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Header;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\Alexa;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\BrightnessController;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\ColorController;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\ColorTemperatureController;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\EndpointHealth;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\PercentageController;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\PowerController;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\PowerLevelController;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -99,10 +104,28 @@ class AlexaResponseTest extends TestCase {
 					new EndpointHealth(['connectivity'], true, true),
 			    ])
             )
+
+			->addEndpoint(Endpoint::create()
+				->setEndpointId('endpoint-002')
+				->setManufacturerName('Sample Manufacturer')
+				->setFriendlyName('Light')
+				->setDescription('002 Light that is dimmable and can change color and color temperature')
+				->addDisplayCategory('LIGHT')
+				->setCapabilities([
+					new Alexa(),
+					new PowerController(['powerState'], true, true),
+					new ColorController(['color'], true, true),
+					new ColorTemperatureController(['colorTemperatureInKelvin'], true, true),
+					new BrightnessController(['brightness'], true, true),
+					new PowerLevelController(['powerLevel'], true, true),
+					new PercentageController(['percentage'], true, true),
+					new EndpointHealth(['connectivity'], true, true),
+				])
+			)
 		;
 
 		$expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryResponse.json'), true);
-		$expect['response']['event']['payload']['endpoints'] = array_slice($expect['response']['event']['payload']['endpoints'], 0, 1);
+		$expect['response']['event']['payload']['endpoints'] = array_slice($expect['response']['event']['payload']['endpoints'], 0, 2);
 		$this->assertEquals($expect, $alexaResponse->render());
 	}
 }
