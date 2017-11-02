@@ -286,9 +286,7 @@ class Endpoint {
             $rendered['displayCategories'] = $this->getDisplayCategories();
         }
 
-	    if(count($this->cookie)) {
-		    $rendered['cookie'] = $this->getCookies();
-	    }
+	    $rendered['cookie'] = $this->getCookies();
 
 	    if(count($this->capabilities)) {
         	$renderedCapabilities = array();

@@ -8,7 +8,7 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payloa
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class PercentageController  extends AbstractCapability {
+class PercentageController extends AbstractCapability {
 	/** @var array $reportableProperties */
 	const reportableProperties = ['percentage'];
 
@@ -22,7 +22,7 @@ class PercentageController  extends AbstractCapability {
 		parent::__construct();
 
 		$this->type = 'AlexaInterface';
-		$this->interface = 'Alexa.PercentageController ';
+		$this->interface = 'Alexa.PercentageController';
 		$this->version = '3';
 		$this->properties = new Properties(self::reportableProperties, $properties, $proactivelyReported, $retrievable);
 	}

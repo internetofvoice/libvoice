@@ -22,7 +22,7 @@ class PowerLevelController  extends AbstractCapability {
 		parent::__construct();
 
 		$this->type = 'AlexaInterface';
-		$this->interface = 'Alexa.PowerLevelController ';
+		$this->interface = 'Alexa.PowerLevelController';
 		$this->version = '3';
 		$this->properties = new Properties(self::reportableProperties, $properties, $proactivelyReported, $retrievable);
 	}
