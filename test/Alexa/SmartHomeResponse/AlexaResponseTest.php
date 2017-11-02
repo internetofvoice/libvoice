@@ -84,24 +84,21 @@ class AlexaResponseTest extends TestCase {
 			->setMessageId('0a58ace0-e6ab-47de-b6af-b600b5ab8a7a')
 		;
 
-		// Endpoint 1
 		$alexaResponse->getPayload()
-			->addEndpoint(new Endpoint([
-				'endpointId' => 'endpoint-001',
-				'manufacturerName' => 'Sample Manufacturer',
-				'friendlyName' => 'Switch',
-				'description' => '001 Switch that can only be turned on/off',
-				'displayCategories' => ['SWITCH'],
-				'cookie' => [
-					'detail1' => 'For simplicity, this is the only appliance',
-					'detail2' => 'that has some values in the additionalApplianceDetails',
-				],
-				'capabilities' => [
+            ->addEndpoint(Endpoint::create()
+				->setEndpointId('endpoint-001')
+				->setManufacturerName('Sample Manufacturer')
+				->setFriendlyName('Switch')
+				->setDescription('001 Switch that can only be turned on/off')
+				->addDisplayCategory('SWITCH')
+				->setCookie('detail1', 'For simplicity, this is the only appliance')
+				->setCookie('detail2', 'that has some values in the additionalApplianceDetails')
+				->setCapabilities([
 					new Alexa(),
 					new PowerController(['powerState'], true, true),
 					new EndpointHealth(['connectivity'], true, true),
-				],
-			]))
+			    ])
+            )
 		;
 
 		$expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryResponse.json'), true);

@@ -90,6 +90,13 @@ class Endpoint {
 		}
 	}
 
+	/**
+	 * @return Endpoint
+	 */
+	public static function create() {
+		return new Endpoint();
+	}
+
 
 	/**
 	 * @return string
