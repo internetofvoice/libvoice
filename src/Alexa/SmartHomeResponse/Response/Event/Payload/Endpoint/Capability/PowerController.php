@@ -9,8 +9,8 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payloa
  * @license http://opensource.org/licenses/MIT
  */
 class PowerController extends AbstractCapability {
-	/** @var array $supportedProperties */
-	const supportedProperties = ['powerState'];
+	/** @var array $reportableProperties */
+	const reportableProperties = ['powerState'];
 
 
 	/**
@@ -24,7 +24,7 @@ class PowerController extends AbstractCapability {
 		$this->type = 'AlexaInterface';
 		$this->interface = 'Alexa.PowerController';
 		$this->version = '3';
-		$this->properties = new Properties(self::supportedProperties, $properties, $proactivelyReported, $retrievable);
+		$this->properties = new Properties(self::reportableProperties, $properties, $proactivelyReported, $retrievable);
 	}
 
 

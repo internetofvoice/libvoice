@@ -11,8 +11,8 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class Properties {
-	/** @var array $validSupportedProperties */
-	protected $validSupportedProperties = [];
+	/** @var array $reportableProperties */
+	protected $reportableProperties = [];
 
 	/** @var array $supported */
 	protected $supported = [];
@@ -25,15 +25,15 @@ class Properties {
 
 
 	/**
-	 * @param array $validSupportedProperties
+	 * @param array $reportableProperties
 	 */
 	public function __construct(
-		$validSupportedProperties = [],
+		$reportableProperties = [],
 		$properties = [],
 		$proactivelyReported = false,
 		$retrievable = false
 	) {
-		$this->validSupportedProperties = $validSupportedProperties;
+		$this->reportableProperties = $reportableProperties;
 		$this->setSupported($properties);
 		$this->setProactivelyReported($proactivelyReported);
 		$this->setRetrievable($retrievable);
@@ -68,10 +68,10 @@ class Properties {
 	 * @throws InvalidArgumentException
 	 */
 	public function addSupported($name) {
-		if(in_array($name, $this->validSupportedProperties)) {
+		if(in_array($name, $this->reportableProperties)) {
 			array_push($this->supported, ['name' => $name]);
 		} else {
-			throw new InvalidArgumentException('Unsupported property name: ' . $name . ' (supported: ' . implode(', ', $this->validSupportedProperties) . ')');
+			throw new InvalidArgumentException('Unknown reportable property name: ' . $name . ' (known: ' . implode(', ', $this->reportableProperties) . ')');
 		}
 
 		return $this;

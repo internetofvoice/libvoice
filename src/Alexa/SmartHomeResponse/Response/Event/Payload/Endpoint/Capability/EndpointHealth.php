@@ -9,8 +9,8 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payloa
  * @license http://opensource.org/licenses/MIT
  */
 class EndpointHealth extends AbstractCapability {
-	/** @var array $supportedProperties */
-	const supportedProperties = ['connectivity'];
+	/** @var array $reportableProperties */
+	const reportableProperties = ['connectivity'];
 
 
 	/**
@@ -24,7 +24,7 @@ class EndpointHealth extends AbstractCapability {
 		$this->type = 'AlexaInterface';
 		$this->interface = 'Alexa.EndpointHealth';
 		$this->version = '3';
-		$this->properties = new Properties(self::supportedProperties, $properties, $proactivelyReported, $retrievable);
+		$this->properties = new Properties(self::reportableProperties, $properties, $proactivelyReported, $retrievable);
 	}
 
 
