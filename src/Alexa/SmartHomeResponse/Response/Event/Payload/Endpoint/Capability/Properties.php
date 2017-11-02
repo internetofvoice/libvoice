@@ -26,6 +26,9 @@ class Properties {
 
 	/**
 	 * @param array $reportableProperties
+	 * @param array $properties
+	 * @param bool $proactivelyReported
+	 * @param bool $retrievable
 	 */
 	public function __construct(
 		$reportableProperties = [],
