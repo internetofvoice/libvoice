@@ -9,14 +9,17 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payloa
  * @license http://opensource.org/licenses/MIT
  */
 abstract class AbstractCapability {
+	/** @var array $reportableProperties */
+	const reportableProperties = [];
+
 	/** @var string $type */
-	protected $type;
+	protected $type = 'AlexaInterface';
 
 	/** @var string $interface */
-	protected $interface;
+	protected $interface = 'Alexa';
 
 	/** @var string $version */
-	protected $version;
+	protected $version = '3';
 
 	/** @var Properties $properties */
 	protected $properties;
@@ -102,5 +105,17 @@ abstract class AbstractCapability {
 	/**
 	 * @return array
 	 */
-	abstract function render();
+	public function render() {
+		$rendered = [
+			'type' => $this->getType(),
+			'interface' => $this->getInterface(),
+			'version' => $this->getVersion(),
+		];
+
+		if(!is_null($this->getProperties())) {
+			$rendered['properties'] = $this->getProperties()->render();
+		}
+
+		return $rendered;
+	}
 }

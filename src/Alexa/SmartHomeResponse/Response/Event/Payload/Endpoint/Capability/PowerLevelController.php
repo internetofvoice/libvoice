@@ -12,6 +12,9 @@ class PowerLevelController  extends AbstractCapability {
 	/** @var array $reportableProperties */
 	const reportableProperties = ['powerLevel'];
 
+	/** @var string $interface */
+	protected $interface = 'Alexa.PowerLevelController';
+
 
 	/**
 	 * @param array $properties
@@ -21,24 +24,6 @@ class PowerLevelController  extends AbstractCapability {
 	public function __construct($properties = [], $proactivelyReported = false, $retrievable = false) {
 		parent::__construct();
 
-		$this->type = 'AlexaInterface';
-		$this->interface = 'Alexa.PowerLevelController';
-		$this->version = '3';
 		$this->properties = new Properties(self::reportableProperties, $properties, $proactivelyReported, $retrievable);
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public function render() {
-		$rendered = [
-			'type' => $this->getType(),
-			'interface' => $this->getInterface(),
-			'version' => $this->getVersion(),
-			'properties' => $this->getProperties()->render(),
-		];
-
-		return $rendered;
 	}
 }
