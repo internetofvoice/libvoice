@@ -16,7 +16,7 @@ abstract class AbstractCapability {
 	protected $type = 'AlexaInterface';
 
 	/** @var string $interface */
-	protected $interface = 'Alexa';
+	protected $interface = '';
 
 	/** @var string $version */
 	protected $version = '3';

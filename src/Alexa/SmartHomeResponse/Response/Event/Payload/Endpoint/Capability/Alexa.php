@@ -9,4 +9,6 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payloa
  * @license http://opensource.org/licenses/MIT
  */
 class Alexa extends AbstractCapability {
+    /** @var string $interface */
+    protected $interface = 'Alexa';
 }
