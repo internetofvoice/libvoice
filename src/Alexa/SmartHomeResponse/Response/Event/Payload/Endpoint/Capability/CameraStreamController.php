@@ -13,7 +13,7 @@ class CameraStreamController extends AbstractCapability {
 	protected $interface = 'Alexa.CameraStreamController';
 
 	/** @var CameraStreamConfiguration[] $cameraStreamConfigurations */
-	protected $cameraStreamConfigurations;
+	protected $cameraStreamConfigurations = [];
 
 
 	/**
