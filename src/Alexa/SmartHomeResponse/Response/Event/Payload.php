@@ -45,18 +45,17 @@ class Payload {
      * @return  Payload
      */
     public function setEndpoints($endpoints) {
-    	if(count($endpoints) > self::MAX_ENDPOINTS) {
-			$endpoints = array_slice($endpoints, 0, self::MAX_ENDPOINTS);
-	    }
+        foreach($endpoints as $endpoint) {
+            $this->addEndpoint($endpoint);
+        }
 
-        $this->endpoints = $endpoints;
         return $this;
     }
 
     /**
      * @param   Endpoint $endpoint
      * @return  Payload
-     * @throws InvalidArgumentException
+     * @throws  InvalidArgumentException
      */
     public function addEndpoint($endpoint) {
 	    if(count($this->endpoints) < self::MAX_ENDPOINTS) {
@@ -75,7 +74,6 @@ class Payload {
     function render() {
         $rendered = [];
 
-        // Endpoints
         if(count($this->endpoints)) {
 	        $renderedEndpoints = array();
 	        foreach($this->getEndpoints() as $endpoint) {
