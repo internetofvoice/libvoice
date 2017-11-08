@@ -25,7 +25,8 @@ class AlexaRequestTest extends TestCase {
 			['amzn1.ask.skill.e5427198-b2de-4f89-ac18-b54a4877927f'],
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature'],
-			false
+			false,
+            false
 		);
 
 		// Test various properties and sub objects
@@ -57,7 +58,8 @@ class AlexaRequestTest extends TestCase {
 			['amzn1.ask.skill.e5427198-b2de-4f89-ac18-b54a4877927f'],
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature'],
-			false
+			false,
+            false
 		);
 
 		// Test various properties and sub objects
@@ -96,7 +98,8 @@ class AlexaRequestTest extends TestCase {
 			[], // empty applicationId
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature'],
-			false
+			false,
+            false
 		);
 	}
 
@@ -113,7 +116,8 @@ class AlexaRequestTest extends TestCase {
 			['amzn1.ask.skill.INVALID_APP_ID'], // invalid applicationId
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature'],
-			false
+			false,
+            false
 		);
 	}
 
@@ -146,7 +150,8 @@ class AlexaRequestTest extends TestCase {
 			['amzn1.ask.skill.e5427198-b2de-4f89-ac18-b54a4877927f'],
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature'],
-			false
+			false,
+            false
 		);
 	}
 
@@ -209,7 +214,8 @@ class AlexaRequestTest extends TestCase {
 			['amzn1.ask.skill.e5427198-b2de-4f89-ac18-b54a4877927f'],
 			$fixtureHeader['Signaturecertchainurl'],
 			$fixtureHeader['Signature'],
-			false
+			false,
+            false
 		);
 	}
 }
