@@ -2,6 +2,9 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\SmartHomeRequest;
 
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Header;
+use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Payload;
+
 /**
  * Class AlexaRequest
  *
@@ -40,10 +43,21 @@ class AlexaRequest {
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getRequestInterface() {
-		return $this->request->getDirective()->getHeader()->getNamespace();
-	}
+    /**
+     * Shortcut to Directive Header
+     *
+     * @return Header
+     */
+    public function getHeader() {
+        return $this->getRequest()->getDirective()->getHeader();
+    }
+
+    /**
+     * Shortcut to Directive Payload
+     *
+     * @return Payload
+     */
+    public function getPayload() {
+        return $this->getRequest()->getDirective()->getPayload();
+    }
 }

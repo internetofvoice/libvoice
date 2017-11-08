@@ -31,6 +31,8 @@ class AlexaRequestTest extends TestCase {
 
         $this->assertEquals('ReConSkillAdapter', $alexaRequest->getContext()->getData()['functionName']);
 
-        $this->assertEquals('Alexa.Discovery', $alexaRequest->getRequestInterface());
+        // Shortcuts
+        $this->assertEquals('Alexa.Discovery', $alexaRequest->getHeader()->getNamespace());
+        $this->assertEquals('BearerToken', $alexaRequest->getPayload()->getScope()->getType());
 	}
 }
