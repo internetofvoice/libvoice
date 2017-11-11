@@ -280,22 +280,19 @@ class Endpoint {
 		    'manufacturerName' => $this->getManufacturerName(),
 		    'friendlyName' => $this->getFriendlyName(),
 		    'description' => $this->getDescription(),
+	        'displayCategories' => $this->getDisplayCategories(),
         ];
 
-        if(count($this->displayCategories)) {
-            $rendered['displayCategories'] = $this->getDisplayCategories();
+	    if(count($this->getCookies())) {
+		    $rendered['cookie'] = $this->getCookies();
+	    }
+
+        $renderedCapabilities = array();
+        foreach($this->getCapabilities() as $capability) {
+            array_push($renderedCapabilities, $capability->render());
         }
 
-	    $rendered['cookie'] = $this->getCookies();
-
-	    if(count($this->capabilities)) {
-        	$renderedCapabilities = array();
-        	foreach($this->getCapabilities() as $capability) {
-        		array_push($renderedCapabilities, $capability->render());
-	        }
-
-		    $rendered['capabilities'] = $renderedCapabilities;
-	    }
+	    $rendered['capabilities'] = $renderedCapabilities;
 
         return $rendered;
     }
