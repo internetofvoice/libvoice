@@ -4,6 +4,7 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request;
 
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Header;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Payload;
+use \InvalidArgumentException;
 
 /**
  * Class Directive
@@ -21,8 +22,17 @@ class Directive {
 
 	/**
 	 * @param array $directiveData
+	 * @throws InvalidArgumentException
 	 */
 	public function __construct($directiveData) {
+		if(!isset($directiveData['header'])) {
+			throw new InvalidArgumentException('Missing header data.');
+		}
+
+		if(!isset($directiveData['payload'])) {
+			throw new InvalidArgumentException('Missing payload data.');
+		}
+
 		$this->header = new Header($directiveData['header']);
 		$this->payload = new Payload($directiveData['payload']);
 	}

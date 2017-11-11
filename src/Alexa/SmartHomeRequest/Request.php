@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\Alexa\SmartHomeRequest;
 
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive;
+use \InvalidArgumentException;
 
 /**
  * Class Request
@@ -17,8 +18,13 @@ class Request {
 
 	/**
 	 * @param array $requestData
+	 * @throws InvalidArgumentException
 	 */
 	public function __construct($requestData) {
+		if(!isset($requestData['directive'])) {
+			throw new InvalidArgumentException('Missing directive data.');
+		}
+
 		$this->directive = new Directive($requestData['directive']);
 	}
 

@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive;
 
+use \InvalidArgumentException;
+
 /**
  * Class Header
  *
@@ -24,8 +26,25 @@ class Header {
 
 	/**
 	 * @param array $headerData
+	 * @throws InvalidArgumentException
 	 */
 	public function __construct($headerData) {
+		if(!isset($headerData['namespace'])) {
+			throw new InvalidArgumentException('Missing namespace.');
+		}
+
+		if(!isset($headerData['name'])) {
+			throw new InvalidArgumentException('Missing name.');
+		}
+
+		if(!isset($headerData['payloadVersion'])) {
+			throw new InvalidArgumentException('Missing payloadVersion.');
+		}
+
+		if(!isset($headerData['messageId'])) {
+			throw new InvalidArgumentException('Missing messageId.');
+		}
+
 		$this->namespace = $headerData['namespace'];
 		$this->name = $headerData['name'];
 		$this->payloadVersion = $headerData['payloadVersion'];

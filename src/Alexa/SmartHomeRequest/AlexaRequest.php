@@ -4,6 +4,7 @@ namespace InternetOfVoice\LibVoice\Alexa\SmartHomeRequest;
 
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Header;
 use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Payload;
+use \InvalidArgumentException;
 
 /**
  * Class AlexaRequest
@@ -21,8 +22,17 @@ class AlexaRequest {
 
 	/**
 	 * @param array $data
+	 * @throws InvalidArgumentException
 	 */
 	public function __construct($data) {
+		if(!isset($data['request'])) {
+			throw new InvalidArgumentException('Missing request data.');
+		}
+
+		if(!isset($data['context'])) {
+			throw new InvalidArgumentException('Missing context data.');
+		}
+
 		$this->request = new Request($data['request']);
 		$this->context = new Context($data['context']);
 	}

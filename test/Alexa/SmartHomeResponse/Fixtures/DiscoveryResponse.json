@@ -65,7 +65,6 @@
                         "displayCategories": [
                             "LIGHT"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -180,7 +179,6 @@
                         "displayCategories": [
                             "LIGHT"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -281,7 +279,6 @@
                         "displayCategories": [
                             "THERMOSTAT"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -343,7 +340,6 @@
                         "displayCategories": [
                             "OTHER"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -408,7 +404,6 @@
                         "displayCategories": [
                             "SMARTLOCK"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -453,7 +448,6 @@
                         "displayCategories": [
                             "SCENE_TRIGGER"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -491,7 +485,6 @@
                         "displayCategories": [
                             "ACTIVITY_TRIGGER"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -529,7 +522,6 @@
                         "displayCategories": [
                             "CAMERA"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",
@@ -587,7 +579,6 @@
                         "displayCategories": [
                             "OTHER"
                         ],
-                        "cookie": {},
                         "capabilities": [
                             {
                                 "type": "AlexaInterface",

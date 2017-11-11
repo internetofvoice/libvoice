@@ -11,7 +11,7 @@ use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Payload\S
  * @license http://opensource.org/licenses/MIT
  */
 class Payload {
-	/** @var Scope $scope  */
+	/** @var Scope $scope */
 	protected $scope;
 
 
