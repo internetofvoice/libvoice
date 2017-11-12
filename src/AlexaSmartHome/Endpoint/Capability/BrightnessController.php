@@ -1,19 +1,19 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
 
 /**
- * Class PowerController
+ * Class BrightnessController
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class PowerController extends AbstractCapability {
+class BrightnessController extends AbstractCapability {
 	/** @var array $reportableProperties */
-	const reportableProperties = ['powerState'];
+	const reportableProperties = ['brightness'];
 
 	/** @var string $interface */
-	protected $interface = 'Alexa.PowerController';
+	protected $interface = 'Alexa.BrightnessController';
 
 
 	/**

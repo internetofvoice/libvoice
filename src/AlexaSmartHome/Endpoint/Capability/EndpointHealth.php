@@ -1,19 +1,19 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
 
 /**
- * Class LockController
+ * Class EndpointHealth
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class LockController extends AbstractCapability {
+class EndpointHealth extends AbstractCapability {
 	/** @var array $reportableProperties */
-	const reportableProperties = ['lockState'];
+	const reportableProperties = ['connectivity'];
 
 	/** @var string $interface */
-	protected $interface = 'Alexa.LockController';
+	protected $interface = 'Alexa.EndpointHealth';
 
 
 	/**

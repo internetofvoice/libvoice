@@ -1,19 +1,19 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
 
 /**
- * Class TemperatureSensor
+ * Class Speaker
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class TemperatureSensor extends AbstractCapability {
+class Speaker extends AbstractCapability {
 	/** @var array $reportableProperties */
-	const reportableProperties = ['temperature'];
+	const reportableProperties = ['volume', 'muted'];
 
 	/** @var string $interface */
-	protected $interface = 'Alexa.TemperatureSensor';
+	protected $interface = 'Alexa.Speaker';
 
 
 	/**

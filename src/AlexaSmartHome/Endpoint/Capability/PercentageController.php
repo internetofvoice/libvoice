@@ -1,19 +1,19 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
 
 /**
- * Class EndpointHealth
+ * Class PercentageController
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class EndpointHealth extends AbstractCapability {
+class PercentageController extends AbstractCapability {
 	/** @var array $reportableProperties */
-	const reportableProperties = ['connectivity'];
+	const reportableProperties = ['percentage'];
 
 	/** @var string $interface */
-	protected $interface = 'Alexa.EndpointHealth';
+	protected $interface = 'Alexa.PercentageController';
 
 
 	/**

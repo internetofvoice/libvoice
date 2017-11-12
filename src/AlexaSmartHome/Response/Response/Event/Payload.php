@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event;
 
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint;
+use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InvalidArgumentException;
 
 

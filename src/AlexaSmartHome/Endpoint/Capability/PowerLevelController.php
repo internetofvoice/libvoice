@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
 
 /**
  * Class PowerLevelController

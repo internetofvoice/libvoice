@@ -1,24 +1,19 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
 
 /**
- * Class ThermostatController
+ * Class ChannelController
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class ThermostatController extends AbstractCapability {
+class ChannelController extends AbstractCapability {
 	/** @var array $reportableProperties */
-	const reportableProperties = [
-	    'lowerSetpoint',
-	    'targetSetpoint',
-	    'upperSetpoint',
-	    'thermostatMode',
-    ];
+	const reportableProperties = ['channel'];
 
 	/** @var string $interface */
-	protected $interface = 'Alexa.ThermostatController';
+	protected $interface = 'Alexa.ChannelController';
 
 
 	/**

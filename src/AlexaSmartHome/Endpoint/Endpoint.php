@@ -1,8 +1,8 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint;
 
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability\AbstractCapability;
+use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\AbstractCapability;
 use \InvalidArgumentException;
 
 /**

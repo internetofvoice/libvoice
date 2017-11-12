@@ -1,19 +1,19 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
 
 /**
- * Class ColorTemperatureController
+ * Class ColorController
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class ColorTemperatureController extends AbstractCapability {
+class ColorController extends AbstractCapability {
 	/** @var array $reportableProperties */
-	const reportableProperties = ['colorTemperatureInKelvin'];
+	const reportableProperties = ['color'];
 
 	/** @var string $interface */
-	protected $interface = 'Alexa.ColorTemperatureController';
+	protected $interface = 'Alexa.ColorController';
 
 
 	/**
