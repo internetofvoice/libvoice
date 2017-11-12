@@ -2,6 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request;
 
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload;
 use \InvalidArgumentException;
@@ -19,6 +20,9 @@ class Directive {
 	/** @var Payload $payload */
 	protected $payload;
 
+	/** @var Endpoint $endpoint */
+	protected $endpoint;
+
 
 	/**
 	 * @param array $directiveData
@@ -35,6 +39,10 @@ class Directive {
 
 		$this->header = new Header($directiveData['header']);
 		$this->payload = new Payload($directiveData['payload']);
+
+		if(isset($directiveData['endpoint'])) {
+			$this->endpoint = new Endpoint($directiveData['endpoint']);
+		}
 	}
 
 
@@ -50,5 +58,12 @@ class Directive {
 	 */
 	public function getPayload() {
 		return $this->payload;
+	}
+
+	/**
+	 * @return Endpoint
+	 */
+	public function getEndpoint() {
+		return $this->endpoint;
 	}
 }

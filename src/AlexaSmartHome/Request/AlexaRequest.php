@@ -2,6 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request;
 
+use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload;
 use \InvalidArgumentException;
@@ -70,4 +71,13 @@ class AlexaRequest {
     public function getPayload() {
         return $this->getRequest()->getDirective()->getPayload();
     }
+
+	/**
+	 * Shortcut to Directive Endpoint
+	 *
+	 * @return Endpoint
+	 */
+	public function getEndpoint() {
+		return $this->getRequest()->getDirective()->getEndpoint();
+	}
 }
