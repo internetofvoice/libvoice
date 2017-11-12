@@ -1,0 +1,36 @@
+{
+    "request": {
+        "directive": {
+            "header": {
+                "namespace": "Alexa",
+                "name": "ReportState",
+                "payloadVersion": "3",
+                "messageId": "af9788bf-43c5-46af-944f-1c045f48bec6",
+                "correlationToken": "abcdef-123456"
+            },
+            "endpoint": {
+                "scope": {
+                    "type": "BearerToken",
+                    "token": "Atza|IwEBIJGHzXh-qI35GlTdhaHOIZIE1PkuCfckEOT-4Nmpk-_SMdP1Dmsz-aSXfZm6SC5mi8X0PxvJuCLpjC_m-bIxDTe2wIFa-ZROOQ5xW5bf_3OlgxzMeyNp2ekfBENriUdvoUtfIdNywxkDeTFcDY34esO0_OdVBcWJ2gnWc1-YrgnNu0OyOVQiJ0MbcIvkba1aS3SGuIrEvb8kBo-PW3yzat0v5J23EvnsAibU0wRY7SXqi6dYPbD2YFRKYGVkRgcak0ccmWB7ag7qoYw4eBUtZQwaomXSTPerDDQ5ocBIHqYrAVh6XDACi6SQYZtzqZYEZJC9ksN385wyaBkCjTIlDGablrxYWci8NLsSsNTqkmDfySLn2GafQxxYbdAoGwkcovxkLatxtVxc47sgwCiAvwNjJElQDWUSZmWyDl5kBHYGDsdBIdNvN5PP1Q5JIkz-3Vy2K5N0rh2SNiM367uJBcDsSYj5rt9gFRFpxilSOz6VXHGX5ejrb-PuCpBbTjOR2-HkMo-7shr50ieRlw8ZQY5rYeeFCLaPucy_KU0Rw-pzFg"
+                },
+                "endpointId": "endpoint-01",
+                "cookie": {
+                    "extraDetail1": "Extra Detail 1"
+                }
+            },
+            "payload": []
+        }
+    },
+    "context": {
+        "callbackWaitsForEmptyEventLoop": true,
+        "logGroupName": "/aws/lambda/ReConSkillAdapter",
+        "logStreamName": "2017/11/11/[$LATEST]efa714f48eec414caf0892fbd6ddb0c8",
+        "functionName": "ReConSkillAdapter",
+        "memoryLimitInMB": "128",
+        "functionVersion": "$LATEST",
+        "invokeid": "30d5bafd-c725-11e7-a1cf-d1934581aa6c",
+        "awsRequestId": "30d5bafd-c725-11e7-a1cf-d1934581aa6c",
+        "invokedFunctionArn": "arn:aws:lambda:eu-west-1:642812539401:function:ReConSkillAdapter"
+    }
+}
+
