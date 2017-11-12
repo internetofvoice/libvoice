@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Scope;
 
 /**
  * Class Scope

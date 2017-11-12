@@ -1,0 +1,29 @@
+{
+    "request": {
+        "directive": {
+            "header": {
+                "namespace": "Alexa.Discovery",
+                "name": "Discover",
+                "payloadVersion": "3",
+                "messageId": "977643b0-c12a-43d0-9326-2871756681d9"
+            },
+            "payload": {
+                "scope": {
+                    "type": "BearerToken",
+                    "token": "access-token-send-by-skill"
+                }
+            }
+        }
+    },
+    "context": {
+        "callbackWaitsForEmptyEventLoop": true,
+        "logGroupName": "/aws/lambda/ReConSkillAdapter",
+        "logStreamName": "2017/10/26/[$LATEST]cc127461373a4d14b9a195b714e91019",
+        "functionName": "ReConSkillAdapter",
+        "memoryLimitInMB": "128",
+        "functionVersion": "$LATEST",
+        "invokeid": "fb8e97f2-ba6c-11e7-bda1-4d1d785e7422",
+        "awsRequestId": "fb8e97f2-ba6c-11e7-bda1-4d1d785e7422",
+        "invokedFunctionArn": "arn:aws:lambda:eu-west-1:642812539401:function:ReConSkillAdapter"
+    }
+}

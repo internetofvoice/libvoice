@@ -2,7 +2,7 @@
 
 namespace Tests\AlexaSmartHome\Request\Request\Directive\Payload;
 
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload\Scope;
+use InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +18,7 @@ class ScopeTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testScope() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/../../../Fixtures/DiscoveryRequest.json'), true);
+		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryRequest.json'), true);
 		$scope   = new Scope($fixture['request']['directive']['payload']['scope']);
 
 		$this->assertEquals('BearerToken', $scope->getType());

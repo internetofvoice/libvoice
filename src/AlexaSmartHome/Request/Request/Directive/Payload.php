@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive;
 
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload\Scope;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 
 /**
  * Class Payload
