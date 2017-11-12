@@ -5,7 +5,8 @@
                 "namespace": "Alexa.Discovery",
                 "name": "Discover",
                 "payloadVersion": "3",
-                "messageId": "977643b0-c12a-43d0-9326-2871756681d9"
+                "messageId": "977643b0-c12a-43d0-9326-2871756681d9",
+                "correlationToken": "abcdef-123456"
             },
             "payload": {
                 "scope": {

@@ -21,17 +21,21 @@ class AlexaRequestTest extends TestCase {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryRequest.json'), true);
 		$alexaRequest = new AlexaRequest($fixture);
 
+		// Header
 		$this->assertEquals('Alexa.Discovery', $alexaRequest->getRequest()->getDirective()->getHeader()->getNamespace());
 		$this->assertEquals('Discover', $alexaRequest->getRequest()->getDirective()->getHeader()->getName());
 		$this->assertEquals('3', $alexaRequest->getRequest()->getDirective()->getHeader()->getPayloadVersion());
 		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $alexaRequest->getRequest()->getDirective()->getHeader()->getMessageId());
+		$this->assertEquals('abcdef-123456', $alexaRequest->getRequest()->getDirective()->getHeader()->getCorrelationToken());
 
+		// Payload
         $this->assertEquals('BearerToken', $alexaRequest->getRequest()->getDirective()->getPayload()->getScope()->getType());
         $this->assertEquals('access-token-send-by-skill', $alexaRequest->getRequest()->getDirective()->getPayload()->getScope()->getToken());
 
+        // Context
         $this->assertEquals('ReConSkillAdapter', $alexaRequest->getContext()->getData()['functionName']);
 
-        // Shortcuts
+        // Test shortcuts
         $this->assertEquals('Alexa.Discovery', $alexaRequest->getHeader()->getNamespace());
         $this->assertEquals('BearerToken', $alexaRequest->getPayload()->getScope()->getType());
 	}

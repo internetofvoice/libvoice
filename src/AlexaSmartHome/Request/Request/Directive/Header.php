@@ -23,6 +23,9 @@ class Header {
 	/** @var string $messageId */
 	protected $messageId;
 
+	/** @var string $correlationToken */
+	protected $correlationToken;
+
 
 	/**
 	 * @param array $headerData
@@ -49,6 +52,10 @@ class Header {
 		$this->name = $headerData['name'];
 		$this->payloadVersion = $headerData['payloadVersion'];
 		$this->messageId = $headerData['messageId'];
+
+		if(isset($headerData['correlationToken'])) {
+			$this->correlationToken = $headerData['correlationToken'];
+		}
 	}
 
 
@@ -78,5 +85,12 @@ class Header {
 	 */
 	public function getMessageId() {
 		return $this->messageId;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCorrelationToken() {
+		return $this->correlationToken;
 	}
 }
