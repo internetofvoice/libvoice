@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Alexa\SmartHomeRequest\Request\Directive\Payload;
+namespace Tests\AlexaSmartHome\Request\Request\Directive\Payload;
 
-use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive\Payload\Scope;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload\Scope;
 use \PHPUnit\Framework\TestCase;
 
 /**

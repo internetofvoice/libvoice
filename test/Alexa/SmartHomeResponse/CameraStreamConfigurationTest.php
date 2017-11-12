@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Alexa\SmartHomeResponse;
+namespace Tests\AlexaSmartHome\Response;
 
-use \InternetOfVoice\LibVoice\Alexa\SmartHomeResponse\Response\Event\Payload\Endpoint\Capability\CameraStreamConfiguration;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload\Endpoint\Capability\CameraStreamConfiguration;
 use \PHPUnit\Framework\TestCase;
 
 /**

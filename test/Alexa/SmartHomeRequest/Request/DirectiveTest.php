@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Alexa\SmartHomeRequest\Request;
+namespace Tests\AlexaSmartHome\Request\Request;
 
-use \InternetOfVoice\LibVoice\Alexa\SmartHomeRequest\Request\Directive;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive;
 use \PHPUnit\Framework\TestCase;
 
 /**
