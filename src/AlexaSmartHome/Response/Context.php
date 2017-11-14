@@ -7,45 +7,69 @@ namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response;
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
- * @TODO    Consider replacing $this->data with stronger typed objects
  */
 class Context {
-    /** @var array $data */
-    protected $data;
+    /** @var array $properties */
+    protected $properties = [];
 
 
 	/**
-	 * @param array $contextData
+	 * @param array $properties
 	 */
-	public function __construct($contextData = []) {
-		$this->setData($contextData);
+	public function __construct($properties = []) {
+		$this->setProperties($properties);
 	}
 
 
 	/**
-     * @return  array
-     */
-    public function getData() {
-        return $this->data;
-    }
+	 * @return array
+	 */
+	public function getProperties() {
+		return $this->properties;
+	}
 
-    /**
-     * @param   array $data
-     * @return  Context
-     */
-    public function setData($data) {
-        $this->data = $data;
-        return $this;
-    }
+	/**
+	 * @param array $properties
+	 *
+	 * @return Context
+	 */
+	public function setProperties($properties) {
+		foreach($properties as $property) {
+			$this->addProperty($property);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param mixed $property
+	 *
+	 * @return Context
+	 */
+	public function addProperty($property) {
+		array_push($this->properties, $property);
+
+		return $this;
+	}
 
 
     /**
      * @return  array
      */
     function render() {
-        $rendered = $this->getData();
+	    $rendered = [];
 
-        return $rendered;
+	    if(count($this->getProperties())) {
+		    $renderedProperties = [];
+		    foreach($this->getProperties() as $property) {
+			    // array_push($renderedProperties, $property->render());
+			    array_push($renderedProperties, $property);
+		    }
+
+		    $rendered['properties'] = $renderedProperties;
+	    }
+
+	    return $rendered;
     }
 }
 

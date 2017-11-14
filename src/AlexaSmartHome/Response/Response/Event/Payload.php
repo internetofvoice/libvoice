@@ -75,7 +75,7 @@ class Payload {
         $rendered = [];
 
         if(count($this->endpoints)) {
-	        $renderedEndpoints = array();
+	        $renderedEndpoints = [];
 	        foreach($this->getEndpoints() as $endpoint) {
 		        array_push($renderedEndpoints, $endpoint->render());
 	        }
