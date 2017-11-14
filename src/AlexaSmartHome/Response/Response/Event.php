@@ -2,6 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response;
 
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload;
 
@@ -18,14 +19,19 @@ class Event {
 	/** @var Payload $payload */
 	protected $payload;
 
+    /** @var Endpoint $endpoint */
+    protected $endpoint;
+
 
 	/**
 	 * @param Header $header
 	 * @param Payload $payload
+	 * @param Endpoint $endpoint
 	 */
-	public function __construct($header = null, $payload = null) {
+	public function __construct($header = null, $payload = null, $endpoint = null) {
 		$this->setHeader($header);
 		$this->setPayload($payload);
+        $this->setEndpoint($endpoint);
 	}
 
 
@@ -61,6 +67,22 @@ class Event {
         return $this;
     }
 
+    /**
+     * @return Endpoint
+     */
+    public function getEndpoint() {
+        return $this->endpoint;
+    }
+
+    /**
+     * @param Endpoint $endpoint
+     * @return Event
+     */
+    public function setEndpoint($endpoint) {
+        $this->endpoint = $endpoint;
+        return $this;
+    }
+
 
     /**
      * @return  array
@@ -70,6 +92,10 @@ class Event {
 	        'header'  => $this->getHeader()->render(),
 	        'payload' => $this->getPayload()->render(),
         ];
+
+        if(!is_null($this->getEndpoint())) {
+            $rendered['endpoint'] = $this->getEndpoint()->render();
+        }
 
         return $rendered;
     }

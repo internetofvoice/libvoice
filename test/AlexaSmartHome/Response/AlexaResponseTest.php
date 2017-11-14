@@ -38,7 +38,7 @@ class AlexaResponseTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testAlexaResponseWithoutPayload() {
-		$alexaResponse = AlexaResponse::create();
+		$alexaResponse = AlexaResponse::create('Discovery');
 		$alexaResponse->getHeader()
 			->setNamespace('Alexa.Discovery')
 			->setName('Discover.Response')
@@ -91,7 +91,7 @@ class AlexaResponseTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testAlexaResponse() {
-		$alexaResponse = AlexaResponse::create();
+		$alexaResponse = AlexaResponse::create('Discovery');
 		$alexaResponse->getHeader()
 			->setNamespace('Alexa.Discovery')
 			->setName('Discover.Response')

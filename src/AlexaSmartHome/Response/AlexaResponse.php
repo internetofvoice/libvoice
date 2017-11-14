@@ -2,9 +2,11 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response;
 
+use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload;
+use \InvalidArgumentException;
 
 /**
  * Class AlexaResponse
@@ -32,18 +34,60 @@ class AlexaResponse {
 	/**
 	 * Create AlexaResponse skeleton
 	 *
+     * Supported templates: Discovery, State, Response
+     *
+     * @param  string $template
 	 * @return AlexaResponse
+     * @throws InvalidArgumentException
 	 */
-	public static function create() {
-		return new AlexaResponse(
-			new Response(
-				new Event(
-					new Header(),
-					new Payload()
-				)
-			),
-			new Context()
-		);
+	public static function create($template = 'Response') {
+	    $return = null;
+
+	    switch ($template) {
+            case 'Discovery':
+                $return = new AlexaResponse(
+                    new Response(
+                        new Event(
+                            new Header(),
+                            new Payload()
+                        )
+                    ),
+                    new Context()
+                );
+            break;
+
+            case 'State':
+                $return = new AlexaResponse(
+                    new Response(
+                        new Event(
+                            new Header(),
+                            new Payload(),
+                            new Endpoint()
+                        )
+                    ),
+                    new Context()
+                );
+            break;
+
+            case 'Response':
+                $return = new AlexaResponse(
+                    new Response(
+                        new Event(
+                            new Header(),
+                            new Payload(),
+                            new Endpoint()
+                        )
+                    ),
+                    new Context()
+                );
+            break;
+
+            default:
+                throw new InvalidArgumentException('Unsupported AlexaResponse template: ' . $template);
+            break;
+        }
+
+        return $return;
 	}
 
 
