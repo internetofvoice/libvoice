@@ -58,10 +58,11 @@ class AlexaResponseTest extends TestCase {
 	 */
 	public function testAlexaResponseHeaderFromRequestHeader() {
 		$fixture = [
-			'namespace'      => 'Alexa.Discovery',
-			'name'           => 'Discover.Response',
-			'payloadVersion' => '3',
-			'messageId'      => '0a58ace0-e6ab-47de-b6af-b600b5ab8a7a',
+            'namespace'         => 'Alexa.Discovery',
+            'name'              => 'Discover.Response',
+            'payloadVersion'    => '3',
+            'messageId'         => '0a58ace0-e6ab-47de-b6af-b600b5ab8a7a',
+            'correlationToken'  => 'correlation-token-123',
 		];
 
 		// 1. via constructor params

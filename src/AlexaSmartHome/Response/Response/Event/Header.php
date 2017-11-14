@@ -23,6 +23,9 @@ class Header {
 	/** @var string $messageId */
 	protected $messageId;
 
+    /** @var string $correlationToken */
+	protected $correlationToken;
+
 
 	/**
 	 * @param array $headerData
@@ -43,6 +46,10 @@ class Header {
 		if(isset($headerData['messageId'])) {
 			$this->setMessageId($headerData['messageId']);
 		}
+
+        if(isset($headerData['correlationToken'])) {
+            $this->setCorrelationToken($headerData['correlationToken']);
+        }
 	}
 
 
@@ -55,6 +62,7 @@ class Header {
         $this->setName($requestHeader->getName());
         $this->setPayloadVersion($requestHeader->getPayloadVersion());
         $this->setMessageId($overrideMessageId ? $this->createMessageId() : $requestHeader->getMessageId());
+        $this->setCorrelationToken($requestHeader->getCorrelationToken());
 	}
 
 
@@ -150,6 +158,22 @@ class Header {
         );
 	}
 
+    /**
+     * @return string
+     */
+    public function getCorrelationToken() {
+        return $this->correlationToken;
+    }
+
+    /**
+     * @param string $correlationToken
+     * @return Header
+     */
+    public function setCorrelationToken($correlationToken) {
+        $this->correlationToken = $correlationToken;
+        return $this;
+    }
+
 
     /**
      * @return  array
@@ -161,6 +185,10 @@ class Header {
 	        'payloadVersion' => $this->getPayloadVersion(),
 	        'messageId'      => $this->getMessageId(),
         ];
+
+        if(!is_null($this->getCorrelationToken())) {
+            $rendered['correlationToken'] = $this->getCorrelationToken();
+        }
 
         return $rendered;
     }
