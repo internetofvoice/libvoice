@@ -51,8 +51,7 @@ class AlexaResponse {
                             new Header(),
                             new Payload()
                         )
-                    ),
-                    new Context()
+                    )
                 );
             break;
 
@@ -63,9 +62,9 @@ class AlexaResponse {
                             new Header(),
                             new Payload(),
                             new Endpoint()
-                        )
-                    ),
-                    new Context()
+                        ),
+	                    new Context()
+                    )
                 );
             break;
 
@@ -76,9 +75,9 @@ class AlexaResponse {
                             new Header(),
                             new Payload(),
                             new Endpoint()
-                        )
-                    ),
-                    new Context()
+                        ),
+	                    new Context()
+                    )
                 );
             break;
 
@@ -158,8 +157,11 @@ class AlexaResponse {
     function render() {
         $rendered = [
             'response' => $this->getResponse()->render(),
-            'context' => $this->getContext()->render(),
         ];
+
+        if(!is_null($this->getContext())) {
+        	$rendered['context'] = $this->getContext()->render();
+        }
 
         return $rendered;
     }

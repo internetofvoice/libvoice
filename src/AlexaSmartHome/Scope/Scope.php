@@ -43,4 +43,21 @@ class Scope {
 	public function getToken() {
 		return $this->token;
 	}
+
+
+	/**
+	 * @return  array
+	 */
+	function render() {
+		$rendered = [];
+		if(!is_null($this->getType())) {
+			$rendered['type'] = $this->getType();
+		}
+
+		if(!is_null($this->getToken())) {
+			$rendered['token'] = $this->getToken();
+		}
+
+		return $rendered;
+	}
 }

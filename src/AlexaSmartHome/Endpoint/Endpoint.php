@@ -335,7 +335,7 @@ class Endpoint {
         }
 
         if(!is_null($this->getScope())) {
-            $rendered['scope'] = $this->getScope();
+            $rendered['scope'] = $this->getScope()->render();
         }
 
         return $rendered;

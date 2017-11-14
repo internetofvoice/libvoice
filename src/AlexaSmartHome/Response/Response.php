@@ -14,12 +14,15 @@ class Response {
 	/** @var Event $event */
 	protected $event;
 
+	/** @var Context $context */
+	protected $context;
 
 	/**
 	 * @param Event $event
 	 */
-	public function __construct($event = null) {
+	public function __construct($event = null, $context = null) {
 		$this->setEvent($event);
+		$this->setContext($context);
 	}
 
 
@@ -39,6 +42,24 @@ class Response {
         return $this;
     }
 
+	/**
+	 * @return Context
+	 */
+	public function getContext() {
+		return $this->context;
+	}
+
+	/**
+	 * @param Context $context
+	 *
+	 * @return Response
+	 */
+	public function setContext($context) {
+		$this->context = $context;
+
+		return $this;
+	}
+
 
     /**
      * @return  array
@@ -47,6 +68,10 @@ class Response {
         $rendered = [
             'event' => $this->getEvent()->render(),
         ];
+
+	    if(!is_null($this->getContext())) {
+		    $rendered['context'] = $this->getContext()->render();
+	    }
 
         return $rendered;
     }
