@@ -325,12 +325,18 @@ class Endpoint {
 		    $rendered['cookie'] = $this->getCookies();
 	    }
 
-        $renderedCapabilities = array();
-        foreach($this->getCapabilities() as $capability) {
-            array_push($renderedCapabilities, $capability->render());
+        if(count($this->getCapabilities())) {
+            $renderedCapabilities = array();
+            foreach($this->getCapabilities() as $capability) {
+                array_push($renderedCapabilities, $capability->render());
+            }
+
+            $rendered['capabilities'] = $renderedCapabilities;
         }
 
-	    $rendered['capabilities'] = $renderedCapabilities;
+        if(!is_null($this->getScope())) {
+            $rendered['scope'] = $this->getScope();
+        }
 
         return $rendered;
     }
