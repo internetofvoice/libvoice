@@ -142,6 +142,15 @@ class AlexaResponse {
 		return $this->getResponse()->getEvent()->getPayload();
 	}
 
+    /**
+     * Shortcut to Event Endpoint
+     *
+     * @return Endpoint
+     */
+    public function getEndpoint() {
+        return $this->getResponse()->getEvent()->getEndpoint();
+    }
+
 
     /**
      * @return  array
