@@ -303,11 +303,23 @@ class Endpoint {
     function render() {
         $rendered = [
 	        'endpointId' => $this->getEndpointId(),
-		    'manufacturerName' => $this->getManufacturerName(),
-		    'friendlyName' => $this->getFriendlyName(),
-		    'description' => $this->getDescription(),
-	        'displayCategories' => $this->getDisplayCategories(),
         ];
+
+        if(!is_null($this->getManufacturerName())) {
+            $rendered['manufacturerName'] = $this->getManufacturerName();
+        }
+
+        if(!is_null($this->getFriendlyName())) {
+            $rendered['friendlyName'] = $this->getFriendlyName();
+        }
+
+        if(!is_null($this->getDescription())) {
+            $rendered['description'] = $this->getDescription();
+        }
+
+        if(count($this->getDisplayCategories())) {
+            $rendered['displayCategories'] = $this->getDisplayCategories();
+        }
 
 	    if(count($this->getCookies())) {
 		    $rendered['cookie'] = $this->getCookies();
