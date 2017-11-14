@@ -34,7 +34,7 @@ class AlexaResponse {
 	/**
 	 * Create AlexaResponse skeleton
 	 *
-     * Supported templates: Discovery, State, Response
+     * Supported templates: Discovery, StateReport, Response
      *
      * @param  string $template
 	 * @return AlexaResponse
@@ -56,7 +56,7 @@ class AlexaResponse {
                 );
             break;
 
-            case 'State':
+            case 'StateReport':
                 $return = new AlexaResponse(
                     new Response(
                         new Event(
