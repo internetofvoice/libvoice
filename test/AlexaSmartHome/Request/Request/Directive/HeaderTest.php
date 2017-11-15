@@ -18,7 +18,7 @@ class HeaderTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testHeader() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/DiscoveryRequest.json'), true);
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../../../Fixtures/DiscoveryRequest.json'), true);
 		$header  = new Header($fixture['request']['directive']['header']);
 
 		$this->assertEquals('Alexa.Discovery', $header->getNamespace());

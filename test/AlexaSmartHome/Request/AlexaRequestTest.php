@@ -16,7 +16,7 @@ class AlexaRequestTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testDiscoveryRequest() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryRequest.json'), true);
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryRequest.json'), true);
 		$alexaRequest = new AlexaRequest($fixture);
 
 		// Header
@@ -42,7 +42,7 @@ class AlexaRequestTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testReportStateRequest() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/ReportStateRequest.json'), true);
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/ReportStateRequest.json'), true);
 		$alexaRequest = new AlexaRequest($fixture);
 
 		// Header

@@ -2,7 +2,7 @@
 
 namespace Tests\AlexaSmartHome\Response;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\CameraStreamConfiguration;
+use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -26,7 +26,7 @@ class CameraStreamConfigurationTest extends TestCase {
             ->setAudioCodecs(['G711'])
         ;
 
-		$expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/CameraStreamConfiguration.json'), true);
+		$expect = json_decode(file_get_contents(__DIR__ . '/../Fixtures/CameraStreamConfiguration.json'), true);
 		$this->assertEquals($expect, $csConfig->render());
 	}
 
@@ -44,7 +44,7 @@ class CameraStreamConfigurationTest extends TestCase {
             'audioCodecs' => ['G711'],
         ]);
 
-        $expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/CameraStreamConfiguration.json'), true);
+        $expect = json_decode(file_get_contents(__DIR__ . '/../Fixtures/CameraStreamConfiguration.json'), true);
         $this->assertEquals($expect, $csConfig->render());
     }
 

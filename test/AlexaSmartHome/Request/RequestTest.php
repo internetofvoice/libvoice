@@ -18,7 +18,7 @@ class RequestTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testRequest() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryRequest.json'), true);
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryRequest.json'), true);
 		$request = new Request($fixture['request']);
 
 		$this->assertEquals('Alexa.Discovery', $request->getDirective()->getHeader()->getNamespace());

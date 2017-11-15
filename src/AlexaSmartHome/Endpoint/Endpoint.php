@@ -2,7 +2,6 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\AbstractCapability;
 use InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 use \InvalidArgumentException;
 
@@ -54,7 +53,7 @@ class Endpoint {
 	 */
 	protected $cookie = [];
 
-	/** @var AbstractCapability[] $capabilities */
+	/** @var Capability[] $capabilities */
 	protected $capabilities = [];
 
 	/** @var Scope $scope */
@@ -261,14 +260,14 @@ class Endpoint {
 
 
 	/**
-	 * @return AbstractCapability[]
+	 * @return Capability[]
 	 */
 	public function getCapabilities() {
 		return $this->capabilities;
 	}
 
 	/**
-	 * @param AbstractCapability[] $capabilities
+	 * @param Capability[] $capabilities
 	 *
 	 * @return Endpoint
 	 */

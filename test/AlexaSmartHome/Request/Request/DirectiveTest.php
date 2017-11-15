@@ -18,7 +18,7 @@ class DirectiveTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testDirective() {
-		$fixture   = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryRequest.json'), true);
+		$fixture   = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/DiscoveryRequest.json'), true);
 		$directive = new Directive($fixture['request']['directive']);
 
 		$this->assertEquals('Alexa.Discovery', $directive->getHeader()->getNamespace());

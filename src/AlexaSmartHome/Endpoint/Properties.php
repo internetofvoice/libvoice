@@ -1,8 +1,6 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
-
-use \InvalidArgumentException;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint;
 
 /**
  * Class Properties
@@ -11,9 +9,6 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class Properties {
-	/** @var array $reportableProperties */
-	protected $reportableProperties = [];
-
 	/** @var array $supported */
 	protected $supported = [];
 
@@ -25,18 +20,11 @@ class Properties {
 
 
 	/**
-	 * @param array $reportableProperties
 	 * @param array $properties
 	 * @param bool $proactivelyReported
 	 * @param bool $retrievable
 	 */
-	public function __construct(
-		$reportableProperties = [],
-		$properties = [],
-		$proactivelyReported = false,
-		$retrievable = false
-	) {
-		$this->reportableProperties = $reportableProperties;
+	public function __construct($properties = [], $proactivelyReported = false, $retrievable = false) {
 		$this->setSupported($properties);
 		$this->setProactivelyReported($proactivelyReported);
 		$this->setRetrievable($retrievable);
@@ -67,19 +55,12 @@ class Properties {
 	 * @param string $name
 	 *
 	 * @return Properties
-	 *
-	 * @throws InvalidArgumentException
 	 */
 	public function addSupported($name) {
-		if(in_array($name, $this->reportableProperties)) {
-			array_push($this->supported, ['name' => $name]);
-		} else {
-			throw new InvalidArgumentException('Unknown reportable property name: ' . $name . ' (known: ' . implode(', ', $this->reportableProperties) . ')');
-		}
+        array_push($this->supported, ['name' => $name]);
 
 		return $this;
 	}
-
 
 	/**
 	 * @return bool

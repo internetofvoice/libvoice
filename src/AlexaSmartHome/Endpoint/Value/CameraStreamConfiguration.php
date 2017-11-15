@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
+namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value;
 
 use \InvalidArgumentException;
 

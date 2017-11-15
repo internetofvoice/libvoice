@@ -5,24 +5,9 @@ namespace Tests\AlexaSmartHome\Response;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header as RequestHeader;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\AlexaResponse;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\Alexa;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\BrightnessController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\CameraStreamConfiguration;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\CameraStreamController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\ChannelController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\ColorController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\ColorTemperatureController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\EndpointHealth;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\InputController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\LockController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\PercentageController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\PowerController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\PowerLevelController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\SceneController;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\Speaker;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\TemperatureSensor;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability\ThermostatController;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -46,7 +31,7 @@ class AlexaResponseTest extends TestCase {
 			->setMessageId('0a58ace0-e6ab-47de-b6af-b600b5ab8a7a')
 		;
 
-		$expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryResponse.json'), true);
+		$expect = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryResponse.json'), true);
 		unset($expect['response']['event']['payload']['endpoints']);
 		$this->assertEquals($expect, $alexaResponse->render());
 	}
@@ -109,9 +94,9 @@ class AlexaResponseTest extends TestCase {
 				->setCookie('detail1', 'For simplicity, this is the only appliance')
 				->setCookie('detail2', 'that has some values in the additionalApplianceDetails')
 				->setCapabilities([
-					new Alexa(),
-					new PowerController(['powerState'], true, true),
-					new EndpointHealth(['connectivity'], true, true),
+					new Capability('Alexa'),
+					new Capability('Alexa.PowerController', ['powerState'], true, true),
+					new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
 			    ])
             )
 
@@ -122,14 +107,14 @@ class AlexaResponseTest extends TestCase {
 				->setDescription('002 Light that is dimmable and can change color and color temperature')
 				->addDisplayCategory('LIGHT')
 				->setCapabilities([
-					new Alexa(),
-					new PowerController(['powerState'], true, true),
-					new ColorController(['color'], true, true),
-					new ColorTemperatureController(['colorTemperatureInKelvin'], true, true),
-					new BrightnessController(['brightness'], true, true),
-					new PowerLevelController(['powerLevel'], true, true),
-					new PercentageController(['percentage'], true, true),
-					new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.PowerController', ['powerState'], true, true),
+                    new Capability('Alexa.ColorController', ['color'], true, true),
+                    new Capability('Alexa.ColorTemperatureController', ['colorTemperatureInKelvin'], true, true),
+                    new Capability('Alexa.BrightnessController', ['brightness'], true, true),
+                    new Capability('Alexa.PowerLevelController', ['powerLevel'], true, true),
+                    new Capability('Alexa.PercentageController', ['percentage'], true, true),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
 				])
 			)
 
@@ -140,13 +125,13 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('003 Light that is dimmable and can change color temperature only')
                 ->addDisplayCategory('LIGHT')
                 ->setCapabilities([
-                    new Alexa(),
-                    new PowerController(['powerState'], true, true),
-                    new ColorTemperatureController(['colorTemperatureInKelvin'], true, true),
-                    new BrightnessController(['brightness'], true, true),
-                    new PowerLevelController(['powerLevel'], true, true),
-                    new PercentageController(['percentage'], true, true),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.PowerController', ['powerState'], true, true),
+                    new Capability('Alexa.ColorTemperatureController', ['colorTemperatureInKelvin'], true, true),
+                    new Capability('Alexa.BrightnessController', ['brightness'], true, true),
+                    new Capability('Alexa.PowerLevelController', ['powerLevel'], true, true),
+                    new Capability('Alexa.PercentageController', ['percentage'], true, true),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 
@@ -157,10 +142,10 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('004 Thermostat that can change and query temperatures')
                 ->addDisplayCategory('THERMOSTAT')
                 ->setCapabilities([
-                    new Alexa(),
-                    new ThermostatController(['targetSetpoint', 'thermostatMode'], true, true),
-                    new TemperatureSensor(['temperature'], true, true),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.ThermostatController', ['targetSetpoint', 'thermostatMode'], true, true),
+                    new Capability('Alexa.TemperatureSensor', ['temperature'], true, true),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 
@@ -171,10 +156,10 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('004-1 Thermostat that can change and query temperatures, supports dual setpoints')
                 ->addDisplayCategory('OTHER')
                 ->setCapabilities([
-                    new Alexa(),
-                    new ThermostatController(['upperSetpoint', 'lowerSetpoint', 'thermostatMode'], true, true),
-                    new TemperatureSensor(['temperature'], true, true),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.ThermostatController', ['upperSetpoint', 'lowerSetpoint', 'thermostatMode'], true, true),
+                    new Capability('Alexa.TemperatureSensor', ['temperature'], true, true),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 
@@ -185,9 +170,9 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('005 Lock that can be locked and can query lock state')
                 ->addDisplayCategory('SMARTLOCK')
                 ->setCapabilities([
-                    new Alexa(),
-                    new LockController(['lockState'], true, true),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.LockController', ['lockState'], true, true),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 
@@ -198,9 +183,12 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('006 Scene that can only be turned on')
                 ->addDisplayCategory('SCENE_TRIGGER')
                 ->setCapabilities([
-                    new Alexa(),
-                    new SceneController(false, true),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.SceneController', null, null, null, [
+                        'supportsDeactivation' => false,
+                        'proactivelyReported' => true,
+                    ]),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 
@@ -211,9 +199,12 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('007 Activity that runs sequentially that can be turned on and off')
                 ->addDisplayCategory('ACTIVITY_TRIGGER')
                 ->setCapabilities([
-                    new Alexa(),
-                    new SceneController(true, true),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.SceneController', null, null, null, [
+                        'supportsDeactivation' => true,
+                        'proactivelyReported' => true,
+                    ]),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 
@@ -224,16 +215,18 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('008 Camera that streams from an RSTP source')
                 ->addDisplayCategory('CAMERA')
                 ->setCapabilities([
-                    new Alexa(),
-                    new CameraStreamController([
-                        CameraStreamConfiguration::create()
-                            ->addProtocol('RTSP')
-                            ->addResolution(1280, 720)
-                            ->addAuthorizationType('NONE')
-                            ->addVideoCodec('H264')
-                            ->addAudioCodec('AAC')
+                    new Capability('Alexa'),
+                    new Capability('Alexa.CameraStreamController', null, null, null, [
+                        'cameraStreamConfigurations' => [
+                            CameraStreamConfiguration::create()
+                                ->addProtocol('RTSP')
+                                ->addResolution(1280, 720)
+                                ->addAuthorizationType('NONE')
+                                ->addVideoCodec('H264')
+                                ->addAudioCodec('AAC')
+                            ]
                     ]),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 
@@ -244,16 +237,16 @@ class AlexaResponseTest extends TestCase {
                 ->setDescription('009 TV that supports various entertainment controllers')
                 ->addDisplayCategory('OTHER')
                 ->setCapabilities([
-                    new Alexa(),
-                    new ChannelController(['channel'], true, true),
-                    new InputController(['input'], true, true),
-                    new Speaker(['volume', 'muted'], true, true),
-                    new EndpointHealth(['connectivity'], true, true),
+                    new Capability('Alexa'),
+                    new Capability('Alexa.ChannelController', ['channel'], true, true),
+                    new Capability('Alexa.InputController', ['input'], true, true),
+                    new Capability('Alexa.Speaker', ['volume', 'muted'], true, true),
+                    new Capability('Alexa.EndpointHealth', ['connectivity'], true, true),
                 ])
             )
 		;
 
-		$expect = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryResponse.json'), true);
+		$expect = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryResponse.json'), true);
 		$this->assertEquals($expect, $alexaResponse->render());
 	}
 }

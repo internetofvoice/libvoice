@@ -18,7 +18,7 @@ class PayloadTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testPayload() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/DiscoveryRequest.json'), true);
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../../../Fixtures/DiscoveryRequest.json'), true);
 		$payload = new Payload($fixture['request']['directive']['payload']);
 
 		$this->assertEquals('BearerToken', $payload->getScope()->getType());

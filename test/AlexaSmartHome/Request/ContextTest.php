@@ -18,7 +18,7 @@ class ContextTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testContext() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/DiscoveryRequest.json'), true);
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryRequest.json'), true);
 		$context = new Context($fixture['context']);
 
 		$this->assertEquals('ReConSkillAdapter', $context->getData()['functionName']);
