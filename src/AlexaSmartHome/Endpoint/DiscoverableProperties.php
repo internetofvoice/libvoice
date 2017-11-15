@@ -3,12 +3,12 @@
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint;
 
 /**
- * Class Properties
+ * Class DiscoverableProperties
  *
  * @author  Alexander Schmidt <a.schmidt@internet-of-voice.de>
  * @license http://opensource.org/licenses/MIT
  */
-class Properties {
+class DiscoverableProperties {
 	/** @var array $supported */
 	protected $supported = [];
 
@@ -41,7 +41,7 @@ class Properties {
 	/**
 	 * @param array $supported
 	 *
-	 * @return Properties
+	 * @return DiscoverableProperties
 	 */
 	public function setSupported($supported) {
 		foreach($supported as $property) {
@@ -54,7 +54,7 @@ class Properties {
 	/**
 	 * @param string $name
 	 *
-	 * @return Properties
+	 * @return DiscoverableProperties
 	 */
 	public function addSupported($name) {
         array_push($this->supported, ['name' => $name]);
@@ -72,7 +72,7 @@ class Properties {
 	/**
 	 * @param bool $proactivelyReported
 	 *
-	 * @return Properties
+	 * @return DiscoverableProperties
 	 */
 	public function setProactivelyReported($proactivelyReported) {
 		$this->proactivelyReported = $proactivelyReported;
@@ -90,7 +90,7 @@ class Properties {
 	/**
 	 * @param bool $retrievable
 	 *
-	 * @return Properties
+	 * @return DiscoverableProperties
 	 */
 	public function setRetrievable($retrievable) {
 		$this->retrievable = $retrievable;

@@ -21,7 +21,7 @@ class Capability extends Relation {
     /** @var string $version */
     protected $version;
 
-    /** @var Properties $properties */
+    /** @var DiscoverableProperties $properties */
     protected $properties;
 
     /** @var array $extraProperties */
@@ -60,7 +60,7 @@ class Capability extends Relation {
                 }
             }
 
-            $this->properties = new Properties($properties, $proactivelyReported, $retrievable);
+            $this->properties = new DiscoverableProperties($properties, $proactivelyReported, $retrievable);
         }
 
         if(is_array($extraProperties) && count($extraProperties)) {
@@ -125,14 +125,15 @@ class Capability extends Relation {
     }
 
     /**
-     * @return Properties
+     * @return DiscoverableProperties
      */
     public function getProperties() {
         return $this->properties;
     }
 
     /**
-     * @param Properties $properties
+     * @param DiscoverableProperties $properties
+     *
      * @return Capability
      */
     public function setProperties($properties) {

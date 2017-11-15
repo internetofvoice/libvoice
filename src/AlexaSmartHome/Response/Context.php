@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response;
 
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\ReportableProperty;
+
 /**
  * Class Context
  *
@@ -9,12 +11,12 @@ namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response;
  * @license http://opensource.org/licenses/MIT
  */
 class Context {
-    /** @var array $properties */
+    /** @var ReportableProperty[] $properties */
     protected $properties = [];
 
 
 	/**
-	 * @param array $properties
+	 * @param ReportableProperty[] $properties
 	 */
 	public function __construct($properties = []) {
 		$this->setProperties($properties);
@@ -22,14 +24,14 @@ class Context {
 
 
 	/**
-	 * @return array
+	 * @return ReportableProperty[]
 	 */
 	public function getProperties() {
 		return $this->properties;
 	}
 
 	/**
-	 * @param array $properties
+	 * @param ReportableProperty[] $properties
 	 *
 	 * @return Context
 	 */
@@ -42,7 +44,7 @@ class Context {
 	}
 
 	/**
-	 * @param mixed $property
+	 * @param ReportableProperty $property
 	 *
 	 * @return Context
 	 */
@@ -54,7 +56,7 @@ class Context {
 
 
     /**
-     * @return  array
+     * @return array
      */
     function render() {
 	    $rendered = [];
@@ -62,8 +64,7 @@ class Context {
 	    if(count($this->getProperties())) {
 		    $renderedProperties = [];
 		    foreach($this->getProperties() as $property) {
-			    // array_push($renderedProperties, $property->render());
-			    array_push($renderedProperties, $property);
+				array_push($renderedProperties, $property->render());
 		    }
 
 		    $rendered['properties'] = $renderedProperties;
