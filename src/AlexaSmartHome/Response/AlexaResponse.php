@@ -81,6 +81,17 @@ class AlexaResponse {
                 );
             break;
 
+		    case 'Error':
+			    $return = new AlexaResponse(
+				    new Response(
+					    new Event(
+						    new Header(),
+						    new Payload()
+					    )
+				    )
+			    );
+		    break;
+
             default:
                 throw new InvalidArgumentException('Unsupported AlexaResponse template: ' . $template);
             break;

@@ -12,13 +12,13 @@ use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header as
  */
 class Header {
 	/** @var string $namespace */
-	protected $namespace;
+	protected $namespace = 'Alexa';
 
 	/** @var string $name */
 	protected $name;
 
 	/** @var string $payloadVersion */
-	protected $payloadVersion;
+	protected $payloadVersion = '3';
 
 	/** @var string $messageId */
 	protected $messageId;

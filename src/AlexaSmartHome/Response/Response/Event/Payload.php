@@ -22,6 +22,12 @@ class Payload {
     /** @var Endpoint[] $endpoints */
     protected $endpoints = [];
 
+	/** @var string $type */
+    protected $type;
+
+	/** @var string $message */
+    protected $message;
+
 
 	/**
 	 * @param array $payloadData
@@ -29,6 +35,14 @@ class Payload {
 	public function __construct($payloadData = []) {
 		if(isset($payloadData['endpoints'])) {
 			$this->setEndpoints($payloadData['endpoints']);
+		}
+
+		if(isset($payloadData['type'])) {
+			$this->setType($payloadData['type']);
+		}
+
+		if(isset($payloadData['message'])) {
+			$this->setMessage($payloadData['message']);
 		}
 	}
 
@@ -67,6 +81,42 @@ class Payload {
         return $this;
     }
 
+	/**
+	 * @return string
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
+	 * @param string $type
+	 *
+	 * @return Payload
+	 */
+	public function setType($type) {
+		$this->type = $type;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
+
+	/**
+	 * @param string $message
+	 *
+	 * @return Payload
+	 */
+	public function setMessage($message) {
+		$this->message = $message;
+
+		return $this;
+	}
+
 
     /**
      * @return  array
@@ -74,7 +124,7 @@ class Payload {
     function render() {
         $rendered = [];
 
-        if(count($this->endpoints)) {
+        if(count($this->getEndpoints())) {
 	        $renderedEndpoints = [];
 	        foreach($this->getEndpoints() as $endpoint) {
 		        array_push($renderedEndpoints, $endpoint->render());
@@ -82,6 +132,14 @@ class Payload {
 
 	        $rendered['endpoints'] = $renderedEndpoints;
         }
+
+        if(!is_null($this->getType())) {
+	        $rendered['type'] = $this->getType();
+        }
+
+	    if(!is_null($this->getMessage())) {
+		    $rendered['message'] = $this->getMessage();
+	    }
 
 	    return $rendered;
     }
