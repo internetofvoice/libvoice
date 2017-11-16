@@ -38,41 +38,11 @@ class Capability extends Relation {
      * @param array  $extraProperties
      * @throws InvalidArgumentException
      */
-    public function __construct(
-        $interface,
-        $properties = [],
-        $proactivelyReported = false,
-        $retrievable = false,
-        $extraProperties = null
-    ) {
-        if(!$this->isInterfaceAvailable($interface)) {
-            throw new InvalidArgumentException('Unknown interface: ' . $interface);
-        }
-
+    public function __construct($interface, $properties = [], $proactivelyReported = false, $retrievable = false, $extraProperties = null) {
         $this->setInterface($interface);
         $this->setVersion($this->getApiVersion());
-
-        if(is_array($properties) && count($properties)) {
-            $valid = $this->getPropertiesFor($interface);
-            foreach($properties as $property) {
-                if(!isset($valid[$property])) {
-                    throw new InvalidArgumentException('Invalid property ' . $property . ' for interface: ' . $interface);
-                }
-            }
-
-            $this->properties = new DiscoverableProperties($properties, $proactivelyReported, $retrievable);
-        }
-
-        if(is_array($extraProperties) && count($extraProperties)) {
-            $valid = $this->getExtraPropertiesFor($interface);
-            foreach($extraProperties as $key => $value) {
-                if(!isset($valid[$key])) {
-                    throw new InvalidArgumentException('Invalid extra property ' . $key . ' for interface: ' . $interface);
-                }
-
-                $this->addExtraProperty($key, $value);
-            }
-        }
+        $this->setProperties($properties, $proactivelyReported, $retrievable);
+        $this->setExtraProperties($extraProperties);
     }
 
 
@@ -102,8 +72,13 @@ class Capability extends Relation {
     /**
      * @param string $interface
      * @return Capability
+     * @throws InvalidArgumentException
      */
     public function setInterface($interface) {
+        if(!$this->isInterfaceAvailable($interface)) {
+            throw new InvalidArgumentException('Unknown interface: ' . $interface);
+        }
+
         $this->interface = $interface;
         return $this;
     }
@@ -132,12 +107,26 @@ class Capability extends Relation {
     }
 
     /**
-     * @param DiscoverableProperties $properties
-     *
+     * @param array $properties
+     * @param bool  $proactivelyReported
+     * @param bool  $retrievable
      * @return Capability
+     * @throws InvalidArgumentException
      */
-    public function setProperties($properties) {
-        $this->properties = $properties;
+    public function setProperties($properties, $proactivelyReported, $retrievable) {
+        $interface = $this->getInterface();
+
+        if(is_array($properties) && count($properties)) {
+            $valid = $this->getPropertiesFor($interface);
+            foreach($properties as $property) {
+                if(!in_array($property, $valid)) {
+                    throw new InvalidArgumentException('Invalid property ' . $property . ' for interface: ' . $interface);
+                }
+            }
+
+            $this->properties = new DiscoverableProperties($properties, $proactivelyReported, $retrievable);
+        }
+
         return $this;
     }
 
@@ -149,23 +138,32 @@ class Capability extends Relation {
     }
 
     /**
-     * @param array $extraProperties
+     * @param  array $extraProperties
      * @return Capability
      */
     public function setExtraProperties($extraProperties) {
-        foreach($extraProperties as $key => $value) {
-            $this->addExtraProperty($key, $value);
+        if(is_array($extraProperties) && count($extraProperties)) {
+            foreach($extraProperties as $key => $value) {
+                $this->addExtraProperty($key, $value);
+            }
         }
 
         return $this;
     }
 
     /**
-     * @param   string $key
-     * @param   mixed $value
-     * @return  Capability
+     * @param  string $key
+     * @param  mixed $value
+     * @return Capability
+     * @throws InvalidArgumentException
      */
     public function addExtraProperty($key, $value) {
+        $interface = $this->getInterface();
+        $valid = $this->getExtraPropertiesFor($interface);
+        if(!in_array($key, $valid)) {
+            throw new InvalidArgumentException('Invalid extra property ' . $key . ' for interface: ' . $interface);
+        }
+
         if(is_null($this->extraProperties))  {
             $this->extraProperties = [];
         }

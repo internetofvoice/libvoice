@@ -23,68 +23,54 @@ abstract class Relation {
 
 		'Alexa.BrightnessController' => [
 			'directives' => [
-				'AdjustBrightness' => ['brightnessDelta' => 'int'],
-				'SetBrightness' => ['brightness' => 'int'],
+				'AdjustBrightness' => ['brightnessDelta'],
+				'SetBrightness' => ['brightness'],
 			],
-			'properties' => [
-				'brightness' => 'int',
-			]
+			'properties' => ['brightness']
 		],
 
         'Alexa.CameraStreamController' => [
             'directives' => [
-                'InitializeCameraStreams' => ['cameraStreamConfigurations' => 'array'],
+                'InitializeCameraStreams' => ['cameraStreamConfigurations'],
             ],
             'properties' => [],
-            'extraProperties' => [
-                'cameraStreamConfigurations' => 'CameraStreamConfiguration',
-            ],
+            'extraProperties' => ['cameraStreamConfigurations'],
         ],
 
         'Alexa.ChannelController' => [
             'directives' => [
-                'ChangeChannel' => ['channel' => 'Channel'],
-                'SkipChannels' => ['channelCount' => 'int'],
+                'ChangeChannel' => ['channel'],
+                'SkipChannels' => ['channelCount'],
             ],
-            'properties' => [
-                'channel' => 'Channel',
-            ]
+            'properties' => ['channel']
         ],
 
 		'Alexa.ColorController' => [
 			'directives' => [
-				'SetColor' => ['color' => 'Color'],
+				'SetColor' => ['color'],
 			],
-			'properties' => [
-				'color' => 'Color',
-			]
+			'properties' => ['color']
 		],
 
 		'Alexa.ColorTemperatureController' => [
 			'directives' => [
 				'DecreaseColorTemperature' => [],
 				'IncreaseColorTemperature' => [],
-				'SetColorTemperature' => ['colorTemperatureInKelvin' => 'int'],
+				'SetColorTemperature' => ['colorTemperatureInKelvin'],
 			],
-			'properties' => [
-				'colorTemperatureInKelvin' => 'int',
-			]
+			'properties' => ['colorTemperatureInKelvin']
 		],
 
         'Alexa.EndpointHealth' => [
             'directives' => [],
-            'properties' => [
-                'connectivity' => 'string',
-            ]
+            'properties' => ['connectivity']
         ],
 
         'Alexa.InputController' => [
             'directives' => [
-                'SelectInput' => ['input' => 'string'],
+                'SelectInput' => ['input'],
             ],
-            'properties' => [
-                'input' => 'string',
-            ]
+            'properties' => ['input']
         ],
 
         'Alexa.LockController' => [
@@ -92,19 +78,15 @@ abstract class Relation {
                 'Lock' => [],
                 'Unlock' => [],
             ],
-            'properties' => [
-                'lockState' => 'string',
-            ]
+            'properties' => ['lockState']
         ],
 
         'Alexa.PercentageController' => [
             'directives' => [
-                'SetPercentage' => ['percentage' => 'int'],
-                'AdjustPercentage' => ['percentageDelta' => 'int'],
+                'SetPercentage' => ['percentage'],
+                'AdjustPercentage' => ['percentageDelta'],
             ],
-            'properties' => [
-                'percentage' => 'int',
-            ]
+            'properties' => ['percentage']
         ],
 
         'Alexa.PowerController' => [
@@ -112,19 +94,15 @@ abstract class Relation {
                 'TurnOn' => [],
                 'TurnOff' => [],
             ],
-            'properties' => [
-                'powerState' => 'string',
-            ]
+            'properties' => ['powerState']
         ],
 
         'Alexa.PowerLevelController' => [
             'directives' => [
-                'SetPowerLevel' => ['powerLevel' => 'int'],
-                'AdjustPowerLevel' => ['powerLevelDelta' => 'int'],
+                'SetPowerLevel' => ['powerLevel'],
+                'AdjustPowerLevel' => ['powerLevelDelta'],
             ],
-            'properties' => [
-                'powerLevel' => 'int',
-            ]
+            'properties' => ['powerLevel']
         ],
 
         'Alexa.SceneController' => [
@@ -133,55 +111,38 @@ abstract class Relation {
                 'Deactivate' => [],
             ],
             'properties' => [],
-            'extraProperties' => [
-                'supportsDeactivation' => 'bool',
-                'proactivelyReported' => 'bool',
-            ],
+            'extraProperties' => ['supportsDeactivation', 'proactivelyReported'],
         ],
 
         'Alexa.Speaker' => [
             'directives' => [
-                'SetVolume' => ['volume' => 'int'],
-                'AdjustVolume' => ['volume' => 'int', 'volumeDefault' => 'bool'],
-                'SetMute' => ['mute' => 'bool'],
+                'SetVolume' => ['volume'],
+                'AdjustVolume' => ['volume', 'volumeDefault'],
+                'SetMute' => ['mute'],
             ],
-            'properties' => [
-                'volume' => 'int',
-                'muted' => 'bool',
-            ]
+            'properties' => ['volume', 'muted']
         ],
 
         'Alexa.StepSpeaker' => [
             'directives' => [
-                'AdjustVolume' => ['volumeSteps' => 'int'],
-                'SetMute' => ['mute' => 'bool'],
+                'AdjustVolume' => ['volumeSteps'],
+                'SetMute' => ['mute'],
             ],
             'properties' => []
         ],
 
         'Alexa.TemperatureSensor' => [
             'directives' => [],
-            'properties' => [
-                'temperature' => 'Temperature',
-            ]
+            'properties' => ['temperature']
         ],
 
         'Alexa.ThermostatController' => [
             'directives' => [
-                'SetTargetTemperature' => [
-                    'targetSetpoint' => 'Temperature',
-                    'lowerSetpoint' => 'Temperature',
-                    'upperSetpoint' => 'Temperature',
-                ],
-                'AdjustTargetTemperature' => ['targetSetpointDelta' => 'Temperature'],
-                'SetThermostatMode' => ['thermostatMode' => 'string'],
+                'SetTargetTemperature' => ['targetSetpoint', 'lowerSetpoint', 'upperSetpoint'],
+                'AdjustTargetTemperature' => ['targetSetpointDelta'],
+                'SetThermostatMode' => ['thermostatMode'],
             ],
-            'properties' => [
-                'targetSetpoint' => 'Temperature',
-                'lowerSetpoint' => 'Temperature',
-                'upperSetpoint' => 'Temperature',
-                'thermostatMode' => 'string'
-            ]
+            'properties' => ['targetSetpoint', 'lowerSetpoint', 'upperSetpoint', 'thermostatMode']
         ],
 	];
 

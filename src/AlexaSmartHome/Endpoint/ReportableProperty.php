@@ -81,7 +81,7 @@ class ReportableProperty extends Relation {
 	 */
 	public function setName($name) {
 		$properties = $this->getPropertiesFor($this->getNamespace());
-		if(!isset($properties[$name])) {
+		if(!in_array($name, $properties)) {
 			throw new InvalidArgumentException('Invalid property name: ' . $name);
 		}
 
@@ -99,7 +99,6 @@ class ReportableProperty extends Relation {
 	/**
 	 * @param  mixed $value
 	 * @return ReportableProperty
-	 * @todo   Validation
 	 */
 	public function setValue($value) {
 		$this->value = $value;
@@ -124,9 +123,14 @@ class ReportableProperty extends Relation {
 	/**
 	 * @param  DateTime $timeOfSample
 	 * @return ReportableProperty
+     * @throws InvalidArgumentException
 	 */
 	public function setTimeOfSample($timeOfSample) {
-		$this->timeOfSample = $timeOfSample;
+        if(!is_a($timeOfSample, 'DateTime')) {
+            throw new InvalidArgumentException('timeOfSample must be a DateTime object (UTC based).');
+        }
+
+        $this->timeOfSample = $timeOfSample;
 
 		return $this;
 	}
