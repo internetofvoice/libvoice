@@ -114,10 +114,6 @@ class Color {
         $saturation = $this->getSaturation();
         $brightness = $this->getBrightness();
 
-        if(is_null($hue) or is_null($saturation) or is_null($brightness)) {
-            throw new InvalidArgumentException('Hue, Saturation and Brightness are required.');
-        }
-
         $rendered = [
             'hue' => $hue,
             'saturation' => $saturation,

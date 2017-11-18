@@ -67,7 +67,7 @@ class Temperature {
      * @throws InvalidArgumentException
      */
     public function setScale($scale) {
-        if(!in_array($scale, self::validScales)) {
+        if(!is_null($scale) && !in_array($scale, self::validScales)) {
             throw new InvalidArgumentException('Scale must be one of: ' . implode(', ', self::validScales));
         }
 
