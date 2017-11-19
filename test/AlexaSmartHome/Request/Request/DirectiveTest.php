@@ -3,6 +3,7 @@
 namespace Tests\AlexaSmartHome\Request\Request;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive;
+use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -13,8 +14,6 @@ use \PHPUnit\Framework\TestCase;
  */
 class DirectiveTest extends TestCase {
 	/**
-	 * testDirective
-	 *
 	 * @group smarthome
 	 */
 	public function testDirective() {
@@ -28,5 +27,21 @@ class DirectiveTest extends TestCase {
 
         $this->assertEquals('BearerToken', $directive->getPayload()->getScope()->getType());
         $this->assertEquals('access-token-send-by-skill', $directive->getPayload()->getScope()->getToken());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testMissingHeader() {
+		$this->expectException(InvalidArgumentException::class);
+		new Directive(['payload' => []]);
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testMissingPayload() {
+		$this->expectException(InvalidArgumentException::class);
+		new Directive(['header' => []]);
 	}
 }
