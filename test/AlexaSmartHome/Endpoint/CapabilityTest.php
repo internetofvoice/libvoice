@@ -3,6 +3,7 @@
 namespace Tests\AlexaSmartHome\Endpoint;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Temperature;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
@@ -59,5 +60,19 @@ class CapabilityTest extends TestCase {
 		$capability = new Capability('Alexa.SceneController', [], true, true);
 		$this->expectException(InvalidArgumentException::class);
 		$capability->addExtraProperty('nonExistentExtraProperty', 'value');
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testExtraPropertyRenderer() {
+		$capability = new Capability('Alexa.SceneController', [], true, true);
+		$capability->addExtraProperty('supportsDeactivation', new Temperature(25, 'CELSIUS'));
+		$rendered = $capability->render();
+		$this->assertEquals(25, $rendered['supportsDeactivation']['value']);
+
+		$capability->addExtraProperty('supportsDeactivation', ['A', 'B', 'C']);
+		$rendered = $capability->render();
+		$this->assertEquals(['A', 'B', 'C'], $rendered['supportsDeactivation']);
 	}
 }
