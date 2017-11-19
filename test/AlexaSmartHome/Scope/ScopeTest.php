@@ -2,7 +2,7 @@
 
 namespace Tests\AlexaSmartHome\Request\Request\Directive\Payload;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -23,5 +23,12 @@ class ScopeTest extends TestCase {
 
 		$this->assertEquals('BearerToken', $scope->getType());
 		$this->assertEquals('access-token-send-by-skill', $scope->getToken());
+
+		$expect = [
+			'type' => 'BearerToken',
+			'token' => 'access-token-send-by-skill',
+		];
+
+		$this->assertEquals($expect, $scope->render());
 	}
 }

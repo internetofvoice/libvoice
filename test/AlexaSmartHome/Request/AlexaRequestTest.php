@@ -3,6 +3,7 @@
 namespace Tests\AlexaSmartHome\Request;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\AlexaRequest;
+use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -62,5 +63,21 @@ class AlexaRequestTest extends TestCase {
 		// Test shortcuts
 		$this->assertEquals('ReportState', $alexaRequest->getHeader()->getName());
 		$this->assertEquals('BearerToken', $alexaRequest->getEndpoint()->getScope()->getType());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testMissingRequest() {
+		$this->expectException(InvalidArgumentException::class);
+		new AlexaRequest(['context' => []]);
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testMissingContext() {
+		$this->expectException(InvalidArgumentException::class);
+		new AlexaRequest(['request' => []]);
 	}
 }
