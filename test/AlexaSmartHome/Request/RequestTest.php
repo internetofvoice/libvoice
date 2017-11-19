@@ -3,6 +3,7 @@
 namespace Tests\AlexaSmartHome\Request;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request;
+use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -13,8 +14,6 @@ use \PHPUnit\Framework\TestCase;
  */
 class RequestTest extends TestCase {
 	/**
-	 * testRequest
-	 *
 	 * @group smarthome
 	 */
 	public function testRequest() {
@@ -28,5 +27,13 @@ class RequestTest extends TestCase {
 
         $this->assertEquals('BearerToken', $request->getDirective()->getPayload()->getScope()->getType());
         $this->assertEquals('access-token-send-by-skill', $request->getDirective()->getPayload()->getScope()->getToken());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testMissingDirective() {
+		$this->expectException(InvalidArgumentException::class);
+		new Request([]);
 	}
 }
