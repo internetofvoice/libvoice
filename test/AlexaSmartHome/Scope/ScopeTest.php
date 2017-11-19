@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AlexaSmartHome\Request\Request\Directive\Payload;
+namespace Tests\AlexaSmartHome\Scope;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 use \PHPUnit\Framework\TestCase;
@@ -13,8 +13,6 @@ use \PHPUnit\Framework\TestCase;
  */
 class ScopeTest extends TestCase {
 	/**
-	 * testScope
-	 *
 	 * @group smarthome
 	 */
 	public function testScope() {
