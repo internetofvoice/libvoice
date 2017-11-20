@@ -2,12 +2,16 @@
 
 namespace Tests\AlexaSmartHome\Response;
 
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header as RequestHeader;
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\AlexaResponse;
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
+use \DateTime;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\ReportableProperty;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header as RequestHeader;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\AlexaResponse;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Context;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
+use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -18,8 +22,6 @@ use \PHPUnit\Framework\TestCase;
  */
 class AlexaResponseTest extends TestCase {
 	/**
-	 * testAlexaResponseWithoutPayload
-	 *
 	 * @group smarthome
 	 */
 	public function testAlexaResponseWithoutPayload() {
@@ -37,8 +39,95 @@ class AlexaResponseTest extends TestCase {
 	}
 
 	/**
-	 * testAlexaResponseHeaderFromRequestHeader
-	 *
+	 * @group smarthome
+	 */
+	public function testAlexaResponseStateReportTemplate() {
+		$alexaResponse = AlexaResponse::create('StateReport');
+		$expect = [
+			'response' => [
+				'event' => [
+					'header' => [
+						'namespace' => 'Alexa',
+						'name' => null,
+						'payloadVersion' => '3',
+						'messageId' => null,
+					],
+					'payload' => [],
+					'endpoint' => [
+						'endpointId' => null,
+					],
+				],
+				'context' => [],
+			],
+		];
+
+		$this->assertEquals($expect, $alexaResponse->render());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testAlexaResponseResponseTemplate() {
+		$alexaResponse = AlexaResponse::create('Response');
+		$expect = [
+			'response' => [
+				'event' => [
+					'header' => [
+						'namespace' => 'Alexa',
+						'name' => null,
+						'payloadVersion' => '3',
+						'messageId' => null,
+					],
+					'payload' => [],
+					'endpoint' => [
+						'endpointId' => null,
+					],
+				],
+				'context' => [],
+			],
+		];
+
+		$this->assertEquals($expect, $alexaResponse->render());
+		$this->assertEquals(['endpointId' => null], $alexaResponse->getEndpoint()->render());
+
+		$time     = new DateTime('2017-01-01 00:00:00');
+		$property = new ReportableProperty('Alexa.BrightnessController', 'brightness', 100, $time);
+		$context  = new Context([$property]);
+		$alexaResponse->setContext($context);
+		$this->assertContains('BrightnessController', json_encode($alexaResponse->render()));
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testAlexaResponseErrorTemplate() {
+		$alexaResponse = AlexaResponse::create('Error');
+		$expect = [
+			'response' => [
+				'event' => [
+					'header' => [
+						'namespace' => 'Alexa',
+						'name' => null,
+						'payloadVersion' => '3',
+						'messageId' => null,
+					],
+					'payload' => [],
+				]
+			],
+		];
+
+		$this->assertEquals($expect, $alexaResponse->render());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testAlexaResponseInvalidTemplate() {
+		$this->expectException(InvalidArgumentException::class);
+		AlexaResponse::create('NonExistentTemplate');
+	}
+
+	/**
 	 * @group smarthome
 	 */
 	public function testAlexaResponseHeaderFromRequestHeader() {
@@ -71,8 +160,6 @@ class AlexaResponseTest extends TestCase {
 	}
 
 	/**
-	 * testAlexaResponse
-	 *
 	 * @group smarthome
 	 */
 	public function testAlexaResponse() {
