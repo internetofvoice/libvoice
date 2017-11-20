@@ -37,6 +37,22 @@ class Temperature {
         return new Temperature();
     }
 
+	/**
+	 * @param  array $data
+	 * @return Temperature
+	 * @throws InvalidArgumentException
+	 */
+	public static function createFromArray($data) {
+		$value = isset($data['value']) ? $data['value'] : null;
+		$scale = isset($data['scale']) ? $data['scale'] : null;
+
+		if(is_null($value) or is_null($scale)) {
+			throw new InvalidArgumentException('Value and Scale are required.');
+		}
+
+		return new Temperature($value, $scale);
+	}
+
 
     /**
      * @return float

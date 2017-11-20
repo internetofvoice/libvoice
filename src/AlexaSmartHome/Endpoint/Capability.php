@@ -119,7 +119,7 @@ class Capability extends Relation {
         if(is_array($properties) && count($properties)) {
             $valid = $this->getPropertiesFor($interface);
             foreach($properties as $property) {
-                if(!in_array($property, $valid)) {
+                if(!array_key_exists($property, $valid)) {
                     throw new InvalidArgumentException('Invalid property ' . $property . ' for interface: ' . $interface);
                 }
             }
@@ -160,7 +160,7 @@ class Capability extends Relation {
     public function addExtraProperty($key, $value) {
         $interface = $this->getInterface();
         $valid = $this->getExtraPropertiesFor($interface);
-        if(!in_array($key, $valid)) {
+        if(!array_key_exists($key, $valid)) {
             throw new InvalidArgumentException('Invalid extra property ' . $key . ' for interface: ' . $interface);
         }
 

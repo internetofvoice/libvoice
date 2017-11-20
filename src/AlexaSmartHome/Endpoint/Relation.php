@@ -23,54 +23,54 @@ abstract class Relation {
 
 		'Alexa.BrightnessController' => [
 			'directives' => [
-				'AdjustBrightness' => ['brightnessDelta'],
-				'SetBrightness' => ['brightness'],
+				'AdjustBrightness' => ['brightnessDelta' => 'int'],
+				'SetBrightness' => ['brightness' => 'int'],
 			],
-			'properties' => ['brightness']
+			'properties' => ['brightness' => 'int']
 		],
 
         'Alexa.CameraStreamController' => [
             'directives' => [
-                'InitializeCameraStreams' => ['cameraStreamConfigurations'],
+                'InitializeCameraStreams' => ['cameraStreamConfigurations' => 'CameraStreamConfigurations'],
             ],
             'properties' => [],
-            'extraProperties' => ['cameraStreamConfigurations'],
+            'extraProperties' => ['cameraStreamConfigurations' => 'CameraStreamConfigurations'],
         ],
 
         'Alexa.ChannelController' => [
             'directives' => [
-                'ChangeChannel' => ['channel'],
-                'SkipChannels' => ['channelCount'],
+                'ChangeChannel' => ['channel' => 'Channel'],
+                'SkipChannels' => ['channelCount' => 'int'],
             ],
-            'properties' => ['channel']
+            'properties' => ['channel' => 'Channel']
         ],
 
 		'Alexa.ColorController' => [
 			'directives' => [
-				'SetColor' => ['color'],
+				'SetColor' => ['color' => 'Color'],
 			],
-			'properties' => ['color']
+			'properties' => ['color' => 'Color']
 		],
 
 		'Alexa.ColorTemperatureController' => [
 			'directives' => [
 				'DecreaseColorTemperature' => [],
 				'IncreaseColorTemperature' => [],
-				'SetColorTemperature' => ['colorTemperatureInKelvin'],
+				'SetColorTemperature' => ['colorTemperatureInKelvin' => 'int'],
 			],
-			'properties' => ['colorTemperatureInKelvin']
+			'properties' => ['colorTemperatureInKelvin' => 'int']
 		],
 
         'Alexa.EndpointHealth' => [
             'directives' => [],
-            'properties' => ['connectivity']
+            'properties' => ['connectivity' => 'string']
         ],
 
         'Alexa.InputController' => [
             'directives' => [
-                'SelectInput' => ['input'],
+                'SelectInput' => ['input' => 'string'],
             ],
-            'properties' => ['input']
+            'properties' => ['input' => 'string']
         ],
 
         'Alexa.LockController' => [
@@ -78,15 +78,15 @@ abstract class Relation {
                 'Lock' => [],
                 'Unlock' => [],
             ],
-            'properties' => ['lockState']
+            'properties' => ['lockState' => 'string']
         ],
 
         'Alexa.PercentageController' => [
             'directives' => [
-                'SetPercentage' => ['percentage'],
-                'AdjustPercentage' => ['percentageDelta'],
+                'SetPercentage' => ['percentage' => 'int'],
+                'AdjustPercentage' => ['percentageDelta' => 'int'],
             ],
-            'properties' => ['percentage']
+            'properties' => ['percentage' => 'int']
         ],
 
         'Alexa.PowerController' => [
@@ -94,15 +94,15 @@ abstract class Relation {
                 'TurnOn' => [],
                 'TurnOff' => [],
             ],
-            'properties' => ['powerState']
+            'properties' => ['powerState' => 'string']
         ],
 
         'Alexa.PowerLevelController' => [
             'directives' => [
-                'SetPowerLevel' => ['powerLevel'],
-                'AdjustPowerLevel' => ['powerLevelDelta'],
+                'SetPowerLevel' => ['powerLevel' => 'int'],
+                'AdjustPowerLevel' => ['powerLevelDelta' => 'int'],
             ],
-            'properties' => ['powerLevel']
+            'properties' => ['powerLevel' => 'int']
         ],
 
         'Alexa.SceneController' => [
@@ -111,38 +111,38 @@ abstract class Relation {
                 'Deactivate' => [],
             ],
             'properties' => [],
-            'extraProperties' => ['supportsDeactivation', 'proactivelyReported'],
+            'extraProperties' => ['supportsDeactivation' => 'bool', 'proactivelyReported' => 'bool'],
         ],
 
         'Alexa.Speaker' => [
             'directives' => [
-                'SetVolume' => ['volume'],
-                'AdjustVolume' => ['volume', 'volumeDefault'],
-                'SetMute' => ['mute'],
+                'SetVolume' => ['volume' => 'int'],
+                'AdjustVolume' => ['volume' => 'int', 'volumeDefault' => 'bool'],
+                'SetMute' => ['mute' => 'bool'],
             ],
-            'properties' => ['volume', 'muted']
+            'properties' => ['volume' => 'int', 'muted' => 'bool']
         ],
 
         'Alexa.StepSpeaker' => [
             'directives' => [
-                'AdjustVolume' => ['volumeSteps'],
-                'SetMute' => ['mute'],
+                'AdjustVolume' => ['volumeSteps' => 'int'],
+                'SetMute' => ['mute' => 'bool'],
             ],
             'properties' => []
         ],
 
         'Alexa.TemperatureSensor' => [
             'directives' => [],
-            'properties' => ['temperature']
+            'properties' => ['temperature' => 'Temperature']
         ],
 
         'Alexa.ThermostatController' => [
             'directives' => [
-                'SetTargetTemperature' => ['targetSetpoint', 'lowerSetpoint', 'upperSetpoint'],
-                'AdjustTargetTemperature' => ['targetSetpointDelta'],
-                'SetThermostatMode' => ['thermostatMode'],
+                'SetTargetTemperature' => ['targetSetpoint' => 'Temperature', 'lowerSetpoint' => 'Temperature', 'upperSetpoint' => 'Temperature'],
+                'AdjustTargetTemperature' => ['targetSetpointDelta' => 'Temperature'],
+                'SetThermostatMode' => ['thermostatMode' => 'string'],
             ],
-            'properties' => ['targetSetpoint', 'lowerSetpoint', 'upperSetpoint', 'thermostatMode']
+            'properties' => ['targetSetpoint' => 'Temperature', 'lowerSetpoint' => 'Temperature', 'upperSetpoint' => 'Temperature', 'thermostatMode' => 'string']
         ],
 	];
 

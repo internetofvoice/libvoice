@@ -68,6 +68,14 @@ class CameraStreamConfiguration {
         return new CameraStreamConfiguration();
     }
 
+	/**
+	 * @param  array $data
+	 * @return CameraStreamConfiguration
+	 */
+	public static function createFromArray($data) {
+		return new CameraStreamConfiguration($data);
+	}
+
 
     /**
      * @return array

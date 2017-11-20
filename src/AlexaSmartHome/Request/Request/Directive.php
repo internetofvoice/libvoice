@@ -38,7 +38,7 @@ class Directive {
 		}
 
 		$this->header = new Header($directiveData['header']);
-		$this->payload = new Payload($directiveData['payload']);
+		$this->payload = new Payload($directiveData['payload'], $this->getHeader()->getNamespace(), $this->getHeader()->getName());
 
 		if(isset($directiveData['endpoint'])) {
 			$this->endpoint = new Endpoint($directiveData['endpoint']);

@@ -38,6 +38,23 @@ class Color {
         return new Color();
     }
 
+	/**
+	 * @param  array $data
+	 * @return Color
+	 * @throws InvalidArgumentException
+	 */
+	public static function createFromArray($data) {
+		$hue = isset($data['hue']) ? $data['hue'] : null;
+		$saturation = isset($data['saturation']) ? $data['saturation'] : null;
+		$brightness = isset($data['brightness']) ? $data['brightness'] : null;
+
+		if(is_null($hue) && is_null($saturation) && is_null($brightness)) {
+			throw new InvalidArgumentException('Hue, Saturation and Brightness must be given.');
+		}
+
+		return new Color($hue, $saturation, $brightness);
+	}
+
 
     /**
      * @return float

@@ -44,6 +44,24 @@ class Channel {
         return new Channel();
     }
 
+	/**
+	 * @param  array $data
+	 * @return Channel
+	 * @throws InvalidArgumentException
+	 */
+	public static function createFromArray($data) {
+		$number = isset($data['number']) ? $data['number'] : null;
+		$callSign = isset($data['callSign']) ? $data['callSign'] : null;
+		$affiliateCallSign = isset($data['affiliateCallSign']) ? $data['affiliateCallSign'] : null;
+		$uri = isset($data['uri']) ? $data['uri'] : null;
+
+		if(is_null($number) && is_null($callSign) && is_null($affiliateCallSign) && is_null($uri)) {
+			throw new InvalidArgumentException('Either number, callSign, affiliateCallSign or uri must be given.');
+		}
+
+		return new Channel($number, $callSign, $affiliateCallSign, $uri);
+	}
+
 
     /**
      * @return string

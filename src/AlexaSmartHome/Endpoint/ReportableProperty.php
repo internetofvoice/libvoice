@@ -81,7 +81,7 @@ class ReportableProperty extends Relation {
 	 */
 	public function setName($name) {
 		$properties = $this->getPropertiesFor($this->getNamespace());
-		if(!in_array($name, $properties)) {
+		if(!array_key_exists($name, $properties)) {
 			throw new InvalidArgumentException('Invalid property name: ' . $name);
 		}
 
