@@ -2,7 +2,7 @@
 
 namespace Tests\AlexaSmartHome\Response\Response;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload;
