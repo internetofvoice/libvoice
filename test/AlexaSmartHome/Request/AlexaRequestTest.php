@@ -17,8 +17,8 @@ class AlexaRequestTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testDiscoveryRequest() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryRequest.json'), true);
-		$alexaRequest = new AlexaRequest($fixture);
+		$fixture = file_get_contents(__DIR__ . '/../Fixtures/DiscoveryRequest.json');
+		$alexaRequest = new AlexaRequest($fixture, '', '', false, false);
 
 		// Header
 		$this->assertEquals('Alexa.Discovery', $alexaRequest->getRequest()->getDirective()->getHeader()->getNamespace());
@@ -43,8 +43,8 @@ class AlexaRequestTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testReportStateRequest() {
-		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/ReportStateRequest.json'), true);
-		$alexaRequest = new AlexaRequest($fixture);
+		$fixture = file_get_contents(__DIR__ . '/../Fixtures/ReportStateRequest.json');
+		$alexaRequest = new AlexaRequest($fixture, '', '', false, false);
 
 		// Header
 		$this->assertEquals('Alexa', $alexaRequest->getRequest()->getDirective()->getHeader()->getNamespace());
@@ -70,7 +70,7 @@ class AlexaRequestTest extends TestCase {
 	 */
 	public function testMissingRequest() {
 		$this->expectException(InvalidArgumentException::class);
-		new AlexaRequest(['context' => []]);
+		new AlexaRequest('{"context":[]}', '', '', false, false);
 	}
 
 	/**
@@ -78,6 +78,6 @@ class AlexaRequestTest extends TestCase {
 	 */
 	public function testMissingContext() {
 		$this->expectException(InvalidArgumentException::class);
-		new AlexaRequest(['request' => []]);
+		new AlexaRequest('{"request":[]}', '', '', false, false);
 	}
 }

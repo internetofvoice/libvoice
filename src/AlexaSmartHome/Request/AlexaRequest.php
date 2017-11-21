@@ -22,10 +22,18 @@ class AlexaRequest {
 
 
 	/**
-	 * @param array $data
+	 * @param  string $rawData
+	 * @param  string $signature
+	 * @param  string $signatureKey
+	 * @param  bool   $validateSignature
+	 * @param  bool   $validateTimestamp
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($data) {
+	public function __construct($rawData, $signature = '', $signatureKey = '', $validateSignature = true, $validateTimestamp = true) {
+		$data = json_decode($rawData, true);
+
+		// Validation
+
 		if(!isset($data['request'])) {
 			throw new InvalidArgumentException('Missing request data.');
 		}
