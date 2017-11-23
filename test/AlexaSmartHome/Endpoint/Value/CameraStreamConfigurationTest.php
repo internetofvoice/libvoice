@@ -3,6 +3,7 @@
 namespace Tests\AlexaSmartHome\Endpoint\Value;
 
 use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
+use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Resolution;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -20,7 +21,7 @@ class CameraStreamConfigurationTest extends TestCase {
 	public function testCameraStreamConfigurationCreate() {
         $csConfig = CameraStreamConfiguration::create()
             ->setProtocols(['RTSP'])
-            ->setResolutions([['width' => 1920, 'height' => 1080], ['width' => 1280, 'height' => 720]])
+            ->setResolutions([new Resolution(1920, 1080), new Resolution(1280, 720)])
             ->setAuthorizationTypes(['BASIC'])
             ->setVideoCodecs(['H264', 'MPEG2'])
             ->setAudioCodecs(['G711'])
@@ -38,7 +39,7 @@ class CameraStreamConfigurationTest extends TestCase {
     public function testCameraStreamConfigurationConstructor() {
         $csConfig = new CameraStreamConfiguration([
             'protocols' => ['RTSP'],
-            'resolutions' => [['width' => 1920, 'height' => 1080], ['width' => 1280, 'height' => 720]],
+            'resolutions' => [new Resolution(1920, 1080), new Resolution(1280, 720)],
             'authorizationTypes' => ['BASIC'],
             'videoCodecs' => ['H264', 'MPEG2'],
             'audioCodecs' => ['G711'],

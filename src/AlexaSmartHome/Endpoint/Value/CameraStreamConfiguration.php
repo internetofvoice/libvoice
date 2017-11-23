@@ -14,7 +14,7 @@ class CameraStreamConfiguration {
     /** @var array $protocols */
     protected $protocols = [];
 
-    /** @var array $resolutions */
+    /** @var Resolution[] $resolutions */
     protected $resolutions = [];
 
     /** @var array validAuthorizationTypes */
@@ -108,19 +108,19 @@ class CameraStreamConfiguration {
 
 
     /**
-     * @return array
+     * @return Resolution[]
      */
     public function getResolutions() {
         return $this->resolutions;
     }
 
     /**
-     * @param array $resolutions
+     * @param Resolution[] $resolutions
      * @return CameraStreamConfiguration
      */
     public function setResolutions($resolutions) {
         foreach($resolutions as $resolution) {
-            $this->addResolution($resolution['width'], $resolution['height']);
+            $this->addResolution($resolution->getWidth(), $resolution->getHeight());
         }
 
         return $this;
@@ -132,7 +132,7 @@ class CameraStreamConfiguration {
      * @return CameraStreamConfiguration
      */
     public function addResolution($width, $height) {
-        array_push($this->resolutions, ['width' => $width, 'height' => $height]);
+        array_push($this->resolutions, new Resolution($width, $height));
 
         return $this;
     }
@@ -249,11 +249,17 @@ class CameraStreamConfiguration {
 	public function render() {
 		$rendered = [
             'protocols' => $this->getProtocols(),
-            'resolutions' => $this->getResolutions(),
             'authorizationTypes' => $this->getAuthorizationTypes(),
             'videoCodecs' => $this->getVideoCodecs(),
             'audioCodecs' => $this->getAudioCodecs(),
 		];
+
+		$renderedResolutions = array();
+        foreach($this->getResolutions() as $resolution) {
+            array_push($renderedResolutions, $resolution->render());
+		}
+
+		$rendered['resolutions'] = $renderedResolutions;
 
 		return $rendered;
 	}
