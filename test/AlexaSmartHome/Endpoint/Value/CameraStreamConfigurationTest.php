@@ -2,8 +2,8 @@
 
 namespace Tests\AlexaSmartHome\Endpoint\Value;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Resolution;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Resolution;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -14,8 +14,6 @@ use \PHPUnit\Framework\TestCase;
  */
 class CameraStreamConfigurationTest extends TestCase {
 	/**
-	 * testCameraStreamConfigurationCreate
-	 *
 	 * @group smarthome
 	 */
 	public function testCameraStreamConfigurationCreate() {
@@ -32,8 +30,6 @@ class CameraStreamConfigurationTest extends TestCase {
 	}
 
     /**
-     * testCameraStreamConfigurationConstructor
-     *
      * @group smarthome
      */
     public function testCameraStreamConfigurationConstructor() {
@@ -49,10 +45,7 @@ class CameraStreamConfigurationTest extends TestCase {
         $this->assertEquals($expect, $csConfig->render());
     }
 
-
     /**
-     * testInvalidAuthorizationType
-     *
      * @group smarthome
      */
     public function testInvalidAuthorizationType() {
@@ -61,8 +54,6 @@ class CameraStreamConfigurationTest extends TestCase {
     }
 
     /**
-     * testInvalidVideoCoded
-     *
      * @group smarthome
      */
     public function testInvalidVideoCoded() {
@@ -71,8 +62,6 @@ class CameraStreamConfigurationTest extends TestCase {
     }
 
     /**
-     * testInvalidAudioCodec
-     *
      * @group smarthome
      */
     public function testInvalidAudioCodec() {
