@@ -65,6 +65,23 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('BearerToken', $alexaRequest->getEndpoint()->getScope()->getType());
 	}
 
+    /**
+     * @group smarthome
+     */
+    public function testValidation() {
+        $now = date('Y-m-d H:i:s');
+        $secret = 'PRIVATE_KEY';
+        $fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/ReportStateRequest.json'), true);
+        $fixture['timestamp'] = $now;
+        $data = json_encode($fixture);
+        $signature = hash_hmac('sha512', $data, $secret);
+        $alexaRequest = new AlexaRequest($data, $signature, $secret);
+
+        // Test successful object creation
+        $this->assertEquals('ReportState', $alexaRequest->getHeader()->getName());
+        $this->assertEquals('BearerToken', $alexaRequest->getEndpoint()->getScope()->getType());
+    }
+
 	/**
 	 * @group smarthome
 	 */
