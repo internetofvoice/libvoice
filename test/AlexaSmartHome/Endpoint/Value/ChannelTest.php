@@ -35,6 +35,21 @@ class ChannelTest extends TestCase {
 	}
 
 	/**
+     * @group smarthome
+     */
+    public function testChannelCreateFromArray() {
+        $fixture = [
+            'number' => '1',
+            'callSign' => 'ARD',
+            'affiliateCallSign' => 'WDR',
+            'uri' => 'URI',
+        ];
+
+        $channel = Channel::createFromArray($fixture);
+        $this->assertEquals($fixture, $channel->render());
+    }
+
+	/**
 	 * @group smarthome
 	 */
 	public function testMissingValue() {
@@ -42,4 +57,12 @@ class ChannelTest extends TestCase {
 		$this->expectException(InvalidArgumentException::class);
 		$channel->render();
 	}
+
+    /**
+     * @group smarthome
+     */
+    public function testMissingValueFromArray() {
+        $this->expectException(InvalidArgumentException::class);
+        Channel::createFromArray([]);
+    }
 }

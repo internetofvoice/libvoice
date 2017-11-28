@@ -48,6 +48,22 @@ class CameraStreamConfigurationTest extends TestCase {
     /**
      * @group smarthome
      */
+    public function testCameraStreamConfigurationCreateFromArray() {
+        $csConfig = CameraStreamConfiguration::createFromArray([
+            'protocols' => ['RTSP'],
+            'resolutions' => [new Resolution(1920, 1080), new Resolution(1280, 720)],
+            'authorizationTypes' => ['BASIC'],
+            'videoCodecs' => ['H264', 'MPEG2'],
+            'audioCodecs' => ['G711'],
+        ]);
+
+        $expect = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/CameraStreamConfiguration.json'), true);
+        $this->assertEquals($expect, $csConfig->render());
+    }
+
+    /**
+     * @group smarthome
+     */
     public function testInvalidAuthorizationType() {
         $this->expectException('InvalidArgumentException');
         CameraStreamConfiguration::create()->addAuthorizationType('INVALID');

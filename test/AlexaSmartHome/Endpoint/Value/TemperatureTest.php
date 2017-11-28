@@ -30,6 +30,19 @@ class TemperatureTest extends TestCase {
 		$this->assertEquals($expect, $temperature->render());
 	}
 
+    /**
+     * @group smarthome
+     */
+    public function testTemperatureCreateFromArray() {
+        $fixture = [
+            'value' => 25.0,
+            'scale' => 'CELSIUS',
+        ];
+
+        $temperature = Temperature::createFromArray($fixture);
+        $this->assertEquals($fixture, $temperature->render());
+    }
+
 	/**
 	 * @group smarthome
 	 */
@@ -46,4 +59,12 @@ class TemperatureTest extends TestCase {
 		$this->expectException(InvalidArgumentException::class);
 		$temperature->render();
 	}
+
+    /**
+     * @group smarthome
+     */
+    public function testInvalidCreateFromArray() {
+        $this->expectException(InvalidArgumentException::class);
+        Temperature::createFromArray([]);
+    }
 }
