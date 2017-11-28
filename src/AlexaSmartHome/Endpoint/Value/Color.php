@@ -48,7 +48,7 @@ class Color {
 		$saturation = isset($data['saturation']) ? $data['saturation'] : null;
 		$brightness = isset($data['brightness']) ? $data['brightness'] : null;
 
-		if(is_null($hue) && is_null($saturation) && is_null($brightness)) {
+		if(is_null($hue) or is_null($saturation) or is_null($brightness)) {
 			throw new InvalidArgumentException('Hue, Saturation and Brightness must be given.');
 		}
 
