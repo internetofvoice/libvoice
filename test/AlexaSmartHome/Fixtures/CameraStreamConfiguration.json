@@ -1,0 +1,25 @@
+{
+    "protocols": [
+        "RTSP"
+    ],
+    "resolutions": [
+        {
+            "width": 1920,
+            "height": 1080
+        },
+        {
+            "width": 1280,
+            "height": 720
+        }
+    ],
+    "authorizationTypes": [
+        "BASIC"
+    ],
+    "videoCodecs": [
+        "H264",
+        "MPEG2"
+    ],
+    "audioCodecs": [
+        "G711"
+    ]
+}
