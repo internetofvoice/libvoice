@@ -4,11 +4,12 @@ namespace InternetOfVoice\LibVoice\Alexa\Request;
 
 use \InvalidArgumentException;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
-use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 
 /**
  * Class AlexaRequest
@@ -124,6 +125,11 @@ class AlexaRequest {
 			case 'AudioPlayer.PlaybackStarted':
 				/** @var PlaybackStarted request */
 				$this->request = new PlaybackStarted($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackFailed':
+				/** @var PlaybackFailed request */
+				$this->request = new PlaybackFailed($this->data['request']);
 			break;
 
 			default:

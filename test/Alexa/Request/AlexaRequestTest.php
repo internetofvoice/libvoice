@@ -3,8 +3,9 @@
 namespace Tests\Alexa\Request;
 
 use \InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
-use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
@@ -98,6 +99,24 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('AudioPlayer.PlaybackStarted', $request->getType());
 		$this->assertEquals('token', $request->getToken());
 		$this->assertEquals(1000, $request->getOffsetInMilliseconds());
+	}
+
+	/**
+	 * testAudioPlayerPlaybackFailed
+	 */
+	public function testAudioPlayerPlaybackFailed() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackFailed.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlaybackFailed $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('AudioPlayer.PlaybackFailed', $request->getType());
+		$this->assertEquals('token', $request->getToken());
+		$this->assertEquals('ERROR_TYPE', $request->getError()->type);
+		$this->assertEquals('Error message', $request->getError()->message);
+		$this->assertEquals('token', $request->getCurrentPlaybackState()->getToken());
+		$this->assertEquals('IDLE', $request->getCurrentPlaybackState()->getPlayerActivity());
+		$this->assertEquals(1000, $request->getCurrentPlaybackState()->getOffsetInMilliseconds());
 	}
 
 	/**
