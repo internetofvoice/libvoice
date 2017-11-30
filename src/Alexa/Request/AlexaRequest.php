@@ -12,6 +12,10 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\NextCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PauseCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PlayCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PreviousCommandIssued;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\System\ExceptionEncountered;
 
@@ -149,6 +153,26 @@ class AlexaRequest {
 			case 'AudioPlayer.PlaybackStopped':
 				/** @var PlaybackStopped request */
 				$this->request = new PlaybackStopped($this->data['request']);
+			break;
+
+			case 'PlaybackController.NextCommandIssued':
+				/** @var NextCommandIssued request */
+				$this->request = new NextCommandIssued($this->data['request']);
+			break;
+
+			case 'PlaybackController.PauseCommandIssued':
+				/** @var PauseCommandIssued request */
+				$this->request = new PauseCommandIssued($this->data['request']);
+			break;
+
+			case 'PlaybackController.PlayCommandIssued':
+				/** @var PlayCommandIssued request */
+				$this->request = new PlayCommandIssued($this->data['request']);
+			break;
+
+			case 'PlaybackController.PreviousCommandIssued':
+				/** @var PreviousCommandIssued request */
+				$this->request = new PreviousCommandIssued($this->data['request']);
 			break;
 
 			case 'System.ExceptionEncountered':
