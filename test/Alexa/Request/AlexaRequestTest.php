@@ -4,6 +4,7 @@ namespace Tests\Alexa\Request;
 
 use \InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
@@ -83,6 +84,20 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('ERROR', $request->getReason());
 		$this->assertEquals('INVALID_RESPONSE', $request->getError()->type);
 		$this->assertStringStartsWith('An exception occurred', $request->getError()->message);
+	}
+
+	/**
+	 * testAudioPlayerPlaybackStarted
+	 */
+	public function testAudioPlayerPlaybackStarted() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackStarted.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlaybackStarted $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('AudioPlayer.PlaybackStarted', $request->getType());
+		$this->assertEquals('token', $request->getToken());
+		$this->assertEquals(1000, $request->getOffsetInMilliseconds());
 	}
 
 	/**

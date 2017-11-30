@@ -8,6 +8,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 
 /**
  * Class AlexaRequest
@@ -118,6 +119,11 @@ class AlexaRequest {
 			case 'IntentRequest':
 				/** @var IntentRequest request */
 				$this->request = new IntentRequest($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackStarted':
+				/** @var PlaybackStarted request */
+				$this->request = new PlaybackStarted($this->data['request']);
 			break;
 
 			default:
