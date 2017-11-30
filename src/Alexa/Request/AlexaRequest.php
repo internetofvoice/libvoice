@@ -4,8 +4,11 @@ namespace InternetOfVoice\LibVoice\Alexa\Request;
 
 use \InvalidArgumentException;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
-use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
@@ -122,14 +125,29 @@ class AlexaRequest {
 				$this->request = new IntentRequest($this->data['request']);
 			break;
 
+			case 'AudioPlayer.PlaybackFailed':
+				/** @var PlaybackFailed request */
+				$this->request = new PlaybackFailed($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackFinished':
+				/** @var PlaybackFinished request */
+				$this->request = new PlaybackFinished($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackNearlyFinished':
+				/** @var PlaybackNearlyFinished request */
+				$this->request = new PlaybackNearlyFinished($this->data['request']);
+			break;
+
 			case 'AudioPlayer.PlaybackStarted':
 				/** @var PlaybackStarted request */
 				$this->request = new PlaybackStarted($this->data['request']);
 			break;
 
-			case 'AudioPlayer.PlaybackFailed':
-				/** @var PlaybackFailed request */
-				$this->request = new PlaybackFailed($this->data['request']);
+			case 'AudioPlayer.PlaybackStopped':
+				/** @var PlaybackStopped request */
+				$this->request = new PlaybackStopped($this->data['request']);
 			break;
 
 			default:
