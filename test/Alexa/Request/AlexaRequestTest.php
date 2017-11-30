@@ -6,6 +6,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\System\ExceptionEncountered;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
@@ -117,6 +118,21 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('token', $request->getCurrentPlaybackState()->getToken());
 		$this->assertEquals('IDLE', $request->getCurrentPlaybackState()->getPlayerActivity());
 		$this->assertEquals(1000, $request->getCurrentPlaybackState()->getOffsetInMilliseconds());
+	}
+
+	/**
+	 * testSystemExceptionEncountered
+	 */
+	public function testSystemExceptionEncountered() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/System.ExceptionEncountered.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var ExceptionEncountered $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('System.ExceptionEncountered', $request->getType());
+		$this->assertEquals('ERROR_TYPE', $request->getError()->type);
+		$this->assertEquals('Error message', $request->getError()->message);
+		$this->assertStringStartsWith('amzn1.echo-api.request.', $request->getCause()->requestId);
 	}
 
 	/**

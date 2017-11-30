@@ -13,6 +13,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\System\ExceptionEncountered;
 
 /**
  * Class AlexaRequest
@@ -148,6 +149,11 @@ class AlexaRequest {
 			case 'AudioPlayer.PlaybackStopped':
 				/** @var PlaybackStopped request */
 				$this->request = new PlaybackStopped($this->data['request']);
+			break;
+
+			case 'System.ExceptionEncountered':
+				/** @var ExceptionEncountered request */
+				$this->request = new ExceptionEncountered($this->data['request']);
 			break;
 
 			default:
