@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\AbstractCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDirective;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
 
 class Response {
@@ -15,8 +16,8 @@ class Response {
 	/** @var  Reprompt $reprompt */
 	protected $reprompt;
 
-	// @TODO
-	// protected $directives;
+	/** @var  AbstractDirective[] $directives */
+	protected $directives = [];
 
 	/** @var  bool $shouldEndSession */
 	protected $shouldEndSession;
@@ -77,6 +78,37 @@ class Response {
 	}
 
 	/**
+	 * @return AbstractDirective[]
+	 */
+	public function getDirectives() {
+		return $this->directives;
+	}
+
+	/**
+	 * @param AbstractDirective[] $directives
+	 *
+	 * @return Response
+	 */
+	public function setDirectives($directives) {
+		foreach($directives as $directive) {
+			$this->addDirective($directive);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param AbstractDirective $directive
+	 *
+	 * @return Response
+	 */
+	public function addDirective($directive) {
+		array_push($this->directives, $directive);
+
+		return $this;
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function getShouldEndSession() {
@@ -99,27 +131,29 @@ class Response {
 	 */
 	public function render() {
 		$rendered = array();
-		if (!is_null($this->outputSpeech)) {
+		if(!is_null($this->outputSpeech)) {
 			$rendered['outputSpeech'] = $this->outputSpeech->render();
 
 		}
 
-		if (!is_null($this->card)) {
+		if(!is_null($this->card)) {
 			$rendered['card'] = $this->card->render();
 
 		}
 
-		if (!is_null($this->reprompt)) {
+		if(!is_null($this->reprompt)) {
 			$rendered['reprompt'] = $this->reprompt->render();
 
 		}
 
-		/*
-		 * @TODO
-		if(!is_null($this->directives)) {
-			$rendered['directives'] = $this->directives->render();
+		if(count($this->directives)) {
+			$renderedDirectives = array();
+			foreach($this->directives as $directive) {
+				array_push($renderedDirectives, $directive->render());
+			}
+
+			$rendered['directives'] = $renderedDirectives;
 		}
-		*/
 
 		$rendered['shouldEndSession'] = $this->shouldEndSession;
 
