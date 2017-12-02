@@ -4,10 +4,20 @@ namespace InternetOfVoice\LibVoice\Alexa\Request;
 
 use \InvalidArgumentException;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\NextCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PauseCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PlayCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PreviousCommandIssued;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\System\ExceptionEncountered;
 
 /**
  * Class AlexaRequest
@@ -118,6 +128,56 @@ class AlexaRequest {
 			case 'IntentRequest':
 				/** @var IntentRequest request */
 				$this->request = new IntentRequest($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackFailed':
+				/** @var PlaybackFailed request */
+				$this->request = new PlaybackFailed($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackFinished':
+				/** @var PlaybackFinished request */
+				$this->request = new PlaybackFinished($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackNearlyFinished':
+				/** @var PlaybackNearlyFinished request */
+				$this->request = new PlaybackNearlyFinished($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackStarted':
+				/** @var PlaybackStarted request */
+				$this->request = new PlaybackStarted($this->data['request']);
+			break;
+
+			case 'AudioPlayer.PlaybackStopped':
+				/** @var PlaybackStopped request */
+				$this->request = new PlaybackStopped($this->data['request']);
+			break;
+
+			case 'PlaybackController.NextCommandIssued':
+				/** @var NextCommandIssued request */
+				$this->request = new NextCommandIssued($this->data['request']);
+			break;
+
+			case 'PlaybackController.PauseCommandIssued':
+				/** @var PauseCommandIssued request */
+				$this->request = new PauseCommandIssued($this->data['request']);
+			break;
+
+			case 'PlaybackController.PlayCommandIssued':
+				/** @var PlayCommandIssued request */
+				$this->request = new PlayCommandIssued($this->data['request']);
+			break;
+
+			case 'PlaybackController.PreviousCommandIssued':
+				/** @var PreviousCommandIssued request */
+				$this->request = new PreviousCommandIssued($this->data['request']);
+			break;
+
+			case 'System.ExceptionEncountered':
+				/** @var ExceptionEncountered request */
+				$this->request = new ExceptionEncountered($this->data['request']);
 			break;
 
 			default:
