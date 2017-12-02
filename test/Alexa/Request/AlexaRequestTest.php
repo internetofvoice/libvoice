@@ -4,7 +4,14 @@ namespace Tests\Alexa\Request;
 
 use \InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\NextCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PauseCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PlayCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PreviousCommandIssued;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\System\ExceptionEncountered;
 use \InvalidArgumentException;
@@ -102,7 +109,7 @@ class AlexaRequestTest extends TestCase {
 		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackFinished.json'));
 		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
 
-		/** @var PlaybackStarted $request */
+		/** @var PlaybackFinished $request */
 		$request = $alexaRequest->getRequest();
 		$this->assertEquals('AudioPlayer.PlaybackFinished', $request->getType());
 		$this->assertEquals('token', $request->getToken());
@@ -113,7 +120,7 @@ class AlexaRequestTest extends TestCase {
 		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackNearlyFinished.json'));
 		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
 
-		/** @var PlaybackStarted $request */
+		/** @var PlaybackNearlyFinished $request */
 		$request = $alexaRequest->getRequest();
 		$this->assertEquals('AudioPlayer.PlaybackNearlyFinished', $request->getType());
 		$this->assertEquals('token', $request->getToken());
@@ -135,11 +142,48 @@ class AlexaRequestTest extends TestCase {
 		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackStopped.json'));
 		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
 
-		/** @var PlaybackStarted $request */
+		/** @var PlaybackStopped $request */
 		$request = $alexaRequest->getRequest();
 		$this->assertEquals('AudioPlayer.PlaybackStopped', $request->getType());
 		$this->assertEquals('token', $request->getToken());
 		$this->assertEquals(21874, $request->getOffsetInMilliseconds());
+	}
+
+
+	public function testPlaybackControllerNextCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.NextCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var NextCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.NextCommandIssued', $request->getType());
+	}
+
+	public function testPlaybackControllerPauseCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.PauseCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PauseCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.PauseCommandIssued', $request->getType());
+	}
+
+	public function testPlaybackControllerPlayCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.PlayCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlayCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.PlayCommandIssued', $request->getType());
+	}
+
+	public function testPlaybackControllerPreviousCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.PreviousCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PreviousCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.PreviousCommandIssued', $request->getType());
 	}
 
 
