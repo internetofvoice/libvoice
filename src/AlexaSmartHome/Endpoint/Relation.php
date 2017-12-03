@@ -146,6 +146,15 @@ abstract class Relation {
         ],
 	];
 
+	/** @var array causes */
+	const causes = [
+		'APP_INTERACTION',
+		'PHYSICAL_INTERACTION',
+		'PERIODIC_POLL',
+		'RULE_TRIGGER',
+		'VOICE_INTERACTION'
+	];
+
 
     /**
      * Get API version
@@ -216,5 +225,12 @@ abstract class Relation {
         }
 
         return $interfaceRelation['extraProperties'];
+    }
+
+	/**
+	 * @return array
+	 */
+	public function getCauses() {
+		return self::causes;
     }
 }
