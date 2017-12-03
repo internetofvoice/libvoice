@@ -165,12 +165,23 @@ class ReportableProperty extends Relation {
 		];
 
 		$value = $this->getValue();
-		if(is_object($value)) {
-			$rendered['value'] = $value->render();
-		} else {
-			$rendered['value'] = $value;
-		}
+        if(is_object($value)) {
+            $rendered['value'] = $value->render();
+        } elseif(is_array($value)) {
+            $values = array();
+            foreach($value as $v) {
+                if(is_object($v)) {
+                    array_push($values, $v->render());
+                } else {
+                    array_push($values, $v);
+                }
+            }
 
-		return $rendered;
+            $rendered['value'] = $values;
+        } else {
+            $rendered['value'] = $value;
+        }
+
+        return $rendered;
 	}
 }

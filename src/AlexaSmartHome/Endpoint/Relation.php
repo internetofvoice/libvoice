@@ -33,7 +33,7 @@ abstract class Relation {
             'directives' => [
                 'InitializeCameraStreams' => ['cameraStreamConfigurations' => 'CameraStreamConfigurations'],
             ],
-            'properties' => [],
+            'properties' => ['cameraStreams' => 'CameraStreams'],
             'extraProperties' => ['cameraStreamConfigurations' => 'CameraStreamConfigurations'],
         ],
 
