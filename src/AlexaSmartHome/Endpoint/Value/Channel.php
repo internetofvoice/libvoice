@@ -133,6 +133,7 @@ class Channel {
      * @throws InvalidArgumentException
 	 */
 	public function render() {
+	    $rendered = [];
         $number = $this->getNumber();
         $callSign = $this->getCallSign();
         $affiliateCallSign = $this->getAffiliateCallSign();
@@ -142,12 +143,21 @@ class Channel {
             throw new InvalidArgumentException('Either number, callSign, affiliateCallSign or uri must be given.');
         }
 
-        $rendered = [
-            'number' => $number,
-            'callSign' => $callSign,
-            'affiliateCallSign' => $affiliateCallSign,
-            'uri' => $uri,
-        ];
+        if(!is_null($number)) {
+            $rendered['number'] = $number;
+        }
+
+        if(!is_null($callSign)) {
+            $rendered['callSign'] = $callSign;
+        }
+
+        if(!is_null($affiliateCallSign)) {
+            $rendered['affiliateCallSign'] = $affiliateCallSign;
+        }
+
+        if(!is_null($uri)) {
+            $rendered['uri'] = $uri;
+        }
 
         return $rendered;
 	}
