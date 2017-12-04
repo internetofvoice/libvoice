@@ -31,7 +31,7 @@ abstract class Relation {
 
         'Alexa.CameraStreamController' => [
             'directives' => [
-                'InitializeCameraStreams' => ['cameraStreamConfigurations' => 'CameraStreamConfigurations'],
+                'InitializeCameraStreams' => ['cameraStreams' => 'CameraStreams'],
             ],
             'properties' => ['cameraStreams' => 'CameraStreams'],
             'extraProperties' => ['cameraStreamConfigurations' => 'CameraStreamConfigurations'],
