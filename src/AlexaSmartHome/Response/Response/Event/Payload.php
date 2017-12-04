@@ -28,6 +28,9 @@ class Payload {
 	/** @var string $message */
     protected $message;
 
+	/** @var array $values */
+	protected $values = [];
+
 
 	/**
 	 * @param array $payloadData
@@ -43,6 +46,10 @@ class Payload {
 
 		if(isset($payloadData['message'])) {
 			$this->setMessage($payloadData['message']);
+		}
+
+		if(isset($payloadData['values'])) {
+			$this->setValues($payloadData['values']);
 		}
 	}
 
@@ -117,6 +124,36 @@ class Payload {
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getValues() {
+		return $this->values;
+	}
+
+	/**
+	 * @param array $values
+	 *
+	 * @return Payload
+	 */
+	public function setValues($values) {
+		$this->values = $values;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $key
+	 * @param mixed  $value
+	 *
+	 * @return Payload
+	 */
+	public function addValue($key, $value) {
+		$this->values[$key] = $value;
+
+		return $this;
+	}
+
 
     /**
      * @return  array
@@ -139,6 +176,25 @@ class Payload {
 
 	    if(!is_null($this->getMessage())) {
 		    $rendered['message'] = $this->getMessage();
+	    }
+
+	    foreach($this->getValues() as $key => $value) {
+		    if(is_object($value)) {
+			    $rendered[$key] = $value->render();
+		    } elseif(is_array($value)) {
+			    $values = array();
+			    foreach($value as $v) {
+				    if(is_object($v)) {
+					    array_push($values, $v->render());
+				    } else {
+					    array_push($values, $v);
+				    }
+			    }
+
+			    $rendered[$key] = $values;
+		    } else {
+			    $rendered[$key] = $value;
+		    }
 	    }
 
 	    return $rendered;

@@ -3,10 +3,11 @@
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Relation;
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStream;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Channel;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Color;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Temperature;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\ThermostatMode;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 
 /**
@@ -19,8 +20,8 @@ class Payload extends Relation {
 	/** @var Scope $scope */
 	protected $scope;
 
-	/** @var mixed $value */
-	protected $value;
+	/** @var array $values */
+	protected $values = [];
 
 
 	/**
@@ -35,51 +36,55 @@ class Payload extends Relation {
 
 		// check for possible value
 		if($this->isInterfaceAvailable($headerNamespace)) {
-			$this->extractValue($payloadData, $headerNamespace, $headerName);
+			$this->extractValues($payloadData, $headerNamespace, $headerName);
 		}
 	}
 
-	public function extractValue($payloadData, $interface, $directive) {
+	public function extractValues($payloadData, $interface, $directive) {
 		$directives = $this->getDirectivesFor($interface);
 		if(array_key_exists($directive, $directives)) {
 			$properties = $directives[$directive];
 			foreach($properties as $propertyName => $propertyType) {
 				if(isset($payloadData[$propertyName])) {
 					$value = $payloadData[$propertyName];
-					$type = $propertyType;
+					$type  = $propertyType;
 
 					switch($type) {
 						case 'int':
-							$this->value = intval($value);
+							$this->setValue($propertyName, intval($value));
 						break;
 
 						case 'bool':
-							$this->value = boolval($value);
+							$this->setValue($propertyName, boolval($value));
 						break;
 
 						case 'string':
-							$this->value = strval($value);
+							$this->setValue($propertyName, strval($value));
 						break;
 
 						case 'Channel':
-							$this->value = Channel::createFromArray($value);
+							$this->setValue($propertyName, Channel::createFromArray($value));
 						break;
 
 						case 'Color':
-							$this->value = Color::createFromArray($value);
+							$this->setValue($propertyName, Color::createFromArray($value));
 						break;
 
 						case 'Temperature':
-							$this->value = Temperature::createFromArray($value);
+							$this->setValue($propertyName, Temperature::createFromArray($value));
 						break;
 
-						case 'CameraStreamConfigurations':
+						case 'ThermostatMode':
+							$this->setValue($propertyName, ThermostatMode::createFromArray($value));
+						break;
+
+						case 'CameraStreams':
 							$configurations = array();
 							foreach($value as $v) {
-								array_push($configurations, CameraStreamConfiguration::createFromArray($v));
+								array_push($configurations, CameraStream::createFromArray($v));
 							}
 
-							$this->value = $configurations;
+							$this->setValue($propertyName, $configurations);
 						break;
 					}
 				}
@@ -95,9 +100,28 @@ class Payload extends Relation {
 	}
 
 	/**
+	 * @param string $key
+	 * @param mixed  $value
+	 * @return Payload
+	 */
+	protected function setValue($key, $value) {
+		$this->values[$key] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @param  string $key
 	 * @return mixed
 	 */
-	public function getValue() {
-		return $this->value;
+	public function getValue($key) {
+		return isset($this->values[$key]) ? $this->values[$key] : null;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getValues() {
+		return $this->values;
 	}
 }
