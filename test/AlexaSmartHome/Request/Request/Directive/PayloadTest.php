@@ -32,7 +32,9 @@ class PayloadTest extends TestCase {
         $payload->extractValues(['input' => 'AUX'], 'Alexa.InputController', 'SelectInput');
         $this->assertEquals('AUX', $payload->getValue('input'));
 
-        $value = ['channel' => ['number' => 15]];
+		$this->assertEquals(['brightness' => 20, 'mute' => true, 'input' => 'AUX'], $payload->getValues());
+
+		$value = ['channel' => ['number' => 15]];
         $payload->extractValues($value, 'Alexa.ChannelController', 'ChangeChannel');
         $this->assertEquals(15, $payload->getValue('channel')->getNumber());
 

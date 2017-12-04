@@ -7,6 +7,7 @@ use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStream;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Channel;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Color;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Temperature;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\ThermostatMode;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 
 /**
@@ -73,6 +74,10 @@ class Payload extends Relation {
 							$this->setValue($propertyName, Temperature::createFromArray($value));
 						break;
 
+						case 'ThermostatMode':
+							$this->setValue($propertyName, ThermostatMode::createFromArray($value));
+						break;
+
 						case 'CameraStreams':
 							$configurations = array();
 							foreach($value as $v) {
@@ -110,7 +115,7 @@ class Payload extends Relation {
 	 * @return mixed
 	 */
 	public function getValue($key) {
-		return $this->values[$key];
+		return isset($this->values[$key]) ? $this->values[$key] : null;
 	}
 
 	/**

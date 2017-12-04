@@ -140,7 +140,7 @@ abstract class Relation {
             'directives' => [
                 'SetTargetTemperature' => ['targetSetpoint' => 'Temperature', 'lowerSetpoint' => 'Temperature', 'upperSetpoint' => 'Temperature'],
                 'AdjustTargetTemperature' => ['targetSetpointDelta' => 'Temperature'],
-                'SetThermostatMode' => ['thermostatMode' => 'string'],
+                'SetThermostatMode' => ['thermostatMode' => 'ThermostatMode'],
             ],
             'properties' => ['targetSetpoint' => 'Temperature', 'lowerSetpoint' => 'Temperature', 'upperSetpoint' => 'Temperature', 'thermostatMode' => 'string']
         ],
