@@ -46,6 +46,10 @@ class PayloadTest extends TestCase {
         $payload->extractValues($value, 'Alexa.ThermostatController', 'AdjustTargetTemperature');
         $this->assertEquals(25, $payload->getValue('targetSetpointDelta')->getValue());
 
+		$value = ['thermostatMode' => ['value' => 'CUSTOM', 'customName' => 'My Name']];
+		$payload->extractValues($value, 'Alexa.ThermostatController', 'SetThermostatMode');
+		$this->assertEquals('My Name', $payload->getValue('thermostatMode')->getCustomName());
+
         $value = ['cameraStreams' => [['protocol' => ['Protocol']]]];
         $payload->extractValues($value, 'Alexa.CameraStreamController', 'InitializeCameraStreams');
 

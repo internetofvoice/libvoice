@@ -3,6 +3,8 @@
 namespace Tests\AlexaSmartHome\Response\Response\Event;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Color;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Temperature;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
@@ -37,12 +39,13 @@ class PayloadTest extends TestCase {
 	 */
 	public function testPayloadConstruct() {
 		$endpoint = new Endpoint();
-		$payload  = new Payload(['endpoints' => [$endpoint], 'type' => 'type', 'message' => 'message']);
+		$payload  = new Payload(['endpoints' => [$endpoint], 'type' => 'type', 'message' => 'message', 'values' => ['value' => 1]]);
 
 		$expect = [
 			'endpoints' => [['endpointId' => null]],
 			'type' => 'type',
 			'message' => 'message',
+			'value' => 1,
 		];
 
 		$this->assertEquals($expect, $payload->render());
@@ -59,5 +62,38 @@ class PayloadTest extends TestCase {
 
 		$this->expectException(InvalidArgumentException::class);
 		$payload->addEndpoint(new Endpoint());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testValues() {
+		$payload = new Payload();
+		$payload->setValues(['brightness' => 50]);
+		$payload->addValue('array', [1, 2, 3]);
+		$payload->addValue('temperature', new Temperature(20, 'CELSIUS'));
+		$payload->addValue('colors', [new Color(), new Color()]);
+
+		$expect = [
+			'brightness' => 50,
+			'array' => [1, 2, 3],
+			'temperature' => [
+				'value' => 20,
+				'scale' => 'CELSIUS'
+			],
+			'colors' => [
+				[
+					'hue' => 0.0,
+					'saturation' => 0.0,
+					'brightness' => 0.0
+				], [
+					'hue' => 0.0,
+					'saturation' => 0.0,
+					'brightness' => 0.0
+				]
+			]
+		];
+
+		$this->assertEquals($expect, $payload->render());
 	}
 }
