@@ -3,7 +3,17 @@
 namespace Tests\Alexa\Request;
 
 use \InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\NextCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PauseCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PlayCommandIssued;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PreviousCommandIssued;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\SessionEndedRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\System\ExceptionEncountered;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
@@ -14,9 +24,6 @@ use \PHPUnit\Framework\TestCase;
  * @license http://opensource.org/licenses/MIT
  */
 class AlexaRequestTest extends TestCase {
-	/**
-	 * testIntentRequest
-	 */
 	public function testIntentRequest() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
@@ -47,9 +54,6 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent', get_class($alexaRequest->getIntent()));
 	}
 
-	/**
-	 * testSessionEndedRequest
-	 */
 	public function testSessionEndedRequest() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/SessionEndedRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/SessionEndedRequest-Body.txt'));
@@ -85,9 +89,117 @@ class AlexaRequestTest extends TestCase {
 		$this->assertStringStartsWith('An exception occurred', $request->getError()->message);
 	}
 
-	/**
-	 * testInvalidApplicationId
-	 */
+
+	public function testAudioPlayerPlaybackFailed() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackFailed.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlaybackFailed $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('AudioPlayer.PlaybackFailed', $request->getType());
+		$this->assertEquals('token', $request->getToken());
+		$this->assertEquals('ERROR_TYPE', $request->getError()->type);
+		$this->assertEquals('Error message', $request->getError()->message);
+		$this->assertEquals('token', $request->getCurrentPlaybackState()->getToken());
+		$this->assertEquals('IDLE', $request->getCurrentPlaybackState()->getPlayerActivity());
+		$this->assertEquals(1000, $request->getCurrentPlaybackState()->getOffsetInMilliseconds());
+	}
+
+	public function testAudioPlayerPlaybackFinished() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackFinished.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlaybackFinished $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('AudioPlayer.PlaybackFinished', $request->getType());
+		$this->assertEquals('token', $request->getToken());
+		$this->assertEquals(1000, $request->getOffsetInMilliseconds());
+	}
+
+	public function testAudioPlayerPlaybackNearlyFinished() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackNearlyFinished.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlaybackNearlyFinished $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('AudioPlayer.PlaybackNearlyFinished', $request->getType());
+		$this->assertEquals('token', $request->getToken());
+		$this->assertEquals(1000, $request->getOffsetInMilliseconds());
+	}
+
+	public function testAudioPlayerPlaybackStarted() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackStarted.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlaybackStarted $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('AudioPlayer.PlaybackStarted', $request->getType());
+		$this->assertEquals('token', $request->getToken());
+		$this->assertEquals(1000, $request->getOffsetInMilliseconds());
+	}
+
+	public function testAudioPlayerPlaybackStopped() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/AudioPlayer.PlaybackStopped.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlaybackStopped $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('AudioPlayer.PlaybackStopped', $request->getType());
+		$this->assertEquals('token', $request->getToken());
+		$this->assertEquals(21874, $request->getOffsetInMilliseconds());
+	}
+
+
+	public function testPlaybackControllerNextCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.NextCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var NextCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.NextCommandIssued', $request->getType());
+	}
+
+	public function testPlaybackControllerPauseCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.PauseCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PauseCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.PauseCommandIssued', $request->getType());
+	}
+
+	public function testPlaybackControllerPlayCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.PlayCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PlayCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.PlayCommandIssued', $request->getType());
+	}
+
+	public function testPlaybackControllerPreviousCommandIssued() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/PlaybackController.PreviousCommandIssued.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var PreviousCommandIssued $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('PlaybackController.PreviousCommandIssued', $request->getType());
+	}
+
+
+	public function testSystemExceptionEncountered() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/System.ExceptionEncountered.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var ExceptionEncountered $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('System.ExceptionEncountered', $request->getType());
+		$this->assertEquals('ERROR_TYPE', $request->getError()->type);
+		$this->assertEquals('Error message', $request->getError()->message);
+		$this->assertStringStartsWith('amzn1.echo-api.request.', $request->getCause()->requestId);
+	}
+
+
 	public function testInvalidApplicationId() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
@@ -103,9 +215,6 @@ class AlexaRequestTest extends TestCase {
 		);
 	}
 
-	/**
-	 * testInvalidApplicationId2
-	 */
 	public function testInvalidApplicationId2() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
@@ -121,9 +230,6 @@ class AlexaRequestTest extends TestCase {
 		);
 	}
 
-	/**
-	 * testInvalidSignature
-	 */
 	public function testInvalidSignature() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
@@ -138,9 +244,6 @@ class AlexaRequestTest extends TestCase {
 		);
 	}
 
-	/**
-	 * testInvalidSignedBody
-	 */
 	public function testInvalidSignedBody() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 
@@ -155,9 +258,6 @@ class AlexaRequestTest extends TestCase {
 		);
 	}
 
-	/**
-	 * testInvalidTimestamp
-	 */
 	public function testInvalidTimestamp() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
@@ -172,9 +272,6 @@ class AlexaRequestTest extends TestCase {
 		);
 	}
 
-	/**
-	 * testContext
-	 */
 	public function testContext() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));
@@ -195,9 +292,6 @@ class AlexaRequestTest extends TestCase {
 		);
 	}
 
-	/**
-	 * testMissingSessionAndContext
-	 */
 	public function testMissingSessionAndContext() {
 		$fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
 		$fixtureBody   = trim(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'));

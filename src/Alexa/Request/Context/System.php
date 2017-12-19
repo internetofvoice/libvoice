@@ -25,6 +25,10 @@ class System {
 	/** @var string $apiEndpoint */
 	protected $apiEndpoint;
 
+	/** @var string $apiEndpoint */
+	protected $apiAccessToken;
+
+
 	/**
 	 * @param array $systemData
 	 */
@@ -43,6 +47,10 @@ class System {
 
 		if (isset($systemData['apiEndpoint'])) {
 			$this->apiEndpoint = $systemData['apiEndpoint'];
+		}
+
+		if (isset($systemData['apiAccessToken'])) {
+			$this->apiAccessToken = $systemData['apiAccessToken'];
 		}
 	}
 
@@ -73,5 +81,12 @@ class System {
 	 */
 	public function getApiEndpoint() {
 		return $this->apiEndpoint;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getApiAccessToken() {
+		return $this->apiAccessToken;
 	}
 }

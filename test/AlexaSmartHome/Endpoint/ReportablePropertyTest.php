@@ -26,7 +26,6 @@ class ReportablePropertyTest extends TestCase {
 			'value' => 'ON',
 			'timeOfSample' => '2017-01-01T00:00:00+01:00',
 			'uncertaintyInMilliseconds' => 1000,
-
 		];
 
 		$this->assertEquals($expect, $property->render());
@@ -39,6 +38,14 @@ class ReportablePropertyTest extends TestCase {
 		$property->setValue(new Temperature(20, 'CELSIUS'));
 		$rendered = $property->render();
 		$this->assertEquals('CELSIUS', $rendered['value']['scale']);
+
+		$property->setValue([new Temperature(20, 'CELSIUS')]);
+		$rendered = $property->render();
+		$this->assertEquals('CELSIUS', $rendered['value'][0]['scale']);
+
+		$property->setValue([10, 20, 30]);
+		$rendered = $property->render();
+		$this->assertEquals(20, $rendered['value'][1]);
 	}
 
 	/**

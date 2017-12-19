@@ -262,13 +262,16 @@ class CameraStream {
         $rendered = [
             'uri' => $this->getUri(),
             'expirationTime' => $this->getExpirationTimeAsString(),
-            'idleTimeoutSeconds' => $this->getIdleTimeoutSeconds(),
             'protocol' => $this->getProtocol(),
             'resolution' => $this->getResolution()->render(),
             'authorizationType' => $this->getAuthorizationType(),
             'videoCodec' => $this->getVideoCodec(),
             'audioCodec' => $this->getAudioCodec(),
         ];
+
+        if($this->getIdleTimeoutSeconds()) {
+	        $rendered['idleTimeoutSeconds'] = $this->getIdleTimeoutSeconds();
+        }
 
         return $rendered;
     }

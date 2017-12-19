@@ -2,7 +2,7 @@
 
 namespace Tests\AlexaSmartHome\Request\Request\Directive;
 
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStream;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload;
 use \PHPUnit\Framework\TestCase;
 
@@ -23,31 +23,38 @@ class PayloadTest extends TestCase {
 		$this->assertEquals('BearerToken', $payload->getScope()->getType());
         $this->assertEquals('access-token-send-by-skill', $payload->getScope()->getToken());
 
-        $payload->extractValue(['brightness' => 20], 'Alexa.BrightnessController', 'SetBrightness');
-        $this->assertEquals(20, $payload->getValue());
+        $payload->extractValues(['brightness' => 20], 'Alexa.BrightnessController', 'SetBrightness');
+        $this->assertEquals(20, $payload->getValue('brightness'));
 
-        $payload->extractValue(['mute' => true], 'Alexa.Speaker', 'SetMute');
-        $this->assertEquals(true, $payload->getValue());
+        $payload->extractValues(['mute' => true], 'Alexa.Speaker', 'SetMute');
+        $this->assertEquals(true, $payload->getValue('mute'));
 
-        $payload->extractValue(['input' => 'AUX'], 'Alexa.InputController', 'SelectInput');
-        $this->assertEquals('AUX', $payload->getValue());
+        $payload->extractValues(['input' => 'AUX'], 'Alexa.InputController', 'SelectInput');
+        $this->assertEquals('AUX', $payload->getValue('input'));
 
-        $value = ['channel' => ['number' => 15]];
-        $payload->extractValue($value, 'Alexa.ChannelController', 'ChangeChannel');
-        $this->assertEquals(15, $payload->getValue()->getNumber());
+		$this->assertEquals(['brightness' => 20, 'mute' => true, 'input' => 'AUX'], $payload->getValues());
+
+		$value = ['channel' => ['number' => 15]];
+        $payload->extractValues($value, 'Alexa.ChannelController', 'ChangeChannel');
+        $this->assertEquals(15, $payload->getValue('channel')->getNumber());
 
         $value = ['color' => ['hue' => 180, 'saturation' => 1, 'brightness' => 1]];
-        $payload->extractValue($value, 'Alexa.ColorController', 'SetColor');
-        $this->assertEquals(180, $payload->getValue()->getHue());
+        $payload->extractValues($value, 'Alexa.ColorController', 'SetColor');
+        $this->assertEquals(180, $payload->getValue('color')->getHue());
 
         $value = ['targetSetpointDelta' => ['value' => 25, 'scale' => 'CELSIUS']];
-        $payload->extractValue($value, 'Alexa.ThermostatController', 'AdjustTargetTemperature');
-        $this->assertEquals(25, $payload->getValue()->getValue());
+        $payload->extractValues($value, 'Alexa.ThermostatController', 'AdjustTargetTemperature');
+        $this->assertEquals(25, $payload->getValue('targetSetpointDelta')->getValue());
 
-        $value = ['cameraStreamConfigurations' => [['protocols' => ['Protocol']]]];
-        $payload->extractValue($value, 'Alexa.CameraStreamController', 'InitializeCameraStreams');
-        /** @var CameraStreamConfiguration $config */
-        $config = $payload->getValue()[0];
-        $this->assertEquals(['Protocol'], $config->getProtocols());
+		$value = ['thermostatMode' => ['value' => 'CUSTOM', 'customName' => 'My Name']];
+		$payload->extractValues($value, 'Alexa.ThermostatController', 'SetThermostatMode');
+		$this->assertEquals('My Name', $payload->getValue('thermostatMode')->getCustomName());
+
+        $value = ['cameraStreams' => [['protocol' => ['Protocol']]]];
+        $payload->extractValues($value, 'Alexa.CameraStreamController', 'InitializeCameraStreams');
+
+        /** @var CameraStream $config */
+        $config = $payload->getValue('cameraStreams')[0];
+        $this->assertEquals(['Protocol'], $config->getProtocol());
 	}
 }

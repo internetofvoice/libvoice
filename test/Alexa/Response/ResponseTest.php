@@ -5,6 +5,7 @@ namespace Tests\Alexa\Response;
 use \InternetOfVoice\LibVoice\Alexa\Response\Response;
 use \InternetOfVoice\LibVoice\Alexa\Response\Reprompt;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Stop;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
 use \PHPUnit\Framework\TestCase;
 
@@ -23,6 +24,8 @@ class ResponseTest extends TestCase {
 		$response->setOutputSpeech(new PlainText('Speech'));
 		$response->setCard(new SimpleCard('Title', 'Content'));
 		$response->setReprompt(new Reprompt('PlainText', 'Reprompt'));
+		$response->setDirectives([new Stop()]);
+		$response->addDirective(new Stop());
 		$response->setShouldEndSession(true);
 
 		/** @var PlainText $outputSpeech */
@@ -37,9 +40,11 @@ class ResponseTest extends TestCase {
 		$outputSpeech = $response->getReprompt()->getOutputSpeech();
 		$this->assertEquals('Reprompt', $outputSpeech->getText());
 
+		$this->assertEquals('AudioPlayer.Stop', $response->getDirectives()[0]->getType());
+
 		$this->assertTrue($response->getShouldEndSession());
 
-		$expect = '{"outputSpeech":{"type":"PlainText","text":"Speech"},"card":{"type":"Simple","title":"Title","content":"Content"},"reprompt":{"outputSpeech":{"type":"PlainText","text":"Reprompt"}},"shouldEndSession":true}';
+		$expect = '{"outputSpeech":{"type":"PlainText","text":"Speech"},"card":{"type":"Simple","title":"Title","content":"Content"},"reprompt":{"outputSpeech":{"type":"PlainText","text":"Reprompt"}},"directives":[{"type":"AudioPlayer.Stop"},{"type":"AudioPlayer.Stop"}],"shouldEndSession":true}';
 		$this->assertEquals($expect, json_encode($response->render()));
 	}
 }
