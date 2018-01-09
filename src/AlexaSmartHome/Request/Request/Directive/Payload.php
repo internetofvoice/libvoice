@@ -8,6 +8,8 @@ use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Channel;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Color;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Temperature;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\ThermostatMode;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Grant;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Grantee;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 
 /**
@@ -22,6 +24,12 @@ class Payload extends Relation {
 
 	/** @var array $values */
 	protected $values = [];
+
+	/** @var Grant $grant */
+	protected $grant;
+
+	/** @var Grantee $grantee */
+	protected $grantee;
 
 
 	/**
@@ -38,8 +46,21 @@ class Payload extends Relation {
 		if($this->isInterfaceAvailable($headerNamespace)) {
 			$this->extractValues($payloadData, $headerNamespace, $headerName);
 		}
+
+		if(isset($payloadData['grant'])) {
+			$this->grant = new Grant($payloadData['grant']);
+		}
+
+		if(isset($payloadData['grantee'])) {
+			$this->grantee = new Grantee($payloadData['grantee']);
+		}
 	}
 
+	/**
+	 * @param array  $payloadData
+	 * @param string $interface
+	 * @param string $directive
+	 */
 	public function extractValues($payloadData, $interface, $directive) {
 		$directives = $this->getDirectivesFor($interface);
 		if(array_key_exists($directive, $directives)) {
@@ -123,5 +144,19 @@ class Payload extends Relation {
 	 */
 	public function getValues() {
 		return $this->values;
+	}
+
+	/**
+	 * @return Grant
+	 */
+	public function getGrant() {
+		return $this->grant;
+	}
+
+	/**
+	 * @return Grantee
+	 */
+	public function getGrantee() {
+		return $this->grantee;
 	}
 }

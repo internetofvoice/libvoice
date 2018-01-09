@@ -34,10 +34,25 @@ class AlexaRequestTest extends TestCase {
         // Context
         $this->assertEquals('ReConSkillAdapter', $alexaRequest->getContext()->getData()['functionName']);
 
+        // Timestamp
+        $this->assertEquals('2018-01-09 11:28:06', $alexaRequest->getTimestampAsString('Y-m-d H:i:s'));
+
         // Test shortcuts
         $this->assertEquals('Alexa.Discovery', $alexaRequest->getHeader()->getNamespace());
         $this->assertEquals('BearerToken', $alexaRequest->getPayload()->getScope()->getType());
 	}
+
+    /**
+     * @group smarthome
+     */
+    public function testInvalidTimestamp() {
+        $fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/DiscoveryRequest.json'), true);
+        $fixture['timestamp'] = 'SOME_RANDOM_STRING';
+        $alexaRequest = new AlexaRequest(json_encode($fixture), '', '', false, false);
+
+        // Timestamp
+        $this->assertNull($alexaRequest->getTimestamp());
+    }
 
 	/**
 	 * @group smarthome

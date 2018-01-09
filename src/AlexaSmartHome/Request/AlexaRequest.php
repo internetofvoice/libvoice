@@ -2,7 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
+use \DateTime;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload;
 use \InvalidArgumentException;
@@ -19,6 +20,9 @@ class AlexaRequest {
 
 	/** @var Context $context */
 	protected $context;
+
+    /** @var DateTime $timestamp */
+	protected $timestamp;
 
 
 	/**
@@ -50,6 +54,14 @@ class AlexaRequest {
 
 		$this->request = new Request($data['request']);
 		$this->context = new Context($data['context']);
+
+        if(isset($data['timestamp'])) {
+            try {
+                $this->timestamp = new DateTime($data['timestamp']);
+            } catch(\Exception $e) {
+                $this->timestamp = null;
+            }
+     	}
 	}
 
 
@@ -66,6 +78,21 @@ class AlexaRequest {
 	public function getContext() {
 		return $this->context;
 	}
+
+    /**
+     * @return DateTime
+     */
+    public function getTimestamp() {
+        return $this->timestamp;
+    }
+
+    /**
+     * @param  string  $format  see http://php.net/manual/de/function.date.php#refsect1-function.date-parameters
+     * @return string
+     */
+    public function getTimestampAsString($format = 'c') {
+        return $this->getTimestamp()->format($format);
+    }
 
 
     /**

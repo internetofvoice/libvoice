@@ -26,5 +26,6 @@
         "invokeid": "fb8e97f2-ba6c-11e7-bda1-4d1d785e7422",
         "awsRequestId": "fb8e97f2-ba6c-11e7-bda1-4d1d785e7422",
         "invokedFunctionArn": "arn:aws:lambda:eu-west-1:642812539401:function:ReConSkillAdapter"
-    }
+    },
+    "timestamp": "2018-01-09T11:28:06.478Z"
 }
