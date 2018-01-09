@@ -57,4 +57,21 @@ class PayloadTest extends TestCase {
         $config = $payload->getValue('cameraStreams')[0];
         $this->assertEquals(['Protocol'], $config->getProtocol());
 	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testPayloadWithGrants() {
+		$fixture = [
+			'grant' => ['type' => 'OAuth2.AuthorizationCode', 'code' => 'my_secret'],
+			'grantee' => ['type' => 'BearerToken', 'token' => 'my_token'],
+		];
+
+		$payload = new Payload($fixture);
+
+		$this->assertEquals('OAuth2.AuthorizationCode', $payload->getGrant()->getType());
+		$this->assertEquals('my_secret', $payload->getGrant()->getCode());
+		$this->assertEquals('BearerToken', $payload->getGrantee()->getType());
+		$this->assertEquals('my_token', $payload->getGrantee()->getToken());
+	}
 }

@@ -2,6 +2,8 @@
 
 namespace Tests\AlexaSmartHome\Scope;
 
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Grant;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Grantee;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 use \PHPUnit\Framework\TestCase;
 
@@ -28,5 +30,41 @@ class ScopeTest extends TestCase {
 		];
 
 		$this->assertEquals($expect, $scope->render());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testGrant() {
+		$fixture = ['type' => 'OAuth2.AuthorizationCode', 'code' => 'my_secret'];
+		$grant   = new Grant($fixture);
+
+		$this->assertEquals('OAuth2.AuthorizationCode', $grant->getType());
+		$this->assertEquals('my_secret', $grant->getCode());
+
+		$expect = [
+			'type' => 'OAuth2.AuthorizationCode',
+			'code' => 'my_secret',
+		];
+
+		$this->assertEquals($expect, $grant->render());
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testGrantee() {
+		$fixture = ['type' => 'BearerToken', 'token' => 'my_token'];
+		$grantee = new Grantee($fixture);
+
+		$this->assertEquals('BearerToken', $grantee->getType());
+		$this->assertEquals('my_token', $grantee->getToken());
+
+		$expect = [
+			'type' => 'BearerToken',
+			'token' => 'my_token',
+		];
+
+		$this->assertEquals($expect, $grantee->render());
 	}
 }

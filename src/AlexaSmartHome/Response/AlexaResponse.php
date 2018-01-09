@@ -81,6 +81,17 @@ class AlexaResponse {
                 );
             break;
 
+		    case 'Authorization':
+			    $return = new AlexaResponse(
+				    new Response(
+					    new Event(
+						    new Header(),
+						    new Payload()
+					    )
+				    )
+			    );
+		    break;
+
 		    case 'Error':
 			    $return = new AlexaResponse(
 				    new Response(
