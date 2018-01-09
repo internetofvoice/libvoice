@@ -2,6 +2,13 @@
 
 Changes are documented in reverse chronological order.
 
+## Version 1.2.1 (2018-01-09)
+* Alexa Smart Home Skill API
+    * Add Authorization template 
+    * Add Grant and Grantee to Payload 
+    * Add timestamp to AlexaRequest
+
+
 ## Version 1.2.0 (2017-12-19)
 * Add AudioPlayer.* requests
 * Add PlaybackController.* requests
