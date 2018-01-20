@@ -18,7 +18,9 @@ class Slot {
 	/** @var string $confirmationStatus */
 	protected $confirmationStatus;
 
-	//@ TODO resolutions
+	/** @var Resolutions $resolutions */
+	protected $resolutions;
+
 
 	/**
 	 * @param   array $slotData
@@ -26,12 +28,16 @@ class Slot {
 	public function __construct($slotData) {
 		$this->name = $slotData['name'];
 
-		if (isset($slotData['value'])) {
+		if(isset($slotData['value'])) {
 			$this->value = $slotData['value'];
 		}
 
-		if (isset($slotData['confirmationStatus'])) {
+		if(isset($slotData['confirmationStatus'])) {
 			$this->confirmationStatus = $slotData['confirmationStatus'];
+		}
+
+		if(isset($slotData['resolutions'])) {
+			$this->resolutions = new Resolutions($slotData['resolutions']);
 		}
 	}
 
@@ -55,5 +61,12 @@ class Slot {
 	 */
 	public function getConfirmationStatus() {
 		return $this->confirmationStatus;
+	}
+
+	/**
+	 * @return Resolutions
+	 */
+	public function getResolutions() {
+		return $this->resolutions;
 	}
 }

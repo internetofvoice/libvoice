@@ -13,6 +13,9 @@ use \PHPUnit\Framework\TestCase;
  * @license http://opensource.org/licenses/MIT
  */
 class VideoAppTest extends TestCase {
+	/**
+	 * @group custom-skill
+	 */
 	public function testVideoItem() {
 		$videoItem = new VideoItem('https://example.com', 'Title', 'Subtitle');
 		$expect = [
@@ -26,6 +29,9 @@ class VideoAppTest extends TestCase {
 		$this->assertEquals($expect, $videoItem->render());
 	}
 
+	/**
+	 * @group custom-skill
+	 */
 	public function testLaunch() {
 		$launch = new Launch(new VideoItem('https://example.com', 'Title', 'Subtitle'));
 		$expect = [

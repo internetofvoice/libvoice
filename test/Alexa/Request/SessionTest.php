@@ -13,7 +13,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class SessionTest extends TestCase {
 	/**
-	 * testSession
+	 * @group custom-skill
 	 */
 	public function testSession() {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'), true);

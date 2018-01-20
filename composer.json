@@ -30,6 +30,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
+        "test-custom-skill": "vendor/bin/phpunit --group custom-skill",
         "test-smarthome": "vendor/bin/phpunit --group smarthome"
     }
 }

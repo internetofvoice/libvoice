@@ -14,7 +14,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class OutputSpeechTest extends TestCase {
 	/**
-	 * testPlainText
+	 * @group custom-skill
 	 */
 	public function testPlainText() {
 		$speech = new PlainText('Text');
@@ -28,7 +28,7 @@ class OutputSpeechTest extends TestCase {
 	}
 
 	/**
-	 * testSSML
+	 * @group custom-skill
 	 */
 	public function testSSML() {
 		$speech = new SSML('Text');

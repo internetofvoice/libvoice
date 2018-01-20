@@ -16,7 +16,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class CardTest extends TestCase {
 	/**
-	 * testLinkAccount
+	 * @group custom-skill
 	 */
 	public function testLinkAccount() {
 		$card = new LinkAccount();
@@ -26,7 +26,7 @@ class CardTest extends TestCase {
 	}
 
 	/**
-	 * testSimpleCard
+	 * @group custom-skill
 	 */
 	public function testSimpleCard() {
 		$card = new SimpleCard('Title', 'Content');
@@ -41,7 +41,7 @@ class CardTest extends TestCase {
 	}
 
 	/**
-	 * testStandardCard
+	 * @group custom-skill
 	 */
 	public function testStandardCard() {
 		$card = new StandardCard('Title', 'Text', 'link1', 'link2');
@@ -66,7 +66,7 @@ class CardTest extends TestCase {
 	}
 
 	/**
-	 * testStandardCardException
+	 * @group custom-skill
 	 */
 	public function testStandardCardException() {
 		$long = str_repeat('x', 10000);

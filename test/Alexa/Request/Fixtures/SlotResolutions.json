@@ -1,0 +1,29 @@
+{
+    "name": "unit",
+    "value": "st\u00fcck",
+    "resolutions": {
+        "resolutionsPerAuthority": [
+            {
+                "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.6a2fe56f-251d-4f1b-9eb8-80aec8b44eb1.UNITS",
+                "status": {
+                    "code": "ER_SUCCESS_MATCH"
+                },
+                "values": [
+                    {
+                        "value": {
+                            "name": "St\u00fcck",
+                            "id": "93ef9aa6537da8aed9d768b7a360b817"
+                        }
+                    },
+                    {
+                        "value": {
+                            "name": "St\u00fccke",
+                            "id": "bf0949eefdb8c318010e1c7aac16bd1c"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "confirmationStatus": "NONE"
+}

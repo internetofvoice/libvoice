@@ -17,7 +17,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class ResponseTest extends TestCase {
 	/**
-	 * testResponse
+	 * @group custom-skill
 	 */
 	public function testResponse() {
 		$response = new Response();

@@ -17,6 +17,9 @@ use \PHPUnit\Framework\TestCase;
  * @license http://opensource.org/licenses/MIT
  */
 class AudioPlayerTest extends TestCase {
+	/**
+	 * @group custom-skill
+	 */
 	public function testStream() {
 		$stream = new Stream('https://example.com', 'token1', 'token2', 1000);
 		$expect = [
@@ -29,6 +32,9 @@ class AudioPlayerTest extends TestCase {
 		$this->assertEquals($expect, $stream->render());
 	}
 
+	/**
+	 * @group custom-skill
+	 */
 	public function testAudioItem() {
 		$audioItem = new AudioItem(new Stream('https://example.com', 'token1', 'token2', 1000));
 		$expect = [
@@ -43,6 +49,9 @@ class AudioPlayerTest extends TestCase {
 		$this->assertEquals($expect, $audioItem->render());
 	}
 
+	/**
+	 * @group custom-skill
+	 */
 	public function testPlay() {
 		$audioItem = new AudioItem(new Stream('https://example.com', 'token1', 'token2', 1000));
 		$play = new Play('REPLACE_ALL', $audioItem);
@@ -65,6 +74,9 @@ class AudioPlayerTest extends TestCase {
 		$play->setPlayBehavior('NON_EXISTENT_PLAY_BEHAVIOR');
 	}
 
+	/**
+	 * @group custom-skill
+	 */
 	public function testStop() {
 		$stop = new Stop();
 		$expect = [
@@ -74,6 +86,9 @@ class AudioPlayerTest extends TestCase {
 		$this->assertEquals($expect, $stop->render());
 	}
 
+	/**
+	 * @group custom-skill
+	 */
 	public function testClearQueue() {
 		$clearQueue = new ClearQueue('CLEAR_ENQUEUED');
 		$expect = [

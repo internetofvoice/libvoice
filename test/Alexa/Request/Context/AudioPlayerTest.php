@@ -13,7 +13,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class AudioPlayerTest extends TestCase {
 	/**
-	 * testAudioPlayer
+	 * @group custom-skill
 	 */
 	public function testAudioPlayer() {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/IntentRequest-Body.txt'), true);
