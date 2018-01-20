@@ -2,10 +2,14 @@
 
 Changes are documented in reverse chronological order.
 
+## Version 1.2.2 (2018-01-20)
+* Add Resolutions to IntentRequest slots
+* Add Display to Request Context
+
 ## Version 1.2.1 (2018-01-09)
 * Alexa Smart Home Skill API
-    * Add Authorization template 
-    * Add Grant and Grantee to Payload 
+    * Add Authorization template
+    * Add Grant and Grantee to Payload
     * Add timestamp to AlexaRequest
 
 
