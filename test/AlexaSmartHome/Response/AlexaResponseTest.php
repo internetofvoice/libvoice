@@ -100,6 +100,28 @@ class AlexaResponseTest extends TestCase {
 	/**
 	 * @group smarthome
 	 */
+	public function testAlexaResponseAuthorizationTemplate() {
+		$alexaResponse = AlexaResponse::create('Authorization');
+		$expect = [
+			'response' => [
+				'event' => [
+					'header' => [
+						'namespace' => 'Alexa',
+						'name' => null,
+						'payloadVersion' => '3',
+						'messageId' => null,
+					],
+					'payload' => [],
+				]
+			],
+		];
+
+		$this->assertEquals($expect, $alexaResponse->render());
+	}
+
+	/**
+	 * @group smarthome
+	 */
 	public function testAlexaResponseErrorTemplate() {
 		$alexaResponse = AlexaResponse::create('Error');
 		$expect = [
