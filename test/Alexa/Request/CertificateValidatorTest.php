@@ -14,7 +14,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class CertificateValidatorTest extends TestCase {
 	/**
-	 * testCertificateValidator
+	 * @group custom-skill
 	 */
 	public function testCertificateValidator() {
         $fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
@@ -33,36 +33,36 @@ class CertificateValidatorTest extends TestCase {
         $validator->validateRequest($fixtureBody);
 	}
 
-    /**
-     * testSignatureCertificateURLProtocol
-     */
+	/**
+	 * @group custom-skill
+	 */
     public function testSignatureCertificateURLProtocol() {
         $validator = new CertificateValidator('http://www.example.com', 'SIGNATURE');
         $this->expectException(InvalidArgumentException::class);
         $validator->verifySignatureCertificateURL();
     }
 
-    /**
-     * testSignatureCertificateURLHost
-     */
+	/**
+	 * @group custom-skill
+	 */
     public function testSignatureCertificateURLHost() {
         $validator = new CertificateValidator('https://www.example.com', 'SIGNATURE');
         $this->expectException(InvalidArgumentException::class);
         $validator->verifySignatureCertificateURL();
     }
 
-    /**
-     * testSignatureCertificateURLPath
-     */
+	/**
+	 * @group custom-skill
+	 */
     public function testSignatureCertificateURLPath() {
         $validator = new CertificateValidator('https://s3.amazonaws.com:443/path', 'SIGNATURE');
         $this->expectException(InvalidArgumentException::class);
         $validator->verifySignatureCertificateURL();
     }
 
-    /**
-     * testSignatureCertificateURLPort
-     */
+	/**
+	 * @group custom-skill
+	 */
     public function testSignatureCertificateURLPort() {
         $validator = new CertificateValidator('https://s3.amazonaws.com:80/echo.api/', 'SIGNATURE');
         $this->expectException(InvalidArgumentException::class);

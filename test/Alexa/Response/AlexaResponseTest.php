@@ -13,7 +13,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class AlexaResponseTest extends TestCase {
 	/**
-	 * testAlexaResponse
+	 * @group custom-skill
 	 */
 	public function testAlexaResponse() {
 		$response = new AlexaResponse();

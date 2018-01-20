@@ -13,7 +13,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class LaunchRequestTest extends TestCase {
 	/**
-	 * testLaunchRequest
+	 * @group custom-skill
 	 */
 	public function testLaunchRequest() {
 		$fixture = [

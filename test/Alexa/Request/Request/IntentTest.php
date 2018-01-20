@@ -13,7 +13,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class IntentTest extends TestCase {
 	/**
-	 * testIntent
+	 * @group custom-skill
 	 */
 	public function testIntent() {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/IntentRequest2-Body.txt'), true);
@@ -55,7 +55,7 @@ class IntentTest extends TestCase {
 	}
 
 	/**
-	 * testNoSlots
+	 * @group custom-skill
 	 */
 	public function testNoSlots() {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/IntentRequest2-Body.txt'), true);

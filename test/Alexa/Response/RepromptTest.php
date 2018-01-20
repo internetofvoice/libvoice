@@ -14,7 +14,7 @@ use \PHPUnit\Framework\TestCase;
  */
 class RepromptTest extends TestCase {
 	/**
-	 * testReprompt
+	 * @group custom-skill
 	 */
 	public function testReprompt() {
 		$reprompt = new Reprompt('PlainText', 'Text');
