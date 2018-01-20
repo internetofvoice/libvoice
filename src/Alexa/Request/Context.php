@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
 use \InternetOfVoice\LibVoice\Alexa\Request\Context\AudioPlayer;
+use \InternetOfVoice\LibVoice\Alexa\Request\Context\Display;
 use \InternetOfVoice\LibVoice\Alexa\Request\Context\System;
 
 /**
@@ -15,6 +16,9 @@ class Context {
 	/** @var AudioPlayer $audioPlayer */
 	protected $audioPlayer;
 
+	/** @var Display $display */
+	protected $display;
+
 	/** @var System $system */
 	protected $system;
 
@@ -23,11 +27,15 @@ class Context {
 	 * @param array $contextData
 	 */
 	public function __construct($contextData) {
-		if (isset($contextData['AudioPlayer'])) {
+		if(isset($contextData['AudioPlayer'])) {
 			$this->audioPlayer = new AudioPlayer($contextData['AudioPlayer']);
 		}
 
-		if (isset($contextData['System'])) {
+		if(isset($contextData['Display'])) {
+			$this->display = new Display($contextData['Display']);
+		}
+
+		if(isset($contextData['System'])) {
 			$this->system = new System($contextData['System']);
 		}
 	}
@@ -38,6 +46,13 @@ class Context {
 	 */
 	public function getAudioPlayer() {
 		return $this->audioPlayer;
+	}
+
+	/**
+	 * @return Display
+	 */
+	public function getDisplay() {
+		return $this->display;
 	}
 
 	/**
