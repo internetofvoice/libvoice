@@ -69,7 +69,7 @@ class CameraStreamTest extends TestCase {
 
         $expect = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/CameraStream.json'), true);
         $this->assertEquals($expect, $cameraStream->render());
-        $this->assertEquals(new DateTime('2017-02-03 16:20:50'), $cameraStream->getExpirationTime());
+        $this->assertEquals(new DateTime('2017-02-03 16:20:50+01:00'), $cameraStream->getExpirationTime());
     }
 
     /**
