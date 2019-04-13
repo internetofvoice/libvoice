@@ -39,7 +39,7 @@ class CameraStreamTest extends TestCase {
     public function testCameraStreamConstructor() {
         $cameraStream = new CameraStream([
             'uri' => 'rtsp://username:password@link.to.video:443/feed1.mp4',
-            'expirationTime' => '2017-02-03 16:20:50',
+            'expirationTime' => '2017-02-03 16:20:50+01:00',
             'idleTimeoutSeconds' => 30,
             'protocol' => 'RTSP',
             'resolution' => ['width' => 1920, 'height' => 1080],
@@ -58,7 +58,7 @@ class CameraStreamTest extends TestCase {
     public function testCameraStreamCreateFromArray() {
         $cameraStream = CameraStream::createFromArray([
             'uri' => 'rtsp://username:password@link.to.video:443/feed1.mp4',
-            'expirationTime' => '2017-02-03 16:20:50',
+            'expirationTime' => '2017-02-03 16:20:50+01:00',
             'idleTimeoutSeconds' => 30,
             'protocol' => 'RTSP',
             'resolution' => ['width' => 1920, 'height' => 1080],
