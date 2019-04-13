@@ -2,6 +2,7 @@
 
 namespace Tests\AlexaSmartHome\Endpoint;
 
+use \DateTime;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\ReportableProperty;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Temperature;
 use \InvalidArgumentException;
@@ -18,7 +19,7 @@ class ReportablePropertyTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testReportableProperty() {
-		$property = new ReportableProperty('Alexa.PowerController', 'powerState', 'ON', new \DateTime('2017-01-01 00:00:00'), 1000);
+		$property = new ReportableProperty('Alexa.PowerController', 'powerState', 'ON', new DateTime('2017-01-01 00:00:00+01:00'), 1000);
 
 		$expect = [
 			'namespace' => 'Alexa.PowerController',
@@ -31,7 +32,7 @@ class ReportablePropertyTest extends TestCase {
 		$this->assertEquals($expect, $property->render());
 		$this->assertEquals('Alexa.PowerController', $property->getNamespace());
 		$this->assertEquals('powerState', $property->getName());
-		$this->assertEquals(new \DateTime('2017-01-01 00:00:00'), $property->getTimeOfSample());
+		$this->assertEquals(new DateTime('2017-01-01 00:00:00+01:00'), $property->getTimeOfSample());
 		$this->assertEquals('2017-01-01T00:00:00+01:00', $property->getTimeOfSampleAsString());
 		$this->assertEquals(1000, $property->getUncertaintyInMilliseconds());
 
