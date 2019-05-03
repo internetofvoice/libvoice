@@ -10,6 +10,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\GameEngine\InputHandlerEvent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
@@ -118,6 +119,7 @@ class AlexaRequest {
 		}
 
 		switch ($this->data['request']['type']) {
+			// Standard requests
 			case 'LaunchRequest':
 				/** @var LaunchRequest request */
 				$this->request = new LaunchRequest($this->data['request']);
@@ -133,6 +135,7 @@ class AlexaRequest {
 				$this->request = new IntentRequest($this->data['request']);
 			break;
 
+			// AudioPlayer requests
 			case 'AudioPlayer.PlaybackFailed':
 				/** @var PlaybackFailed request */
 				$this->request = new PlaybackFailed($this->data['request']);
@@ -158,6 +161,13 @@ class AlexaRequest {
 				$this->request = new PlaybackStopped($this->data['request']);
 			break;
 
+			// GameEngine requests
+			case 'GameEngine.InputHandlerEvent':
+				/** @var InputHandlerEvent request */
+				$this->request = new InputHandlerEvent($this->data['request']);
+			break;
+
+			// PlaybackController requests
 			case 'PlaybackController.NextCommandIssued':
 				/** @var NextCommandIssued request */
 				$this->request = new NextCommandIssued($this->data['request']);

@@ -9,6 +9,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\GameEngine\InputHandlerEvent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\NextCommandIssued;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PauseCommandIssued;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PlayCommandIssued;
@@ -57,6 +58,14 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('InternetOfVoice\LibVoice\Alexa\Request\User', get_class($alexaRequest->getUser()));
 		$this->assertStringStartsWith('amzn1.ask.account.', $alexaRequest->getUser()->getUserId());
 		$this->assertEquals('InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent', get_class($alexaRequest->getIntent()));
+
+		// Test invalid timestamp
+		$json = json_decode($fixtureBody, true);
+		$json['request']['timestamp'] = 'NOT-A-TIMESTAMP';
+		$alexaRequest = new AlexaRequest(json_encode($json), ['amzn1.ask.skill.e5427198-b2de-4f89-ac18-b54a4877927f'], '', '', false, false);
+		/** @var InputHandlerEvent $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertNull($request->getTimestamp());
 	}
 
 	/**
@@ -96,6 +105,40 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('ERROR', $request->getReason());
 		$this->assertEquals('INVALID_RESPONSE', $request->getError()->getType());
 		$this->assertStringStartsWith('An exception occurred', $request->getError()->getMessage());
+	}
+
+	/**
+	 * @group  custom-skill
+	 * @throws Exception
+	 */
+	public function testGameEngineInputHandlerEvent() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/GameEngine.InputHandlerEvent.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var InputHandlerEvent $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('GameEngine.InputHandlerEvent', $request->getType());
+		$this->assertEquals('amzn1.echo-api.request.789', $request->getOriginatingRequestId());
+
+		// Test Events
+		$event = $request->getEvents()[0];
+		$this->assertEquals('myEventName', $event->getName());
+
+		// Test InputEvents
+		$inputEvent = $event->getInputEvents()[0];
+		$this->assertEquals('someGadgetId1', $inputEvent->getGadgetId());
+		$this->assertEquals('2017-08-18 01:32:40', $inputEvent->getTimestamp()->format('Y-m-d H:i:s'));
+		$this->assertEquals('down', $inputEvent->getAction());
+		$this->assertEquals('press', $inputEvent->getFeature());
+		$this->assertEquals('FF0000', $inputEvent->getColor());
+
+		// Test invalid timestamp
+		$json = json_decode($fixtureBody, true);
+		$json['request']['events'][0]['inputEvents'][0]['timestamp'] = 'NOT-A-TIMESTAMP';
+		$alexaRequest = new AlexaRequest(json_encode($json), ['amzn1.ask.skill.123'], '', '', false, false);
+		/** @var InputHandlerEvent $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertNull($request->getEvents()[0]->getInputEvents()[0]->getTimestamp());
 	}
 
 	/**
