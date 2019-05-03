@@ -94,7 +94,7 @@ class AlexaResponseTest extends TestCase {
 		$property = new ReportableProperty('Alexa.BrightnessController', 'brightness', 100, $time);
 		$context  = new Context([$property]);
 		$alexaResponse->setContext($context);
-		$this->assertContains('BrightnessController', json_encode($alexaResponse->render()));
+		$this->assertStringContainsString('BrightnessController', json_encode($alexaResponse->render()));
 	}
 
 	/**
