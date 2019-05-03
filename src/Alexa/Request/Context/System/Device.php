@@ -2,8 +2,6 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Context\System;
 
-use \stdClass;
-
 /**
  * Class Device
  *
@@ -14,7 +12,7 @@ class Device {
 	/** @var string $deviceId */
 	protected $deviceId;
 
-	/** @var stdClass $supportedInterfaces */
+	/** @var array $supportedInterfaces */
 	protected $supportedInterfaces;
 
 
@@ -27,7 +25,7 @@ class Device {
 		}
 
 		if (isset($deviceData['supportedInterfaces'])) {
-			$this->supportedInterfaces = json_decode(json_encode($deviceData['supportedInterfaces']));
+			$this->supportedInterfaces = $deviceData['supportedInterfaces'];
 		}
 	}
 
@@ -40,7 +38,7 @@ class Device {
 	}
 
 	/**
-	 * @return stdClass
+	 * @return array
 	 */
 	public function getSupportedInterfaces() {
 		return $this->supportedInterfaces;

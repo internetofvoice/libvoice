@@ -19,6 +19,6 @@ class DeviceTest extends TestCase {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/IntentRequest-Body.txt'), true);
 		$device = new Device($fixture['context']['System']['device']);
 		$this->assertStringStartsWith('amzn1.ask.device.', $device->getDeviceId());
-        $this->assertObjectHasAttribute('AudioPlayer', $device->getSupportedInterfaces());
+        $this->assertArrayHasKey('AudioPlayer', $device->getSupportedInterfaces());
 	}
 }
