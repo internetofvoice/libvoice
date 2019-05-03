@@ -2,6 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
+use \Exception;
 use \InvalidArgumentException;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
@@ -47,8 +48,10 @@ class AlexaRequest {
 	 * @param array  $validAppIds
 	 * @param string $signatureCertChainUrl
 	 * @param string $signature
-	 * @param bool   $checkTimestamp        please see comment on Certificate Validation below
-	 * @param bool   $checkCertificate      please see comment on Certificate Validation below
+	 * @param bool   $checkTimestamp   please see comment on Certificate Validation below
+	 * @param bool   $checkCertificate please see comment on Certificate Validation below
+	 *
+	 * @throws Exception
 	 */
 	public function __construct(
 	    $rawData,
