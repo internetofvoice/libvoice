@@ -20,7 +20,7 @@ class LinkAccount extends AbstractCard {
 	 */
 	public function render() {
 		return [
-			'type' => $this->type,
+			'type' => $this->getType(),
 		];
 	}
 }
