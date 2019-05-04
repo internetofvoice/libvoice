@@ -2,7 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent as AskForPermissionsConsentCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount as LinkAccountCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
@@ -112,12 +113,25 @@ class AlexaResponse {
 	}
 
 	/**
-	 * Shortcut to Response->setCard(LinkAccount)
+	 * Shortcut to Response->setCard(AskForPermissionsConsentCard)
+	 *
+	 * @param array $permissions
+	 *
+	 * @return AlexaResponse
+	 */
+	public function withAskForPermissionsConsentCard($permissions) {
+		$this->getResponse()->setCard(new AskForPermissionsConsentCard($permissions));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut to Response->setCard(LinkAccountCard)
 	 *
 	 * @return AlexaResponse
 	 */
 	public function withLinkAccount() {
-		$this->getResponse()->setCard(new LinkAccount());
+		$this->getResponse()->setCard(new LinkAccountCard());
 
 		return $this;
 	}
