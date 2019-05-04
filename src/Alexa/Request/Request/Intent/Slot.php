@@ -18,6 +18,9 @@ class Slot {
 	/** @var string $confirmationStatus */
 	protected $confirmationStatus;
 
+	/** @var string $source */
+	protected $source;
+
 	/** @var Resolutions $resolutions */
 	protected $resolutions;
 
@@ -34,6 +37,10 @@ class Slot {
 
 		if(isset($slotData['confirmationStatus'])) {
 			$this->confirmationStatus = $slotData['confirmationStatus'];
+		}
+
+		if(isset($slotData['source'])) {
+			$this->source = $slotData['source'];
 		}
 
 		if(isset($slotData['resolutions'])) {
@@ -61,6 +68,13 @@ class Slot {
 	 */
 	public function getConfirmationStatus() {
 		return $this->confirmationStatus;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSource() {
+		return $this->source;
 	}
 
 	/**
