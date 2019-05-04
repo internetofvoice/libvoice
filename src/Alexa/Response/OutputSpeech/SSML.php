@@ -46,9 +46,15 @@ class SSML extends AbstractOutputSpeech {
 	 * @return array
 	 */
 	function render() {
-		return [
-			'type' => $this->type,
-			'ssml' => $this->ssml,
+		$result = [
+			'type' => $this->getType(),
+			'ssml' => $this->getSSML(),
 		];
+
+		if($playBehavior = $this->getPlayBehavior()) {
+			$result['playBehavior'] = $playBehavior;
+		}
+
+		return $result;
 	}
 }

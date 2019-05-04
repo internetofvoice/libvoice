@@ -46,9 +46,15 @@ class PlainText extends AbstractOutputSpeech {
 	 * @return array
 	 */
 	function render() {
-		return [
-			'type' => $this->type,
-			'text' => $this->text,
+		$result = [
+			'type' => $this->getType(),
+			'text' => $this->getText(),
 		];
+
+		if($playBehavior = $this->getPlayBehavior()) {
+			$result['playBehavior'] = $playBehavior;
+		}
+
+		return $result;
 	}
 }

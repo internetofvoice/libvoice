@@ -57,6 +57,19 @@ class AlexaResponse {
 	}
 
 	/**
+	 * Shortcut to Response->OutputSpeech->setPlayBehavior
+	 *
+	 * @param string $playBehavior
+	 *
+	 * @return AlexaResponse
+	 */
+	public function setPlayBehavior($playBehavior) {
+		$this->getResponse()->getOutputSpeech()->setPlayBehavior($playBehavior);
+
+		return $this;
+	}
+
+	/**
 	 * Alias for $this->withSimpleCard()
 	 *
 	 * @param string $title

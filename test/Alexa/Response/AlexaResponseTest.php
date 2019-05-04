@@ -22,9 +22,21 @@ class AlexaResponseTest extends TestCase {
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText';
 		$this->assertEquals($expect, get_class($response->getResponse()->getOutputSpeech()));
 
+		$response->setPlayBehavior('REPLACE_ALL');
+		$this->assertEquals('REPLACE_ALL', $response->getResponse()->getOutputSpeech()->getPlayBehavior());
+		$expect = [
+			'type' => 'PlainText',
+			'text' => 'Text-Output',
+			'playBehavior' => 'REPLACE_ALL'
+		];
+		$this->assertEquals($expect, $response->getResponse()->getOutputSpeech()->render());
+
 		$response->respondSSML('SSML-Output');
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML';
 		$this->assertEquals($expect, get_class($response->getResponse()->getOutputSpeech()));
+
+		$response->setPlayBehavior('ENQUEUE');
+		$this->assertEquals('ENQUEUE', $response->getResponse()->getOutputSpeech()->getPlayBehavior());
 
 		$response->withLinkAccount();
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount';
@@ -74,7 +86,8 @@ class AlexaResponseTest extends TestCase {
 			'response' => [
 				'outputSpeech' => [
 					'type' => 'SSML',
-					'ssml' => 'SSML-Output'
+					'ssml' => 'SSML-Output',
+					'playBehavior' => 'ENQUEUE'
 				],
 				'card' => [
 					'type' => 'Standard',

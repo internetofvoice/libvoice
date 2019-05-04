@@ -14,6 +14,9 @@ abstract class AbstractOutputSpeech {
 	/** @var string $type */
 	protected $type;
 
+	/** @var string $type */
+	protected $playBehavior;
+
 
 	public function __construct() {
 	}
@@ -24,6 +27,22 @@ abstract class AbstractOutputSpeech {
 	 */
 	public function getType() {
 		return $this->type;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPlayBehavior() {
+		return $this->playBehavior;
+	}
+
+	/**
+	 * @param string $playBehavior
+	 */
+	public function setPlayBehavior($playBehavior) {
+		if(in_array($playBehavior, ['ENQUEUE', 'REPLACE_ALL', 'REPLACE_ENQUEUED'])) {
+			$this->playBehavior = $playBehavior;
+		}
 	}
 
 	/**
