@@ -12,6 +12,9 @@ class AudioItem {
 	/** @var Stream $stream */
 	protected $stream;
 
+	/** @var Metadata $metadata */
+	protected $metadata;
+
 
 	/**
 	 * @param Stream $stream
@@ -39,13 +42,37 @@ class AudioItem {
 		return $this;
 	}
 
+	/**
+	 * @return Metadata
+	 */
+	public function getMetadata() {
+		return $this->metadata;
+	}
+
+	/**
+	 * @param  Metadata $metadata
+	 *
+	 * @return AudioItem
+	 */
+	public function setMetadata($metadata) {
+		$this->metadata = $metadata;
+
+		return $this;
+	}
+
 
 	/**
 	 * @return array
 	 */
 	public function render() {
-		return [
+		$result = [
 			'stream' => $this->getStream()->render(),
 		];
+
+		if($this->getMetadata()) {
+			$result['metadata'] = $this->getMetadata()->render();
+		}
+
+		return $result;
 	}
 }

@@ -41,7 +41,6 @@ class ClearQueue extends AbstractDirective {
 	 * @param string $clearBehavior
 	 *
 	 * @return ClearQueue
-	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function setClearBehavior($clearBehavior) {
@@ -60,7 +59,7 @@ class ClearQueue extends AbstractDirective {
 	 */
 	public function render() {
 		return [
-			'type' => $this->getType(),
+			'type'          => $this->getType(),
 			'clearBehavior' => $this->getClearBehavior(),
 		];
 	}
