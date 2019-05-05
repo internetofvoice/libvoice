@@ -5,6 +5,7 @@ namespace InternetOfVoice\LibVoice\Alexa\Request;
 use \InternetOfVoice\LibVoice\Alexa\Request\Context\AudioPlayer;
 use \InternetOfVoice\LibVoice\Alexa\Request\Context\Display;
 use \InternetOfVoice\LibVoice\Alexa\Request\Context\System;
+use \InternetOfVoice\LibVoice\Alexa\Request\Context\Viewport;
 
 /**
  * Class Context
@@ -22,6 +23,9 @@ class Context {
 	/** @var System $system */
 	protected $system;
 
+	/** @var Viewport $viewport */
+	protected $viewport;
+
 
 	/**
 	 * @param array $contextData
@@ -37,6 +41,10 @@ class Context {
 
 		if(isset($contextData['System'])) {
 			$this->system = new System($contextData['System']);
+		}
+
+		if(isset($contextData['Viewport'])) {
+			$this->viewport = new Viewport($contextData['Viewport']);
 		}
 	}
 
@@ -60,6 +68,13 @@ class Context {
 	 */
 	public function getSystem() {
 		return $this->system;
+	}
+
+	/**
+	 * @return Viewport
+	 */
+	public function getViewport() {
+		return $this->viewport;
 	}
 }
 
