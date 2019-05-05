@@ -71,6 +71,10 @@ class AlexaResponseTest extends TestCase {
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML';
 		$this->assertEquals($expect, get_class($response->getResponse()->getReprompt()->getOutputSpeech()));
 
+		$response->canFulfill('YES');
+		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\CanFulfill\CanFulfillIntent';
+		$this->assertEquals($expect, get_class($response->getResponse()->getCanFulfillIntent()));
+
 		$response->endSession(true);
 		$this->assertTrue($response->getResponse()->getShouldEndSession());
 
@@ -110,6 +114,9 @@ class AlexaResponseTest extends TestCase {
 						'type' => 'SSML',
 						'ssml' => 'SSML-Reprompt'
 					]
+				],
+				'canFulfillIntent' => [
+					'canFulfill' => 'YES'
 				],
 				'shouldEndSession' => true
 			]
