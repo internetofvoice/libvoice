@@ -1,0 +1,31 @@
+{
+    "request": {
+        "type": "CanFulfillIntentRequest",
+        "requestId": "amzn1.echo-api.request.123",
+        "intent": {
+            "name": "PlaySound",
+            "slots": {
+                "Sound": {
+                    "name": "Sound",
+                    "value": "crickets"
+                }
+            }
+        },
+        "locale": "en-US",
+        "timestamp": "2019-05-05T17:23:48Z"
+    },
+    "context": {
+        "System": {
+            "application": {
+                "applicationId": "amzn1.ask.skill.123"
+            },
+            "user": {
+                "userId": "amzn1.ask.account.123"
+            },
+            "device": {
+                "supportedInterfaces": {}
+            }
+        }
+    },
+    "version": "1.0"
+}
