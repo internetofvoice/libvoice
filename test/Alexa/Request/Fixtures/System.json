@@ -1,0 +1,26 @@
+{
+    "application": {
+        "applicationId": "amzn1.ask.skill.123"
+    },
+    "user": {
+        "userId": "amzn1.ask.account.123",
+        "accessToken": "123"
+    },
+    "device": {
+        "deviceId": "amzn1.ask.device.123",
+        "supportedInterfaces": {
+            "Alexa.Camera.PhotoCaptureController": [],
+            "Alexa.Camera.VideoCaptureController": [],
+            "Alexa.Presentation.APL": {
+                "runtime": {
+                    "maxVersion": "1.0"
+                }
+            },
+            "AudioPlayer": {},
+            "Display": {},
+            "Geolocation": {},
+            "VideoApp": {}
+        }
+    },
+    "apiEndpoint": "https://api.eu.amazonalexa.com"
+}

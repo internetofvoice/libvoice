@@ -28,6 +28,31 @@ class System {
 	/** @var string $apiEndpoint */
 	protected $apiAccessToken;
 
+	/** @var bool $supportsAlexaCameraPhotoCaptureController */
+	protected $supportsAlexaCameraPhotoCaptureController = false;
+
+	/** @var bool $supportsAlexaCameraVideoCaptureController */
+	protected $supportsAlexaCameraVideoCaptureController = false;
+
+	/** @var bool $supportsAlexaPresentationAPL */
+	protected $supportsAlexaPresentationAPL = false;
+
+	/** @var bool $supportsAudioPlayer */
+	protected $supportsAudioPlayer = false;
+
+	/** @var bool $supportsDisplay */
+	protected $supportsDisplay = false;
+
+	/** @var bool $supportsGeolocation */
+	protected $supportsGeolocation = false;
+
+	/** @var bool $supportsVideoApp */
+	protected $supportsVideoApp = false;
+
+	// $supportsPlaybackController?
+	// $supportsGadgetController?
+	// $supportsGameEngine?
+
 
 	/**
 	 * @param array $systemData
@@ -43,6 +68,34 @@ class System {
 
 		if (isset($systemData['device'])) {
 			$this->device = new Device($systemData['device']);
+
+			if(isset($this->device->getSupportedInterfaces()['Alexa.Camera.PhotoCaptureController'])) {
+				$this->supportsAlexaCameraPhotoCaptureController = true;
+			}
+
+			if(isset($this->device->getSupportedInterfaces()['Alexa.Camera.VideoCaptureController'])) {
+				$this->supportsAlexaCameraVideoCaptureController = true;
+			}
+
+			if(isset($this->device->getSupportedInterfaces()['Alexa.Presentation.APL'])) {
+				$this->supportsAlexaPresentationAPL = true;
+			}
+
+			if(isset($this->device->getSupportedInterfaces()['AudioPlayer'])) {
+				$this->supportsAudioPlayer = true;
+			}
+
+			if(isset($this->device->getSupportedInterfaces()['Display'])) {
+				$this->supportsDisplay = true;
+			}
+
+			if(isset($this->device->getSupportedInterfaces()['Geolocation'])) {
+				$this->supportsGeolocation = true;
+			}
+
+			if(isset($this->device->getSupportedInterfaces()['VideoApp'])) {
+				$this->supportsVideoApp = true;
+			}
 		}
 
 		if (isset($systemData['apiEndpoint'])) {
@@ -89,4 +142,54 @@ class System {
 	public function getApiAccessToken() {
 		return $this->apiAccessToken;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsAlexaCameraPhotoCaptureController() {
+		return $this->supportsAlexaCameraPhotoCaptureController;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsAlexaCameraVideoCaptureController() {
+		return $this->supportsAlexaCameraVideoCaptureController;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsAlexaPresentationAPL() {
+		return $this->supportsAlexaPresentationAPL;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsAudioPlayer() {
+		return $this->supportsAudioPlayer;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsDisplay() {
+		return $this->supportsDisplay;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsGeolocation() {
+		return $this->supportsGeolocation;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsVideoApp() {
+		return $this->supportsVideoApp;
+	}
+
 }
