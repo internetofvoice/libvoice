@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request\Intent;
 
+use \InvalidArgumentException;
+
 /**
  * Class Slot
  *
@@ -9,6 +11,8 @@ namespace InternetOfVoice\LibVoice\Alexa\Request\Request\Intent;
  * @license http://opensource.org/licenses/MIT
  */
 class Slot {
+	const VALID_CONFIRMATION_STATUS = ['NONE', 'CONFIRMED', 'DENIED'];
+
 	/** @var string $name */
 	protected $name;
 
@@ -26,10 +30,12 @@ class Slot {
 
 
 	/**
-	 * @param   array $slotData
+	 * @param array $slotData
 	 */
-	public function __construct($slotData) {
-		$this->name = $slotData['name'];
+	public function __construct($slotData = []) {
+		if(isset($slotData['name'])) {
+			$this->name = $slotData['name'];
+		}
 
 		if(isset($slotData['value'])) {
 			$this->value = $slotData['value'];
@@ -57,10 +63,32 @@ class Slot {
 	}
 
 	/**
+	 * @param  string $name
+	 *
+	 * @return Slot
+	 */
+	public function setName($name) {
+		$this->name = $name;
+
+		return $this;
+	}
+
+	/**
 	 * @return mixed
 	 */
 	public function getValue() {
 		return $this->value;
+	}
+
+	/**
+	 * @param  mixed $value
+	 *
+	 * @return Slot
+	 */
+	public function setValue($value) {
+		$this->value = $value;
+
+		return $this;
 	}
 
 	/**
@@ -71,6 +99,22 @@ class Slot {
 	}
 
 	/**
+	 * @param  string $confirmationStatus
+	 *
+	 * @return Slot
+	 * @throws InvalidArgumentException
+	 */
+	public function setConfirmationStatus($confirmationStatus) {
+		if(!in_array($confirmationStatus, self::VALID_CONFIRMATION_STATUS)) {
+			throw new InvalidArgumentException('Slot confirmationStatus must be one of ' . implode(', ', self::VALID_CONFIRMATION_STATUS));
+		}
+
+		$this->confirmationStatus = $confirmationStatus;
+
+		return $this;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getSource() {
@@ -78,9 +122,50 @@ class Slot {
 	}
 
 	/**
+	 * @param  string $source
+	 *
+	 * @return Slot
+	 */
+	public function setSource($source) {
+		$this->source = $source;
+
+		return $this;
+	}
+
+	/**
 	 * @return Resolutions
 	 */
 	public function getResolutions() {
 		return $this->resolutions;
+	}
+
+	/**
+	 * @param  Resolutions $resolutions
+	 *
+	 * @return Slot
+	 */
+	public function setResolutions($resolutions) {
+		$this->resolutions = $resolutions;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function render() {
+		$result = [
+			'name'               => $this->getName(),
+			'value'              => $this->getValue(),
+			'confirmationStatus' => $this->getConfirmationStatus(),
+			'resolutions'        => $this->getResolutions()->render(),
+		];
+
+		if($this->getSource()) {
+			$result['source'] = $this->getSource();
+		}
+
+		return $result;
 	}
 }
