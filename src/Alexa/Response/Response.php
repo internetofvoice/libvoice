@@ -23,7 +23,7 @@ class Response {
 	/** @var  bool $shouldEndSession */
 	protected $shouldEndSession;
 
-	/** @var CanFulfillIntent */
+	/** @var CanFulfillIntent $canFulfillIntent */
 	protected $canFulfillIntent;
 
 
@@ -179,7 +179,7 @@ class Response {
 			$rendered['canFulfillIntent'] = $this->getCanFulfillIntent()->render();
 		}
 
-		$rendered['shouldEndSession'] = $this->shouldEndSession;
+		$rendered['shouldEndSession'] = $this->getShouldEndSession();
 		return $rendered;
 	}
 }

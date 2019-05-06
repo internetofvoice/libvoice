@@ -261,9 +261,9 @@ class AlexaResponse {
 	public function render() {
 		$rendered = array();
 
-		$rendered['version']           = $this->version;
-		$rendered['sessionAttributes'] = $this->sessionAttributes;
-		$rendered['response']          = $this->response->render();
+		$rendered['version']           = $this->getVersion();
+		$rendered['sessionAttributes'] = $this->getSessionAttributes();
+		$rendered['response']          = $this->getResponse()->render();
 
 		return $rendered;
 	}
