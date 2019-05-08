@@ -36,7 +36,7 @@ class Intent {
 		}
 
 		if(isset($intentData['slots']) && is_array($intentData['slots'])) {
-			foreach ($intentData['slots'] as $slotData) {
+			foreach($intentData['slots'] as $slotData) {
 				$this->slots[$slotData['name']] = new Slot($slotData);
 			}
 		}
@@ -137,7 +137,7 @@ class Intent {
 	 * @return Intent
 	 */
 	public function addSlot($slot) {
-		array_push($this->slots, $slot);
+		$this->slots[$slot->getName()] = $slot;
 
 		return $this;
 	}
@@ -155,8 +155,8 @@ class Intent {
 		$slots = $this->getSlots();
 		if(count($slots)) {
 			$result['slots'] = [];
-			foreach($slots as $slot) {
-				array_push($result['slots'], $slot->render());
+			foreach($slots as $name => $slot) {
+				$result['slots'][$name] = $slot->render();
 			}
 		}
 
