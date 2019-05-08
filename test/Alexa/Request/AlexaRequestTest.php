@@ -4,6 +4,7 @@ namespace Tests\Alexa\Request;
 
 use \Exception;
 use \InternetOfVoice\LibVoice\Alexa\Request\AlexaRequest;
+use \InternetOfVoice\LibVoice\Alexa\Request\Context;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFailed;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
@@ -45,7 +46,7 @@ class AlexaRequestTest extends TestCase {
 		// Test various properties and sub objects
 		$this->assertEquals('1.0', $alexaRequest->getVersion());
 		$this->assertArrayHasKey('request', $alexaRequest->getData());
-		$this->assertNull($alexaRequest->getContext());
+		$this->assertInstanceOf(Context::class, $alexaRequest->getContext());
 		$this->assertTrue($alexaRequest->getSession()->isNew());
 		$this->assertStringStartsWith('amzn1.echo-api.session.', $alexaRequest->getSession()->getSessionId());
 		$this->assertStringStartsWith('amzn1.ask.skill.', $alexaRequest->getSession()->getApplication()->getApplicationId());
@@ -105,6 +106,126 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('ERROR', $request->getReason());
 		$this->assertEquals('INVALID_RESPONSE', $request->getError()->getType());
 		$this->assertStringStartsWith('An exception occurred', $request->getError()->getMessage());
+	}
+
+	/**
+	 * @group  custom-skill
+	 * @throws Exception
+	 */
+	public function testLaunchRequest() {
+		$body = [
+			'version' => '1.0',
+			'request' => [
+				'type'      => 'LaunchRequest',
+				'requestId' => 'amzn1.echo-api.request.123',
+				'timestamp' => '2017-09-23T17:54:48Z',
+				'locale'    => 'en-GB',
+			],
+			'session' => [
+				'new'         => false,
+				'sessionId'   => 'amzn1.echo-api.session.123',
+				'application' => [
+					'applicationId' => 'amzn1.ask.skill.123',
+				],
+				'user' => [
+					'userId'      => 'amzn1.ask.account.123',
+					'accessToken' => 'token',
+				],
+			],
+		];
+
+		$alexaRequest = new AlexaRequest(json_encode($body), ['amzn1.ask.skill.123'], 'Signaturecertchainurl', 'Signature', false, false);
+		$this->assertEquals('LaunchRequest', $alexaRequest->getRequest()->getType());
+	}
+
+	/**
+	 * @group  custom-skill
+	 * @throws Exception
+	 */
+	public function testLaunchRequestException1() {
+		$body = [
+			'version' => '1.0',
+			'request' => [
+				'requestId' => 'amzn1.echo-api.request.123',
+				'timestamp' => '2017-09-23T17:54:48Z',
+				'locale'    => 'en-GB',
+			],
+			'session' => [
+				'new'         => false,
+				'sessionId'   => 'amzn1.echo-api.session.123',
+				'application' => [
+					'applicationId' => 'amzn1.ask.skill.123',
+				],
+				'user' => [
+					'userId'      => 'amzn1.ask.account.123',
+					'accessToken' => 'token',
+				],
+			],
+		];
+
+		$this->expectException(InvalidArgumentException::class);
+		new AlexaRequest(json_encode($body), ['amzn1.ask.skill.123'], 'Signaturecertchainurl', 'Signature', false, false);
+	}
+
+	/**
+	 * @group  custom-skill
+	 * @throws Exception
+	 */
+	public function testLaunchRequestException2() {
+		$body = [
+			'version' => '1.0',
+			'request' => [
+				'type'      => 'Unknown.Request.Type',
+				'requestId' => 'amzn1.echo-api.request.123',
+				'timestamp' => '2017-09-23T17:54:48Z',
+				'locale'    => 'en-GB',
+			],
+			'session' => [
+				'new'         => false,
+				'sessionId'   => 'amzn1.echo-api.session.123',
+				'application' => [
+					'applicationId' => 'amzn1.ask.skill.123',
+				],
+				'user' => [
+					'userId'      => 'amzn1.ask.account.123',
+					'accessToken' => 'token',
+				],
+			],
+		];
+
+		$this->expectException(InvalidArgumentException::class);
+		new AlexaRequest(json_encode($body), ['amzn1.ask.skill.123'], 'Signaturecertchainurl', 'Signature', false, false);
+	}
+
+	/**
+	 * @group  custom-skill
+	 * @throws Exception
+	 */
+	public function testIntentRequestException1() {
+		$body = [
+			'version' => '1.0',
+			'request' => [
+				'type'      => 'LaunchRequest',
+				'requestId' => 'amzn1.echo-api.request.123',
+				'timestamp' => '2017-09-23T17:54:48Z',
+				'locale'    => 'en-GB',
+			],
+			'session' => [
+				'new'         => false,
+				'sessionId'   => 'amzn1.echo-api.session.123',
+				'application' => [
+					'applicationId' => 'amzn1.ask.skill.123',
+				],
+				'user' => [
+					'userId'      => 'amzn1.ask.account.123',
+					'accessToken' => 'token',
+				],
+			],
+		];
+
+		$alexaRequest = new AlexaRequest(json_encode($body), ['amzn1.ask.skill.123'], 'Signaturecertchainurl', 'Signature', false, false);
+		$this->expectException(InvalidArgumentException::class);
+		$alexaRequest->getIntent();
 	}
 
 	/**

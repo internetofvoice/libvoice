@@ -91,18 +91,14 @@ class Intent {
 	}
 
 	/**
-	 * Get slots as [key1 => value1, key2 => value2, ...]
+	 * Get slots as [name1 => value1, name2 => value2, ...]
 	 *
 	 * @return array
 	 */
 	public function getSlotsAsArray() {
 		$slots = [];
-		if(!is_array($this->getSlots())) {
-			return $slots;
-		}
-
-		foreach($this->getSlots() as $key => $slot) {
-			$slots[$key] = $slot->getValue();
+		foreach($this->getSlots() as $name => $slot) {
+			$slots[$name] = $slot->getValue();
 		}
 
 		return $slots;

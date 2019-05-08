@@ -11,6 +11,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFi
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\GameEngine\InputHandlerEvent;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\CanFulfillIntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\LaunchRequest;
@@ -88,12 +89,16 @@ class AlexaRequest {
 		$this->version = $this->data['version'];
 
 		// Session and Context
-		if (isset($this->data['session'])) {
-			$this->session = new Session($this->data['session']);
-		} elseif (isset($this->data['context'])) {
-			$this->context = new Context($this->data['context']);
-		} else {
+		if(!isset($this->data['session']) && !isset($this->data['context'])) {
 			throw new InvalidArgumentException('AlexaRequest expects a Session or Context object.');
+		}
+
+		if(isset($this->data['session'])) {
+			$this->session = new Session($this->data['session']);
+		}
+
+		if(isset($this->data['context'])) {
+			$this->context = new Context($this->data['context']);
 		}
 
 		// Validate Application
@@ -135,6 +140,12 @@ class AlexaRequest {
 				$this->request = new IntentRequest($this->data['request']);
 			break;
 
+			case 'CanFulfillIntentRequest':
+				/** @var CanFulfillIntentRequest request */
+				$this->request = new IntentRequest($this->data['request']);
+			break;
+
+
 			// AudioPlayer requests
 			case 'AudioPlayer.PlaybackFailed':
 				/** @var PlaybackFailed request */
@@ -161,11 +172,13 @@ class AlexaRequest {
 				$this->request = new PlaybackStopped($this->data['request']);
 			break;
 
+
 			// GameEngine requests
 			case 'GameEngine.InputHandlerEvent':
 				/** @var InputHandlerEvent request */
 				$this->request = new InputHandlerEvent($this->data['request']);
 			break;
+
 
 			// PlaybackController requests
 			case 'PlaybackController.NextCommandIssued':
@@ -188,14 +201,15 @@ class AlexaRequest {
 				$this->request = new PreviousCommandIssued($this->data['request']);
 			break;
 
+
 			case 'System.ExceptionEncountered':
 				/** @var ExceptionEncountered request */
 				$this->request = new ExceptionEncountered($this->data['request']);
 			break;
 
+
 			default:
 				throw new InvalidArgumentException('Unknown Request type "' . $this->data['request']['type'] . '"');
-			break;
 		}
 	}
 
