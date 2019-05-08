@@ -2,8 +2,6 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
 
-use InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDialog;
-
 /**
  * Class ConfirmIntent
  *

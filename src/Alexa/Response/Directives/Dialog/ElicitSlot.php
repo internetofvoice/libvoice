@@ -2,8 +2,6 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
 
-use InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDialog;
-
 /**
  * Class ElicitSlot
  *
@@ -51,7 +49,7 @@ class ElicitSlot extends AbstractDialog {
 		return [
 			'type'          => $this->getType(),
 			'slotToElicit'  => $this->getSlotToElicit(),
-			'updatedIntent' => $this->getUpdatedIntent(),
+			'updatedIntent' => $this->getUpdatedIntent()->render(),
 		];
 	}
 }

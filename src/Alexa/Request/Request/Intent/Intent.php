@@ -20,7 +20,7 @@ class Intent {
 	protected $confirmationStatus;
 
 	/** @var Slot[] $slots */
-	protected $slots;
+	protected $slots = [];
 
 
 	/**

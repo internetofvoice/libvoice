@@ -1,8 +1,9 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\Alexa\Response\Directives;
+namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
 
 use InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDirective;
 
 /**
  * Abstract Class AbstractDialog

@@ -2,8 +2,6 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
 
-use InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDialog;
-
 /**
  * Class ConfirmSlot
  *
@@ -51,7 +49,7 @@ class ConfirmSlot extends AbstractDialog {
 		return [
 			'type'          => $this->getType(),
 			'slotToConfirm' => $this->getSlotToConfirm(),
-			'updatedIntent' => $this->getUpdatedIntent(),
+			'updatedIntent' => $this->getUpdatedIntent()->render(),
 		];
 	}
 }
