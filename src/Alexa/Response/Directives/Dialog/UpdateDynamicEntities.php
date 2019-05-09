@@ -44,7 +44,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	 */
 	public function setUpdateBehavior($updateBehavior) {
 		if(!in_array($updateBehavior, self::UPDATE_BEHAVIORS)) {
-			throw new InvalidArgumentException('PlayBehavior must be one of ' . implode(', ', self::UPDATE_BEHAVIORS));
+			throw new InvalidArgumentException('UpdateBehavior must be one of ' . implode(', ', self::UPDATE_BEHAVIORS));
 		}
 
 		$this->updateBehavior = $updateBehavior;
