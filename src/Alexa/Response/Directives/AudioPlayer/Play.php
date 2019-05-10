@@ -16,7 +16,7 @@ class Play extends AbstractDirective {
 	const PLAY_BEHAVIORS = ['REPLACE_ALL', 'ENQUEUE', 'REPLACE_ENQUEUED'];
 
 	/** @var string $playBehavior */
-	protected $playBehavior;
+	protected $playBehavior = 'REPLACE_ALL';
 
 	/** @var AudioItem $audioItem */
 	protected $audioItem;

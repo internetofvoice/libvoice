@@ -15,7 +15,7 @@ class TextField {
 	const TEXT_LENGTH = 8000;
 
 	/** @var string $type */
-	protected $type;
+	protected $type = 'PlainText';
 
 	/** @var string $text */
 	protected $text;

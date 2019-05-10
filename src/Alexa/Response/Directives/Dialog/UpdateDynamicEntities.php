@@ -16,7 +16,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	const UPDATE_BEHAVIORS = ['REPLACE', 'CLEAR'];
 
 	/** @var string $updateBehavior */
-	protected $updateBehavior;
+	protected $updateBehavior = 'REPLACE';
 
 	/** @var Type[] $types */
 	protected $types;

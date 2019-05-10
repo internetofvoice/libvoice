@@ -16,7 +16,7 @@ class ClearQueue extends AbstractDirective {
 	const CLEAR_BEHAVIORS = ['CLEAR_ENQUEUED', 'CLEAR_ALL'];
 
 	/** @var string $clearBehavior */
-	protected $clearBehavior;
+	protected $clearBehavior = 'CLEAR_ALL';
 
 
 	/**
