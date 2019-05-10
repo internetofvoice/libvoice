@@ -1,6 +1,9 @@
 <?php
 
-namespace InternetOfVoice\LibVoice\Alexa\Response\Directives;
+namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Display;
+
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDirective;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\TextField;
 
 /**
  * Class Hint
@@ -14,11 +17,11 @@ class Hint extends AbstractDirective {
 
 	/**
 	 * @param string $text
-	 * @param string $type
 	 */
 	public function __construct($text) {
 		parent::__construct();
 
+		$this->type = 'Hint';
 		$this->setHint(new TextField($text, 'PlainText'));
 	}
 
