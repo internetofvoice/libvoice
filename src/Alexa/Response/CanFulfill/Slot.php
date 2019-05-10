@@ -15,10 +15,10 @@ class Slot {
 	const CAN_UNDERSTAND_VALUES = ['YES', 'NO', 'MAYBE'];
 
 	/** @var string $canUnderstand */
-	protected $canUnderstand;
+	protected $canUnderstand = 'NO';
 
 	/** @var string $canFulfill */
-	protected $canFulfill;
+	protected $canFulfill = 'NO';
 
 
 	/**

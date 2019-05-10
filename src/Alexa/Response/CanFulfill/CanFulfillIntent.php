@@ -14,7 +14,7 @@ class CanFulfillIntent {
 	const CAN_FULFILL_VALUES = ['YES', 'NO'];
 
 	/** @var string $canFulfill */
-	protected $canFulfill;
+	protected $canFulfill = 'NO';
 
 	/** @var Slot[] $slots */
 	protected $slots = [];
