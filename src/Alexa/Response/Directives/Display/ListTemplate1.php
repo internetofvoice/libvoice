@@ -92,9 +92,12 @@ class ListTemplate1 extends AbstractTemplate {
 			'type'            => $this->getType(),
 			'token'           => $this->getToken(),
 			'backButton'      => $this->getBackButton(),
-			'backgroundImage' => $this->getBackgroundImage()->render(),
 			'title'           => $this->getTitle(),
 		];
+
+		if($backgroundImage = $this->getBackgroundImage()) {
+			$result['backgroundImage'] = $this->getBackgroundImage()->render();
+		}
 
 		$listItems = $this->getListItems();
 		if(count($listItems)) {
