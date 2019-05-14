@@ -26,6 +26,8 @@ class BodyTemplate1 extends AbstractTemplate {
 	public function __construct($token, $title, $textContent) {
 		parent::__construct($token);
 
+		$this->type = 'BodyTemplate1';
+
 		$this->setTitle($title);
 		$this->setTextContent($textContent);
 	}
@@ -76,10 +78,13 @@ class BodyTemplate1 extends AbstractTemplate {
 			'type'            => $this->getType(),
 			'token'           => $this->getToken(),
 			'backButton'      => $this->getBackButton(),
-			'backgroundImage' => $this->getBackgroundImage(),
 			'title'           => $this->getTitle(),
-			'textContent'     => $this->getTextContent(),
+			'textContent'     => $this->getTextContent()->render(),
 		];
+
+		if($backgroundImage = $this->getBackgroundImage()) {
+			$result['backgroundImage'] = $this->getBackgroundImage()->render();
+		}
 
 		return $result;
 	}

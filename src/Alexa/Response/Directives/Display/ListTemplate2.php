@@ -18,5 +18,7 @@ class ListTemplate2 extends ListTemplate1 {
 	 */
 	public function __construct($token, $title, $listItems = []) {
 		parent::__construct($token, $title, $listItems);
+
+		$this->type = 'ListTemplate2';
 	}
 }

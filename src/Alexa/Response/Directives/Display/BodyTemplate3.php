@@ -20,5 +20,7 @@ class BodyTemplate3 extends BodyTemplate2 {
 	 */
 	public function __construct($token, $title, $image, $textContent) {
 		parent::__construct($token, $title, $image, $textContent);
+
+		$this->type = 'BodyTemplate3';
 	}
 }

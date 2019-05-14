@@ -26,6 +26,8 @@ class ListTemplate1 extends AbstractTemplate {
 	public function __construct($token, $title, $listItems = []) {
 		parent::__construct($token);
 
+		$this->type = 'ListTemplate1';
+
 		$this->setTitle($title);
 		$this->setListItems($listItems);
 	}
@@ -90,7 +92,7 @@ class ListTemplate1 extends AbstractTemplate {
 			'type'            => $this->getType(),
 			'token'           => $this->getToken(),
 			'backButton'      => $this->getBackButton(),
-			'backgroundImage' => $this->getBackgroundImage(),
+			'backgroundImage' => $this->getBackgroundImage()->render(),
 			'title'           => $this->getTitle(),
 		];
 
