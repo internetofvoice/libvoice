@@ -16,11 +16,13 @@ class RenderTemplate extends AbstractDirective {
 
 
 	/**
+	 * @param AbstractTemplate $template
 	 */
-	public function __construct() {
+	public function __construct($template) {
 		parent::__construct();
 
 		$this->type = 'Display.RenderTemplate';
+		$this->setTemplate($template);
 	}
 
 
