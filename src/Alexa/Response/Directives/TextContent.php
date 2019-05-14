@@ -99,17 +99,15 @@ class TextContent {
 	 */
 	public function render() {
 		$result = [
-			'primaryText'   => $this->getPrimaryText()->render(),
-			'secondaryText' => $this->getSecondaryText()->render(),
-			'tertiaryText'  => $this->getTertiaryText()->render(),
+			'primaryText' => $this->getPrimaryText()->render(),
 		];
 
 		if($secondaryText = $this->getSecondaryText()) {
-			$result['secondaryText'] = $secondaryText;
+			$result['secondaryText'] = $secondaryText->render();
 		}
 
 		if($tertiaryText = $this->getTertiaryText()) {
-			$result['tertiaryText'] = $tertiaryText;
+			$result['tertiaryText'] = $tertiaryText->render();
 		}
 
 		return $result;
