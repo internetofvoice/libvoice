@@ -2,6 +2,7 @@
 
 namespace Tests\Alexa\Request;
 
+use \Exception;
 use \InternetOfVoice\LibVoice\Alexa\Request\CertificateValidator;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
@@ -14,7 +15,8 @@ use \PHPUnit\Framework\TestCase;
  */
 class CertificateValidatorTest extends TestCase {
 	/**
-	 * @group custom-skill
+	 * @group  custom-skill
+	 * @throws Exception
 	 */
 	public function testCertificateValidator() {
         $fixtureHeader = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Header.json'), true);
