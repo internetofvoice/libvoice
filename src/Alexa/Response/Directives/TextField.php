@@ -27,7 +27,7 @@ class TextField {
 	 */
 	public function __construct($text, $type = 'PlainText') {
 		$this->setText($text);
-		$this->setType($type);
+		$this->setType($type ?: 'PlainText');
 	}
 
 

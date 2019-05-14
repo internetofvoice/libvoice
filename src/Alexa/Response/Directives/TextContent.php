@@ -104,6 +104,14 @@ class TextContent {
 			'tertiaryText'  => $this->getTertiaryText()->render(),
 		];
 
+		if($secondaryText = $this->getSecondaryText()) {
+			$result['secondaryText'] = $secondaryText;
+		}
+
+		if($tertiaryText = $this->getTertiaryText()) {
+			$result['tertiaryText'] = $tertiaryText;
+		}
+
 		return $result;
 	}
 }
