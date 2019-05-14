@@ -10,6 +10,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\Display\ElementSelected;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\GameEngine\InputHandlerEvent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\CanFulfillIntentRequest;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\IntentRequest;
@@ -170,6 +171,13 @@ class AlexaRequest {
 			case 'AudioPlayer.PlaybackStopped':
 				/** @var PlaybackStopped request */
 				$this->request = new PlaybackStopped($this->data['request']);
+			break;
+
+
+			// Display requests
+			case 'Display.ElementSelected':
+				/** @var ElementSelected request */
+				$this->request = new ElementSelected($this->data['request']);
 			break;
 
 

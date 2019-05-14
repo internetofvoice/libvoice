@@ -10,6 +10,7 @@ use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackFinished
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackNearlyFinished;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStarted;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer\PlaybackStopped;
+use \InternetOfVoice\LibVoice\Alexa\Request\Request\Display\ElementSelected;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\GameEngine\InputHandlerEvent;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\NextCommandIssued;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\PlaybackController\PauseCommandIssued;
@@ -226,6 +227,20 @@ class AlexaRequestTest extends TestCase {
 		$alexaRequest = new AlexaRequest(json_encode($body), ['amzn1.ask.skill.123'], 'Signaturecertchainurl', 'Signature', false, false);
 		$this->expectException(InvalidArgumentException::class);
 		$alexaRequest->getIntent();
+	}
+
+	/**
+	 * @group  custom-skill
+	 * @throws Exception
+	 */
+	public function testDisplayElementSelected() {
+		$fixtureBody  = trim(file_get_contents(__DIR__ . '/Fixtures/Display.ElementSelected.json'));
+		$alexaRequest = new AlexaRequest($fixtureBody, ['amzn1.ask.skill.123'], '', '', false, false);
+
+		/** @var ElementSelected $request */
+		$request = $alexaRequest->getRequest();
+		$this->assertEquals('Display.ElementSelected', $request->getType());
+		$this->assertEquals('myToken1', $request->getToken());
 	}
 
 	/**
