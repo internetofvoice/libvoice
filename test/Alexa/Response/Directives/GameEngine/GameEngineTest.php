@@ -7,6 +7,8 @@ use \InternetOfVoice\LibVoice\Alexa\Response\Directives\GameEngine\Event;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\GameEngine\Pattern;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\GameEngine\PatternRecognizer;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\GameEngine\ProgressRecognizer;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\GameEngine\StartInputHandler;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\GameEngine\StopInputHandler;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
@@ -187,5 +189,94 @@ class GameEngineTest extends TestCase {
 
 		$this->expectException(InvalidArgumentException::class);
 		$recognizer->setCompletion(200);
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testStartInputHandler() {
+		$events      = [new Event('MyEvent', ['MyRecognizer1'], true, 'history')];
+		$recognizers = [new ProgressRecognizer('MyID1', 'MyRecognizer1')];
+		$handler     = new StartInputHandler($events, $recognizers, ['MyProxy1'], 7500);
+		$expect      = [
+			'type'        => 'GameEngine.StartInputHandler',
+			'timeout'     => 7500,
+			'recognizers' => [
+				'MyID1' => [
+					'type'       => 'progress',
+					'recognizer' => 'MyRecognizer1',
+					'completion' => 100,
+				],
+			],
+			'events'      => [
+				'MyEvent' => [
+					'meets'                 => ['MyRecognizer1'],
+					'shouldEndInputHandler' => true,
+					'reports'               => 'history',
+				],
+			],
+			'proxies'     => ['MyProxy1'],
+		];
+
+		$this->assertEquals($expect, $handler->render());
+
+		$this->expectException(InvalidArgumentException::class);
+		$handler->setTimeout(1000000000);
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testStartInputHandlerException1() {
+		$event       = new Event('MyEvent', ['MyRecognizer1'], true, 'history');
+		$recognizer  = new ProgressRecognizer('MyID1', 'MyRecognizer1');
+		$handler     = new StartInputHandler([$event], [$recognizer]);
+
+		for($i = 0; $i < 19; $i++) {
+			$handler->addRecognizer($recognizer);
+		}
+
+		$this->expectException(InvalidArgumentException::class);
+		$handler->addRecognizer($recognizer);
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testStartInputHandlerException2() {
+		$event       = new Event('MyEvent', ['MyRecognizer1'], true, 'history');
+		$recognizer  = new ProgressRecognizer('MyID1', 'MyRecognizer1');
+		$handler     = new StartInputHandler([$event], [$recognizer]);
+
+		for($i = 1; $i < 32; $i++) {
+			$handler->addEvent($event);
+		}
+
+		$this->expectException(InvalidArgumentException::class);
+		$handler->addEvent($event);
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testStartInputHandlerException3() {
+		$recognizer  = new ProgressRecognizer('MyID1', 'MyRecognizer1');
+		$handler     = new StartInputHandler([], [$recognizer]);
+
+		$this->expectException(InvalidArgumentException::class);
+		$handler->render();
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testStopInputHandler() {
+		$handler = new StopInputHandler('MyRequestID');
+		$expect  = [
+			'type'                 => 'GameEngine.StopInputHandler',
+			'originatingRequestId' => 'MyRequestID',
+		];
+
+		$this->assertEquals($expect, $handler->render());
 	}
 }
