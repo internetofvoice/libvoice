@@ -26,7 +26,7 @@ class ProgressRecognizer extends AbstractRecognizer {
 	public function __construct($id, $recognizer, $completion = 100) {
 		parent::__construct($id);
 
-		$this->type = 'deviation';
+		$this->type = 'progress';
 		$this->setRecognizer($recognizer);
 		$this->setCompletion($completion);
 	}

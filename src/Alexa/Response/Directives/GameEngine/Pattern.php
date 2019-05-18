@@ -164,7 +164,7 @@ class Pattern {
 		}
 
 		if($repeat = $this->getRepeat()) {
-			$rendered['$repeat'] = $repeat;
+			$rendered['repeat'] = $repeat;
 		}
 
 		return $rendered;
