@@ -86,7 +86,21 @@ class Event {
 	 * @return Event
 	 */
 	public function setMeets($meets) {
-		$this->meets = $meets;
+		$this->meets = [];
+		foreach($meets as $meet) {
+			$this->addMeet($meet);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param  string $meet
+	 *
+	 * @return Event
+	 */
+	public function addMeet($meet) {
+		array_push($this->meets, $meet);
 
 		return $this;
 	}
@@ -104,7 +118,21 @@ class Event {
 	 * @return Event
 	 */
 	public function setFails($fails) {
-		$this->fails = $fails;
+		$this->fails = [];
+		foreach($fails as $fail) {
+			$this->addFail($fail);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param  string $fail
+	 *
+	 * @return Event
+	 */
+	public function addFail($fail) {
+		array_push($this->fails, $fail);
 
 		return $this;
 	}
