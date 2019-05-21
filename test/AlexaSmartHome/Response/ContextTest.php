@@ -18,7 +18,7 @@ class ContextTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testContext() {
-		$time     = new DateTime('2017-01-01 00:00:00');
+		$time     = new DateTime('2017-01-01 00:00:00+01:00');
 		$property = new ReportableProperty('Alexa.BrightnessController', 'brightness', 100, $time);
 		$context  = new Context([$property]);
 		$expect   = [

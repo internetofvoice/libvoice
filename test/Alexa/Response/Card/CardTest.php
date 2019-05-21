@@ -3,6 +3,7 @@
 namespace Tests\Alexa\Response\Card;
 
 use \InvalidArgumentException;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
@@ -63,6 +64,19 @@ class CardTest extends TestCase {
 
 		$this->expectException(InvalidArgumentException::class);
 		$card->setLargeImageUrl($long);
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testAskForPermissionsConsentCard() {
+		$card = new AskForPermissionsConsent(['alexa::alerts:reminders:skill:readwrite']);
+		$this->assertEquals('AskForPermissionsConsent', $card->getType());
+		$this->assertTrue(is_array($card->render()));
+		$this->assertEquals('{"type":"AskForPermissionsConsent","permissions":["alexa::alerts:reminders:skill:readwrite"]}', json_encode($card->render()));
+
+		$this->expectException(InvalidArgumentException::class);
+		$card->setPermissions(['non-existent-permission']);
 	}
 
 	/**

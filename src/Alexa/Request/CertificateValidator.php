@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
 use \DateTime;
+use \Exception;
 use \InvalidArgumentException;
 use \RuntimeException;
 
@@ -44,10 +45,12 @@ class CertificateValidator {
 	}
 
 	/**
-	 * @param   string $requestData
-	 * @param   bool   $checkTimeStamp MUST be true for production, see Amazons policy on verifying requests
+	 * @param string $requestData
+	 * @param bool   $checkTimeStamp MUST be true for production, see Amazons policy on verifying requests
+	 *
 	 * @return  bool
 	 * @see     https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#verifying-that-the-request-was-sent-by-alexa
+	 * @throws  Exception
 	 */
 	public function validateRequest($requestData, $checkTimeStamp = true) {
 		$requestParsed = json_decode($requestData, true);
@@ -65,8 +68,10 @@ class CertificateValidator {
 
 	/**
 	 * @param string $timestamp
+	 *
 	 * @return bool
 	 * @throws InvalidArgumentException
+	 * @throws Exception
 	 */
 	public function validateTimestamp($timestamp) {
 		if (is_numeric($timestamp)) {

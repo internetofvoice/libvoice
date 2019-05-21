@@ -53,7 +53,7 @@ class Reprompt {
 	 */
 	function render() {
 		return [
-			'outputSpeech' => $this->outputSpeech->render(),
+			'outputSpeech' => $this->getOutputSpeech()->render(),
 		];
 	}
 }

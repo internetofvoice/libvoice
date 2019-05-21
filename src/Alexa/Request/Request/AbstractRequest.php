@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request;
 
 use \DateTime;
+use \Exception;
 
 /**
  * Abstract Class AbstractRequest
@@ -33,7 +34,12 @@ abstract class AbstractRequest {
 		$this->requestId = $requestData['requestId'];
 
 		$timestamp = is_numeric($requestData['timestamp']) ? '@' . substr($requestData['timestamp'], 0, 10) : $requestData['timestamp'];
-		$this->timestamp = new DateTime($timestamp);
+
+		try {
+			$this->timestamp = new DateTime($timestamp);
+		} catch(Exception $e) {
+			$this->timestamp = null;
+		}
 	}
 
 

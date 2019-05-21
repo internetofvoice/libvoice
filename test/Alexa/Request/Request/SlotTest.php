@@ -38,4 +38,18 @@ class SlotTest extends TestCase {
 
 		$this->assertEquals($expect, $resolution->getValuesAsArray());
 	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testSlot() {
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/Slot.json'), true);
+		$slot    = new Slot($fixture);
+
+		// Slot
+		$this->assertEquals('episode', $slot->getName());
+		$this->assertEquals(1, $slot->getValue());
+		$this->assertEquals('NONE', $slot->getConfirmationStatus());
+		$this->assertEquals('USER', $slot->getSource());
+	}
 }

@@ -25,4 +25,19 @@ class SystemTest extends TestCase {
         $this->assertEquals('https://api.eu.amazonalexa.com', $system->getApiEndpoint());
         $this->assertEquals('apiAccessToken', $system->getApiAccessToken());
 	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testSupport() {
+		$fixture = json_decode(file_get_contents(__DIR__ . '/../Fixtures/System.json'), true);
+		$system = new System($fixture);
+		$this->assertEquals(true, $system->supportsAlexaCameraPhotoCaptureController());
+		$this->assertEquals(true, $system->supportsAlexaCameraVideoCaptureController());
+		$this->assertEquals(true, $system->supportsAlexaPresentationAPL());
+		$this->assertEquals(true, $system->supportsAudioPlayer());
+		$this->assertEquals(true, $system->supportsDisplay());
+		$this->assertEquals(true, $system->supportsGeolocation());
+		$this->assertEquals(true, $system->supportsVideoApp());
+	}
 }

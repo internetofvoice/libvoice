@@ -22,7 +22,7 @@ class ResolutionPerAuthority {
 	/**
 	 * @param array $data
 	 */
-	public function __construct($data) {
+	public function __construct($data = []) {
 		if(isset($data['authority'])) {
 			$this->authority = $data['authority'];
 		}
@@ -49,10 +49,32 @@ class ResolutionPerAuthority {
 	}
 
 	/**
+	 * @param  string $authority
+	 *
+	 * @return ResolutionPerAuthority
+	 */
+	public function setAuthority($authority) {
+		$this->authority = $authority;
+
+		return $this;
+	}
+
+	/**
 	 * @return ResolutionStatus
 	 */
 	public function getStatus() {
 		return $this->status;
+	}
+
+	/**
+	 * @param  ResolutionStatus $status
+	 *
+	 * @return ResolutionPerAuthority
+	 */
+	public function setStatus($status) {
+		$this->status = $status;
+
+		return $this;
 	}
 
 	/**
@@ -74,5 +96,51 @@ class ResolutionPerAuthority {
 		}
 
 		return $values;
+	}
+
+	/**
+	 * @param  ResolutionValue[] $values
+	 *
+	 * @return ResolutionPerAuthority
+	 */
+	public function setValues($values) {
+		$this->values = [];
+		foreach($values as $value) {
+			$this->addValue($value);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param  ResolutionValue $value
+	 *
+	 * @return ResolutionPerAuthority
+	 */
+	public function addValue($value) {
+		array_push($this->values, $value);
+
+		return $this;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function render() {
+		$result = [
+			'authority' => $this->getAuthority(),
+			'status'    => $this->getStatus()->render(),
+		];
+
+		$values = $this->getValues();
+		if(count($values)) {
+			$result['values'] = [];
+			foreach($values as $value) {
+				array_push($result['values'], ['value' => $value->render()]);
+			}
+		}
+
+		return $result;
 	}
 }

@@ -2,8 +2,9 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request\System;
 
+use \InternetOfVoice\LibVoice\Alexa\Request\Cause;
+use \InternetOfVoice\LibVoice\Alexa\Request\Error;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
-use \stdClass;
 
 /**
  * Class ExceptionEncountered
@@ -12,10 +13,10 @@ use \stdClass;
  * @license http://opensource.org/licenses/MIT
  */
 class ExceptionEncountered extends AbstractRequest {
-	/** @var stdClass $error */
+	/** @var Error $error */
 	protected $error;
 
-	/** @var stdClass $cause */
+	/** @var Cause $cause */
 	protected $cause;
 
 
@@ -26,24 +27,24 @@ class ExceptionEncountered extends AbstractRequest {
 		parent::__construct($requestData);
 
 		if(isset($requestData['error'])) {
-			$this->error = json_decode(json_encode($requestData['error']));
+			$this->error = new Error($requestData['error']);
 		}
 
 		if(isset($requestData['cause'])) {
-			$this->cause = json_decode(json_encode($requestData['cause']));
+			$this->cause = new Cause($requestData['cause']);
 		}
 	}
 
 
 	/**
-	 * @return stdClass
+	 * @return Error
 	 */
 	public function getError() {
 		return $this->error;
 	}
 
 	/**
-	 * @return stdClass
+	 * @return Cause
 	 */
 	public function getCause() {
 		return $this->cause;

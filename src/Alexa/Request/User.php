@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request;
 
+use \InternetOfVoice\LibVoice\Alexa\Request\User\Permissions;
+
 /**
  * Class User
  *
@@ -15,7 +17,7 @@ class User {
 	/** @var string $accessToken */
 	protected $accessToken;
 
-	/** @var array $permissions */
+	/** @var Permissions $permissions */
 	protected $permissions;
 
 
@@ -30,7 +32,7 @@ class User {
 		}
 
 		if (isset($userData['permissions']) && is_array($userData['permissions'])) {
-			$this->permissions = $userData['permissions'];
+			$this->permissions = new Permissions($userData['permissions']);
 		}
 	}
 
@@ -50,7 +52,7 @@ class User {
 	}
 
 	/**
-	 * @return array
+	 * @return Permissions
 	 */
 	public function getPermissions() {
 		return $this->permissions;

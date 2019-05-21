@@ -2,6 +2,7 @@
 
 namespace Tests\AlexaSmartHome\Endpoint\Value;
 
+use \DateTime;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStream;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Resolution;
 use \PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ class CameraStreamTest extends TestCase {
 	public function testCameraStreamCreate() {
         $cameraStream = CameraStream::create()
             ->setUri('rtsp://username:password@link.to.video:443/feed1.mp4')
-            ->setExpirationTime(new \DateTime('2017-02-03 16:20:50'))
+            ->setExpirationTime(new DateTime('2017-02-03 16:20:50+01:00'))
             ->setIdleTimeoutSeconds(30)
             ->setProtocol('RTSP')
             ->setResolution(new Resolution(1920, 1080))
@@ -38,7 +39,7 @@ class CameraStreamTest extends TestCase {
     public function testCameraStreamConstructor() {
         $cameraStream = new CameraStream([
             'uri' => 'rtsp://username:password@link.to.video:443/feed1.mp4',
-            'expirationTime' => '2017-02-03 16:20:50',
+            'expirationTime' => '2017-02-03 16:20:50+01:00',
             'idleTimeoutSeconds' => 30,
             'protocol' => 'RTSP',
             'resolution' => ['width' => 1920, 'height' => 1080],
@@ -57,7 +58,7 @@ class CameraStreamTest extends TestCase {
     public function testCameraStreamCreateFromArray() {
         $cameraStream = CameraStream::createFromArray([
             'uri' => 'rtsp://username:password@link.to.video:443/feed1.mp4',
-            'expirationTime' => '2017-02-03 16:20:50',
+            'expirationTime' => '2017-02-03 16:20:50+01:00',
             'idleTimeoutSeconds' => 30,
             'protocol' => 'RTSP',
             'resolution' => ['width' => 1920, 'height' => 1080],
@@ -68,7 +69,7 @@ class CameraStreamTest extends TestCase {
 
         $expect = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/CameraStream.json'), true);
         $this->assertEquals($expect, $cameraStream->render());
-        $this->assertEquals(new \DateTime('2017-02-03 16:20:50'), $cameraStream->getExpirationTime());
+        $this->assertEquals(new DateTime('2017-02-03 16:20:50+01:00'), $cameraStream->getExpirationTime());
     }
 
     /**

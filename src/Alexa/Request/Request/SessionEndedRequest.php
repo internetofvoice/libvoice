@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request;
 
-use \stdClass;
+use \InternetOfVoice\LibVoice\Alexa\Request\Error;
 
 /**
  * Class SessionEndedRequest
@@ -14,7 +14,7 @@ class SessionEndedRequest extends AbstractRequest {
 	/** @var string $reason */
 	protected $reason;
 
-	/** @var stdClass $error */
+	/** @var Error $error */
 	protected $error;
 
 
@@ -29,7 +29,7 @@ class SessionEndedRequest extends AbstractRequest {
 		}
 
 		if (isset($requestData['error'])) {
-			$this->error = json_decode(json_encode($requestData['error']));
+			$this->error = new Error($requestData['error']);
 		}
 	}
 
@@ -42,7 +42,7 @@ class SessionEndedRequest extends AbstractRequest {
 	}
 
 	/**
-	 * @return stdClass
+	 * @return Error
 	 */
 	public function getError() {
 		return $this->error;

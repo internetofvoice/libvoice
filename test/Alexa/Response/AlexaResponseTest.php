@@ -3,6 +3,7 @@
 namespace Tests\Alexa\Response;
 
 use \InternetOfVoice\LibVoice\Alexa\Response\AlexaResponse;
+use InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -22,9 +23,21 @@ class AlexaResponseTest extends TestCase {
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText';
 		$this->assertEquals($expect, get_class($response->getResponse()->getOutputSpeech()));
 
+		$response->setPlayBehavior('REPLACE_ALL');
+		$this->assertEquals('REPLACE_ALL', $response->getResponse()->getOutputSpeech()->getPlayBehavior());
+		$expect = [
+			'type' => 'PlainText',
+			'text' => 'Text-Output',
+			'playBehavior' => 'REPLACE_ALL'
+		];
+		$this->assertEquals($expect, $response->getResponse()->getOutputSpeech()->render());
+
 		$response->respondSSML('SSML-Output');
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML';
 		$this->assertEquals($expect, get_class($response->getResponse()->getOutputSpeech()));
+
+		$response->setPlayBehavior('ENQUEUE');
+		$this->assertEquals('ENQUEUE', $response->getResponse()->getOutputSpeech()->getPlayBehavior());
 
 		$response->withLinkAccount();
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount';
@@ -38,6 +51,14 @@ class AlexaResponseTest extends TestCase {
         $expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\Simple';
         $this->assertEquals($expect, get_class($response->getResponse()->getCard()));
 
+		$response->withAskForPermissionsConsentCard(['alexa::devices:all:geolocation:read', 'alexa::profile:name:read']);
+		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent';
+
+		/** @var AskForPermissionsConsent $card */
+		$card = $response->getResponse()->getCard();
+		$this->assertEquals($expect, get_class($card));
+		$this->assertEquals(['alexa::devices:all:geolocation:read', 'alexa::profile:name:read'], $card->getPermissions());
+
 		$response->withStandardCard('Title', 'Text', 'IMG1', 'IMG2');
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\Card\Standard';
 		$this->assertEquals($expect, get_class($response->getResponse()->getCard()));
@@ -49,6 +70,10 @@ class AlexaResponseTest extends TestCase {
 		$response->repromptSSML('SSML-Reprompt');
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML';
 		$this->assertEquals($expect, get_class($response->getResponse()->getReprompt()->getOutputSpeech()));
+
+		$response->canFulfill('YES');
+		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\CanFulfill\CanFulfillIntent';
+		$this->assertEquals($expect, get_class($response->getResponse()->getCanFulfillIntent()));
 
 		$response->endSession(true);
 		$this->assertTrue($response->getResponse()->getShouldEndSession());
@@ -74,7 +99,8 @@ class AlexaResponseTest extends TestCase {
 			'response' => [
 				'outputSpeech' => [
 					'type' => 'SSML',
-					'ssml' => 'SSML-Output'
+					'ssml' => 'SSML-Output',
+					'playBehavior' => 'ENQUEUE'
 				],
 				'card' => [
 					'type' => 'Standard',
@@ -88,6 +114,9 @@ class AlexaResponseTest extends TestCase {
 						'type' => 'SSML',
 						'ssml' => 'SSML-Reprompt'
 					]
+				],
+				'canFulfillIntent' => [
+					'canFulfill' => 'YES'
 				],
 				'shouldEndSession' => true
 			]

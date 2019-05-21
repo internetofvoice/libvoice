@@ -6,3 +6,4 @@
 
 # PHPUnit
 /phpunit.xml
+.phpunit.result.cache

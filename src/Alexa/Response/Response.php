@@ -2,6 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
+use \InternetOfVoice\LibVoice\Alexa\Response\CanFulFill\CanFulfillIntent;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\AbstractCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDirective;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\AbstractOutputSpeech;
@@ -21,6 +22,9 @@ class Response {
 
 	/** @var  bool $shouldEndSession */
 	protected $shouldEndSession;
+
+	/** @var CanFulfillIntent $canFulfillIntent */
+	protected $canFulfillIntent;
 
 
 	/**
@@ -127,36 +131,55 @@ class Response {
 	}
 
 	/**
+	 * @return CanFulfillIntent
+	 */
+	public function getCanFulfillIntent() {
+		return $this->canFulfillIntent;
+	}
+
+	/**
+	 * @param  CanFulfillIntent $canFulfillIntent
+	 *
+	 * @return Response
+	 */
+	public function setCanFulfillIntent($canFulfillIntent) {
+		$this->canFulfillIntent = $canFulfillIntent;
+
+		return $this;
+	}
+
+
+	/**
 	 * @return array
 	 */
 	public function render() {
-		$rendered = array();
-		if(!is_null($this->outputSpeech)) {
-			$rendered['outputSpeech'] = $this->outputSpeech->render();
-
+		$rendered = [];
+		if($this->getOutputSpeech()) {
+			$rendered['outputSpeech'] = $this->getOutputSpeech()->render();
 		}
 
-		if(!is_null($this->card)) {
-			$rendered['card'] = $this->card->render();
-
+		if($this->getCard()) {
+			$rendered['card'] = $this->getCard()->render();
 		}
 
-		if(!is_null($this->reprompt)) {
-			$rendered['reprompt'] = $this->reprompt->render();
-
+		if($this->getReprompt()) {
+			$rendered['reprompt'] = $this->getReprompt()->render();
 		}
 
-		if(count($this->directives)) {
+		if(count($this->getDirectives())) {
 			$renderedDirectives = array();
-			foreach($this->directives as $directive) {
+			foreach($this->getDirectives() as $directive) {
 				array_push($renderedDirectives, $directive->render());
 			}
 
 			$rendered['directives'] = $renderedDirectives;
 		}
 
-		$rendered['shouldEndSession'] = $this->shouldEndSession;
+		if($this->getCanFulfillIntent()) {
+			$rendered['canFulfillIntent'] = $this->getCanFulfillIntent()->render();
+		}
 
+		$rendered['shouldEndSession'] = $this->getShouldEndSession();
 		return $rendered;
 	}
 }

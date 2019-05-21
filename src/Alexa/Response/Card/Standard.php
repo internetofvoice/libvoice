@@ -11,10 +11,10 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class Standard extends AbstractCard {
-	/** @var  string $title */
+	/** @var string $title */
 	protected $title;
 
-	/** @var  string $text */
+	/** @var string $text */
 	protected $text;
 
 	/** @var string $smallImageUrl */
@@ -22,6 +22,7 @@ class Standard extends AbstractCard {
 
 	/** @var string $largeImageUrl */
 	protected $largeImageUrl;
+
 
 	/**
 	 * @param string $title
@@ -133,11 +134,11 @@ class Standard extends AbstractCard {
 	 */
 	public function render() {
 		return [
-			'type'          => $this->type,
-			'title'         => $this->title,
-			'text'          => $this->text,
-			'smallImageUrl' => $this->smallImageUrl,
-			'largeImageUrl' => $this->largeImageUrl,
+			'type'          => $this->getType(),
+			'title'         => $this->getTitle(),
+			'text'          => $this->getText(),
+			'smallImageUrl' => $this->getSmallImageUrl(),
+			'largeImageUrl' => $this->getLargeImageUrl(),
 		];
 	}
 }
