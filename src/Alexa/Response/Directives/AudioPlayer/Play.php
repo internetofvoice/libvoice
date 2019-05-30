@@ -16,7 +16,7 @@ class Play extends AbstractDirective {
 	const PLAY_BEHAVIORS = ['REPLACE_ALL', 'ENQUEUE', 'REPLACE_ENQUEUED'];
 
 	/** @var string $playBehavior */
-	protected $playBehavior;
+	protected $playBehavior = 'REPLACE_ALL';
 
 	/** @var AudioItem $audioItem */
 	protected $audioItem;
@@ -46,7 +46,6 @@ class Play extends AbstractDirective {
 	 * @param string $playBehavior
 	 *
 	 * @return Play
-	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function setPlayBehavior($playBehavior) {
@@ -82,10 +81,18 @@ class Play extends AbstractDirective {
 	 * @return array
 	 */
 	public function render() {
-		return [
-			'type' => $this->getType(),
+		$result = [
+			'type'         => $this->getType(),
 			'playBehavior' => $this->getPlayBehavior(),
-			'audioItem' => $this->getAudioItem()->render(),
+			'audioItem'    => $this->getAudioItem()->render(),
 		];
+
+		if($result['playBehavior'] == 'ENQUEUE') {
+			if(!isset($result['audioItem']['stream']['expectedPreviousToken']) || empty($result['audioItem']['stream']['expectedPreviousToken'])) {
+				throw new InvalidArgumentException('audioItem.stream.expectedPreviousToken must be set if playBehavior is ENQUEUE.');
+			}
+		}
+
+		return $result;
 	}
 }

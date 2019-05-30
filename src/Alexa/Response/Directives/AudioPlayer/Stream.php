@@ -114,10 +114,10 @@ class Stream {
 	 */
 	public function render() {
 		return [
-			'url' => $this->getUrl(),
-			'token' => $this->getToken(),
+			'url'                   => $this->getUrl(),
+			'token'                 => $this->getToken(),
 			'expectedPreviousToken' => $this->getExpectedPreviousToken(),
-			'offsetInMilliseconds' => $this->getOffsetInMilliseconds(),
+			'offsetInMilliseconds'  => $this->getOffsetInMilliseconds(),
 		];
 	}
 }

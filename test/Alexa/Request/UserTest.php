@@ -19,11 +19,11 @@ class UserTest extends TestCase {
 		$fixture = json_decode(file_get_contents(__DIR__ . '/Fixtures/IntentRequest-Body.txt'), true);
 
 		// Complement missing fixture data
-		$fixture['session']['user']['permissions'] = ['permission1' => 1, 'permission2' => 2];
+		$fixture['session']['user']['permissions'] = ['consentToken' => '123'];
 
 		$user = new User($fixture['session']['user']);
 		$this->assertStringStartsWith('amzn1.ask.account.', $user->getUserId());
 		$this->assertEquals('lo6539ti9xbd54ng', $user->getAccessToken());
-		$this->assertEquals(2, count($user->getPermissions()));
+		$this->assertEquals('123', $user->getPermissions()->getConsentToken());
 	}
 }

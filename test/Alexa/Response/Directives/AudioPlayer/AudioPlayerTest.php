@@ -4,9 +4,11 @@ namespace Tests\Alexa\Response\Directives\AudioPlayer;
 
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\AudioItem;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\ClearQueue;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Metadata;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Play;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Stop;
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Stream;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\Image;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
@@ -35,8 +37,38 @@ class AudioPlayerTest extends TestCase {
 	/**
 	 * @group custom-skill
 	 */
+	public function testMetadata() {
+		$image = new Image('My Image');
+		$image->setImageSmall('https://picsum.photos/720/480');
+
+		$metadata = new Metadata('Title', 'Subtitle');
+		$metadata->setArt($image);
+		$metadata->setBackgroundImage($image);
+
+		$expect = [
+			'title'    => 'Title',
+			'subtitle' => 'Subtitle',
+
+			'art' => [
+				'contentDescription' => 'My Image',
+				'sources' => [['size' => 'SMALL', 'url'  => 'https://picsum.photos/720/480']]
+			],
+
+			'backgroundImage' => [
+				'contentDescription' => 'My Image',
+				'sources' => [['size' => 'SMALL', 'url'  => 'https://picsum.photos/720/480']]
+			],
+		];
+
+		$this->assertEquals($expect, $metadata->render());
+	}
+
+	/**
+	 * @group custom-skill
+	 */
 	public function testAudioItem() {
 		$audioItem = new AudioItem(new Stream('https://example.com', 'token1', 'token2', 1000));
+		$audioItem->setMetadata(new Metadata());
 		$expect = [
 			'stream' => [
 				'url'                   => 'https://example.com',
@@ -44,6 +76,7 @@ class AudioPlayerTest extends TestCase {
 				'expectedPreviousToken' => 'token2',
 				'offsetInMilliseconds'  => 1000,
 			],
+			'metadata' => [],
 		];
 
 		$this->assertEquals($expect, $audioItem->render());
@@ -72,6 +105,15 @@ class AudioPlayerTest extends TestCase {
 
 		$this->expectException(InvalidArgumentException::class);
 		$play->setPlayBehavior('NON_EXISTENT_PLAY_BEHAVIOR');
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testPlayExceptions() {
+		$play = new Play('ENQUEUE', new AudioItem(new Stream('https://example.com', 'token1')));
+		$this->expectException(InvalidArgumentException::class);
+		$play->render();
 	}
 
 	/**

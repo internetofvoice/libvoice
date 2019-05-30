@@ -2,7 +2,9 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response;
 
-use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount;
+use \InternetOfVoice\LibVoice\Alexa\Response\CanFulfill\CanFulfillIntent;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent as AskForPermissionsConsentCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount as LinkAccountCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
@@ -57,6 +59,19 @@ class AlexaResponse {
 	}
 
 	/**
+	 * Shortcut to Response->OutputSpeech->setPlayBehavior
+	 *
+	 * @param string $playBehavior
+	 *
+	 * @return AlexaResponse
+	 */
+	public function setPlayBehavior($playBehavior) {
+		$this->getResponse()->getOutputSpeech()->setPlayBehavior($playBehavior);
+
+		return $this;
+	}
+
+	/**
 	 * Alias for $this->withSimpleCard()
 	 *
 	 * @param string $title
@@ -99,12 +114,25 @@ class AlexaResponse {
 	}
 
 	/**
-	 * Shortcut to Response->setCard(LinkAccount)
+	 * Shortcut to Response->setCard(AskForPermissionsConsentCard)
+	 *
+	 * @param array $permissions
+	 *
+	 * @return AlexaResponse
+	 */
+	public function withAskForPermissionsConsentCard($permissions) {
+		$this->getResponse()->setCard(new AskForPermissionsConsentCard($permissions));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut to Response->setCard(LinkAccountCard)
 	 *
 	 * @return AlexaResponse
 	 */
 	public function withLinkAccount() {
-		$this->getResponse()->setCard(new LinkAccount());
+		$this->getResponse()->setCard(new LinkAccountCard());
 
 		return $this;
 	}
@@ -131,6 +159,19 @@ class AlexaResponse {
 	 */
 	public function repromptSSML($ssml) {
 		$this->getResponse()->setReprompt(new Reprompt('SSML', $ssml));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut to Response->setCanFulfillIntent(CanFulfillIntent)
+	 *
+	 * @param string $canFulfill
+	 *
+	 * @return AlexaResponse
+	 */
+	public function canFulfill($canFulfill) {
+		$this->getResponse()->setCanFulfillIntent(new CanFulfillIntent($canFulfill));
 
 		return $this;
 	}
@@ -220,9 +261,9 @@ class AlexaResponse {
 	public function render() {
 		$rendered = array();
 
-		$rendered['version']           = $this->version;
-		$rendered['sessionAttributes'] = $this->sessionAttributes;
-		$rendered['response']          = $this->response->render();
+		$rendered['version']           = $this->getVersion();
+		$rendered['sessionAttributes'] = $this->getSessionAttributes();
+		$rendered['response']          = $this->getResponse()->render();
 
 		return $rendered;
 	}

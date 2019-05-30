@@ -12,22 +12,20 @@ class VideoItem {
 	/** @var string $source */
 	protected $source;
 
-	/** @var string $title */
-	protected $title;
-
-	/** @var string $subtitle */
-	protected $subtitle;
+	/** @var Metadata $metadata */
+	protected $metadata;
 
 
 	/**
-	 * @param string $source
-	 * @param string $title
-	 * @param string $subtitle
+	 * @param string   $source
+	 * @param Metadata $metadata
 	 */
-	public function __construct($source, $title = '', $subtitle = '') {
+	public function __construct($source, $metadata = null) {
 		$this->setSource($source);
-		$this->setTitle($title);
-		$this->setSubtitle($subtitle);
+
+		if($metadata) {
+			$this->setMetadata($metadata);
+		}
 	}
 
 
@@ -50,41 +48,22 @@ class VideoItem {
 	}
 
 	/**
-	 * @return string
+	 * @return Metadata
 	 */
-	public function getTitle() {
-		return $this->title;
+	public function getMetadata() {
+		return $this->metadata;
 	}
 
 	/**
-	 * @param string $title
+	 * @param  Metadata $metadata
 	 *
 	 * @return VideoItem
 	 */
-	public function setTitle($title) {
-		$this->title = $title;
+	public function setMetadata($metadata) {
+		$this->metadata = $metadata;
 
 		return $this;
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getSubtitle() {
-		return $this->subtitle;
-	}
-
-	/**
-	 * @param string $subtitle
-	 *
-	 * @return VideoItem
-	 */
-	public function setSubtitle($subtitle) {
-		$this->subtitle = $subtitle;
-
-		return $this;
-	}
-
 
 
 	/**
@@ -95,12 +74,8 @@ class VideoItem {
 			'source' => $this->getSource(),
 		];
 
-		if($this->getTitle()) {
-			$rendered['metadata']['title'] = $this->getTitle();
-		}
-
-		if($this->getSubtitle()) {
-			$rendered['metadata']['subtitle'] = $this->getSubtitle();
+		if($this->getMetadata()) {
+			$rendered['metadata'] = $this->getMetadata()->render();
 		}
 
 		return $rendered;

@@ -2,9 +2,9 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Request\Request\AudioPlayer;
 
+use \InternetOfVoice\LibVoice\Alexa\Request\Error;
 use \InternetOfVoice\LibVoice\Alexa\Request\Context\AudioPlayer;
 use \InternetOfVoice\LibVoice\Alexa\Request\Request\AbstractRequest;
-use \stdClass;
 
 /**
  * Class PlaybackFailed
@@ -16,7 +16,7 @@ class PlaybackFailed extends AbstractRequest {
 	/** @var string $token */
 	protected $token;
 
-	/** @var stdClass $error */
+	/** @var Error $error */
 	protected $error;
 
 	/** @var AudioPlayer $currentPlaybackState */
@@ -34,7 +34,7 @@ class PlaybackFailed extends AbstractRequest {
 		}
 
 		if(isset($requestData['error'])) {
-			$this->error = json_decode(json_encode($requestData['error']));
+			$this->error = new Error($requestData['error']);
 		}
 
 		if(isset($requestData['currentPlaybackState'])) {
@@ -51,7 +51,7 @@ class PlaybackFailed extends AbstractRequest {
 	}
 
 	/**
-	 * @return stdClass
+	 * @return Error
 	 */
 	public function getError() {
 		return $this->error;

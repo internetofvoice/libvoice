@@ -21,6 +21,7 @@ class LaunchRequestTest extends TestCase {
 			'requestId' => 'amzn1.echo-api.request.83120192-c5cd-4788-9109-d251e01bb962',
 			'timestamp' => '2017-09-18T09:24:55Z',
 			'locale' => 'de-DE',
+			'shouldLinkResultBeReturned' => true,
 		];
 
 		$request = new LaunchRequest($fixture);
@@ -30,5 +31,6 @@ class LaunchRequestTest extends TestCase {
 		$this->assertStringStartsWith('amzn1.echo-api.request.', $request->getRequestId());
 		$this->assertEquals('2017-09-18 09:24:55', $request->getTimestamp()->format('Y-m-d H:i:s'));
 		$this->assertEquals('de-DE', $request->getLocale());
+		$this->assertEquals(true, $request->shouldLinkResultBeReturned());
 	}
 }

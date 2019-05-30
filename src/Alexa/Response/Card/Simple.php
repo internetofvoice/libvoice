@@ -9,10 +9,10 @@ namespace InternetOfVoice\LibVoice\Alexa\Response\Card;
  * @license http://opensource.org/licenses/MIT
  */
 class Simple extends AbstractCard {
-	/** @var  string $title */
+	/** @var string $title */
 	protected $title;
 
-	/** @var  string $content */
+	/** @var string $content */
 	protected $content;
 
 
@@ -70,9 +70,9 @@ class Simple extends AbstractCard {
 	 */
 	public function render() {
 		return [
-			'type'    => $this->type,
-			'title'   => $this->title,
-			'content' => $this->content,
+			'type'    => $this->getType(),
+			'title'   => $this->getTitle(),
+			'content' => $this->getContent(),
 		];
 	}
 }

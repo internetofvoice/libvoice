@@ -19,13 +19,13 @@ class Capability extends Relation {
     protected $interface = '';
 
     /** @var string $version */
-    protected $version;
+    protected $version = '';
 
     /** @var DiscoverableProperties $properties */
     protected $properties;
 
     /** @var array $extraProperties */
-    protected $extraProperties;
+    protected $extraProperties = [];
 
 
     /**
