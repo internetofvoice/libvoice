@@ -5,7 +5,6 @@ namespace InternetOfVoice\LibVoice\Alexa\Request;
 use \DateTime;
 use \Exception;
 use \InvalidArgumentException;
-use \RuntimeException;
 
 /**
  * Class CertificateValidator
@@ -51,6 +50,7 @@ class CertificateValidator {
 	 * @return  bool
 	 * @see     https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#verifying-that-the-request-was-sent-by-alexa
 	 * @throws  Exception
+	 * @codeCoverageIgnore
 	 */
 	public function validateRequest($requestData, $checkTimeStamp = true) {
 		$requestParsed = json_decode($requestData, true);
@@ -91,6 +91,7 @@ class CertificateValidator {
 	/**
 	 * @return bool
 	 * @throws InvalidArgumentException
+	 * @codeCoverageIgnore
 	 */
 	public function validateCertificate() {
 		$this->certificateContent = $this->fetchCertificate();
@@ -106,10 +107,11 @@ class CertificateValidator {
 		return true;
 	}
 
-	/*
-	 * @params string $requestData
+	/**
+	 * @param string $requestData
 	 * @return bool
 	 * @throws InvalidArgumentException
+	 * @codeCoverageIgnore
 	 */
 	public function validateRequestSignature($requestData) {
 		$certKey = openssl_pkey_get_public($this->certificateContent);
@@ -134,9 +136,10 @@ class CertificateValidator {
 	}
 
 	/**
-	 * @param array  $parsedCertificate
-	 * @param string $amazonServiceDomain
+	 * @param  array  $parsedCertificate
+	 * @param  string $amazonServiceDomain
 	 * @return bool
+	 * @codeCoverageIgnore
 	 */
 	public function validateCertificateSAN(array $parsedCertificate, $amazonServiceDomain) {
 		if (strpos($parsedCertificate['extensions']['subjectAltName'], $amazonServiceDomain) === false) {
@@ -179,10 +182,6 @@ class CertificateValidator {
 	 * @return mixed
 	 */
 	public function fetchCertificate() {
-		if (!function_exists('curl_init')) {
-			throw new RuntimeException('CURL extension is required to download the Certificate.');
-		}
-
 		$curlHandle = curl_init();
 		curl_setopt($curlHandle, CURLOPT_URL, $this->certificateUrl);
 		curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);

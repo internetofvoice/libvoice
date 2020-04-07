@@ -23,7 +23,7 @@ class RequestTest extends TestCase {
 		$this->assertEquals('Alexa.Discovery', $request->getDirective()->getHeader()->getNamespace());
 		$this->assertEquals('Discover', $request->getDirective()->getHeader()->getName());
 		$this->assertEquals('3', $request->getDirective()->getHeader()->getPayloadVersion());
-		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $request->getDirective()->getHeader()->getMessageId());
+		$this->assertMatchesRegularExpression('/^[0-9a-zA-Z-]{36}$/', $request->getDirective()->getHeader()->getMessageId());
 
         $this->assertEquals('BearerToken', $request->getDirective()->getPayload()->getScope()->getType());
         $this->assertEquals('access-token-send-by-skill', $request->getDirective()->getPayload()->getScope()->getToken());
