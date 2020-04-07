@@ -19,7 +19,7 @@ class Error {
 	/**
 	 * @param array $errorData
 	 */
-	public function __construct($errorData) {
+	public function __construct(array $errorData) {
 		if(isset($errorData['type'])) {
 			$this->type = $errorData['type'];
 		}
@@ -33,14 +33,14 @@ class Error {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getMessage() {
+	public function getMessage(): string {
 		return $this->message;
 	}
 }

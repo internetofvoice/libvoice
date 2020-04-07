@@ -16,7 +16,7 @@ class Cause {
 	/**
 	 * @param array $causeData
 	 */
-	public function __construct($causeData) {
+	public function __construct(array $causeData) {
 		if(isset($causeData['requestId'])) {
 			$this->requestId = $causeData['requestId'];
 		}
@@ -26,7 +26,7 @@ class Cause {
 	/**
 	 * @return string
 	 */
-	public function getRequestId() {
+	public function getRequestId(): string {
 		return $this->requestId;
 	}
 }

@@ -19,7 +19,7 @@ class Device {
 	/**
 	 * @param array $deviceData
 	 */
-	public function __construct($deviceData) {
+	public function __construct(array $deviceData) {
 		if (isset($deviceData['deviceId'])) {
 			$this->deviceId = $deviceData['deviceId'];
 		}
@@ -33,14 +33,14 @@ class Device {
 	/**
 	 * @return string
 	 */
-	public function getDeviceId() {
+	public function getDeviceId(): string {
 		return $this->deviceId;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getSupportedInterfaces() {
+	public function getSupportedInterfaces(): array {
 		return $this->supportedInterfaces;
 	}
 }

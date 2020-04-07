@@ -28,7 +28,7 @@ abstract class AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		$this->type      = $requestData['type'];
 		$this->locale    = $requestData['locale'];
 		$this->requestId = $requestData['requestId'];
@@ -46,28 +46,28 @@ abstract class AbstractRequest {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getRequestId() {
+	public function getRequestId(): string  {
 		return $this->requestId;
 	}
 
 	/**
 	 * @return DateTime
 	 */
-	public function getTimestamp() {
+	public function getTimestamp(): DateTime {
 		return $this->timestamp;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getLocale() {
+	public function getLocale(): string  {
 		return $this->locale;
 	}
 }

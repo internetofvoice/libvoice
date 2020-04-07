@@ -16,7 +16,7 @@ class LaunchRequest extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		if(isset($requestData['shouldLinkResultBeReturned'])) {
@@ -28,7 +28,7 @@ class LaunchRequest extends AbstractRequest {
 	/**
 	 * @return bool
 	 */
-	public function shouldLinkResultBeReturned() {
+	public function shouldLinkResultBeReturned(): bool {
 		return $this->shouldLinkResultBeReturned;
 	}
 }

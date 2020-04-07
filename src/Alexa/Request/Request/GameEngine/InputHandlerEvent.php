@@ -21,7 +21,7 @@ class InputHandlerEvent extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		if(isset($requestData['originatingRequestId'])) {
@@ -39,14 +39,14 @@ class InputHandlerEvent extends AbstractRequest {
 	/**
 	 * @return string
 	 */
-	public function getOriginatingRequestId() {
+	public function getOriginatingRequestId(): string {
 		return $this->originatingRequestId;
 	}
 
 	/**
 	 * @return Event[]
 	 */
-	public function getEvents() {
+	public function getEvents(): array {
 		return $this->events;
 	}
 }

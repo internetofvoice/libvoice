@@ -19,7 +19,7 @@ class ResolutionValue {
 	/**
 	 * @param array $data
 	 */
-	public function __construct($data = []) {
+	public function __construct(array $data = []) {
 		if(isset($data['name'])) {
 			$this->name = $data['name'];
 		}
@@ -33,7 +33,7 @@ class ResolutionValue {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string  {
 		return $this->name;
 	}
 
@@ -42,7 +42,7 @@ class ResolutionValue {
 	 *
 	 * @return ResolutionValue
 	 */
-	public function setName($name) {
+	public function setName(string $name): ResolutionValue {
 		$this->name = $name;
 
 		return $this;
@@ -51,7 +51,7 @@ class ResolutionValue {
 	/**
 	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string  {
 		return $this->id;
 	}
 
@@ -60,7 +60,7 @@ class ResolutionValue {
 	 *
 	 * @return ResolutionValue
 	 */
-	public function setId($id) {
+	public function setId(string $id): ResolutionValue {
 		$this->id = $id;
 
 		return $this;
@@ -70,7 +70,7 @@ class ResolutionValue {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'name' => $this->getName(),
 			'id'   => $this->getId(),

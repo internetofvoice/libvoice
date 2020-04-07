@@ -16,12 +16,25 @@ use \InvalidArgumentException;
  * @author  Jakub Suchy <info@jsuchy.cz>
  */
 class CertificateValidator {
+	/** @var int TIMESTAMP_VALID_TOLERANCE_SECONDS */
 	const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
+
+	/** @var string SIGNATURE_VALID_PROTOCOL */
 	const SIGNATURE_VALID_PROTOCOL = 'https';
+
+	/** @var string SIGNATURE_VALID_HOSTNAME */
 	const SIGNATURE_VALID_HOSTNAME = 's3.amazonaws.com';
+
+	/** @var string SIGNATURE_VALID_PATH */
 	const SIGNATURE_VALID_PATH = '/echo.api/';
+
+	/** @var int SIGNATURE_VALID_PORT */
 	const SIGNATURE_VALID_PORT = 443;
+
+	/** @var string ECHO_SERVICE_DOMAIN */
 	const ECHO_SERVICE_DOMAIN = 'echo-api.amazon.com';
+
+	/** @var string ENCRYPT_METHOD */
 	const ENCRYPT_METHOD = 'sha1WithRSAEncryption';
 
 	/** @var string $certificateUrl */
@@ -30,7 +43,7 @@ class CertificateValidator {
 	/** @var string $requestSignature */
 	protected $requestSignature;
 
-	/** @var mixed $certificateContent */
+	/** @var string $certificateContent */
 	protected $certificateContent;
 
 
@@ -38,7 +51,7 @@ class CertificateValidator {
 	 * @param string $certificateUrl
 	 * @param string $signature
 	 */
-	public function __construct($certificateUrl, $signature) {
+	public function __construct(string $certificateUrl, string $signature) {
 		$this->certificateUrl   = $certificateUrl;
 		$this->requestSignature = $signature;
 	}
@@ -52,7 +65,7 @@ class CertificateValidator {
 	 * @throws  Exception
 	 * @codeCoverageIgnore
 	 */
-	public function validateRequest($requestData, $checkTimeStamp = true) {
+	public function validateRequest(string $requestData, bool $checkTimeStamp = true): bool {
 		$requestParsed = json_decode($requestData, true);
 
 		if ($checkTimeStamp) {
@@ -73,7 +86,7 @@ class CertificateValidator {
 	 * @throws InvalidArgumentException
 	 * @throws Exception
 	 */
-	public function validateTimestamp($timestamp) {
+	public function validateTimestamp(string $timestamp): bool {
 		if (is_numeric($timestamp)) {
 			$timestamp = '@' . substr($timestamp, 0, 10);
 		}
@@ -93,7 +106,7 @@ class CertificateValidator {
 	 * @throws InvalidArgumentException
 	 * @codeCoverageIgnore
 	 */
-	public function validateCertificate() {
+	public function validateCertificate(): bool {
 		$this->certificateContent = $this->fetchCertificate();
 		$parsedCertificate        = $this->parseCertificate($this->certificateContent);
 
@@ -113,7 +126,7 @@ class CertificateValidator {
 	 * @throws InvalidArgumentException
 	 * @codeCoverageIgnore
 	 */
-	public function validateRequestSignature($requestData) {
+	public function validateRequestSignature(string $requestData): bool {
 		$certKey = openssl_pkey_get_public($this->certificateContent);
 		$valid   = openssl_verify($requestData, base64_decode($this->requestSignature), $certKey, self::ENCRYPT_METHOD);
 		if (!$valid) {
@@ -127,7 +140,7 @@ class CertificateValidator {
 	 * @param array $parsedCertificate
 	 * @return bool
 	 */
-	public function validateCertificateDate(array $parsedCertificate) {
+	public function validateCertificateDate(array $parsedCertificate): bool {
 		$validFrom = $parsedCertificate['validFrom_time_t'];
 		$validTo   = $parsedCertificate['validTo_time_t'];
 		$time      = time();
@@ -141,7 +154,7 @@ class CertificateValidator {
 	 * @return bool
 	 * @codeCoverageIgnore
 	 */
-	public function validateCertificateSAN(array $parsedCertificate, $amazonServiceDomain) {
+	public function validateCertificateSAN(array $parsedCertificate, string $amazonServiceDomain): bool {
 		if (strpos($parsedCertificate['extensions']['subjectAltName'], $amazonServiceDomain) === false) {
 			return false;
 		} else {
@@ -153,7 +166,7 @@ class CertificateValidator {
 	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public function verifySignatureCertificateURL() {
+	public function verifySignatureCertificateURL(): bool {
 		$url = parse_url($this->certificateUrl);
 
 		if ($url['scheme'] !== static::SIGNATURE_VALID_PROTOCOL) {
@@ -171,17 +184,17 @@ class CertificateValidator {
 
 
 	/**
-	 * @param mixed $certificate
+	 * @param string $certificate
 	 * @return array
 	 */
-	public function parseCertificate($certificate) {
+	public function parseCertificate(string $certificate): array {
 		return openssl_x509_parse($certificate);
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function fetchCertificate() {
+	public function fetchCertificate(): string {
 		$curlHandle = curl_init();
 		curl_setopt($curlHandle, CURLOPT_URL, $this->certificateUrl);
 		curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);

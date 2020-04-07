@@ -21,7 +21,7 @@ class IntentRequest extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		$this->intent = new Intent($requestData['intent']);
@@ -34,14 +34,14 @@ class IntentRequest extends AbstractRequest {
 	/**
 	 * @return string
 	 */
-	public function getDialogState() {
+	public function getDialogState(): string {
 		return $this->dialogState;
 	}
 
 	/**
 	 * @return Intent
 	 */
-	public function getIntent() {
+	public function getIntent(): Intent {
 		return $this->intent;
 	}
 }

@@ -28,7 +28,7 @@ class Session {
 	/**
 	 * @param   array $sessionData
 	 */
-	public function __construct($sessionData) {
+	public function __construct(array $sessionData) {
 		$this->new         = boolval($sessionData['new']);
 		$this->sessionId   = $sessionData['sessionId'];
 		$this->attributes  = isset($sessionData['attributes']) ? $sessionData['attributes'] : [];
@@ -40,21 +40,21 @@ class Session {
 	/**
 	 * @return bool
 	 */
-	public function isNew() {
+	public function isNew(): bool {
 		return $this->new;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getSessionId() {
+	public function getSessionId(): string {
 		return $this->sessionId;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getAttributes() {
+	public function getAttributes(): array {
 		return $this->attributes;
 	}
 
@@ -64,7 +64,7 @@ class Session {
 	 *
 	 * @return  mixed
 	 */
-	public function getAttribute($key, $default = false) {
+	public function getAttribute(string $key, $default = false) {
 		if (isset($this->attributes[$key])) {
 			return $this->attributes[$key];
 		}
@@ -75,14 +75,14 @@ class Session {
 	/**
 	 * @return Application
 	 */
-	public function getApplication() {
+	public function getApplication(): Application {
 		return $this->application;
 	}
 
 	/**
 	 * @return User
 	 */
-	public function getUser() {
+	public function getUser(): User {
 		return $this->user;
 	}
 }

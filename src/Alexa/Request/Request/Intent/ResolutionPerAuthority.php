@@ -22,7 +22,7 @@ class ResolutionPerAuthority {
 	/**
 	 * @param array $data
 	 */
-	public function __construct($data = []) {
+	public function __construct(array $data = []) {
 		if(isset($data['authority'])) {
 			$this->authority = $data['authority'];
 		}
@@ -44,7 +44,7 @@ class ResolutionPerAuthority {
 	/**
 	 * @return string
 	 */
-	public function getAuthority() {
+	public function getAuthority(): string  {
 		return $this->authority;
 	}
 
@@ -53,7 +53,7 @@ class ResolutionPerAuthority {
 	 *
 	 * @return ResolutionPerAuthority
 	 */
-	public function setAuthority($authority) {
+	public function setAuthority(string $authority): ResolutionPerAuthority {
 		$this->authority = $authority;
 
 		return $this;
@@ -62,7 +62,7 @@ class ResolutionPerAuthority {
 	/**
 	 * @return ResolutionStatus
 	 */
-	public function getStatus() {
+	public function getStatus(): ResolutionStatus {
 		return $this->status;
 	}
 
@@ -71,7 +71,7 @@ class ResolutionPerAuthority {
 	 *
 	 * @return ResolutionPerAuthority
 	 */
-	public function setStatus($status) {
+	public function setStatus(ResolutionStatus $status): ResolutionPerAuthority {
 		$this->status = $status;
 
 		return $this;
@@ -80,7 +80,7 @@ class ResolutionPerAuthority {
 	/**
 	 * @return ResolutionValue[]
 	 */
-	public function getValues() {
+	public function getValues(): array {
 		return $this->values;
 	}
 
@@ -89,7 +89,7 @@ class ResolutionPerAuthority {
 	 *
 	 * @return array
 	 */
-	public function getValuesAsArray() {
+	public function getValuesAsArray(): array {
 		$values = [];
 		foreach($this->getValues() as $value) {
 			$values[$value->getId()] = $value->getName();
@@ -103,7 +103,7 @@ class ResolutionPerAuthority {
 	 *
 	 * @return ResolutionPerAuthority
 	 */
-	public function setValues($values) {
+	public function setValues(array $values): ResolutionPerAuthority {
 		$this->values = [];
 		foreach($values as $value) {
 			$this->addValue($value);
@@ -117,7 +117,7 @@ class ResolutionPerAuthority {
 	 *
 	 * @return ResolutionPerAuthority
 	 */
-	public function addValue($value) {
+	public function addValue(ResolutionValue $value): ResolutionPerAuthority {
 		array_push($this->values, $value);
 
 		return $this;
@@ -127,7 +127,7 @@ class ResolutionPerAuthority {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'authority' => $this->getAuthority(),
 			'status'    => $this->getStatus()->render(),

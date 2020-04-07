@@ -14,7 +14,7 @@ class PreviousCommandIssued extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 	}
 }

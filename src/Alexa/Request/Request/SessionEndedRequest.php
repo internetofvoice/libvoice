@@ -21,7 +21,7 @@ class SessionEndedRequest extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		if (isset($requestData['reason'])) {
@@ -37,14 +37,14 @@ class SessionEndedRequest extends AbstractRequest {
 	/**
 	 * @return string
 	 */
-	public function getReason() {
+	public function getReason(): string {
 		return $this->reason;
 	}
 
 	/**
 	 * @return Error
 	 */
-	public function getError() {
+	public function getError(): Error {
 		return $this->error;
 	}
 }

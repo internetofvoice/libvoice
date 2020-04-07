@@ -20,7 +20,7 @@ class ResolutionStatus {
 	/**
 	 * @param array $data
 	 */
-	public function __construct($data = []) {
+	public function __construct(array $data = []) {
 		if(isset($data['code'])) {
 			$this->code = $data['code'];
 		}
@@ -30,7 +30,7 @@ class ResolutionStatus {
 	/**
 	 * @return string
 	 */
-	public function getCode() {
+	public function getCode(): string  {
 		return $this->code;
 	}
 
@@ -40,7 +40,7 @@ class ResolutionStatus {
 	 * @return ResolutionStatus
 	 * @throws InvalidArgumentException
 	 */
-	public function setCode($code) {
+	public function setCode(string $code): ResolutionStatus {
 		if(!in_array($code, self::VALID_CODES)) {
 			throw new InvalidArgumentException('Code must be one of ' . implode(', ', self::VALID_CODES));
 		}
@@ -54,7 +54,7 @@ class ResolutionStatus {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'code' => $this->getCode(),
 		];

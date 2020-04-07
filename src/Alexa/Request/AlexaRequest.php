@@ -119,7 +119,7 @@ class AlexaRequest {
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	private function createRequestFromType() {
+	private function createRequestFromType(): void {
 		if (!isset($this->data['request']['type'])) {
 			throw new InvalidArgumentException('AlexaRequest requires a Request type.');
 		}

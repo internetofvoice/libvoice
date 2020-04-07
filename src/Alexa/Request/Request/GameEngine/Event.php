@@ -19,7 +19,7 @@ class Event {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		if(isset($requestData['name'])) {
 			$this->name = $requestData['name'];
 		}
@@ -35,14 +35,14 @@ class Event {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string  {
 		return $this->name;
 	}
 
 	/**
 	 * @return InputEvent[]
 	 */
-	public function getInputEvents() {
+	public function getInputEvents(): array {
 		return $this->inputEvents;
 	}
 }
