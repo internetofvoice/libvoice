@@ -38,7 +38,7 @@ class Capability extends Relation {
      * @param array  $extraProperties
      * @throws InvalidArgumentException
      */
-    public function __construct($interface, $properties = [], $proactivelyReported = false, $retrievable = false, $extraProperties = null) {
+    public function __construct($interface, $properties = [], $proactivelyReported = false, $retrievable = false, $extraProperties = []) {
         $this->setInterface($interface);
         $this->setVersion($this->getApiVersion());
         $this->setProperties($properties, $proactivelyReported, $retrievable);
@@ -164,10 +164,6 @@ class Capability extends Relation {
             throw new InvalidArgumentException('Invalid extra property ' . $key . ' for interface: ' . $interface);
         }
 
-        if(is_null($this->extraProperties))  {
-            $this->extraProperties = [];
-        }
-
         $this->extraProperties[$key] = $value;
         return $this;
     }
@@ -210,5 +206,4 @@ class Capability extends Relation {
 
         return $rendered;
     }
-
 }

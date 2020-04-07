@@ -68,9 +68,9 @@ class InputEvent {
 	}
 
 	/**
-	 * @return DateTime
+	 * @return null|DateTime
 	 */
-	public function getTimestamp(): DateTime {
+	public function getTimestamp(): ?DateTime {
 		return $this->timestamp;
 	}
 

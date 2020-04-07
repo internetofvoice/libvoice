@@ -20,7 +20,7 @@ class DialogTest extends TestCase {
 	 * @group custom-skill
 	 */
 	public function testDialogs() {
-		$dialog = new ConfirmIntent(new Intent());
+		$dialog = new ConfirmIntent(new Intent(['name' => 'TestIntent', 'confirmationStatus' => 'Status']));
 		$this->assertInstanceOf(ConfirmIntent::class, $dialog);
 		$this->assertInstanceOf(Intent::class, $dialog->getUpdatedIntent());
 		$this->assertEquals('Dialog.ConfirmIntent', $dialog->getType());
@@ -28,14 +28,14 @@ class DialogTest extends TestCase {
 		$expect = [
 			'type' => 'Dialog.ConfirmIntent',
 			'updatedIntent' => [
-				'name' => null,
-				'confirmationStatus' => null,
+				'name' => 'TestIntent',
+				'confirmationStatus' => 'Status',
 			],
 		];
 
 		$this->assertEquals($expect, $dialog->render());
 
-		$dialog = new ConfirmSlot(new Intent());
+		$dialog = new ConfirmSlot(new Intent(['name' => 'TestIntent', 'confirmationStatus' => 'Status']));
 		$dialog->setSlotToConfirm('mySlot');
 		$this->assertInstanceOf(ConfirmSlot::class, $dialog);
 		$this->assertInstanceOf(Intent::class, $dialog->getUpdatedIntent());
@@ -46,19 +46,19 @@ class DialogTest extends TestCase {
 			'type' => 'Dialog.ConfirmSlot',
 			'slotToConfirm' => 'mySlot',
 			'updatedIntent' => [
-				'name' => null,
-				'confirmationStatus' => null,
+				'name' => 'TestIntent',
+				'confirmationStatus' => 'Status',
 			],
 		];
 
 		$this->assertEquals($expect, $dialog->render());
 
-		$dialog = new Delegate(new Intent());
+		$dialog = new Delegate(new Intent(['name' => 'TestIntent', 'confirmationStatus' => 'Status']));
 		$this->assertInstanceOf(Delegate::class, $dialog);
 		$this->assertInstanceOf(Intent::class, $dialog->getUpdatedIntent());
 		$this->assertEquals('Dialog.Delegate', $dialog->getType());
 
-		$dialog = new ElicitSlot(new Intent());
+		$dialog = new ElicitSlot(new Intent(['name' => 'TestIntent', 'confirmationStatus' => 'Status']));
 		$dialog->setSlotToElicit('mySlot');
 		$this->assertInstanceOf(ElicitSlot::class, $dialog);
 		$this->assertInstanceOf(Intent::class, $dialog->getUpdatedIntent());
@@ -69,8 +69,8 @@ class DialogTest extends TestCase {
 			'type' => 'Dialog.ElicitSlot',
 			'slotToElicit' => 'mySlot',
 			'updatedIntent' => [
-				'name' => null,
-				'confirmationStatus' => null,
+				'name' => 'TestIntent',
+				'confirmationStatus' => 'Status',
 			],
 		];
 
