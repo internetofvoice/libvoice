@@ -22,7 +22,7 @@ class ClearQueue extends AbstractDirective {
 	/**
 	 * @param string $clearBehavior
 	 */
-	public function __construct($clearBehavior) {
+	public function __construct(string $clearBehavior) {
 		parent::__construct();
 
 		$this->type = 'AudioPlayer.ClearQueue';
@@ -33,7 +33,7 @@ class ClearQueue extends AbstractDirective {
 	/**
 	 * @return string
 	 */
-	public function getClearBehavior() {
+	public function getClearBehavior(): string {
 		return $this->clearBehavior;
 	}
 
@@ -43,7 +43,7 @@ class ClearQueue extends AbstractDirective {
 	 * @return ClearQueue
 	 * @throws InvalidArgumentException
 	 */
-	public function setClearBehavior($clearBehavior) {
+	public function setClearBehavior(string $clearBehavior): ClearQueue {
 		if(!in_array($clearBehavior, self::CLEAR_BEHAVIORS)) {
 			throw new InvalidArgumentException('ClearBehavior must be one of ' . implode(', ', self::CLEAR_BEHAVIORS));
 		}
@@ -57,7 +57,7 @@ class ClearQueue extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type'          => $this->getType(),
 			'clearBehavior' => $this->getClearBehavior(),

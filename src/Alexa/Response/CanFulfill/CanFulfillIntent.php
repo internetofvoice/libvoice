@@ -11,6 +11,7 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class CanFulfillIntent {
+	/** @var array CAN_FULFILL_VALUES */
 	const CAN_FULFILL_VALUES = ['YES', 'NO'];
 
 	/** @var string $canFulfill */
@@ -23,7 +24,7 @@ class CanFulfillIntent {
 	/**
 	 * @param  string $canFulfill
 	 */
-	public function __construct($canFulfill) {
+	public function __construct(string $canFulfill) {
 		$this->setCanFulfill($canFulfill);
 	}
 
@@ -31,7 +32,7 @@ class CanFulfillIntent {
 	/**
 	 * @return string
 	 */
-	public function getCanFulfill() {
+	public function getCanFulfill(): string {
 		return $this->canFulfill;
 	}
 
@@ -40,7 +41,7 @@ class CanFulfillIntent {
 	 *
 	 * @return CanFulfillIntent
 	 */
-	public function setCanFulfill($canFulfill) {
+	public function setCanFulfill(string $canFulfill): CanFulfillIntent {
 		if(!in_array($canFulfill, self::CAN_FULFILL_VALUES)) {
 			throw new InvalidArgumentException('Not a valid canFulfill value: ' . $canFulfill . '.');
 		}
@@ -53,16 +54,16 @@ class CanFulfillIntent {
 	/**
 	 * @return array
 	 */
-	public function getSlots() {
+	public function getSlots(): array {
 		return $this->slots;
 	}
 
 	/**
 	 * @param  string $name
 	 *
-	 * @return Slot
+	 * @return null|Slot
 	 */
-	public function getSlot($name) {
+	public function getSlot(string $name): ?Slot {
 		return $this->slots[$name] ?: null;
 	}
 
@@ -71,7 +72,7 @@ class CanFulfillIntent {
 	 *
 	 * @return CanFulfillIntent
 	 */
-	public function setSlots($slots) {
+	public function setSlots(array $slots): CanFulfillIntent {
 		$this->slots = [];
 		foreach($slots as $name => $slot) {
 			$this->addSlot($name, $slot);
@@ -86,7 +87,7 @@ class CanFulfillIntent {
 	 *
 	 * @return CanFulfillIntent
 	 */
-	public function addSlot($name, $slot) {
+	public function addSlot(string $name, Slot $slot): CanFulfillIntent {
 		$this->slots[$name] = $slot;
 
 		return $this;
@@ -96,7 +97,7 @@ class CanFulfillIntent {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$rendered = [
 			'canFulfill' => $this->getCanFulfill(),
 		];

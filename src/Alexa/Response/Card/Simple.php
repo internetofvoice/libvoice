@@ -20,7 +20,7 @@ class Simple extends AbstractCard {
 	 * @param string $title
 	 * @param string $content
 	 */
-	public function __construct($title, $content) {
+	public function __construct(string $title, string $content) {
 		parent::__construct();
 
 		$this->type = 'Simple';
@@ -32,7 +32,7 @@ class Simple extends AbstractCard {
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle(): string {
 		return $this->title;
 	}
 
@@ -41,7 +41,7 @@ class Simple extends AbstractCard {
 	 *
 	 * @return Simple
 	 */
-	public function setTitle($title) {
+	public function setTitle(string $title): Simple {
 		$this->title = $title;
 
 		return $this;
@@ -50,7 +50,7 @@ class Simple extends AbstractCard {
 	/**
 	 * @return string
 	 */
-	public function getContent() {
+	public function getContent(): string {
 		return $this->content;
 	}
 
@@ -59,7 +59,7 @@ class Simple extends AbstractCard {
 	 *
 	 * @return Simple
 	 */
-	public function setContent($content) {
+	public function setContent(string $content): Simple {
 		$this->content = mb_substr($content, 0, self::MAX_CONTENT_CHARS, 'UTF-8');
 
 		return $this;
@@ -68,7 +68,7 @@ class Simple extends AbstractCard {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type'    => $this->getType(),
 			'title'   => $this->getTitle(),

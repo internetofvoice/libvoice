@@ -19,7 +19,7 @@ abstract class AbstractDialog extends AbstractDirective {
 	/**
 	 * @param Intent $updatedIntent
 	 */
-	public function __construct($updatedIntent) {
+	public function __construct(Intent $updatedIntent) {
 		parent::__construct();
 
 		$this->setUpdatedIntent($updatedIntent);
@@ -29,7 +29,7 @@ abstract class AbstractDialog extends AbstractDirective {
 	/**
 	 * @return Intent
 	 */
-	public function getUpdatedIntent() {
+	public function getUpdatedIntent(): Intent {
 		return $this->updatedIntent;
 	}
 
@@ -38,7 +38,7 @@ abstract class AbstractDialog extends AbstractDirective {
 	 *
 	 * @return AbstractDialog
 	 */
-	public function setUpdatedIntent($updatedIntent) {
+	public function setUpdatedIntent(Intent $updatedIntent): AbstractDialog {
 		$this->updatedIntent = $updatedIntent;
 
 		return $this;
@@ -48,7 +48,7 @@ abstract class AbstractDialog extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type'          => $this->getType(),
 			'updatedIntent' => $this->getUpdatedIntent()->render(),

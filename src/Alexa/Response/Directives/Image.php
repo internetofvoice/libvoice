@@ -13,25 +13,25 @@ class Image {
 	protected $contentDescription;
 
 	/** @var string $imageXSmall */
-	protected $imageXSmall;
+	protected $imageXSmall = '';
 
 	/** @var string $imageSmall */
-	protected $imageSmall;
+	protected $imageSmall = '';
 
 	/** @var string $imageMedium */
-	protected $imageMedium;
+	protected $imageMedium = '';
 
 	/** @var string $imageLarge */
-	protected $imageLarge;
+	protected $imageLarge = '';
 
 	/** @var string $imageXLarge */
-	protected $imageXLarge;
+	protected $imageXLarge = '';
 
 
 	/**
 	 * @param string $contentDescription
 	 */
-	public function __construct($contentDescription) {
+	public function __construct(string $contentDescription) {
 		$this->setContentDescription($contentDescription);
 	}
 
@@ -39,7 +39,7 @@ class Image {
 	/**
 	 * @return string
 	 */
-	public function getContentDescription() {
+	public function getContentDescription(): string {
 		return $this->contentDescription;
 	}
 
@@ -48,7 +48,7 @@ class Image {
 	 *
 	 * @return Image
 	 */
-	public function setContentDescription($contentDescription) {
+	public function setContentDescription(string $contentDescription): Image {
 		$this->contentDescription = $contentDescription;
 
 		return $this;
@@ -57,7 +57,7 @@ class Image {
 	/**
 	 * @return string
 	 */
-	public function getImageXSmall() {
+	public function getImageXSmall(): string {
 		return $this->imageXSmall;
 	}
 
@@ -66,7 +66,7 @@ class Image {
 	 *
 	 * @return Image
 	 */
-	public function setImageXSmall($imageXSmall) {
+	public function setImageXSmall(string $imageXSmall): Image {
 		$this->imageXSmall = $imageXSmall;
 
 		return $this;
@@ -75,7 +75,7 @@ class Image {
 	/**
 	 * @return string
 	 */
-	public function getImageSmall() {
+	public function getImageSmall(): string {
 		return $this->imageSmall;
 	}
 
@@ -84,7 +84,7 @@ class Image {
 	 *
 	 * @return Image
 	 */
-	public function setImageSmall($imageSmall) {
+	public function setImageSmall(string $imageSmall): Image {
 		$this->imageSmall = $imageSmall;
 
 		return $this;
@@ -93,7 +93,7 @@ class Image {
 	/**
 	 * @return string
 	 */
-	public function getImageMedium() {
+	public function getImageMedium(): string {
 		return $this->imageMedium;
 	}
 
@@ -102,7 +102,7 @@ class Image {
 	 *
 	 * @return Image
 	 */
-	public function setImageMedium($imageMedium) {
+	public function setImageMedium(string $imageMedium): Image {
 		$this->imageMedium = $imageMedium;
 
 		return $this;
@@ -111,7 +111,7 @@ class Image {
 	/**
 	 * @return string
 	 */
-	public function getImageLarge() {
+	public function getImageLarge(): string {
 		return $this->imageLarge;
 	}
 
@@ -120,7 +120,7 @@ class Image {
 	 *
 	 * @return Image
 	 */
-	public function setImageLarge($imageLarge) {
+	public function setImageLarge(string $imageLarge): Image {
 		$this->imageLarge = $imageLarge;
 
 		return $this;
@@ -129,7 +129,7 @@ class Image {
 	/**
 	 * @return string
 	 */
-	public function getImageXLarge() {
+	public function getImageXLarge(): string {
 		return $this->imageXLarge;
 	}
 
@@ -138,7 +138,7 @@ class Image {
 	 *
 	 * @return Image
 	 */
-	public function setImageXLarge($imageXLarge) {
+	public function setImageXLarge(string $imageXLarge): Image {
 		$this->imageXLarge = $imageXLarge;
 
 		return $this;
@@ -147,7 +147,7 @@ class Image {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'contentDescription' => $this->getContentDescription(),
 			'sources' => [],

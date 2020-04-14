@@ -23,7 +23,7 @@ class ProgressRecognizer extends AbstractRecognizer {
 	 * @param string $recognizer
 	 * @param int    $completion
 	 */
-	public function __construct($id, $recognizer, $completion = 100) {
+	public function __construct(string $id, string $recognizer, int $completion = 100) {
 		parent::__construct($id);
 
 		$this->type = 'progress';
@@ -35,7 +35,7 @@ class ProgressRecognizer extends AbstractRecognizer {
 	/**
 	 * @return string
 	 */
-	public function getRecognizer() {
+	public function getRecognizer(): string {
 		return $this->recognizer;
 	}
 
@@ -44,7 +44,7 @@ class ProgressRecognizer extends AbstractRecognizer {
 	 *
 	 * @return ProgressRecognizer
 	 */
-	public function setRecognizer($recognizer) {
+	public function setRecognizer(string $recognizer): ProgressRecognizer {
 		$this->recognizer = $recognizer;
 
 		return $this;
@@ -53,7 +53,7 @@ class ProgressRecognizer extends AbstractRecognizer {
 	/**
 	 * @return int
 	 */
-	public function getCompletion() {
+	public function getCompletion(): int {
 		return $this->completion;
 	}
 
@@ -63,7 +63,7 @@ class ProgressRecognizer extends AbstractRecognizer {
 	 * @return ProgressRecognizer
 	 * @throws InvalidArgumentException
 	 */
-	public function setCompletion($completion) {
+	public function setCompletion(int $completion): ProgressRecognizer {
 		if(!is_int($completion) || $completion < 0 || $completion > 100) {
 			throw new InvalidArgumentException('Completion must be an integer between 0 and 100.');
 		}
@@ -77,13 +77,11 @@ class ProgressRecognizer extends AbstractRecognizer {
 	/**
 	 * @return array
 	 */
-	public function render() {
-		$rendered = [
+	public function render(): array {
+		return [
 			'type'       => $this->getType(),
 			'recognizer' => $this->getRecognizer(),
 			'completion' => $this->getCompletion(),
 		];
-
-		return $rendered;
 	}
 }

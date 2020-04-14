@@ -3,7 +3,7 @@
 namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\GadgetController;
 
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDirective;
-// use \InvalidArgumentException;
+use \InvalidArgumentException;
 
 /**
  * Class SetLight
@@ -12,7 +12,10 @@ use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AbstractDirective;
  * @license http://opensource.org/licenses/MIT
  */
 class SetLight extends AbstractDirective {
+	/** @var int MIN_VERSION */
 	const MIN_VERSION = 1;
+
+	/** @var int MAX_VERSION */
 	const MAX_VERSION = 1;
 
 	/** @var int $version */
@@ -29,7 +32,7 @@ class SetLight extends AbstractDirective {
 	 * @param Parameters $parameters
 	 * @param array      $targetGadgets
 	 */
-	public function __construct($parameters, $targetGadgets = []) {
+	public function __construct(Parameters $parameters, array $targetGadgets = []) {
 		parent::__construct();
 
 		$this->type = 'GadgetController.SetLight';
@@ -41,30 +44,30 @@ class SetLight extends AbstractDirective {
 	/**
 	 * @return int
 	 */
-	public function getVersion() {
+	public function getVersion(): int {
 		return $this->version;
 	}
 
-//	/**
-//	 * @param  int $version
-//	 *
-//	 * @return SetLight
-//	 * @throws InvalidArgumentException
-//	 */
-//	public function setVersion($version) {
-//		if(!is_int($version) || $version < self::MIN_VERSION || $version > self::MAX_VERSION) {
-//			throw new InvalidArgumentException('TriggerEventTimeMs must be a number between ' . self::MIN_VERSION . ' and ' . self::MAX_VERSION);
-//		}
-//
-//		$this->version = $version;
-//
-//		return $this;
-//	}
+	/**
+	 * @param  int $version
+	 *
+	 * @return SetLight
+	 * @throws InvalidArgumentException
+	 */
+	public function setVersion(int $version): SetLight {
+		if(!is_int($version) || $version < self::MIN_VERSION || $version > self::MAX_VERSION) {
+			throw new InvalidArgumentException('TriggerEventTimeMs must be a number between ' . self::MIN_VERSION . ' and ' . self::MAX_VERSION);
+		}
+
+		$this->version = $version;
+
+		return $this;
+	}
 
 	/**
 	 * @return array
 	 */
-	public function getTargetGadgets() {
+	public function getTargetGadgets(): array {
 		return $this->targetGadgets;
 	}
 
@@ -73,7 +76,7 @@ class SetLight extends AbstractDirective {
 	 *
 	 * @return SetLight
 	 */
-	public function setTargetGadgets($targetGadgets) {
+	public function setTargetGadgets(array $targetGadgets): SetLight {
 		$this->targetGadgets = [];
 		foreach($targetGadgets as $targetGadget) {
 			$this->addTargetGadget($targetGadget);
@@ -87,7 +90,7 @@ class SetLight extends AbstractDirective {
 	 *
 	 * @return SetLight
 	 */
-	public function addTargetGadget($targetGadget) {
+	public function addTargetGadget(string $targetGadget): SetLight {
 		array_push($this->targetGadgets, $targetGadget);
 
 		return $this;
@@ -96,7 +99,7 @@ class SetLight extends AbstractDirective {
 	/**
 	 * @return Parameters
 	 */
-	public function getParameters() {
+	public function getParameters(): Parameters {
 		return $this->parameters;
 	}
 
@@ -105,7 +108,7 @@ class SetLight extends AbstractDirective {
 	 *
 	 * @return SetLight
 	 */
-	public function setParameters($parameters) {
+	public function setParameters(Parameters $parameters): SetLight {
 		$this->parameters = $parameters;
 
 		return $this;
@@ -115,7 +118,7 @@ class SetLight extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'type'       => $this->getType(),
 			'version'    => $this->getVersion(),

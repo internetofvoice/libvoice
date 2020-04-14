@@ -18,7 +18,7 @@ class AskForPermissionsConsent extends AbstractCard {
 	/**
 	 * @param array $permissions
 	 */
-	public function __construct($permissions) {
+	public function __construct(array $permissions) {
 		parent::__construct();
 
 		$this->type = 'AskForPermissionsConsent';
@@ -29,7 +29,7 @@ class AskForPermissionsConsent extends AbstractCard {
 	/**
 	 * @return array
 	 */
-	public function getPermissions() {
+	public function getPermissions(): array {
 		return $this->permissions;
 	}
 
@@ -38,7 +38,7 @@ class AskForPermissionsConsent extends AbstractCard {
 	 *
 	 * @return AskForPermissionsConsent
 	 */
-	public function setPermissions($permissions) {
+	public function setPermissions(array $permissions): AskForPermissionsConsent {
 		$this->permissions = [];
 		foreach($permissions as $permission) {
 			$this->addPermission(($permission));
@@ -54,7 +54,7 @@ class AskForPermissionsConsent extends AbstractCard {
 	 * @return AskForPermissionsConsent
 	 * @throws InvalidArgumentException
 	 */
-	public function addPermission($permission) {
+	public function addPermission(string $permission): AskForPermissionsConsent {
 		if(!in_array($permission, self::CONSENT_PERMISSIONS)) {
 			throw new InvalidArgumentException('Not a valid permission: ' . $permission . '.');
 		}
@@ -68,7 +68,7 @@ class AskForPermissionsConsent extends AbstractCard {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type'        => $this->getType(),
 			'permissions' => $this->getPermissions(),

@@ -17,7 +17,7 @@ class DeviationRecognizer extends AbstractRecognizer {
 	 * @param string $id
 	 * @param string $recognizer
 	 */
-	public function __construct($id, $recognizer) {
+	public function __construct(string $id, string $recognizer) {
 		parent::__construct($id);
 
 		$this->type = 'deviation';
@@ -28,7 +28,7 @@ class DeviationRecognizer extends AbstractRecognizer {
 	/**
 	 * @return string
 	 */
-	public function getRecognizer() {
+	public function getRecognizer(): string {
 		return $this->recognizer;
 	}
 
@@ -37,7 +37,7 @@ class DeviationRecognizer extends AbstractRecognizer {
 	 *
 	 * @return DeviationRecognizer
 	 */
-	public function setRecognizer($recognizer) {
+	public function setRecognizer(string $recognizer): DeviationRecognizer {
 		$this->recognizer = $recognizer;
 
 		return $this;
@@ -47,12 +47,10 @@ class DeviationRecognizer extends AbstractRecognizer {
 	/**
 	 * @return array
 	 */
-	public function render() {
-		$rendered = [
+	public function render(): array {
+		return [
 			'type'       => $this->getType(),
 			'recognizer' => $this->getRecognizer(),
 		];
-
-		return $rendered;
 	}
 }

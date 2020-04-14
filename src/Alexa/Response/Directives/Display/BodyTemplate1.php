@@ -23,7 +23,7 @@ class BodyTemplate1 extends AbstractTemplate {
 	 * @param string      $title
 	 * @param TextContent $textContent
 	 */
-	public function __construct($token, $title, $textContent) {
+	public function __construct(string $token, string $title, TextContent $textContent) {
 		parent::__construct($token);
 
 		$this->type = 'BodyTemplate1';
@@ -36,7 +36,7 @@ class BodyTemplate1 extends AbstractTemplate {
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle(): string {
 		return $this->title;
 	}
 
@@ -45,7 +45,7 @@ class BodyTemplate1 extends AbstractTemplate {
 	 *
 	 * @return BodyTemplate1
 	 */
-	public function setTitle($title) {
+	public function setTitle(string $title): BodyTemplate1 {
 		$this->title = $title;
 
 		return $this;
@@ -54,7 +54,7 @@ class BodyTemplate1 extends AbstractTemplate {
 	/**
 	 * @return TextContent
 	 */
-	public function getTextContent() {
+	public function getTextContent(): TextContent {
 		return $this->textContent;
 	}
 
@@ -63,7 +63,7 @@ class BodyTemplate1 extends AbstractTemplate {
 	 *
 	 * @return BodyTemplate1
 	 */
-	public function setTextContent($textContent) {
+	public function setTextContent(TextContent $textContent): BodyTemplate1 {
 		$this->textContent = $textContent;
 
 		return $this;
@@ -73,7 +73,7 @@ class BodyTemplate1 extends AbstractTemplate {
 	/**
 	 * @return array
 	 */
-	function render() {
+	function render(): array {
 		$result = [
 			'type'            => $this->getType(),
 			'token'           => $this->getToken(),

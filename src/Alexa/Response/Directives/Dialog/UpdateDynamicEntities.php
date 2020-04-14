@@ -13,6 +13,7 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class UpdateDynamicEntities extends AbstractDirective{
+	/** @var array UPDATE_BEHAVIORS */
 	const UPDATE_BEHAVIORS = ['REPLACE', 'CLEAR'];
 
 	/** @var string $updateBehavior */
@@ -21,8 +22,10 @@ class UpdateDynamicEntities extends AbstractDirective{
 	/** @var Type[] $types */
 	protected $types;
 
-
-	public function __construct($updateBehavior) {
+	/**
+	 * @param string $updateBehavior
+	 */
+	public function __construct(string $updateBehavior) {
 		parent::__construct();
 
 		$this->type = 'Dialog.UpdateDynamicEntities';
@@ -32,7 +35,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	/**
 	 * @return string
 	 */
-	public function getUpdateBehavior() {
+	public function getUpdateBehavior(): string {
 		return $this->updateBehavior;
 	}
 
@@ -42,7 +45,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	 * @return UpdateDynamicEntities
 	 * @throws InvalidArgumentException
 	 */
-	public function setUpdateBehavior($updateBehavior) {
+	public function setUpdateBehavior(string $updateBehavior): UpdateDynamicEntities {
 		if(!in_array($updateBehavior, self::UPDATE_BEHAVIORS)) {
 			throw new InvalidArgumentException('UpdateBehavior must be one of ' . implode(', ', self::UPDATE_BEHAVIORS));
 		}
@@ -55,7 +58,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	/**
 	 * @return Type[]
 	 */
-	public function getTypes() {
+	public function getTypes(): array {
 		return $this->types;
 	}
 
@@ -64,7 +67,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	 *
 	 * @return UpdateDynamicEntities
 	 */
-	public function setTypes($types) {
+	public function setTypes(array $types): UpdateDynamicEntities {
 		$this->types = [];
 		foreach($types as $type) {
 			$this->addType($type);
@@ -78,7 +81,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	 *
 	 * @return UpdateDynamicEntities
 	 */
-	public function addType($type) {
+	public function addType(Type $type): UpdateDynamicEntities {
 		array_push($this->types, $type);
 
 		return $this;
@@ -88,7 +91,7 @@ class UpdateDynamicEntities extends AbstractDirective{
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'type'           => $this->getType(),
 			'updateBehavior' => $this->getUpdateBehavior(),

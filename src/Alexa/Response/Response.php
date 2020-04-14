@@ -32,7 +32,7 @@ class Response {
 	 *
 	 * @return Response
 	 */
-	public function setOutputSpeech($outputSpeech) {
+	public function setOutputSpeech(AbstractOutputSpeech $outputSpeech): Response {
 		$this->outputSpeech = $outputSpeech;
 
 		return $this;
@@ -41,7 +41,7 @@ class Response {
 	/**
 	 * @return AbstractOutputSpeech
 	 */
-	public function getOutputSpeech() {
+	public function getOutputSpeech(): AbstractOutputSpeech {
 		return $this->outputSpeech;
 	}
 
@@ -50,7 +50,7 @@ class Response {
 	 *
 	 * @return Response
 	 */
-	public function setCard($card) {
+	public function setCard(AbstractCard $card): Response {
 		$this->card = $card;
 
 		return $this;
@@ -59,7 +59,7 @@ class Response {
 	/**
 	 * @return AbstractCard
 	 */
-	public function getCard() {
+	public function getCard(): AbstractCard {
 		return $this->card;
 	}
 
@@ -68,7 +68,7 @@ class Response {
 	 *
 	 * @return Response
 	 */
-	public function setReprompt($reprompt) {
+	public function setReprompt(Reprompt $reprompt): Response {
 		$this->reprompt = $reprompt;
 
 		return $this;
@@ -77,14 +77,14 @@ class Response {
 	/**
 	 * @return Reprompt
 	 */
-	public function getReprompt() {
+	public function getReprompt(): Reprompt {
 		return $this->reprompt;
 	}
 
 	/**
 	 * @return AbstractDirective[]
 	 */
-	public function getDirectives() {
+	public function getDirectives(): array {
 		return $this->directives;
 	}
 
@@ -93,7 +93,7 @@ class Response {
 	 *
 	 * @return Response
 	 */
-	public function setDirectives($directives) {
+	public function setDirectives(array $directives): Response {
 		foreach($directives as $directive) {
 			$this->addDirective($directive);
 		}
@@ -106,7 +106,7 @@ class Response {
 	 *
 	 * @return Response
 	 */
-	public function addDirective($directive) {
+	public function addDirective(AbstractDirective $directive): Response {
 		array_push($this->directives, $directive);
 
 		return $this;
@@ -115,7 +115,7 @@ class Response {
 	/**
 	 * @return bool
 	 */
-	public function getShouldEndSession() {
+	public function getShouldEndSession(): bool {
 		return $this->shouldEndSession;
 	}
 
@@ -124,7 +124,7 @@ class Response {
 	 *
 	 * @return Response
 	 */
-	public function setShouldEndSession($shouldEndSession) {
+	public function setShouldEndSession(bool $shouldEndSession): Response {
 		$this->shouldEndSession = $shouldEndSession;
 
 		return $this;
@@ -133,7 +133,7 @@ class Response {
 	/**
 	 * @return CanFulfillIntent
 	 */
-	public function getCanFulfillIntent() {
+	public function getCanFulfillIntent(): CanFulfillIntent {
 		return $this->canFulfillIntent;
 	}
 
@@ -142,7 +142,7 @@ class Response {
 	 *
 	 * @return Response
 	 */
-	public function setCanFulfillIntent($canFulfillIntent) {
+	public function setCanFulfillIntent(CanFulfillIntent $canFulfillIntent): Response {
 		$this->canFulfillIntent = $canFulfillIntent;
 
 		return $this;
@@ -152,7 +152,7 @@ class Response {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$rendered = [];
 		if($this->getOutputSpeech()) {
 			$rendered['outputSpeech'] = $this->getOutputSpeech()->render();

@@ -19,7 +19,7 @@ class Type {
 	/**
 	 * @param string $name
 	 */
-	public function __construct($name) {
+	public function __construct(string $name) {
 		$this->setName($name);
 	}
 
@@ -27,7 +27,7 @@ class Type {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
@@ -36,7 +36,7 @@ class Type {
 	 *
 	 * @return Type
 	 */
-	public function setName($name) {
+	public function setName(string $name): Type {
 		$this->name = $name;
 
 		return $this;
@@ -45,7 +45,7 @@ class Type {
 	/**
 	 * @return Value[]
 	 */
-	public function getValues() {
+	public function getValues(): array {
 		return $this->values;
 	}
 
@@ -54,7 +54,7 @@ class Type {
 	 *
 	 * @return Type
 	 */
-	public function setValues($values) {
+	public function setValues(array $values): Type {
 		$this->values = [];
 		foreach($values as $value) {
 			$this->addValue($value);
@@ -68,7 +68,7 @@ class Type {
 	 *
 	 * @return Type
 	 */
-	public function addValue($value) {
+	public function addValue(Value $value): Type {
 		array_push($this->values, $value);
 
 		return $this;
@@ -78,9 +78,9 @@ class Type {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
-			'name' => $this->getName(),
+			'name'   => $this->getName(),
 			'values' => [],
 		];
 

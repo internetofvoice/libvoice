@@ -16,7 +16,7 @@ class Hint extends AbstractDirective {
 	/**
 	 * @param string $text
 	 */
-	public function __construct($text) {
+	public function __construct(string $text) {
 		parent::__construct();
 
 		$this->type = 'Hint';
@@ -27,7 +27,7 @@ class Hint extends AbstractDirective {
 	/**
 	 * @return TextField
 	 */
-	public function getHint() {
+	public function getHint(): TextField {
 		return $this->hint;
 	}
 
@@ -36,7 +36,7 @@ class Hint extends AbstractDirective {
 	 *
 	 * @return Hint
 	 */
-	public function setHint($hint) {
+	public function setHint(TextField $hint): Hint {
 		$this->hint = $hint;
 
 		return $this;
@@ -46,12 +46,10 @@ class Hint extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
-		$result = [
+	public function render(): array {
+		return [
 			'type' => $this->getType(),
 			'hint' => $this->getHint()->render(),
 		];
-
-		return $result;
 	}
 }

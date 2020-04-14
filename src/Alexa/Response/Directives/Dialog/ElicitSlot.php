@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
 
+use InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
+
 /**
  * Class ElicitSlot
  *
@@ -14,9 +16,9 @@ class ElicitSlot extends AbstractDialog {
 
 
 	/**
-	 * @param $updatedIntent
+	 * @param Intent $updatedIntent
 	 */
-	public function __construct($updatedIntent) {
+	public function __construct(Intent $updatedIntent) {
 		parent::__construct($updatedIntent);
 
 		$this->type = 'Dialog.ElicitSlot';
@@ -26,7 +28,7 @@ class ElicitSlot extends AbstractDialog {
 	/**
 	 * @return string
 	 */
-	public function getSlotToElicit() {
+	public function getSlotToElicit(): string {
 		return $this->slotToElicit;
 	}
 
@@ -35,7 +37,7 @@ class ElicitSlot extends AbstractDialog {
 	 *
 	 * @return ElicitSlot
 	 */
-	public function setSlotToElicit($slotToElicit) {
+	public function setSlotToElicit(string $slotToElicit): ElicitSlot {
 		$this->slotToElicit = $slotToElicit;
 
 		return $this;
@@ -45,7 +47,7 @@ class ElicitSlot extends AbstractDialog {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type'          => $this->getType(),
 			'slotToElicit'  => $this->getSlotToElicit(),

@@ -55,10 +55,8 @@ class ResolutionStatus {
 	 * @return array
 	 */
 	public function render(): array {
-		$result = [
+		return [
 			'code' => $this->getCode(),
 		];
-
-		return $result;
 	}
 }

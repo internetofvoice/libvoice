@@ -12,6 +12,7 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 abstract class AbstractTemplate {
+	/** @var array VALID_BACK_BUTTON_VALUES */
 	const VALID_BACK_BUTTON_VALUES = ['VISIBLE', 'HIDDEN'];
 
 	/** @var string $type */
@@ -30,7 +31,7 @@ abstract class AbstractTemplate {
 	/**
 	 * @param string $token
 	 */
-	public function __construct($token) {
+	public function __construct(string $token) {
 		$this->token = $token;
 	}
 
@@ -38,14 +39,14 @@ abstract class AbstractTemplate {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string {
 		return $this->token;
 	}
 
@@ -54,7 +55,7 @@ abstract class AbstractTemplate {
 	 *
 	 * @return AbstractTemplate
 	 */
-	public function setToken($token) {
+	public function setToken(string $token): AbstractTemplate {
 		$this->token = $token;
 
 		return $this;
@@ -63,7 +64,7 @@ abstract class AbstractTemplate {
 	/**
 	 * @return string
 	 */
-	public function getBackButton() {
+	public function getBackButton(): string {
 		return $this->backButton;
 	}
 
@@ -73,7 +74,7 @@ abstract class AbstractTemplate {
 	 * @return AbstractTemplate
 	 * @throws InvalidArgumentException
 	 */
-	public function setBackButton($backButton) {
+	public function setBackButton(string $backButton): AbstractTemplate {
 		if(!in_array($backButton, self::VALID_BACK_BUTTON_VALUES)) {
 			throw new InvalidArgumentException('BackButton must be one of ' . implode(', ', self::VALID_BACK_BUTTON_VALUES));
 		}
@@ -84,9 +85,9 @@ abstract class AbstractTemplate {
 	}
 
 	/**
-	 * @return Image
+	 * @return null|Image
 	 */
-	public function getBackgroundImage() {
+	public function getBackgroundImage(): ?Image {
 		return $this->backgroundImage;
 	}
 
@@ -95,7 +96,7 @@ abstract class AbstractTemplate {
 	 *
 	 * @return AbstractTemplate
 	 */
-	public function setBackgroundImage($backgroundImage) {
+	public function setBackgroundImage(Image $backgroundImage): AbstractTemplate {
 		$this->backgroundImage = $backgroundImage;
 
 		return $this;
@@ -105,5 +106,5 @@ abstract class AbstractTemplate {
 	/**
 	 * @return array
 	 */
-	abstract function render();
+	abstract function render(): array;
 }

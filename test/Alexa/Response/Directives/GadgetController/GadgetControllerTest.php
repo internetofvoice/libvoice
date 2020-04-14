@@ -139,10 +139,17 @@ class GadgetControllerTest extends TestCase {
 	/**
 	 * @group custom-skill
 	 */
+	public function testParametersException3() {
+		$test = new SetLight(new Parameters('buttonDown', 10, new Animations([new Sequence()])), ['myGadget1', 'myGadget2']);
+		$this->expectException(InvalidArgumentException::class);
+		$test->setVersion(2);
+	}
+
+	/**
+	 * @group custom-skill
+	 */
 	public function testSetLight() {
-		$parameters = new Parameters('buttonDown', 10, new Animations([new Sequence()]));
-		$test       = new SetLight($parameters, ['myGadget1', 'myGadget2']);
-		$expect     = [
+		$expect = [
 			'type'          => 'GadgetController.SetLight',
 			'version'       => 1,
 			'parameters'    => [
@@ -164,6 +171,9 @@ class GadgetControllerTest extends TestCase {
 				'myGadget1', 'myGadget2'
 			],
 		];
+
+		$test = new SetLight(new Parameters('buttonDown', 10, new Animations([new Sequence()])), ['myGadget1', 'myGadget2']);
+		$test->setVersion(1);
 
 		$this->assertEquals($expect, $test->render());
 	}

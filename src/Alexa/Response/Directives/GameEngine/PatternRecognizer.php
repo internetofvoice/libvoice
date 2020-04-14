@@ -11,7 +11,10 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class PatternRecognizer extends AbstractRecognizer {
+	/** @var array ANCHORS */
 	const ANCHORS = ['start', 'end', 'anywhere'];
+
+	/** @var array ACTIONS */
 	const ACTIONS = ['down', 'up', 'silence'];
 
 	/** @var string $anchor */
@@ -34,7 +37,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 * @param string  $id
 	 * @param Pattern $pattern
 	 */
-	public function __construct($id, $pattern) {
+	public function __construct(string $id, Pattern $pattern) {
 		parent::__construct($id);
 
 		$this->type = 'match';
@@ -45,7 +48,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	/**
 	 * @return string
 	 */
-	public function getAnchor() {
+	public function getAnchor(): string {
 		return $this->anchor;
 	}
 
@@ -55,7 +58,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 * @return PatternRecognizer
 	 * @throws InvalidArgumentException
 	 */
-	public function setAnchor($anchor) {
+	public function setAnchor(string $anchor): PatternRecognizer {
 		if(!empty($anchor) && !in_array($anchor, self::ANCHORS)) {
 			throw new InvalidArgumentException('Anchor must be one of ' . implode(', ', self::ANCHORS) . ' or an empty string.');
 		}
@@ -68,7 +71,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	/**
 	 * @return bool
 	 */
-	public function getFuzzy() {
+	public function getFuzzy(): bool {
 		return $this->fuzzy;
 	}
 
@@ -77,7 +80,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 *
 	 * @return PatternRecognizer
 	 */
-	public function setFuzzy($fuzzy) {
+	public function setFuzzy(bool $fuzzy): PatternRecognizer {
 		$this->fuzzy = boolval($fuzzy);
 
 		return $this;
@@ -86,7 +89,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	/**
 	 * @return array
 	 */
-	public function getGadgetIds() {
+	public function getGadgetIds(): array {
 		return $this->gadgetIds;
 	}
 
@@ -95,7 +98,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 *
 	 * @return PatternRecognizer
 	 */
-	public function setGadgetIds($gadgetIds) {
+	public function setGadgetIds(array $gadgetIds): PatternRecognizer {
 		$this->gadgetIds = [];
 		foreach($gadgetIds as $gadgetId) {
 			$this->addGadgetId($gadgetId);
@@ -109,7 +112,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 *
 	 * @return PatternRecognizer
 	 */
-	public function addGadgetId($gadgetId) {
+	public function addGadgetId(string $gadgetId): PatternRecognizer {
 		array_push($this->gadgetIds, $gadgetId);
 
 		return $this;
@@ -118,7 +121,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	/**
 	 * @return array
 	 */
-	public function getActions() {
+	public function getActions(): array {
 		return $this->actions;
 	}
 
@@ -127,7 +130,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 *
 	 * @return PatternRecognizer
 	 */
-	public function setActions($actions) {
+	public function setActions(array $actions): PatternRecognizer {
 		$this->actions = [];
 		foreach($actions as $action) {
 			$this->addAction($action);
@@ -142,7 +145,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 * @return PatternRecognizer
 	 * @throws InvalidArgumentException
 	 */
-	public function addAction($action) {
+	public function addAction(string $action): PatternRecognizer {
 		if(!in_array($action, self::ACTIONS)) {
 			throw new InvalidArgumentException('Action must be one of ' . implode(', ', self::ACTIONS) . '.');
 		}
@@ -155,7 +158,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	/**
 	 * @return Pattern
 	 */
-	public function getPattern() {
+	public function getPattern(): Pattern {
 		return $this->pattern;
 	}
 
@@ -164,7 +167,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	 *
 	 * @return PatternRecognizer
 	 */
-	public function setPattern($pattern) {
+	public function setPattern(Pattern $pattern): PatternRecognizer {
 		$this->pattern = $pattern;
 
 		return $this;
@@ -174,7 +177,7 @@ class PatternRecognizer extends AbstractRecognizer {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$rendered = [
 			'type'    => $this->getType(),
 			'fuzzy'   => $this->getFuzzy(),

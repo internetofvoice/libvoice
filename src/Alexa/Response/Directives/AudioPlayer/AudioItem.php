@@ -19,7 +19,7 @@ class AudioItem {
 	/**
 	 * @param Stream $stream
 	 */
-	public function __construct($stream) {
+	public function __construct(Stream $stream) {
 		$this->setStream($stream);
 	}
 
@@ -27,7 +27,7 @@ class AudioItem {
 	/**
 	 * @return Stream
 	 */
-	public function getStream() {
+	public function getStream(): Stream {
 		return $this->stream;
 	}
 
@@ -36,16 +36,16 @@ class AudioItem {
 	 *
 	 * @return AudioItem
 	 */
-	public function setStream($stream) {
+	public function setStream(Stream $stream): AudioItem {
 		$this->stream = $stream;
 
 		return $this;
 	}
 
 	/**
-	 * @return Metadata
+	 * @return null|Metadata
 	 */
-	public function getMetadata() {
+	public function getMetadata(): ?Metadata {
 		return $this->metadata;
 	}
 
@@ -54,7 +54,7 @@ class AudioItem {
 	 *
 	 * @return AudioItem
 	 */
-	public function setMetadata($metadata) {
+	public function setMetadata(Metadata $metadata): AudioItem {
 		$this->metadata = $metadata;
 
 		return $this;
@@ -64,7 +64,7 @@ class AudioItem {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'stream' => $this->getStream()->render(),
 		];

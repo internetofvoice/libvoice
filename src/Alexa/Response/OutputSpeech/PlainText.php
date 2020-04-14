@@ -16,7 +16,7 @@ class PlainText extends AbstractOutputSpeech {
 	/**
 	 * @param string $text
 	 */
-	public function __construct($text) {
+	public function __construct(string $text) {
 		parent::__construct();
 
 		$this->type = 'PlainText';
@@ -27,7 +27,7 @@ class PlainText extends AbstractOutputSpeech {
 	/**
 	 * @return string
 	 */
-	public function getText() {
+	public function getText(): string {
 		return $this->text;
 	}
 
@@ -36,7 +36,7 @@ class PlainText extends AbstractOutputSpeech {
 	 *
 	 * @return PlainText
 	 */
-	public function setText($text) {
+	public function setText(string $text): PlainText {
 		$this->text = mb_substr($text, 0, self::MAX_CONTENT_CHARS, 'UTF-8');
 
 		return $this;
@@ -45,7 +45,7 @@ class PlainText extends AbstractOutputSpeech {
 	/**
 	 * @return array
 	 */
-	function render() {
+	function render(): array {
 		$result = [
 			'type' => $this->getType(),
 			'text' => $this->getText(),

@@ -9,6 +9,7 @@ namespace InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech;
  * @license http://opensource.org/licenses/MIT
  */
 abstract class AbstractOutputSpeech {
+	/** @var int MAX_CONTENT_CHARS */
 	const MAX_CONTENT_CHARS = 8000;
 
 	/** @var string $type */
@@ -17,7 +18,8 @@ abstract class AbstractOutputSpeech {
 	/** @var string $type */
 	protected $playBehavior;
 
-
+	/**
+	 */
 	public function __construct() {
 	}
 
@@ -25,28 +27,32 @@ abstract class AbstractOutputSpeech {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
-	 * @return string
+	 * @return null|string
 	 */
-	public function getPlayBehavior() {
+	public function getPlayBehavior(): ?string {
 		return $this->playBehavior;
 	}
 
 	/**
 	 * @param string $playBehavior
+	 *
+	 * @return AbstractOutputSpeech
 	 */
-	public function setPlayBehavior($playBehavior) {
+	public function setPlayBehavior(string $playBehavior): AbstractOutputSpeech {
 		if(in_array($playBehavior, ['ENQUEUE', 'REPLACE_ALL', 'REPLACE_ENQUEUED'])) {
 			$this->playBehavior = $playBehavior;
 		}
+
+		return $this;
 	}
 
 	/**
 	 * @return array
 	 */
-	abstract function render();
+	abstract function render(): array ;
 }

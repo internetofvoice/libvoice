@@ -185,9 +185,9 @@ class CertificateValidator {
 
 	/**
 	 * @param string $certificate
-	 * @return array
+	 * @return mixed
 	 */
-	public function parseCertificate(string $certificate): array {
+	public function parseCertificate(string $certificate) {
 		return openssl_x509_parse($certificate);
 	}
 

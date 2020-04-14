@@ -20,7 +20,7 @@ class VideoItem {
 	 * @param string   $source
 	 * @param Metadata $metadata
 	 */
-	public function __construct($source, $metadata = null) {
+	public function __construct(string $source, Metadata $metadata = null) {
 		$this->setSource($source);
 
 		if($metadata) {
@@ -32,7 +32,7 @@ class VideoItem {
 	/**
 	 * @return string
 	 */
-	public function getSource() {
+	public function getSource(): string {
 		return $this->source;
 	}
 
@@ -41,16 +41,16 @@ class VideoItem {
 	 *
 	 * @return VideoItem
 	 */
-	public function setSource($source) {
+	public function setSource(string $source): VideoItem {
 		$this->source = $source;
 
 		return $this;
 	}
 
 	/**
-	 * @return Metadata
+	 * @return null|Metadata
 	 */
-	public function getMetadata() {
+	public function getMetadata(): ?Metadata {
 		return $this->metadata;
 	}
 
@@ -59,7 +59,7 @@ class VideoItem {
 	 *
 	 * @return VideoItem
 	 */
-	public function setMetadata($metadata) {
+	public function setMetadata(Metadata $metadata): VideoItem {
 		$this->metadata = $metadata;
 
 		return $this;
@@ -69,7 +69,7 @@ class VideoItem {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$rendered = [
 			'source' => $this->getSource(),
 		];

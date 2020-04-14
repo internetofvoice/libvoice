@@ -16,7 +16,7 @@ class SSML extends AbstractOutputSpeech {
 	/**
 	 * @param string $ssml
 	 */
-	public function __construct($ssml) {
+	public function __construct(string $ssml) {
 		parent::__construct();
 
 		$this->type = 'SSML';
@@ -27,7 +27,7 @@ class SSML extends AbstractOutputSpeech {
 	/**
 	 * @return string
 	 */
-	public function getSSML() {
+	public function getSSML(): string {
 		return $this->ssml;
 	}
 
@@ -36,7 +36,7 @@ class SSML extends AbstractOutputSpeech {
 	 *
 	 * @return SSML
 	 */
-	public function setSSML($ssml) {
+	public function setSSML(string $ssml) {
 		$this->ssml = mb_substr($ssml, 0, self::MAX_CONTENT_CHARS, 'UTF-8');
 
 		return $this;
@@ -45,7 +45,7 @@ class SSML extends AbstractOutputSpeech {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'type' => $this->getType(),
 			'ssml' => $this->getSSML(),

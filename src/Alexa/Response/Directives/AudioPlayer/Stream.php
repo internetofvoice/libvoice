@@ -28,7 +28,7 @@ class Stream {
 	 * @param string $expectedPreviousToken
 	 * @param int    $offsetInMilliseconds
 	 */
-	public function __construct($url, $token, $expectedPreviousToken = '', $offsetInMilliseconds = 0) {
+	public function __construct(string $url, string $token, string $expectedPreviousToken = '', int $offsetInMilliseconds = 0) {
 		$this->setUrl($url);
 		$this->setToken($token);
 		$this->setExpectedPreviousToken($expectedPreviousToken);
@@ -39,7 +39,7 @@ class Stream {
 	/**
 	 * @return string
 	 */
-	public function getUrl() {
+	public function getUrl(): string {
 		return $this->url;
 	}
 
@@ -48,7 +48,7 @@ class Stream {
 	 *
 	 * @return Stream
 	 */
-	public function setUrl($url) {
+	public function setUrl(string $url): Stream {
 		$this->url = $url;
 
 		return $this;
@@ -57,7 +57,7 @@ class Stream {
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string {
 		return $this->token;
 	}
 
@@ -66,7 +66,7 @@ class Stream {
 	 *
 	 * @return Stream
 	 */
-	public function setToken($token) {
+	public function setToken(string $token): Stream {
 		$this->token = $token;
 
 		return $this;
@@ -75,7 +75,7 @@ class Stream {
 	/**
 	 * @return string
 	 */
-	public function getExpectedPreviousToken() {
+	public function getExpectedPreviousToken(): string {
 		return $this->expectedPreviousToken;
 	}
 
@@ -84,7 +84,7 @@ class Stream {
 	 *
 	 * @return Stream
 	 */
-	public function setExpectedPreviousToken($expectedPreviousToken) {
+	public function setExpectedPreviousToken(string $expectedPreviousToken): Stream {
 		$this->expectedPreviousToken = $expectedPreviousToken;
 
 		return $this;
@@ -93,7 +93,7 @@ class Stream {
 	/**
 	 * @return int
 	 */
-	public function getOffsetInMilliseconds() {
+	public function getOffsetInMilliseconds(): int {
 		return $this->offsetInMilliseconds;
 	}
 
@@ -102,7 +102,7 @@ class Stream {
 	 *
 	 * @return Stream
 	 */
-	public function setOffsetInMilliseconds($offsetInMilliseconds) {
+	public function setOffsetInMilliseconds(int $offsetInMilliseconds): Stream {
 		$this->offsetInMilliseconds = intval($offsetInMilliseconds);
 
 		return $this;
@@ -112,7 +112,7 @@ class Stream {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'url'                   => $this->getUrl(),
 			'token'                 => $this->getToken(),

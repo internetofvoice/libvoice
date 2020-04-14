@@ -24,17 +24,20 @@ class ListItem {
 	 * @param TextContent $textContent
 	 * @param Image       $image
 	 */
-	public function __construct($token, $textContent, $image = null) {
+	public function __construct(string $token, TextContent $textContent, Image $image = null) {
 		$this->setToken($token);
 		$this->setTextContent($textContent);
-		$this->setImage($image);
+
+		if($image) {
+			$this->setImage($image);
+		}
 	}
 
 
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string {
 		return $this->token;
 	}
 
@@ -43,16 +46,16 @@ class ListItem {
 	 *
 	 * @return ListItem
 	 */
-	public function setToken($token) {
+	public function setToken(string $token): ListItem {
 		$this->token = $token;
 
 		return $this;
 	}
 
 	/**
-	 * @return Image
+	 * @return null|Image
 	 */
-	public function getImage() {
+	public function getImage(): ?Image {
 		return $this->image;
 	}
 
@@ -61,7 +64,7 @@ class ListItem {
 	 *
 	 * @return ListItem
 	 */
-	public function setImage($image) {
+	public function setImage(Image $image): ListItem {
 		$this->image = $image;
 
 		return $this;
@@ -70,7 +73,7 @@ class ListItem {
 	/**
 	 * @return TextContent
 	 */
-	public function getTextContent() {
+	public function getTextContent(): TextContent {
 		return $this->textContent;
 	}
 
@@ -79,7 +82,7 @@ class ListItem {
 	 *
 	 * @return ListItem
 	 */
-	public function setTextContent($textContent) {
+	public function setTextContent(TextContent $textContent): ListItem {
 		$this->textContent = $textContent;
 
 		return $this;
@@ -89,7 +92,7 @@ class ListItem {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'token'       => $this->getToken(),
 			'textContent' => $this->getTextContent()->render(),

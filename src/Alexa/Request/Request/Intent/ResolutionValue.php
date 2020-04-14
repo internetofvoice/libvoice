@@ -71,11 +71,9 @@ class ResolutionValue {
 	 * @return array
 	 */
 	public function render(): array {
-		$result = [
+		return [
 			'name' => $this->getName(),
 			'id'   => $this->getId(),
 		];
-
-		return $result;
 	}
 }

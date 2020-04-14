@@ -18,7 +18,7 @@ class LinkAccount extends AbstractCard {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type' => $this->getType(),
 		];

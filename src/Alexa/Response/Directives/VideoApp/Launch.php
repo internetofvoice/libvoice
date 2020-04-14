@@ -14,8 +14,10 @@ class Launch extends AbstractDirective {
 	/** @var VideoItem $videoItem */
 	protected $videoItem;
 
-
-	public function __construct($videoItem) {
+	/**
+	 * @param VideoItem $videoItem
+	 */
+	public function __construct(VideoItem $videoItem) {
 		parent::__construct();
 
 		$this->type = 'VideoApp.Launch';
@@ -26,7 +28,7 @@ class Launch extends AbstractDirective {
 	/**
 	 * @return VideoItem
 	 */
-	public function getVideoItem() {
+	public function getVideoItem(): VideoItem {
 		return $this->videoItem;
 	}
 
@@ -35,7 +37,7 @@ class Launch extends AbstractDirective {
 	 *
 	 * @return Launch
 	 */
-	public function setVideoItem($videoItem) {
+	public function setVideoItem(VideoItem $videoItem): Launch {
 		$this->videoItem = $videoItem;
 
 		return $this;
@@ -45,7 +47,7 @@ class Launch extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type' => $this->getType(),
 			'videoItem' => $this->getVideoItem()->render(),
