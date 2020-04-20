@@ -10,16 +10,16 @@ namespace InternetOfVoice\LibVoice\AlexaSmartHome\Scope;
  */
 class Scope {
 	/** @var string $type */
-	protected $type;
+	protected $type = '';
 
 	/** @var string $token */
-	protected $token;
+	protected $token = '';
 
 
 	/**
 	 * @param array $scopeData
 	 */
-	public function __construct($scopeData) {
+	public function __construct(array $scopeData) {
 		if(isset($scopeData['type'])) {
 			$this->type = $scopeData['type'];
 		}
@@ -33,14 +33,14 @@ class Scope {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string {
 		return $this->token;
 	}
 
@@ -48,13 +48,13 @@ class Scope {
 	/**
 	 * @return  array
 	 */
-	function render() {
+	function render(): array {
 		$rendered = [];
-		if(!is_null($this->getType())) {
+		if($this->getType()) {
 			$rendered['type'] = $this->getType();
 		}
 
-		if(!is_null($this->getToken())) {
+		if($this->getToken()) {
 			$rendered['token'] = $this->getToken();
 		}
 
