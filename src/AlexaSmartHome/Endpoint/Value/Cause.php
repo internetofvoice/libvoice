@@ -27,7 +27,7 @@ class Cause {
 	/**
 	 * @param string $type
 	 */
-	public function __construct($type) {
+	public function __construct(string $type) {
 		$this->setType($type);
 	}
 
@@ -35,7 +35,7 @@ class Cause {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
@@ -46,7 +46,7 @@ class Cause {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function setType($type) {
+	public function setType(string $type): Cause {
 		if(!in_array($type, self::VALID_TYPES)) {
 			throw new InvalidArgumentException('Invalid cause type.');
 		}
@@ -60,7 +60,7 @@ class Cause {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type' => $this->getType(),
 		];

@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request;
 
 use \DateTime;
+use \Exception;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Payload;
@@ -31,9 +32,10 @@ class AlexaRequest {
 	 * @param  string $secret
 	 * @param  bool   $validateSignature
 	 * @param  bool   $validateTimestamp
+	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($rawData, $signature = '', $secret = '', $validateSignature = true, $validateTimestamp = true) {
+	public function __construct(string $rawData, string $signature = '', string $secret = '', bool $validateSignature = true, bool $validateTimestamp = true) {
 		$data = json_decode($rawData, true);
 
 		// Request validation
@@ -58,7 +60,7 @@ class AlexaRequest {
         if(isset($data['timestamp'])) {
             try {
                 $this->timestamp = new DateTime($data['timestamp']);
-            } catch(\Exception $e) {
+            } catch(Exception $e) {
                 $this->timestamp = null;
             }
      	}
@@ -68,30 +70,33 @@ class AlexaRequest {
 	/**
 	 * @return Request
 	 */
-	public function getRequest() {
+	public function getRequest(): Request {
 		return $this->request;
 	}
 
 	/**
 	 * @return Context
 	 */
-	public function getContext() {
+	public function getContext(): Context {
 		return $this->context;
 	}
 
     /**
-     * @return DateTime
+     * @return null|DateTime
      */
-    public function getTimestamp() {
+    public function getTimestamp(): ?DateTime {
         return $this->timestamp;
     }
 
     /**
      * @param  string  $format  see http://php.net/manual/de/function.date.php#refsect1-function.date-parameters
+     *
      * @return string
      */
-    public function getTimestampAsString($format = 'c') {
-        return $this->getTimestamp()->format($format);
+    public function getTimestampAsString(string $format = 'c'): string {
+    	$timestamp = $this->getTimestamp();
+
+    	return is_null($timestamp) ? '' : $timestamp->format($format);
     }
 
 
@@ -100,7 +105,7 @@ class AlexaRequest {
      *
      * @return Header
      */
-    public function getHeader() {
+    public function getHeader(): Header {
         return $this->getRequest()->getDirective()->getHeader();
     }
 
@@ -109,7 +114,7 @@ class AlexaRequest {
      *
      * @return Payload
      */
-    public function getPayload() {
+    public function getPayload(): Payload {
         return $this->getRequest()->getDirective()->getPayload();
     }
 
@@ -118,7 +123,7 @@ class AlexaRequest {
 	 *
 	 * @return Endpoint
 	 */
-	public function getEndpoint() {
+	public function getEndpoint(): Endpoint {
 		return $this->getRequest()->getDirective()->getEndpoint();
 	}
 }

@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value;
 
 use \DateTime;
+use \Exception;
 use \InvalidArgumentException;
 
 /**
@@ -13,16 +14,16 @@ use \InvalidArgumentException;
  */
 class CameraStream {
     /** @var string $uri */
-    protected $uri;
+    protected $uri = '';
 
     /** @var DateTime $expirationTime */
     protected $expirationTime;
 
     /** @var int $idleTimeoutSeconds */
-    protected $idleTimeoutSeconds;
+    protected $idleTimeoutSeconds = 0;
 
     /** @var string $protocol */
-    protected $protocol;
+    protected $protocol = '';
 
     /** @var Resolution $resolution */
     protected $resolution;
@@ -31,31 +32,35 @@ class CameraStream {
     const validAuthorizationTypes = ['BASIC', 'DIGEST', 'NONE'];
 
     /** @var string $authorizationType */
-    protected $authorizationType;
+    protected $authorizationType = 'NONE';
 
     /** @var array validVideoCodecs */
     const validVideoCodecs = ['H264', 'MPEG2', 'MJPEG', 'JPG'];
 
     /** @var string $videoCodec */
-    protected $videoCodec;
+    protected $videoCodec = 'H264';
 
     /** @var array validAudioCodecs */
     const validAudioCodecs = ['G711', 'AAC', 'NONE'];
 
     /** @var string $audioCodec */
-    protected $audioCodec;
+    protected $audioCodec = 'AAC';
 
 
     /**
      * @param array $data
      */
-    public function __construct($data = []) {
+    public function __construct(array $data = []) {
         if(isset($data['uri'])) {
             $this->setUri($data['uri']);
         }
 
         if(isset($data['expirationTime'])) {
-            $this->setExpirationTime(new DateTime($data['expirationTime']));
+	        try {
+		        $this->setExpirationTime(new DateTime($data['expirationTime']));
+	        } catch(Exception $e) {
+	        	// intentionally left blank
+	        }
         }
 
         if(isset($data['idleTimeoutSeconds'])) {
@@ -86,7 +91,7 @@ class CameraStream {
     /**
      * @return CameraStream
      */
-    public static function create() {
+    public static function create(): CameraStream {
         return new CameraStream();
     }
 
@@ -94,7 +99,7 @@ class CameraStream {
      * @param  array $data
      * @return CameraStream
      */
-    public static function createFromArray($data) {
+    public static function createFromArray(array $data): CameraStream {
         return new CameraStream($data);
     }
 
@@ -102,7 +107,7 @@ class CameraStream {
     /**
      * @return string
      */
-    public function getUri() {
+    public function getUri(): string {
         return $this->uri;
     }
 
@@ -110,51 +115,52 @@ class CameraStream {
      * @param  string $uri
      * @return CameraStream
      */
-    public function setUri($uri) {
+    public function setUri(string $uri): CameraStream {
         $this->uri = $uri;
+
         return $this;
     }
 
     /**
-     * @return DateTime
+     * @return null|DateTime
      */
-    public function getExpirationTime() {
+    public function getExpirationTime(): ?DateTime {
         return $this->expirationTime;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getExpirationTimeAsString() {
-        return $this->expirationTime->format('c');
+    	return is_null($this->expirationTime) ? null : $this->expirationTime->format('c');
     }
 
     /**
      * @param  DateTime $expirationTime
+     *
      * @return CameraStream
+     *
      * @throws InvalidArgumentException
      */
-    public function setExpirationTime($expirationTime) {
-        if(!is_a($expirationTime, 'DateTime')) {
-            throw new InvalidArgumentException('ExpirationTime must be a DateTime object (UTC based).');
-        }
-
+    public function setExpirationTime(DateTime $expirationTime): CameraStream {
         $this->expirationTime = $expirationTime;
+
         return $this;
     }
 
     /**
      * @return int
      */
-    public function getIdleTimeoutSeconds() {
+    public function getIdleTimeoutSeconds(): int {
         return $this->idleTimeoutSeconds;
     }
 
     /**
      * @param  int $idleTimeoutSeconds
+     *
      * @return CameraStream
      */
-    public function setIdleTimeoutSeconds($idleTimeoutSeconds) {
+    public function setIdleTimeoutSeconds(int $idleTimeoutSeconds): CameraStream {
         $this->idleTimeoutSeconds = $idleTimeoutSeconds;
         return $this;
     }
@@ -162,95 +168,108 @@ class CameraStream {
     /**
      * @return string
      */
-    public function getProtocol() {
+    public function getProtocol(): string {
         return $this->protocol;
     }
 
     /**
      * @param  string $protocol
+     *
      * @return CameraStream
      */
-    public function setProtocol($protocol) {
+    public function setProtocol(string $protocol): CameraStream {
         $this->protocol = $protocol;
+
         return $this;
     }
 
     /**
-     * @return Resolution
+     * @return null|Resolution
      */
-    public function getResolution() {
+    public function getResolution(): ?Resolution {
         return $this->resolution;
     }
 
     /**
      * @param  Resolution $resolution
+     *
      * @return CameraStream
      */
-    public function setResolution($resolution) {
+    public function setResolution(Resolution $resolution): CameraStream {
         $this->resolution = $resolution;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getAuthorizationType() {
+    public function getAuthorizationType(): string {
         return $this->authorizationType;
     }
 
     /**
      * @param  string $authorizationType
+     *
      * @return CameraStream
+     *
      * @throws InvalidArgumentException
      */
-    public function setAuthorizationType($authorizationType) {
+    public function setAuthorizationType(string $authorizationType): CameraStream {
         if(!in_array($authorizationType, self::validAuthorizationTypes)) {
             throw new InvalidArgumentException('Invalid AuthorizationType: ' . $authorizationType);
         }
 
         $this->authorizationType = $authorizationType;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getVideoCodec() {
+    public function getVideoCodec(): string {
         return $this->videoCodec;
     }
 
     /**
      * @param  string $videoCodec
+     *
      * @return CameraStream
+     *
      * @throws InvalidArgumentException
      */
-    public function setVideoCodec($videoCodec) {
+    public function setVideoCodec(string $videoCodec): CameraStream {
         if(!in_array($videoCodec, self::validVideoCodecs)) {
             throw new InvalidArgumentException('Invalid AuthorizationType: ' . $videoCodec);
         }
 
         $this->videoCodec = $videoCodec;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getAudioCodec() {
+    public function getAudioCodec(): string {
         return $this->audioCodec;
     }
 
     /**
      * @param  string $audioCodec
+     *
      * @return CameraStream
+     *
      * @throws InvalidArgumentException
      */
-    public function setAudioCodec($audioCodec) {
+    public function setAudioCodec(string $audioCodec): CameraStream {
         if(!in_array($audioCodec, self::validAudioCodecs)) {
             throw new InvalidArgumentException('Invalid AuthorizationType: ' . $audioCodec);
         }
 
         $this->audioCodec = $audioCodec;
+
         return $this;
     }
 
@@ -258,15 +277,15 @@ class CameraStream {
     /**
      * @return array
      */
-    public function render() {
+    public function render(): array {
         $rendered = [
-            'uri' => $this->getUri(),
-            'expirationTime' => $this->getExpirationTimeAsString(),
-            'protocol' => $this->getProtocol(),
-            'resolution' => $this->getResolution()->render(),
-            'authorizationType' => $this->getAuthorizationType(),
-            'videoCodec' => $this->getVideoCodec(),
-            'audioCodec' => $this->getAudioCodec(),
+	        'uri'               => $this->getUri(),
+	        'expirationTime'    => $this->getExpirationTimeAsString(),
+	        'protocol'          => $this->getProtocol(),
+	        'resolution'        => $this->getResolution()->render(),
+	        'authorizationType' => $this->getAuthorizationType(),
+	        'videoCodec'        => $this->getVideoCodec(),
+	        'audioCodec'        => $this->getAudioCodec(),
         ];
 
         if($this->getIdleTimeoutSeconds()) {

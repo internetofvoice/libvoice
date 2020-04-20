@@ -20,12 +20,12 @@ class RequestValidator {
 	 * @param  string $data
 	 * @param  string $signature
 	 * @param  string $secret
+	 *
 	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public static function validateSignature($data, $signature, $secret) {
-		$hash = hash_hmac('sha512', $data, $secret);
-		if($hash !== $signature) {
+	public static function validateSignature(string $data, string $signature, string $secret): bool {
+		if(hash_hmac('sha512', $data, $secret) !== $signature) {
 			throw new InvalidArgumentException('Request signature validation failed.');
 		}
 
@@ -35,10 +35,11 @@ class RequestValidator {
 	/**
 	 * @param  string $timestamp
 	 * @param  string $timezone (default UTC)
+	 *
 	 * @return bool
 	 * @throws InvalidArgumentException
 	 */
-	public static function validateTimestamp($timestamp, $timezone = 'UTC') {
+	public static function validateTimestamp(string $timestamp, string $timezone = 'UTC'): bool {
 		$time = new DateTime($timestamp); // may throw an exception for an unknown timestamp format
 		$now  = new DateTime(null, new DateTimeZone($timezone));
 		$diff = $now->getTimestamp() - $time->getTimestamp();

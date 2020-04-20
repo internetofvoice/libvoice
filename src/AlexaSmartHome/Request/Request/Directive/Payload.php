@@ -37,7 +37,7 @@ class Payload extends Relation {
 	 * @param string $headerNamespace
 	 * @param string $headerName
 	 */
-	public function __construct($payloadData, $headerNamespace = '', $headerName = '') {
+	public function __construct(array $payloadData, string $headerNamespace = '', string $headerName = '') {
 		if(isset($payloadData['scope'])) {
 			$this->scope = new Scope($payloadData['scope']);
 		}
@@ -61,7 +61,7 @@ class Payload extends Relation {
 	 * @param string $interface
 	 * @param string $directive
 	 */
-	public function extractValues($payloadData, $interface, $directive) {
+	public function extractValues(array $payloadData, string $interface, string $directive) {
 		$directives = $this->getDirectivesFor($interface);
 		if(array_key_exists($directive, $directives)) {
 			$properties = $directives[$directive];
@@ -100,7 +100,7 @@ class Payload extends Relation {
 						break;
 
 						case 'CameraStreams':
-							$configurations = array();
+							$configurations = [];
 							foreach($value as $v) {
 								array_push($configurations, CameraStream::createFromArray($v));
 							}
@@ -114,18 +114,19 @@ class Payload extends Relation {
 	}
 
 	/**
-	 * @return Scope
+	 * @return null|Scope
 	 */
-	public function getScope() {
+	public function getScope(): ?Scope {
 		return $this->scope;
 	}
 
 	/**
-	 * @param string $key
-	 * @param mixed  $value
+	 * @param  string $key
+	 * @param  mixed  $value
+	 *
 	 * @return Payload
 	 */
-	protected function setValue($key, $value) {
+	protected function setValue(string $key, $value): Payload {
 		$this->values[$key] = $value;
 
 		return $this;
@@ -133,30 +134,31 @@ class Payload extends Relation {
 
 	/**
 	 * @param  string $key
+	 *
 	 * @return mixed
 	 */
-	public function getValue($key) {
+	public function getValue(string $key) {
 		return isset($this->values[$key]) ? $this->values[$key] : null;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getValues() {
+	public function getValues(): array {
 		return $this->values;
 	}
 
 	/**
-	 * @return Grant
+	 * @return null|Grant
 	 */
-	public function getGrant() {
+	public function getGrant(): ?Grant {
 		return $this->grant;
 	}
 
 	/**
-	 * @return Grantee
+	 * @return null|Grantee
 	 */
-	public function getGrantee() {
+	public function getGrantee(): ?Grantee {
 		return $this->grantee;
 	}
 }

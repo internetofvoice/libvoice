@@ -38,14 +38,14 @@ class CameraStreamTest extends TestCase {
      */
     public function testCameraStreamConstructor() {
         $cameraStream = new CameraStream([
-            'uri' => 'rtsp://username:password@link.to.video:443/feed1.mp4',
-            'expirationTime' => '2017-02-03 16:20:50+01:00',
-            'idleTimeoutSeconds' => 30,
-            'protocol' => 'RTSP',
-            'resolution' => ['width' => 1920, 'height' => 1080],
-            'authorizationType' => 'BASIC',
-            'videoCodec' => 'H264',
-            'audioCodec' => 'AAC',
+	        'uri'                => 'rtsp://username:password@link.to.video:443/feed1.mp4',
+	        'expirationTime'     => '2017-02-03 16:20:50+01:00',
+	        'idleTimeoutSeconds' => 30,
+	        'protocol'           => 'RTSP',
+	        'resolution'         => ['width' => 1920, 'height' => 1080],
+	        'authorizationType'  => 'BASIC',
+	        'videoCodec'         => 'H264',
+	        'audioCodec'         => 'AAC',
         ]);
 
         $expect = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/CameraStream.json'), true);
@@ -57,20 +57,40 @@ class CameraStreamTest extends TestCase {
      */
     public function testCameraStreamCreateFromArray() {
         $cameraStream = CameraStream::createFromArray([
-            'uri' => 'rtsp://username:password@link.to.video:443/feed1.mp4',
-            'expirationTime' => '2017-02-03 16:20:50+01:00',
-            'idleTimeoutSeconds' => 30,
-            'protocol' => 'RTSP',
-            'resolution' => ['width' => 1920, 'height' => 1080],
-            'authorizationType' => 'BASIC',
-            'videoCodec' => 'H264',
-            'audioCodec' => 'AAC',
+	        'uri'                => 'rtsp://username:password@link.to.video:443/feed1.mp4',
+	        'expirationTime'     => '2017-02-03 16:20:50+01:00',
+	        'idleTimeoutSeconds' => 30,
+	        'protocol'           => 'RTSP',
+	        'resolution'         => ['width' => 1920, 'height' => 1080],
+	        'authorizationType'  => 'BASIC',
+	        'videoCodec'         => 'H264',
+	        'audioCodec'         => 'AAC',
         ]);
 
         $expect = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/CameraStream.json'), true);
         $this->assertEquals($expect, $cameraStream->render());
         $this->assertEquals(new DateTime('2017-02-03 16:20:50+01:00'), $cameraStream->getExpirationTime());
     }
+
+	/**
+	 * @group smarthome
+	 */
+	public function testIncorrectExpirationTime() {
+		$cameraStream = CameraStream::createFromArray([
+			'uri'                => 'rtsp://username:password@link.to.video:443/feed1.mp4',
+			'expirationTime'     => 'NOT_A_TIME',
+			'idleTimeoutSeconds' => 30,
+			'protocol'           => 'RTSP',
+			'resolution'         => ['width' => 1920, 'height' => 1080],
+			'authorizationType'  => 'BASIC',
+			'videoCodec'         => 'H264',
+			'audioCodec'         => 'AAC',
+		]);
+
+		$expect = json_decode(file_get_contents(__DIR__ . '/../../Fixtures/CameraStream.json'), true);
+		$expect['expirationTime'] = null;
+		$this->assertEquals($expect, $cameraStream->render());
+	}
 
     /**
      * @group smarthome
@@ -100,7 +120,7 @@ class CameraStreamTest extends TestCase {
      * @group smarthome
      */
     public function testInvalidExpirationTime() {
-        $this->expectException('InvalidArgumentException');
+        $this->expectException('TypeError');
         CameraStream::create()->setExpirationTime(null);
     }
 }

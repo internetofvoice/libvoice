@@ -37,7 +37,7 @@ class ReportableProperty extends Relation {
 	 * @param DateTime  $timeOfSample (UTC / "Zulu Time")
 	 * @param int       $uncertaintyInMilliseconds
 	 */
-	public function __construct($namespace, $name, $value, $timeOfSample = null, $uncertaintyInMilliseconds = null) {
+	public function __construct(string $namespace, string $name, $value, DateTime $timeOfSample = null, int $uncertaintyInMilliseconds = null) {
 		$this->setNamespace($namespace);
 		$this->setName($name);
 		$this->setValue($value);
@@ -49,43 +49,47 @@ class ReportableProperty extends Relation {
 	/**
 	 * @return string
 	 */
-	public function getNamespace() {
+	public function getNamespace(): string {
 		return $this->namespace;
 	}
 
 	/**
 	 * @param  string $namespace
+	 *
 	 * @return ReportableProperty
 	 * @throws InvalidArgumentException
 	 */
-	public function setNamespace($namespace) {
+	public function setNamespace(string $namespace): ReportableProperty {
 		if(!$this->isInterfaceAvailable($namespace)) {
 			throw new InvalidArgumentException('Unknown property namespace: ' . $namespace);
 		}
 
 		$this->namespace = $namespace;
+
 		return $this;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
 	/**
 	 * @param  string $name
+	 *
 	 * @return ReportableProperty
 	 * @throws InvalidArgumentException
 	 */
-	public function setName($name) {
+	public function setName(string $name): ReportableProperty {
 		$properties = $this->getPropertiesFor($this->getNamespace());
 		if(!array_key_exists($name, $properties)) {
 			throw new InvalidArgumentException('Invalid property name: ' . $name);
 		}
 
 		$this->name = $name;
+
 		return $this;
 	}
 
@@ -98,9 +102,10 @@ class ReportableProperty extends Relation {
 
 	/**
 	 * @param  mixed $value
+	 *
 	 * @return ReportableProperty
 	 */
-	public function setValue($value) {
+	public function setValue($value): ReportableProperty {
 		$this->value = $value;
 
 		return $this;
@@ -109,27 +114,23 @@ class ReportableProperty extends Relation {
 	/**
 	 * @return DateTime
 	 */
-	public function getTimeOfSample() {
+	public function getTimeOfSample(): DateTime {
 		return $this->timeOfSample;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getTimeOfSampleAsString() {
+	public function getTimeOfSampleAsString(): string {
 		return $this->timeOfSample->format('c');
 	}
 
 	/**
 	 * @param  DateTime $timeOfSample
+	 *
 	 * @return ReportableProperty
-     * @throws InvalidArgumentException
 	 */
-	public function setTimeOfSample($timeOfSample) {
-        if(!is_a($timeOfSample, 'DateTime')) {
-            throw new InvalidArgumentException('timeOfSample must be a DateTime object (UTC based).');
-        }
-
+	public function setTimeOfSample(DateTime $timeOfSample): ReportableProperty {
         $this->timeOfSample = $timeOfSample;
 
 		return $this;
@@ -138,15 +139,16 @@ class ReportableProperty extends Relation {
 	/**
 	 * @return int
 	 */
-	public function getUncertaintyInMilliseconds() {
+	public function getUncertaintyInMilliseconds(): int {
 		return $this->uncertaintyInMilliseconds;
 	}
 
 	/**
 	 * @param  int $uncertaintyInMilliseconds
+	 *
 	 * @return ReportableProperty
 	 */
-	public function setUncertaintyInMilliseconds($uncertaintyInMilliseconds) {
+	public function setUncertaintyInMilliseconds(int $uncertaintyInMilliseconds): ReportableProperty {
 		$this->uncertaintyInMilliseconds = $uncertaintyInMilliseconds;
 
 		return $this;
@@ -156,11 +158,11 @@ class ReportableProperty extends Relation {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$rendered = [
-			'namespace' => $this->getNamespace(),
-			'name' => $this->getName(),
-			'timeOfSample' => $this->getTimeOfSampleAsString(),
+			'namespace'                 => $this->getNamespace(),
+			'name'                      => $this->getName(),
+			'timeOfSample'              => $this->getTimeOfSampleAsString(),
 			'uncertaintyInMilliseconds' => $this->getUncertaintyInMilliseconds(),
 		];
 

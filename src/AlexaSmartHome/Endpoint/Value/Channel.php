@@ -12,16 +12,16 @@ use \InvalidArgumentException;
  */
 class Channel {
     /** @var string $number */
-    protected $number;
+    protected $number = '';
 
     /** @var string $callSign */
-    protected $callSign;
+    protected $callSign = '';
 
     /** @var string $affiliateCallSign */
-    protected $affiliateCallSign;
+    protected $affiliateCallSign = '';
 
     /** @var string $uri */
-    protected $uri;
+    protected $uri = '';
 
 
     /**
@@ -30,7 +30,7 @@ class Channel {
      * @param string $affiliateCallSign
      * @param string $uri
      */
-    public function __construct($number = null, $callSign = null, $affiliateCallSign = null, $uri = null) {
+    public function __construct(string $number = '', string $callSign = '', string $affiliateCallSign = '', string $uri = '') {
         $this->setNumber($number);
         $this->setCallSign($callSign);
         $this->setAffiliateCallSign($affiliateCallSign);
@@ -40,22 +40,24 @@ class Channel {
     /**
      * @return Channel
      */
-    public static function create() {
+    public static function create(): Channel {
         return new Channel();
     }
 
 	/**
 	 * @param  array $data
+	 *
 	 * @return Channel
+	 *
 	 * @throws InvalidArgumentException
 	 */
-	public static function createFromArray($data) {
-		$number = isset($data['number']) ? $data['number'] : null;
-		$callSign = isset($data['callSign']) ? $data['callSign'] : null;
-		$affiliateCallSign = isset($data['affiliateCallSign']) ? $data['affiliateCallSign'] : null;
-		$uri = isset($data['uri']) ? $data['uri'] : null;
+	public static function createFromArray(array $data) {
+		$number            = isset($data['number']) ? $data['number'] : '';
+		$callSign          = isset($data['callSign']) ? $data['callSign'] : '';
+		$affiliateCallSign = isset($data['affiliateCallSign']) ? $data['affiliateCallSign'] : '';
+		$uri               = isset($data['uri']) ? $data['uri'] : '';
 
-		if(is_null($number) && is_null($callSign) && is_null($affiliateCallSign) && is_null($uri)) {
+		if(!$number && !$callSign && !$affiliateCallSign && !$uri) {
 			throw new InvalidArgumentException('Either number, callSign, affiliateCallSign or uri must be given.');
 		}
 
@@ -66,96 +68,105 @@ class Channel {
     /**
      * @return string
      */
-    public function getNumber() {
+    public function getNumber(): string {
         return $this->number;
     }
 
     /**
-     * @param string $number
+     * @param  string $number
+     *
      * @return Channel
      */
-    public function setNumber($number) {
+    public function setNumber(string $number): Channel {
         $this->number = $number;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getCallSign() {
+    public function getCallSign(): string {
         return $this->callSign;
     }
 
     /**
-     * @param string $callSign
+     * @param  string $callSign
+     *
      * @return Channel
      */
-    public function setCallSign($callSign) {
+    public function setCallSign(string $callSign): Channel {
         $this->callSign = $callSign;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getAffiliateCallSign() {
+    public function getAffiliateCallSign(): string {
         return $this->affiliateCallSign;
     }
 
     /**
-     * @param string $affiliateCallSign
+     * @param  string $affiliateCallSign
+     *
      * @return Channel
      */
-    public function setAffiliateCallSign($affiliateCallSign) {
+    public function setAffiliateCallSign(string $affiliateCallSign): Channel {
         $this->affiliateCallSign = $affiliateCallSign;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getUri() {
+    public function getUri(): string {
         return $this->uri;
     }
 
     /**
-     * @param string $uri
+     * @param  string $uri
+     *
      * @return Channel
      */
-    public function setUri($uri) {
+    public function setUri(string $uri): Channel {
         $this->uri = $uri;
+
         return $this;
     }
 
 
 	/**
 	 * @return array
+	 *
      * @throws InvalidArgumentException
 	 */
-	public function render() {
-	    $rendered = [];
-        $number = $this->getNumber();
-        $callSign = $this->getCallSign();
-        $affiliateCallSign = $this->getAffiliateCallSign();
-        $uri = $this->getUri();
+	public function render(): array {
+		$rendered          = [];
+		$number            = $this->getNumber();
+		$callSign          = $this->getCallSign();
+		$affiliateCallSign = $this->getAffiliateCallSign();
+		$uri               = $this->getUri();
 
-        if(is_null($number) && is_null($callSign) && is_null($affiliateCallSign) && is_null($uri)) {
+        if(!$number && !$callSign && !$affiliateCallSign && !$uri) {
             throw new InvalidArgumentException('Either number, callSign, affiliateCallSign or uri must be given.');
         }
 
-        if(!is_null($number)) {
+        if($number) {
             $rendered['number'] = $number;
         }
 
-        if(!is_null($callSign)) {
+        if($callSign) {
             $rendered['callSign'] = $callSign;
         }
 
-        if(!is_null($affiliateCallSign)) {
+        if($affiliateCallSign) {
             $rendered['affiliateCallSign'] = $affiliateCallSign;
         }
 
-        if(!is_null($uri)) {
+        if($uri) {
             $rendered['uri'] = $uri;
         }
 

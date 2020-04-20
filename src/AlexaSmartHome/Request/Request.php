@@ -17,10 +17,11 @@ class Request {
 
 
 	/**
-	 * @param array $requestData
+	 * @param  array $requestData
+	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		if(!isset($requestData['directive'])) {
 			throw new InvalidArgumentException('Missing directive data.');
 		}
@@ -32,7 +33,7 @@ class Request {
 	/**
 	 * @return Directive
 	 */
-	public function getDirective() {
+	public function getDirective(): Directive {
 		return $this->directive;
 	}
 }

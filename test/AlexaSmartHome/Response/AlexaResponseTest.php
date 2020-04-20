@@ -293,7 +293,7 @@ class AlexaResponseTest extends TestCase {
                 ->addDisplayCategory('SCENE_TRIGGER')
                 ->setCapabilities([
                     new Capability('Alexa'),
-                    new Capability('Alexa.SceneController', null, null, null, [
+                    new Capability('Alexa.SceneController', [], false, false, [
                         'supportsDeactivation' => false,
                         'proactivelyReported' => true,
                     ]),
@@ -309,7 +309,7 @@ class AlexaResponseTest extends TestCase {
                 ->addDisplayCategory('ACTIVITY_TRIGGER')
                 ->setCapabilities([
                     new Capability('Alexa'),
-                    new Capability('Alexa.SceneController', null, null, null, [
+                    new Capability('Alexa.SceneController', [], false, false, [
                         'supportsDeactivation' => true,
                         'proactivelyReported' => true,
                     ]),
@@ -325,7 +325,7 @@ class AlexaResponseTest extends TestCase {
                 ->addDisplayCategory('CAMERA')
                 ->setCapabilities([
                     new Capability('Alexa'),
-                    new Capability('Alexa.CameraStreamController', null, null, null, [
+                    new Capability('Alexa.CameraStreamController', [], false, false, [
                         'cameraStreamConfigurations' => [
                             CameraStreamConfiguration::create()
                                 ->addProtocol('RTSP')

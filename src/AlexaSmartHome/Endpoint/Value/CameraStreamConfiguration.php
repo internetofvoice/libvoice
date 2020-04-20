@@ -39,7 +39,7 @@ class CameraStreamConfiguration {
     /**
      * @param array $configurationData
      */
-    public function __construct($configurationData = []) {
+    public function __construct(array $configurationData = []) {
         if(isset($configurationData['protocols'])) {
             $this->setProtocols($configurationData['protocols']);
         }
@@ -64,15 +64,16 @@ class CameraStreamConfiguration {
     /**
      * @return CameraStreamConfiguration
      */
-    public static function create() {
+    public static function create(): CameraStreamConfiguration {
         return new CameraStreamConfiguration();
     }
 
 	/**
 	 * @param  array $data
+	 *
 	 * @return CameraStreamConfiguration
 	 */
-	public static function createFromArray($data) {
+	public static function createFromArray(array $data): CameraStreamConfiguration {
 		return new CameraStreamConfiguration($data);
 	}
 
@@ -80,15 +81,16 @@ class CameraStreamConfiguration {
     /**
      * @return array
      */
-    public function getProtocols() {
+    public function getProtocols(): array {
         return $this->protocols;
     }
 
     /**
      * @param array $protocols
+     *
      * @return CameraStreamConfiguration
      */
-    public function setProtocols($protocols) {
+    public function setProtocols(array $protocols): CameraStreamConfiguration {
         foreach($protocols as $protocol) {
             $this->addProtocol($protocol);
         }
@@ -98,9 +100,10 @@ class CameraStreamConfiguration {
 
     /**
      * @param string $protocol
+     *
      * @return CameraStreamConfiguration
      */
-    public function addProtocol($protocol) {
+    public function addProtocol(string $protocol): CameraStreamConfiguration {
         array_push($this->protocols, $protocol);
 
         return $this;
@@ -110,15 +113,16 @@ class CameraStreamConfiguration {
     /**
      * @return Resolution[]
      */
-    public function getResolutions() {
+    public function getResolutions(): array {
         return $this->resolutions;
     }
 
     /**
      * @param Resolution[] $resolutions
+     *
      * @return CameraStreamConfiguration
      */
-    public function setResolutions($resolutions) {
+    public function setResolutions(array $resolutions): CameraStreamConfiguration {
         foreach($resolutions as $resolution) {
             $this->addResolution($resolution->getWidth(), $resolution->getHeight());
         }
@@ -127,11 +131,12 @@ class CameraStreamConfiguration {
     }
 
     /**
-     * @param int $width
-     * @param int $height
+     * @param  int $width
+     * @param  int $height
+     *
      * @return CameraStreamConfiguration
      */
-    public function addResolution($width, $height) {
+    public function addResolution(int $width, int $height): CameraStreamConfiguration {
         array_push($this->resolutions, new Resolution($width, $height));
 
         return $this;
@@ -141,15 +146,16 @@ class CameraStreamConfiguration {
     /**
      * @return array
      */
-    public function getAuthorizationTypes() {
+    public function getAuthorizationTypes(): array {
         return $this->authorizationTypes;
     }
 
     /**
-     * @param array $authorizationTypes
+     * @param  array $authorizationTypes
+     *
      * @return CameraStreamConfiguration
      */
-    public function setAuthorizationTypes($authorizationTypes) {
+    public function setAuthorizationTypes(array $authorizationTypes): CameraStreamConfiguration {
         foreach($authorizationTypes as $authorizationType) {
             $this->addAuthorizationType($authorizationType);
         }
@@ -158,33 +164,36 @@ class CameraStreamConfiguration {
     }
 
     /**
-     * @param string $authorizationType
+     * @param  string $authorizationType
+     *
      * @return CameraStreamConfiguration
+     *
      * @throws InvalidArgumentException
      */
-    public function addAuthorizationType($authorizationType) {
-        if(in_array($authorizationType, self::validAuthorizationTypes)) {
-            array_push($this->authorizationTypes, $authorizationType);
-        } else {
-            throw new InvalidArgumentException('Invalid AuthorizationType: ' . $authorizationType);
+    public function addAuthorizationType(string $authorizationType): CameraStreamConfiguration {
+        if(!in_array($authorizationType, self::validAuthorizationTypes)) {
+	        throw new InvalidArgumentException('Invalid AuthorizationType: ' . $authorizationType);
         }
 
-        return $this;
+	    array_push($this->authorizationTypes, $authorizationType);
+
+	    return $this;
     }
 
 
     /**
      * @return array
      */
-    public function getVideoCodecs() {
+    public function getVideoCodecs(): array {
         return $this->videoCodecs;
     }
 
     /**
-     * @param array $videoCodecs
+     * @param  array $videoCodecs
+     *
      * @return CameraStreamConfiguration
      */
-    public function setVideoCodecs($videoCodecs) {
+    public function setVideoCodecs(array $videoCodecs): CameraStreamConfiguration {
         foreach($videoCodecs as $videoCodec) {
             $this->addVideoCodec($videoCodec);
         }
@@ -193,16 +202,18 @@ class CameraStreamConfiguration {
     }
 
     /**
-     * @param string $videoCodec
+     * @param  string $videoCodec
+     *
      * @return CameraStreamConfiguration
+     *
      * @throws InvalidArgumentException
      */
-    public function addVideoCodec($videoCodec) {
-        if(in_array($videoCodec, self::validVideoCodecs)) {
-            array_push($this->videoCodecs, $videoCodec);
-        } else {
-            throw new InvalidArgumentException('Invalid VideoCodec: ' . $videoCodec);
+    public function addVideoCodec(string $videoCodec): CameraStreamConfiguration {
+        if(!in_array($videoCodec, self::validVideoCodecs)) {
+	        throw new InvalidArgumentException('Invalid VideoCodec: ' . $videoCodec);
         }
+
+	    array_push($this->videoCodecs, $videoCodec);
 
         return $this;
     }
@@ -211,15 +222,16 @@ class CameraStreamConfiguration {
     /**
      * @return array
      */
-    public function getAudioCodecs() {
+    public function getAudioCodecs(): array {
         return $this->audioCodecs;
     }
 
     /**
-     * @param array $audioCodecs
+     * @param  array $audioCodecs
+     *
      * @return CameraStreamConfiguration
      */
-    public function setAudioCodecs($audioCodecs) {
+    public function setAudioCodecs(array $audioCodecs): CameraStreamConfiguration {
         foreach($audioCodecs as $audioCodec) {
             $this->addAudioCodec($audioCodec);
         }
@@ -228,16 +240,18 @@ class CameraStreamConfiguration {
     }
 
     /**
-     * @param string $audioCodec
+     * @param  string $audioCodec
+     *
      * @return CameraStreamConfiguration
+     *
      * @throws InvalidArgumentException
      */
-    public function addAudioCodec($audioCodec) {
-        if(in_array($audioCodec, self::validAudioCodecs)) {
-            array_push($this->audioCodecs, $audioCodec);
-        } else {
-            throw new InvalidArgumentException('Invalid AudioCodec: ' . $audioCodec);
+    public function addAudioCodec(string $audioCodec): CameraStreamConfiguration {
+        if(!in_array($audioCodec, self::validAudioCodecs)) {
+	        throw new InvalidArgumentException('Invalid AudioCodec: ' . $audioCodec);
         }
+
+	    array_push($this->audioCodecs, $audioCodec);
 
         return $this;
     }
@@ -246,12 +260,12 @@ class CameraStreamConfiguration {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$rendered = [
-            'protocols' => $this->getProtocols(),
-            'authorizationTypes' => $this->getAuthorizationTypes(),
-            'videoCodecs' => $this->getVideoCodecs(),
-            'audioCodecs' => $this->getAudioCodecs(),
+			'protocols'          => $this->getProtocols(),
+			'authorizationTypes' => $this->getAuthorizationTypes(),
+			'videoCodecs'        => $this->getVideoCodecs(),
+			'audioCodecs'        => $this->getAudioCodecs(),
 		];
 
 		$renderedResolutions = array();

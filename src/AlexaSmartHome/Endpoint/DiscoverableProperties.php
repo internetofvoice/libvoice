@@ -21,10 +21,10 @@ class DiscoverableProperties {
 
 	/**
 	 * @param array $properties
-	 * @param bool $proactivelyReported
-	 * @param bool $retrievable
+	 * @param bool  $proactivelyReported
+	 * @param bool  $retrievable
 	 */
-	public function __construct($properties = [], $proactivelyReported = false, $retrievable = false) {
+	public function __construct(array $properties = [], bool $proactivelyReported = false, bool $retrievable = false) {
 		$this->setSupported($properties);
 		$this->setProactivelyReported($proactivelyReported);
 		$this->setRetrievable($retrievable);
@@ -34,16 +34,16 @@ class DiscoverableProperties {
 	/**
 	 * @return array
 	 */
-	public function getSupported() {
+	public function getSupported(): array {
 		return $this->supported;
 	}
 
 	/**
-	 * @param array $supported
+	 * @param  array $supported
 	 *
 	 * @return DiscoverableProperties
 	 */
-	public function setSupported($supported) {
+	public function setSupported(array $supported): DiscoverableProperties {
 		foreach($supported as $property) {
 			$this->addSupported($property);
 		}
@@ -52,11 +52,11 @@ class DiscoverableProperties {
 	}
 
 	/**
-	 * @param string $name
+	 * @param  string $name
 	 *
 	 * @return DiscoverableProperties
 	 */
-	public function addSupported($name) {
+	public function addSupported(string $name): DiscoverableProperties {
         array_push($this->supported, ['name' => $name]);
 
 		return $this;
@@ -65,16 +65,16 @@ class DiscoverableProperties {
 	/**
 	 * @return bool
 	 */
-	public function isProactivelyReported() {
+	public function isProactivelyReported(): bool {
 		return $this->proactivelyReported;
 	}
 
 	/**
-	 * @param bool $proactivelyReported
+	 * @param  bool $proactivelyReported
 	 *
 	 * @return DiscoverableProperties
 	 */
-	public function setProactivelyReported($proactivelyReported) {
+	public function setProactivelyReported(bool $proactivelyReported): DiscoverableProperties {
 		$this->proactivelyReported = $proactivelyReported;
 
 		return $this;
@@ -83,16 +83,16 @@ class DiscoverableProperties {
 	/**
 	 * @return bool
 	 */
-	public function isRetrievable() {
+	public function isRetrievable(): bool {
 		return $this->retrievable;
 	}
 
 	/**
-	 * @param bool $retrievable
+	 * @param  bool $retrievable
 	 *
 	 * @return DiscoverableProperties
 	 */
-	public function setRetrievable($retrievable) {
+	public function setRetrievable(bool $retrievable): DiscoverableProperties {
 		$this->retrievable = $retrievable;
 
 		return $this;
@@ -101,13 +101,11 @@ class DiscoverableProperties {
 	/**
 	 * @return array
 	 */
-	public function render() {
-		$rendered = [
-			'supported' => $this->getSupported(),
+	public function render(): array {
+		return [
+			'supported'           => $this->getSupported(),
 			'proactivelyReported' => $this->isProactivelyReported(),
-			'retrievable' => $this->isRetrievable(),
+			'retrievable'         => $this->isRetrievable(),
 		];
-
-		return $rendered;
 	}
 }
