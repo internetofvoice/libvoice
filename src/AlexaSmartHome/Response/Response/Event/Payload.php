@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InvalidArgumentException;
 
 
@@ -23,10 +23,10 @@ class Payload {
     protected $endpoints = [];
 
 	/** @var string $type */
-    protected $type;
+    protected $type = '';
 
 	/** @var string $message */
-    protected $message;
+    protected $message = '';
 
 	/** @var array $values */
 	protected $values = [];
@@ -35,7 +35,7 @@ class Payload {
 	/**
 	 * @param array $payloadData
 	 */
-	public function __construct($payloadData = []) {
+	public function __construct(array $payloadData = []) {
 		if(isset($payloadData['endpoints'])) {
 			$this->setEndpoints($payloadData['endpoints']);
 		}
@@ -57,15 +57,16 @@ class Payload {
 	/**
      * @return  Endpoint[]
      */
-    public function getEndpoints() {
+    public function getEndpoints(): array {
         return $this->endpoints;
     }
 
     /**
      * @param   Endpoint[] $endpoints
+     *
      * @return  Payload
      */
-    public function setEndpoints($endpoints) {
+    public function setEndpoints(array $endpoints): Payload {
         foreach($endpoints as $endpoint) {
             $this->addEndpoint($endpoint);
         }
@@ -75,32 +76,33 @@ class Payload {
 
     /**
      * @param   Endpoint $endpoint
+     *
      * @return  Payload
      * @throws  InvalidArgumentException
      */
-    public function addEndpoint($endpoint) {
-	    if(count($this->endpoints) < self::MAX_ENDPOINTS) {
-		    array_push($this->endpoints, $endpoint);
-	    } else {
+    public function addEndpoint(Endpoint $endpoint): Payload {
+	    if(count($this->endpoints) >= self::MAX_ENDPOINTS) {
 		    throw new InvalidArgumentException('Allowed maximum of Endpoints (' . self::MAX_ENDPOINTS . ') reached.');
 	    }
 
-        return $this;
+	    array_push($this->endpoints, $endpoint);
+
+	    return $this;
     }
 
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
-	 * @param string $type
+	 * @param  string $type
 	 *
 	 * @return Payload
 	 */
-	public function setType($type) {
+	public function setType(string $type): Payload {
 		$this->type = $type;
 
 		return $this;
@@ -109,16 +111,16 @@ class Payload {
 	/**
 	 * @return string
 	 */
-	public function getMessage() {
+	public function getMessage(): string {
 		return $this->message;
 	}
 
 	/**
-	 * @param string $message
+	 * @param  string $message
 	 *
 	 * @return Payload
 	 */
-	public function setMessage($message) {
+	public function setMessage(string $message): Payload {
 		$this->message = $message;
 
 		return $this;
@@ -127,28 +129,28 @@ class Payload {
 	/**
 	 * @return array
 	 */
-	public function getValues() {
+	public function getValues(): array {
 		return $this->values;
 	}
 
 	/**
-	 * @param array $values
+	 * @param  array $values
 	 *
 	 * @return Payload
 	 */
-	public function setValues($values) {
+	public function setValues(array $values): Payload {
 		$this->values = $values;
 
 		return $this;
 	}
 
 	/**
-	 * @param string $key
-	 * @param mixed  $value
+	 * @param  string $key
+	 * @param  mixed  $value
 	 *
 	 * @return Payload
 	 */
-	public function addValue($key, $value) {
+	public function addValue(string $key, $value): Payload {
 		$this->values[$key] = $value;
 
 		return $this;
@@ -158,7 +160,7 @@ class Payload {
     /**
      * @return  array
      */
-    function render() {
+    function render(): array {
         $rendered = [];
 
         if(count($this->getEndpoints())) {
@@ -170,11 +172,11 @@ class Payload {
 	        $rendered['endpoints'] = $renderedEndpoints;
         }
 
-        if(!is_null($this->getType())) {
+        if($this->getType()) {
 	        $rendered['type'] = $this->getType();
         }
 
-	    if(!is_null($this->getMessage())) {
+	    if($this->getMessage()) {
 		    $rendered['message'] = $this->getMessage();
 	    }
 
