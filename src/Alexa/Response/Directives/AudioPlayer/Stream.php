@@ -25,14 +25,14 @@ class Stream {
 	/**
 	 * @param string $url
 	 * @param string $token
-	 * @param string $expectedPreviousToken
 	 * @param int    $offsetInMilliseconds
+	 * @param string $expectedPreviousToken
 	 */
-	public function __construct(string $url, string $token, string $expectedPreviousToken = '', int $offsetInMilliseconds = 0) {
+	public function __construct(string $url, string $token, int $offsetInMilliseconds = 0, string $expectedPreviousToken = '') {
 		$this->setUrl($url);
 		$this->setToken($token);
-		$this->setExpectedPreviousToken($expectedPreviousToken);
 		$this->setOffsetInMilliseconds($offsetInMilliseconds);
+		$this->setExpectedPreviousToken($expectedPreviousToken);
 	}
 
 
