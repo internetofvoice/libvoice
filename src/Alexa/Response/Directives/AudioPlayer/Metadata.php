@@ -12,10 +12,10 @@ use \InternetOfVoice\LibVoice\Alexa\Response\Directives\Image;
  */
 class Metadata {
 	/** @var string $title */
-	protected $title;
+	protected $title = '';
 
 	/** @var string $subtitle */
-	protected $subtitle;
+	protected $subtitle = '';
 
 	/** @var Image $art */
 	protected $art;
@@ -27,10 +27,20 @@ class Metadata {
 	/**
 	 * @param string $title
 	 * @param string $subtitle
+	 * @param Image  $art
+	 * @param Image  $backgroundImage
 	 */
-	public function __construct(string $title = '', string $subtitle = '') {
+	public function __construct(string $title = '', string $subtitle = '', Image $art = null, Image $backgroundImage = null) {
 		$this->setTitle($title);
 		$this->setSubtitle($subtitle);
+
+		if(!is_null($art)) {
+			$this->setArt($art);
+		}
+
+		if(!is_null($backgroundImage)) {
+			$this->setBackgroundImage($backgroundImage);
+		}
 	}
 
 

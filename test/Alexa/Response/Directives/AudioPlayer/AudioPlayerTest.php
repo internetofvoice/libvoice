@@ -41,9 +41,7 @@ class AudioPlayerTest extends TestCase {
 		$image = new Image('My Image');
 		$image->setImageSmall('https://picsum.photos/720/480');
 
-		$metadata = new Metadata('Title', 'Subtitle');
-		$metadata->setArt($image);
-		$metadata->setBackgroundImage($image);
+		$metadata = new Metadata('Title', 'Subtitle', $image, $image);
 
 		$expect = [
 			'title'    => 'Title',
