@@ -7,6 +7,10 @@ use \InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent as As
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount as LinkAccountCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\AudioItem;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\ClearQueue;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Play;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Stop;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
 
@@ -172,6 +176,44 @@ class AlexaResponse {
 	 */
 	public function canFulfill(string $canFulfill): AlexaResponse {
 		$this->getResponse()->setCanFulfillIntent(new CanFulfillIntent($canFulfill));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut ro Response->addDirective(new Play())
+	 *
+	 * @param  string    $playBehavior
+	 * @param  AudioItem $audioItem
+	 *
+	 * @return AlexaResponse
+	 */
+	public function audioPlay(string $playBehavior, AudioItem $audioItem): AlexaResponse {
+		$this->getResponse()->addDirective(new Play($playBehavior, $audioItem));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut ro Response->addDirective(new ClearQueue())
+	 *
+	 * @param  string $clearBehavior
+	 *
+	 * @return AlexaResponse
+	 */
+	public function audioClearQueue(string $clearBehavior): AlexaResponse {
+		$this->getResponse()->addDirective(new ClearQueue($clearBehavior));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut ro Response->addDirective(new Stop())
+	 *
+	 * @return AlexaResponse
+	 */
+	public function audioStop() {
+		$this->getResponse()->addDirective(new Stop());
 
 		return $this;
 	}

@@ -4,6 +4,8 @@ namespace Tests\Alexa\Response;
 
 use \InternetOfVoice\LibVoice\Alexa\Response\AlexaResponse;
 use InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\AudioItem;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Stream;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -75,6 +77,11 @@ class AlexaResponseTest extends TestCase {
 		$expect = 'InternetOfVoice\LibVoice\Alexa\Response\CanFulfill\CanFulfillIntent';
 		$this->assertEquals($expect, get_class($response->getResponse()->getCanFulfillIntent()));
 
+		$response->audioPlay('REPLACE_ALL', new AudioItem(new Stream('https://my.stream', 'TOKEN')));
+		$response->audioClearQueue('CLEAR_ALL');
+		$response->audioStop();
+		$this->assertIsArray($response->getResponse()->getDirectives());
+
 		$response->endSession(true);
 		$this->assertTrue($response->getResponse()->getShouldEndSession());
 
@@ -115,10 +122,31 @@ class AlexaResponseTest extends TestCase {
 						'ssml' => 'SSML-Reprompt'
 					]
 				],
+				'directives' => [
+					0 => [
+						'type'         => 'AudioPlayer.Play',
+						'playBehavior' => 'REPLACE_ALL',
+						'audioItem'    => [
+							'stream' => [
+								'url'                   => 'https://my.stream',
+								'token'                 => 'TOKEN',
+								'expectedPreviousToken' => '',
+								'offsetInMilliseconds'  => 0,
+							]
+						]
+					],
+					1 => [
+						'type'          => 'AudioPlayer.ClearQueue',
+						'clearBehavior' => 'CLEAR_ALL',
+					],
+					2 => [
+						'type' => 'AudioPlayer.Stop',
+					],
+				],
 				'canFulfillIntent' => [
 					'canFulfill' => 'YES'
 				],
-				'shouldEndSession' => true
+				'shouldEndSession' => true,
 			]
 		];
 
