@@ -108,9 +108,9 @@ class Intent {
 	/**
 	 * @param string $name
 	 *
-	 * @return Slot
+	 * @return null|Slot
 	 */
-	public function getSlot(string $name): Slot {
+	public function getSlot(string $name): ?Slot {
 		return isset($this->slots[$name]) ? $this->slots[$name] : null;
 	}
 
