@@ -38,9 +38,7 @@ class AudioPlayerTest extends TestCase {
 	 * @group custom-skill
 	 */
 	public function testMetadata() {
-		$image = new Image('My Image');
-		$image->setImageSmall('https://picsum.photos/720/480');
-
+		$image    = new Image('https://picsum.photos/720/480');
 		$metadata = new Metadata('Title', 'Subtitle', $image, $image);
 
 		$expect = [
@@ -48,13 +46,11 @@ class AudioPlayerTest extends TestCase {
 			'subtitle' => 'Subtitle',
 
 			'art' => [
-				'contentDescription' => 'My Image',
-				'sources' => [['size' => 'SMALL', 'url'  => 'https://picsum.photos/720/480']]
+				'sources' => [['url' => 'https://picsum.photos/720/480']]
 			],
 
 			'backgroundImage' => [
-				'contentDescription' => 'My Image',
-				'sources' => [['size' => 'SMALL', 'url'  => 'https://picsum.photos/720/480']]
+				'sources' => [['url' => 'https://picsum.photos/720/480']]
 			],
 		];
 

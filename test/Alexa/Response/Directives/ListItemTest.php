@@ -19,7 +19,7 @@ class ListItemTest extends TestCase {
 	 * @group custom-skill
 	 */
 	public function testListItem() {
-		$entity = new ListItem('myToken', new TextContent('myText1'), new Image('myContentDescription'));
+		$entity = new ListItem('myToken', new TextContent('myText1'), new Image('https://picsum.photos/720/480'));
 
 		$expect = [
 			'token'       => 'myToken',
@@ -30,9 +30,8 @@ class ListItemTest extends TestCase {
 						'text' => 'myText1',
 					],
 			],
-			'image'       => [
-				'contentDescription' => 'myContentDescription',
-				'sources'            => [],
+			'image' => [
+				'sources' => [['url' => 'https://picsum.photos/720/480']],
 			],
 		];
 

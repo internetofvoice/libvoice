@@ -18,8 +18,8 @@ class BodyTemplate7Test extends TestCase {
 	 * @group custom-skill
 	 */
 	public function testBodyTemplate7() {
-		$entity = new BodyTemplate7('myToken', 'myTitle', new Image('myImage'));
-		$entity->setBackgroundImage(new Image('abc'));
+		$entity = new BodyTemplate7('myToken', 'myTitle', new Image('https://picsum.photos/800/600'));
+		$entity->setBackgroundImage(new Image('https://picsum.photos/720/480'));
 
 		$expect = [
 			'type'            => 'BodyTemplate7',
@@ -27,12 +27,10 @@ class BodyTemplate7Test extends TestCase {
 			'backButton'      => 'VISIBLE',
 			'title'           => 'myTitle',
 			'backgroundImage' => [
-				'contentDescription' => 'abc',
-				'sources'            => [],
+				'sources' => [['url' => 'https://picsum.photos/720/480']],
 			],
 			'image' => [
-				'contentDescription' => 'myImage',
-				'sources'            => [],
+				'sources' => [['url' => 'https://picsum.photos/800/600']],
 			],
 		];
 

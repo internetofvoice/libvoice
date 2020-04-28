@@ -19,8 +19,8 @@ class BodyTemplate6Test extends TestCase {
 	 * @group custom-skill
 	 */
 	public function testBodyTemplate6() {
-		$entity = new BodyTemplate6('myToken', new Image('myImage'), new TextContent('myText1'));
-		$entity->setBackgroundImage(new Image('abc'));
+		$entity = new BodyTemplate6('myToken', new Image('https://picsum.photos/800/600'), new TextContent('myText1'));
+		$entity->setBackgroundImage(new Image('https://picsum.photos/720/480'));
 
 		$expect = [
 			'type'            => 'BodyTemplate6',
@@ -33,12 +33,10 @@ class BodyTemplate6Test extends TestCase {
 				],
 			],
 			'backgroundImage' => [
-				'contentDescription' => 'abc',
-				'sources'            => [],
+				'sources' => [['url' => 'https://picsum.photos/720/480']],
 			],
 			'image' => [
-				'contentDescription' => 'myImage',
-				'sources'            => [],
+				'sources' => [['url' => 'https://picsum.photos/800/600']],
 			],
 		];
 
