@@ -39,9 +39,9 @@ class Response {
 	}
 
 	/**
-	 * @return AbstractOutputSpeech
+	 * @return null|AbstractOutputSpeech
 	 */
-	public function getOutputSpeech(): AbstractOutputSpeech {
+	public function getOutputSpeech(): ?AbstractOutputSpeech {
 		return $this->outputSpeech;
 	}
 
@@ -57,9 +57,9 @@ class Response {
 	}
 
 	/**
-	 * @return AbstractCard
+	 * @return null|AbstractCard
 	 */
-	public function getCard(): AbstractCard {
+	public function getCard(): ?AbstractCard {
 		return $this->card;
 	}
 
@@ -75,9 +75,9 @@ class Response {
 	}
 
 	/**
-	 * @return Reprompt
+	 * @return null|Reprompt
 	 */
-	public function getReprompt(): Reprompt {
+	public function getReprompt(): ?Reprompt {
 		return $this->reprompt;
 	}
 
@@ -113,9 +113,9 @@ class Response {
 	}
 
 	/**
-	 * @return bool
+	 * @return null|bool
 	 */
-	public function getShouldEndSession(): bool {
+	public function getShouldEndSession(): ?bool {
 		return $this->shouldEndSession;
 	}
 
@@ -131,9 +131,9 @@ class Response {
 	}
 
 	/**
-	 * @return CanFulfillIntent
+	 * @return null|CanFulfillIntent
 	 */
-	public function getCanFulfillIntent(): CanFulfillIntent {
+	public function getCanFulfillIntent(): ?CanFulfillIntent {
 		return $this->canFulfillIntent;
 	}
 
@@ -179,7 +179,10 @@ class Response {
 			$rendered['canFulfillIntent'] = $this->getCanFulfillIntent()->render();
 		}
 
-		$rendered['shouldEndSession'] = $this->getShouldEndSession();
+		if(!is_null($this->getShouldEndSession())) {
+			$rendered['shouldEndSession'] = $this->getShouldEndSession();
+		}
+
 		return $rendered;
 	}
 }

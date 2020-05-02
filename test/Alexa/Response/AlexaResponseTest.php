@@ -88,6 +88,7 @@ class AlexaResponseTest extends TestCase {
 		$this->assertEquals('1.0', $response->getVersion());
 		$response->setVersion('2.0');
 		$this->assertEquals('2.0', $response->getVersion());
+		$response->setVersion('1.0');
 
 		$this->assertEquals([], $response->getSessionAttributes());
 		$response->setSessionAttribute('key', 'val');
@@ -98,7 +99,7 @@ class AlexaResponseTest extends TestCase {
 		$this->assertEquals('bar', $response->getSessionAttribute('foo'));
 
 		$expect = [
-			'version' => '2.0',
+			'version' => '1.0',
 			'sessionAttributes' => [
 				'key' => 'val',
 				'foo' => 'bar'
@@ -147,6 +148,34 @@ class AlexaResponseTest extends TestCase {
 					'canFulfill' => 'YES'
 				],
 				'shouldEndSession' => true,
+			]
+		];
+
+		$this->assertEquals($expect, $response->render());
+	}
+
+	/**
+	 * @group custom-skill
+	 */
+	public function testAlexaShortResponse() {
+		$response = new AlexaResponse();
+
+		$response->respond('Welcome to Test Skill.');
+		$response->reprompt('If you need help, please say help.');
+		$expect = [
+			'version' => '1.0',
+			'sessionAttributes' => [],
+			'response' => [
+				'outputSpeech' => [
+					'type' => 'PlainText',
+					'text' => 'Welcome to Test Skill.'
+				],
+				'reprompt' => [
+					'outputSpeech' => [
+						'type' => 'PlainText',
+						'text' => 'If you need help, please say help.'
+					]
+				],
 			]
 		];
 
