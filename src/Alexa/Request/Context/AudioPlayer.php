@@ -22,7 +22,7 @@ class AudioPlayer {
 	/**
 	 * @param array $audioPlayerData
 	 */
-	public function __construct($audioPlayerData) {
+	public function __construct(array $audioPlayerData) {
 		if (isset($audioPlayerData['token'])) {
 			$this->token = $audioPlayerData['token'];
 		}
@@ -39,21 +39,21 @@ class AudioPlayer {
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string {
 		return $this->token;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getOffsetInMilliseconds() {
+	public function getOffsetInMilliseconds(): int {
 		return $this->offsetInMilliseconds;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPlayerActivity() {
+	public function getPlayerActivity(): string {
 		return $this->playerActivity;
 	}
 }

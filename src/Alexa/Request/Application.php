@@ -16,7 +16,7 @@ class Application {
 	/**
 	 * @param array $applicationData
 	 */
-	public function __construct($applicationData) {
+	public function __construct(array $applicationData) {
 		$this->applicationId = $applicationData['applicationId'];
 	}
 
@@ -26,7 +26,7 @@ class Application {
 	 *
 	 * @return bool
 	 */
-	public function validateApplicationId($validApplicationIds) {
+	public function validateApplicationId(array $validApplicationIds): bool {
 		return in_array($this->applicationId, $validApplicationIds);
 	}
 
@@ -34,7 +34,7 @@ class Application {
 	/**
 	 * @return string
 	 */
-	public function getApplicationId() {
+	public function getApplicationId(): string {
 		return $this->applicationId;
 	}
 }

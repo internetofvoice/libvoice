@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Scope\Scope;
 use \InvalidArgumentException;
 
 /**
@@ -13,16 +13,16 @@ use \InvalidArgumentException;
  */
 class Endpoint {
 	/** @var string $endpointId */
-	protected $endpointId;
+	protected $endpointId = '';
 
 	/** @var string $manufacturerName */
-	protected $manufacturerName;
+	protected $manufacturerName= '';
 
 	/** @var string $friendlyName */
-	protected $friendlyName;
+	protected $friendlyName= '';
 
 	/** @var string $description */
-	protected $description;
+	protected $description= '';
 
 	/** @var array $displayCategories */
 	protected $displayCategories = [];
@@ -48,8 +48,8 @@ class Endpoint {
 	 * @var array $cookie
 	 *
 	 * this is a somewhat misleading identifier in Amazons API (it is in fact an array of cookies).
-	 * however, we keep it for the sake of consistency. However, the method names are more meaningful,
-	 * for example getCookie() vs. getCookies()
+	 * however, we keep it for the sake of consistency. The method names in turn are more consistent,
+	 * for example getCookie() for a single cookie and getCookies() for an array of cookies.
 	 */
 	protected $cookie = [];
 
@@ -63,7 +63,7 @@ class Endpoint {
 	/**
 	 * @param array $endpointData
 	 */
-	public function __construct($endpointData = []) {
+	public function __construct(array $endpointData = []) {
 		if(isset($endpointData['endpointId'])) {
 			$this->setEndpointId($endpointData['endpointId']);
 		}
@@ -100,7 +100,7 @@ class Endpoint {
 	/**
 	 * @return Endpoint
 	 */
-	public static function create() {
+	public static function create(): Endpoint {
 		return new Endpoint();
 	}
 
@@ -108,16 +108,16 @@ class Endpoint {
 	/**
 	 * @return string
 	 */
-	public function getEndpointId() {
+	public function getEndpointId(): string {
 		return $this->endpointId;
 	}
 
 	/**
-	 * @param string $endpointId
+	 * @param  string $endpointId
 	 *
 	 * @return Endpoint
 	 */
-	public function setEndpointId($endpointId) {
+	public function setEndpointId(string $endpointId): Endpoint {
 		$this->endpointId = $endpointId;
 
 		return $this;
@@ -126,16 +126,16 @@ class Endpoint {
 	/**
 	 * @return string
 	 */
-	public function getManufacturerName() {
+	public function getManufacturerName(): string {
 		return $this->manufacturerName;
 	}
 
 	/**
-	 * @param string $manufacturerName
+	 * @param  string $manufacturerName
 	 *
 	 * @return Endpoint
 	 */
-	public function setManufacturerName($manufacturerName) {
+	public function setManufacturerName(string $manufacturerName): Endpoint  {
 		$this->manufacturerName = $manufacturerName;
 
 		return $this;
@@ -144,16 +144,16 @@ class Endpoint {
 	/**
 	 * @return string
 	 */
-	public function getFriendlyName() {
+	public function getFriendlyName(): string {
 		return $this->friendlyName;
 	}
 
 	/**
-	 * @param string $friendlyName
+	 * @param  string $friendlyName
 	 *
 	 * @return Endpoint
 	 */
-	public function setFriendlyName($friendlyName) {
+	public function setFriendlyName(string $friendlyName): Endpoint  {
 		$this->friendlyName = $friendlyName;
 
 		return $this;
@@ -162,16 +162,16 @@ class Endpoint {
 	/**
 	 * @return string
 	 */
-	public function getDescription() {
+	public function getDescription(): string {
 		return $this->description;
 	}
 
 	/**
-	 * @param string $description
+	 * @param  string $description
 	 *
 	 * @return Endpoint
 	 */
-	public function setDescription($description) {
+	public function setDescription(string $description): Endpoint  {
 		$this->description = $description;
 
 		return $this;
@@ -181,16 +181,16 @@ class Endpoint {
 	/**
 	 * @return array
 	 */
-	public function getDisplayCategories() {
+	public function getDisplayCategories(): array {
 		return $this->displayCategories;
 	}
 
 	/**
-	 * @param array $displayCategories
+	 * @param  array $displayCategories
 	 *
 	 * @return Endpoint
 	 */
-	public function setDisplayCategories($displayCategories) {
+	public function setDisplayCategories(array $displayCategories): Endpoint  {
 		$this->displayCategories = [];
 
 		foreach ($displayCategories as $displayCategory) {
@@ -201,58 +201,56 @@ class Endpoint {
 	}
 
 	/**
-	 * @param string $displayCategory
+	 * @param  string $displayCategory
 	 *
 	 * @return Endpoint
-	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function addDisplayCategory($displayCategory) {
-		if(in_array($displayCategory, self::validDisplayCategories)) {
-			array_push($this->displayCategories, $displayCategory);
-		} else {
+	public function addDisplayCategory(string $displayCategory): Endpoint  {
+		if(!in_array($displayCategory, self::validDisplayCategories)) {
 			throw new InvalidArgumentException('Invalid display category: ' . $displayCategory);
 		}
+
+		array_push($this->displayCategories, $displayCategory);
 
 		return $this;
 	}
 
-
 	/**
 	 * @return array
 	 */
-	public function getCookies() {
+	public function getCookies(): array {
 		return $this->cookie;
 	}
 
 	/**
-	 * @param array $cookies
+	 * @param  array $cookies
 	 *
 	 * @return Endpoint
 	 */
-	public function setCookies($cookies) {
+	public function setCookies(array $cookies): Endpoint {
 		$this->cookie = $cookies;
 
 		return $this;
 	}
 
 	/**
-	 * @param string $key
-	 * @param mixed  $default
+	 * @param  string $key
+	 * @param  mixed  $default
 	 *
-	 * @return  mixed
+	 * @return mixed
 	 */
-	public function getCookie($key, $default = null) {
+	public function getCookie(string $key, $default = null) {
 		return isset($this->cookie[$key]) ? $this->cookie[$key] : $default;
 	}
 
 	/**
-	 * @param string $key
-	 * @param mixed $value
+	 * @param  string $key
+	 * @param  mixed $value
 	 *
 	 * @return Endpoint
 	 */
-	public function setCookie($key, $value) {
+	public function setCookie(string $key, $value): Endpoint {
 		$this->cookie[$key] = $value;
 
 		return $this;
@@ -262,34 +260,34 @@ class Endpoint {
 	/**
 	 * @return Capability[]
 	 */
-	public function getCapabilities() {
+	public function getCapabilities(): array {
 		return $this->capabilities;
 	}
 
 	/**
-	 * @param Capability[] $capabilities
+	 * @param  Capability[] $capabilities
 	 *
 	 * @return Endpoint
 	 */
-	public function setCapabilities($capabilities) {
+	public function setCapabilities(array $capabilities): Endpoint {
 		$this->capabilities = $capabilities;
 
 		return $this;
 	}
 
 	/**
-	 * @return Scope
+	 * @return null|Scope
 	 */
-	public function getScope() {
+	public function getScope(): ?Scope {
 		return $this->scope;
 	}
 
 	/**
-	 * @param Scope $scope
+	 * @param  Scope $scope
 	 *
 	 * @return Endpoint
 	 */
-	public function setScope($scope) {
+	public function setScope(Scope $scope): Endpoint {
 		$this->scope = $scope;
 
 		return $this;
@@ -304,15 +302,15 @@ class Endpoint {
 	        'endpointId' => $this->getEndpointId(),
         ];
 
-        if(!is_null($this->getManufacturerName())) {
+        if($this->getManufacturerName()) {
             $rendered['manufacturerName'] = $this->getManufacturerName();
         }
 
-        if(!is_null($this->getFriendlyName())) {
+        if($this->getFriendlyName()) {
             $rendered['friendlyName'] = $this->getFriendlyName();
         }
 
-        if(!is_null($this->getDescription())) {
+        if($this->getDescription()) {
             $rendered['description'] = $this->getDescription();
         }
 

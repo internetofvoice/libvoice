@@ -16,7 +16,7 @@ class Context {
 	/**
 	 * @param array $contextData
 	 */
-	public function __construct($contextData) {
+	public function __construct(array $contextData) {
 	    $this->data = $contextData;
 	}
 
@@ -24,7 +24,7 @@ class Context {
     /**
      * @return array
      */
-    public function getData() {
+    public function getData(): array {
         return $this->data;
     }
 }

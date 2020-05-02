@@ -55,9 +55,8 @@ class TemperatureTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testMissingValue() {
-		$temperature = new Temperature();
 		$this->expectException(InvalidArgumentException::class);
-		$temperature->render();
+		new Temperature(0.0, '');
 	}
 
     /**

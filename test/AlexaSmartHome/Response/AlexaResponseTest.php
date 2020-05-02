@@ -2,14 +2,11 @@
 
 namespace Tests\AlexaSmartHome\Response;
 
-use \DateTime;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Capability;
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\ReportableProperty;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\CameraStreamConfiguration;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Request\Request\Directive\Header as RequestHeader;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\AlexaResponse;
-use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Context;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
@@ -89,12 +86,6 @@ class AlexaResponseTest extends TestCase {
 
 		$this->assertEquals($expect, $alexaResponse->render());
 		$this->assertEquals(['endpointId' => null], $alexaResponse->getEndpoint()->render());
-
-		$time     = new DateTime('2017-01-01 00:00:00');
-		$property = new ReportableProperty('Alexa.BrightnessController', 'brightness', 100, $time);
-		$context  = new Context([$property]);
-		$alexaResponse->setContext($context);
-		$this->assertStringContainsString('BrightnessController', json_encode($alexaResponse->render()));
 	}
 
 	/**
@@ -147,6 +138,15 @@ class AlexaResponseTest extends TestCase {
 	public function testAlexaResponseInvalidTemplate() {
 		$this->expectException(InvalidArgumentException::class);
 		AlexaResponse::create('NonExistentTemplate');
+	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testAlexaResponseMissingResponse() {
+		$alexaResponse = new AlexaResponse();
+		$this->expectException(InvalidArgumentException::class);
+		$alexaResponse->render();
 	}
 
 	/**
@@ -293,7 +293,7 @@ class AlexaResponseTest extends TestCase {
                 ->addDisplayCategory('SCENE_TRIGGER')
                 ->setCapabilities([
                     new Capability('Alexa'),
-                    new Capability('Alexa.SceneController', null, null, null, [
+                    new Capability('Alexa.SceneController', [], false, false, [
                         'supportsDeactivation' => false,
                         'proactivelyReported' => true,
                     ]),
@@ -309,7 +309,7 @@ class AlexaResponseTest extends TestCase {
                 ->addDisplayCategory('ACTIVITY_TRIGGER')
                 ->setCapabilities([
                     new Capability('Alexa'),
-                    new Capability('Alexa.SceneController', null, null, null, [
+                    new Capability('Alexa.SceneController', [], false, false, [
                         'supportsDeactivation' => true,
                         'proactivelyReported' => true,
                     ]),
@@ -325,7 +325,7 @@ class AlexaResponseTest extends TestCase {
                 ->addDisplayCategory('CAMERA')
                 ->setCapabilities([
                     new Capability('Alexa'),
-                    new Capability('Alexa.CameraStreamController', null, null, null, [
+                    new Capability('Alexa.CameraStreamController', [], false, false, [
                         'cameraStreamConfigurations' => [
                             CameraStreamConfiguration::create()
                                 ->addProtocol('RTSP')

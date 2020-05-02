@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
 
+use InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
+
 /**
  * Class ConfirmSlot
  *
@@ -14,9 +16,9 @@ class ConfirmSlot extends AbstractDialog {
 
 
 	/**
-	 * @param $updatedIntent
+	 * @param Intent $updatedIntent
 	 */
-	public function __construct($updatedIntent) {
+	public function __construct(Intent $updatedIntent) {
 		parent::__construct($updatedIntent);
 
 		$this->type = 'Dialog.ConfirmSlot';
@@ -26,7 +28,7 @@ class ConfirmSlot extends AbstractDialog {
 	/**
 	 * @return string
 	 */
-	public function getSlotToConfirm() {
+	public function getSlotToConfirm(): string {
 		return $this->slotToConfirm;
 	}
 
@@ -35,7 +37,7 @@ class ConfirmSlot extends AbstractDialog {
 	 *
 	 * @return ConfirmSlot
 	 */
-	public function setSlotToConfirm($slotToConfirm) {
+	public function setSlotToConfirm(string $slotToConfirm): ConfirmSlot {
 		$this->slotToConfirm = $slotToConfirm;
 
 		return $this;
@@ -45,7 +47,7 @@ class ConfirmSlot extends AbstractDialog {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type'          => $this->getType(),
 			'slotToConfirm' => $this->getSlotToConfirm(),

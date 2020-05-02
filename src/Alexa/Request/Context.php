@@ -30,7 +30,7 @@ class Context {
 	/**
 	 * @param array $contextData
 	 */
-	public function __construct($contextData) {
+	public function __construct(array $contextData) {
 		if(isset($contextData['AudioPlayer'])) {
 			$this->audioPlayer = new AudioPlayer($contextData['AudioPlayer']);
 		}
@@ -52,28 +52,28 @@ class Context {
 	/**
 	 * @return AudioPlayer
 	 */
-	public function getAudioPlayer() {
+	public function getAudioPlayer(): AudioPlayer {
 		return $this->audioPlayer;
 	}
 
 	/**
 	 * @return Display
 	 */
-	public function getDisplay() {
+	public function getDisplay(): Display {
 		return $this->display;
 	}
 
 	/**
 	 * @return System
 	 */
-	public function getSystem() {
+	public function getSystem(): System {
 		return $this->system;
 	}
 
 	/**
 	 * @return Viewport
 	 */
-	public function getViewport() {
+	public function getViewport(): Viewport {
 		return $this->viewport;
 	}
 }

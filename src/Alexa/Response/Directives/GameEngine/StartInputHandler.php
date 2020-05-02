@@ -12,12 +12,19 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class StartInputHandler extends AbstractDirective {
+	/** @var int MIN_TIMEOUT */
 	const MIN_TIMEOUT = 0;
+
+	/** @var int MAX_TIMEOUT */
 	const MAX_TIMEOUT = 90000;
 
+	/** @var int MAX_RECOGNIZERS */
 	const MAX_RECOGNIZERS = 20;
 
+	/** @var int MIN_EVENTS */
 	const MIN_EVENTS = 1;
+
+	/** @var int MAX_EVENTS */
 	const MAX_EVENTS = 32;
 
 	/** @var int $timeout */
@@ -39,7 +46,7 @@ class StartInputHandler extends AbstractDirective {
 	 * @param array                $proxies
 	 * @param int                  $timeout
 	 */
-	public function __construct($events, $recognizers = [], $proxies = [], $timeout = 5000) {
+	public function __construct(array $events, array $recognizers = [], array $proxies = [], int $timeout = 5000) {
 		parent::__construct();
 
 		$this->type = 'GameEngine.StartInputHandler';
@@ -53,7 +60,7 @@ class StartInputHandler extends AbstractDirective {
 	/**
 	 * @return int
 	 */
-	public function getTimeout() {
+	public function getTimeout(): int {
 		return $this->timeout;
 	}
 
@@ -63,7 +70,7 @@ class StartInputHandler extends AbstractDirective {
 	 * @return StartInputHandler
 	 * @throws InvalidArgumentException
 	 */
-	public function setTimeout($timeout) {
+	public function setTimeout(int $timeout): StartInputHandler {
 		if(!is_int($timeout) || $timeout < self::MIN_TIMEOUT || $timeout > self::MAX_TIMEOUT) {
 			throw new InvalidArgumentException('Timeout must be a number between ' . self::MIN_TIMEOUT . ' and ' . self::MAX_TIMEOUT . '.');
 		}
@@ -76,7 +83,7 @@ class StartInputHandler extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function getProxies() {
+	public function getProxies(): array {
 		return $this->proxies;
 	}
 
@@ -85,7 +92,7 @@ class StartInputHandler extends AbstractDirective {
 	 *
 	 * @return StartInputHandler
 	 */
-	public function setProxies($proxies) {
+	public function setProxies(array $proxies): StartInputHandler {
 		$this->proxies = [];
 		foreach($proxies as $proxy) {
 			$this->addProxy($proxy);
@@ -99,7 +106,7 @@ class StartInputHandler extends AbstractDirective {
 	 *
 	 * @return StartInputHandler
 	 */
-	public function addProxy($proxy) {
+	public function addProxy(string $proxy): StartInputHandler {
 		array_push($this->proxies, $proxy);
 
 		return $this;
@@ -108,7 +115,7 @@ class StartInputHandler extends AbstractDirective {
 	/**
 	 * @return AbstractRecognizer[]
 	 */
-	public function getRecognizers() {
+	public function getRecognizers(): array {
 		return $this->recognizers;
 	}
 
@@ -117,7 +124,7 @@ class StartInputHandler extends AbstractDirective {
 	 *
 	 * @return StartInputHandler
 	 */
-	public function setRecognizers($recognizers) {
+	public function setRecognizers(array $recognizers): StartInputHandler {
 		$this->recognizers = [];
 		foreach($recognizers as $recognizer) {
 			$this->addRecognizer($recognizer);
@@ -132,7 +139,7 @@ class StartInputHandler extends AbstractDirective {
 	 * @return StartInputHandler
 	 * @throws InvalidArgumentException
 	 */
-	public function addRecognizer($recognizer) {
+	public function addRecognizer(AbstractRecognizer $recognizer): StartInputHandler {
 		if(count($this->recognizers) >= self::MAX_RECOGNIZERS) {
 			throw new InvalidArgumentException('Maximum number of recognizers: ' . self::MAX_RECOGNIZERS . '.');
 		}
@@ -145,7 +152,7 @@ class StartInputHandler extends AbstractDirective {
 	/**
 	 * @return Event[]
 	 */
-	public function getEvents() {
+	public function getEvents(): array {
 		return $this->events;
 	}
 
@@ -154,7 +161,7 @@ class StartInputHandler extends AbstractDirective {
 	 *
 	 * @return StartInputHandler
 	 */
-	public function setEvents($events) {
+	public function setEvents(array $events): StartInputHandler {
 		$this->events = [];
 		foreach($events as $event) {
 			$this->addEvent($event);
@@ -169,7 +176,7 @@ class StartInputHandler extends AbstractDirective {
 	 * @return StartInputHandler
 	 * @throws InvalidArgumentException
 	 */
-	public function addEvent($event) {
+	public function addEvent(Event $event): StartInputHandler {
 		if(count($this->events) >= self::MAX_EVENTS) {
 			throw new InvalidArgumentException('Maximum number of events: ' . self::MAX_EVENTS . '.');
 		}
@@ -184,7 +191,7 @@ class StartInputHandler extends AbstractDirective {
 	 * @return array
 	 * @throws InvalidArgumentException
 	 */
-	public function render() {
+	public function render(): array {
 		if(count($this->events) < self::MIN_EVENTS) {
 			throw new InvalidArgumentException('You have to set at least ' . self::MIN_EVENTS . ' events.');
 		}

@@ -30,7 +30,7 @@ class Standard extends AbstractCard {
 	 * @param string $smallImageUrl
 	 * @param string $largeImageUrl
 	 */
-	public function __construct($title, $text, $smallImageUrl, $largeImageUrl) {
+	public function __construct(string $title, string $text, string $smallImageUrl, string $largeImageUrl) {
 		parent::__construct();
 
 		$this->type = 'Standard';
@@ -44,7 +44,7 @@ class Standard extends AbstractCard {
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle(): string {
 		return $this->title;
 	}
 
@@ -53,7 +53,7 @@ class Standard extends AbstractCard {
 	 *
 	 * @return Standard
 	 */
-	public function setTitle($title) {
+	public function setTitle(string $title): Standard {
 		$this->title = $title;
 
 		return $this;
@@ -62,7 +62,7 @@ class Standard extends AbstractCard {
 	/**
 	 * @return string
 	 */
-	public function getText() {
+	public function getText(): string {
 		return $this->text;
 	}
 
@@ -71,7 +71,7 @@ class Standard extends AbstractCard {
 	 *
 	 * @return Standard
 	 */
-	public function setText($text) {
+	public function setText(string $text): Standard {
 		$this->text = mb_substr($text, 0, self::MAX_CONTENT_CHARS, 'UTF-8');
 
 		return $this;
@@ -80,7 +80,7 @@ class Standard extends AbstractCard {
 	/**
 	 * @return string
 	 */
-	public function getSmallImageUrl() {
+	public function getSmallImageUrl(): string {
 		return $this->smallImageUrl;
 	}
 
@@ -93,7 +93,7 @@ class Standard extends AbstractCard {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function setSmallImageUrl($smallImageUrl) {
+	public function setSmallImageUrl(string $smallImageUrl): Standard {
 		if (strlen($smallImageUrl) > self::MAX_URL_CHARS) {
 			throw new InvalidArgumentException('Small image URL exceeds ' . self::MAX_URL_CHARS . ' characters.');
 		}
@@ -106,7 +106,7 @@ class Standard extends AbstractCard {
 	/**
 	 * @return string
 	 */
-	public function getLargeImageUrl() {
+	public function getLargeImageUrl(): string {
 		return $this->largeImageUrl;
 	}
 
@@ -119,7 +119,7 @@ class Standard extends AbstractCard {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function setLargeImageUrl($largeImageUrl) {
+	public function setLargeImageUrl(string $largeImageUrl): Standard {
 		if (strlen($largeImageUrl) > self::MAX_URL_CHARS) {
 			throw new InvalidArgumentException('Large image URL exceeds ' . self::MAX_URL_CHARS . ' characters.');
 		}
@@ -132,7 +132,7 @@ class Standard extends AbstractCard {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type'          => $this->getType(),
 			'title'         => $this->getTitle(),

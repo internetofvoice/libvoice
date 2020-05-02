@@ -152,17 +152,18 @@ abstract class Relation {
      *
      * @return string
      */
-    public function getApiVersion() {
+    public function getApiVersion(): string {
         return self::apiVersion;
 	}
 
     /**
      * Check if interface is available
      *
-     * @param  $interface
+     * @param  string $interface
+     *
      * @return bool
      */
-    public function isInterfaceAvailable($interface) {
+    public function isInterfaceAvailable(string $interface): bool {
         $interfaces = self::relation;
 
         return isset($interfaces[$interface]);
@@ -172,10 +173,11 @@ abstract class Relation {
      * Get directives and their properties for an interface
      *
      * @param  string $interface
+	 *
      * @return array
      * @throws InvalidArgumentException
      */
-    public function getDirectivesFor($interface) {
+    public function getDirectivesFor(string $interface): array {
         if(!$this->isInterfaceAvailable($interface)) {
             throw new InvalidArgumentException('Unknown interface: ' . $interface);
         }
@@ -187,10 +189,11 @@ abstract class Relation {
      * Get reportable properties for an interface
      *
      * @param  string $interface
+     *
      * @return array
      * @throws InvalidArgumentException
      */
-    public function getPropertiesFor($interface) {
+    public function getPropertiesFor(string $interface): array {
         if(!$this->isInterfaceAvailable($interface)) {
             throw new InvalidArgumentException('Unknown interface: ' . $interface);
         }
@@ -202,10 +205,11 @@ abstract class Relation {
      * Get extra properties for an interface
      *
      * @param  string $interface
+     *
      * @return array
      * @throws InvalidArgumentException
      */
-    public function getExtraPropertiesFor($interface) {
+    public function getExtraPropertiesFor(string $interface): array {
         if(!$this->isInterfaceAvailable($interface)) {
             throw new InvalidArgumentException('Unknown interface: ' . $interface);
         }

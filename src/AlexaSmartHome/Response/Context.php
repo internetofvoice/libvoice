@@ -18,7 +18,7 @@ class Context {
 	/**
 	 * @param ReportableProperty[] $properties
 	 */
-	public function __construct($properties = []) {
+	public function __construct(array $properties = []) {
 		$this->setProperties($properties);
 	}
 
@@ -26,16 +26,16 @@ class Context {
 	/**
 	 * @return ReportableProperty[]
 	 */
-	public function getProperties() {
+	public function getProperties(): array {
 		return $this->properties;
 	}
 
 	/**
-	 * @param ReportableProperty[] $properties
+	 * @param  ReportableProperty[] $properties
 	 *
 	 * @return Context
 	 */
-	public function setProperties($properties) {
+	public function setProperties(array $properties): Context {
 		foreach($properties as $property) {
 			$this->addProperty($property);
 		}
@@ -44,11 +44,11 @@ class Context {
 	}
 
 	/**
-	 * @param ReportableProperty $property
+ 	 * @param  ReportableProperty $property
 	 *
 	 * @return Context
 	 */
-	public function addProperty($property) {
+	public function addProperty(ReportableProperty $property): Context {
 		array_push($this->properties, $property);
 
 		return $this;
@@ -58,7 +58,7 @@ class Context {
     /**
      * @return array
      */
-    function render() {
+    function render(): array {
 	    $rendered = [];
 
 	    if(count($this->getProperties())) {

@@ -21,7 +21,7 @@ class Stop extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		return [
 			'type' => $this->getType(),
 		];

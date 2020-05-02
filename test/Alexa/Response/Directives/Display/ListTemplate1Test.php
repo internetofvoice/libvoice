@@ -25,7 +25,7 @@ class ListTemplate1Test extends TestCase {
 		];
 
 		$entity = new ListTemplate1('myToken', 'myTitle', $listItems);
-		$entity->setBackButton('HIDDEN')->setBackgroundImage(new Image('abc'));
+		$entity->setBackButton('HIDDEN')->setBackgroundImage(new Image('https://picsum.photos/720/480'));
 
 		$expect = [
 			'type'       => 'ListTemplate1',
@@ -33,8 +33,7 @@ class ListTemplate1Test extends TestCase {
 			'backButton' => 'HIDDEN',
 			'title'      => 'myTitle',
 			'backgroundImage' => [
-				'contentDescription' => 'abc',
-				'sources'            => [],
+				'sources' => [['url' => 'https://picsum.photos/720/480']],
 			],
 			'listItems'  => [
 				[

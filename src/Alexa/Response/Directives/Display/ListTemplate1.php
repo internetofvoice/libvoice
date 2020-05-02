@@ -23,7 +23,7 @@ class ListTemplate1 extends AbstractTemplate {
 	 * @param string      $title
 	 * @param ListItem[]  $listItems
 	 */
-	public function __construct($token, $title, $listItems = []) {
+	public function __construct(string $token, string $title, array $listItems = []) {
 		parent::__construct($token);
 
 		$this->type = 'ListTemplate1';
@@ -36,7 +36,7 @@ class ListTemplate1 extends AbstractTemplate {
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle(): string {
 		return $this->title;
 	}
 
@@ -45,7 +45,7 @@ class ListTemplate1 extends AbstractTemplate {
 	 *
 	 * @return ListTemplate1
 	 */
-	public function setTitle($title) {
+	public function setTitle(string $title): ListTemplate1 {
 		$this->title = $title;
 
 		return $this;
@@ -54,7 +54,7 @@ class ListTemplate1 extends AbstractTemplate {
 	/**
 	 * @return ListItem[]
 	 */
-	public function getListItems() {
+	public function getListItems(): array {
 		return $this->listItems;
 	}
 
@@ -63,7 +63,7 @@ class ListTemplate1 extends AbstractTemplate {
 	 *
 	 * @return ListTemplate1
 	 */
-	public function setListItems($listItems) {
+	public function setListItems(array $listItems): ListTemplate1 {
 		$this->listItems = [];
 		foreach($listItems as $listItem) {
 			$this->addListItem($listItem);
@@ -77,7 +77,7 @@ class ListTemplate1 extends AbstractTemplate {
 	 *
 	 * @return ListTemplate1
 	 */
-	public function addListItem($listItem) {
+	public function addListItem(ListItem $listItem): ListTemplate1 {
 		array_push($this->listItems, $listItem);
 
 		return $this;
@@ -87,7 +87,7 @@ class ListTemplate1 extends AbstractTemplate {
 	/**
 	 * @return array
 	 */
-	function render() {
+	function render(): array {
 		$result = [
 			'type'            => $this->getType(),
 			'token'           => $this->getToken(),

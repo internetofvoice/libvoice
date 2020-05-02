@@ -24,7 +24,7 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('Alexa.Discovery', $alexaRequest->getRequest()->getDirective()->getHeader()->getNamespace());
 		$this->assertEquals('Discover', $alexaRequest->getRequest()->getDirective()->getHeader()->getName());
 		$this->assertEquals('3', $alexaRequest->getRequest()->getDirective()->getHeader()->getPayloadVersion());
-		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $alexaRequest->getRequest()->getDirective()->getHeader()->getMessageId());
+		$this->assertMatchesRegularExpression('/^[0-9a-zA-Z-]{36}$/', $alexaRequest->getRequest()->getDirective()->getHeader()->getMessageId());
 		$this->assertEquals('abcdef-123456', $alexaRequest->getRequest()->getDirective()->getHeader()->getCorrelationToken());
 
 		// Payload
@@ -65,7 +65,7 @@ class AlexaRequestTest extends TestCase {
 		$this->assertEquals('Alexa', $alexaRequest->getRequest()->getDirective()->getHeader()->getNamespace());
 		$this->assertEquals('ReportState', $alexaRequest->getRequest()->getDirective()->getHeader()->getName());
 		$this->assertEquals('3', $alexaRequest->getRequest()->getDirective()->getHeader()->getPayloadVersion());
-		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $alexaRequest->getRequest()->getDirective()->getHeader()->getMessageId());
+		$this->assertMatchesRegularExpression('/^[0-9a-zA-Z-]{36}$/', $alexaRequest->getRequest()->getDirective()->getHeader()->getMessageId());
 		$this->assertEquals('abcdef-123456', $alexaRequest->getRequest()->getDirective()->getHeader()->getCorrelationToken());
 
 		// Endpoint

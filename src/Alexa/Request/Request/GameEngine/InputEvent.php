@@ -32,7 +32,7 @@ class InputEvent {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		if(isset($requestData['gadgetId'])) {
 			$this->gadgetId = $requestData['gadgetId'];
 		}
@@ -63,35 +63,35 @@ class InputEvent {
 	/**
 	 * @return string
 	 */
-	public function getGadgetId() {
+	public function getGadgetId(): string  {
 		return $this->gadgetId;
 	}
 
 	/**
-	 * @return DateTime
+	 * @return null|DateTime
 	 */
-	public function getTimestamp() {
+	public function getTimestamp(): ?DateTime {
 		return $this->timestamp;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getAction() {
+	public function getAction(): string  {
 		return $this->action;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getColor() {
+	public function getColor(): string  {
 		return $this->color;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getFeature() {
+	public function getFeature(): string  {
 		return $this->feature;
 	}
 }

@@ -20,7 +20,7 @@ class BodyTemplate1Test extends TestCase {
 	 */
 	public function testBodyTemplate1() {
 		$entity = new BodyTemplate1('myToken', 'myTitle', new TextContent('myText1'));
-		$entity->setBackgroundImage(new Image('abc'));
+		$entity->setBackgroundImage(new Image('https://picsum.photos/720/480'));
 
 		$expect = [
 			'type'            => 'BodyTemplate1',
@@ -34,8 +34,7 @@ class BodyTemplate1Test extends TestCase {
 				],
 			],
 			'backgroundImage' => [
-				'contentDescription' => 'abc',
-				'sources'            => [],
+				'sources' => [['url' => 'https://picsum.photos/720/480']],
 			],
 		];
 

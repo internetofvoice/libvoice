@@ -9,8 +9,13 @@ namespace InternetOfVoice\LibVoice\Alexa\Response\Card;
  * @license http://opensource.org/licenses/MIT
  */
 abstract class AbstractCard {
+	/** @var int MAX_CONTENT_CHARS */
 	const MAX_CONTENT_CHARS = 8000;
+
+	/** @var int MAX_URL_CHARS */
 	const MAX_URL_CHARS     = 2000;
+
+	/** @var array CONSENT_PERMISSIONS */
 	const CONSENT_PERMISSIONS = [
 		'alexa::alerts:reminders:skill:readwrite',
 		'alexa::devices:all:address:country_and_postal_code:read',
@@ -25,7 +30,6 @@ abstract class AbstractCard {
 		'alexa::profile:name:read',
 	];
 
-
 	/** @var  string $type */
 	protected $type;
 
@@ -37,12 +41,12 @@ abstract class AbstractCard {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
 	 * @return array
 	 */
-	abstract function render();
+	abstract function render(): array;
 }

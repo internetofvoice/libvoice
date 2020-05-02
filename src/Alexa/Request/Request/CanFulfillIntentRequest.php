@@ -18,7 +18,7 @@ class CanFulfillIntentRequest extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		$this->intent = new Intent($requestData['intent']);
@@ -28,7 +28,7 @@ class CanFulfillIntentRequest extends AbstractRequest {
 	/**
 	 * @return Intent
 	 */
-	public function getIntent() {
+	public function getIntent(): Intent {
 		return $this->intent;
 	}
 }

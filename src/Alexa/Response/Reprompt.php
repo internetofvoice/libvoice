@@ -14,7 +14,7 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class Reprompt {
-	/** @var  AbstractOutputSpeech $outputSpeech */
+	/** @var AbstractOutputSpeech $outputSpeech */
 	protected $outputSpeech;
 
 
@@ -24,7 +24,7 @@ class Reprompt {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($type, $text) {
+	public function __construct(string $type, string $text) {
 		switch ($type) {
 			case 'SSML':
 				$this->outputSpeech = new SSML($text);
@@ -44,14 +44,14 @@ class Reprompt {
 	/**
 	 * @return AbstractOutputSpeech
 	 */
-	public function getOutputSpeech() {
+	public function getOutputSpeech(): AbstractOutputSpeech {
 		return $this->outputSpeech;
 	}
 
 	/**
 	 * @return array
 	 */
-	function render() {
+	function render():array {
 		return [
 			'outputSpeech' => $this->getOutputSpeech()->render(),
 		];

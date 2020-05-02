@@ -12,20 +12,20 @@ use \InvalidArgumentException;
  */
 class Color {
     /** @var float $hue */
-    protected $hue;
+    protected $hue = 0.0;
 
     /** @var float $saturation */
-    protected $saturation;
+    protected $saturation = 0.0;
 
     /** @var float $brightness */
-    protected $brightness;
+    protected $brightness = 0.0;
 
     /**
      * @param float $hue
      * @param float $saturation
      * @param float $brightness
      */
-    public function __construct($hue = null, $saturation = null, $brightness = null) {
+    public function __construct($hue, $saturation, $brightness) {
         $this->setHue($hue);
         $this->setSaturation($saturation);
         $this->setBrightness($brightness);
@@ -34,21 +34,23 @@ class Color {
     /**
      * @return Color
      */
-    public static function create() {
-        return new Color();
+    public static function create(): Color {
+        return new Color(0.0, 0.0, 0.0);
     }
 
 	/**
 	 * @param  array $data
+	 *
 	 * @return Color
+	 *
 	 * @throws InvalidArgumentException
 	 */
-	public static function createFromArray($data) {
-		$hue = isset($data['hue']) ? $data['hue'] : null;
-		$saturation = isset($data['saturation']) ? $data['saturation'] : null;
-		$brightness = isset($data['brightness']) ? $data['brightness'] : null;
+	public static function createFromArray(array $data): Color {
+		$hue        = isset($data['hue']) ? floatval($data['hue']) : -1.0;
+		$saturation = isset($data['saturation']) ? floatval($data['saturation']) : -1.0;
+		$brightness = isset($data['brightness']) ? floatval($data['brightness']) : -1.0;
 
-		if(is_null($hue) or is_null($saturation) or is_null($brightness)) {
+		if($hue === -1.0 or $saturation === -1.0 or $brightness === -1.0) {
 			throw new InvalidArgumentException('Hue, Saturation and Brightness must be given.');
 		}
 
@@ -59,84 +61,83 @@ class Color {
     /**
      * @return float
      */
-    public function getHue() {
+    public function getHue(): float {
         return $this->hue;
     }
 
     /**
      * @param  float $hue
+     *
      * @return Color
+     *
      * @throws InvalidArgumentException
      */
-    public function setHue($hue) {
-        $hue = floatval($hue);
+    public function setHue(float $hue): Color {
         if($hue < 0.0 or $hue > 360.0) {
             throw new InvalidArgumentException('Hue must be a float between 0.0 and 360.0 (inclusive).');
         }
 
         $this->hue = $hue;
+
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getSaturation() {
+    public function getSaturation(): float {
         return $this->saturation;
     }
 
     /**
      * @param  float $saturation
+     *
      * @return Color
+     *
      * @throws InvalidArgumentException
      */
-    public function setSaturation($saturation) {
-        $saturation = floatval($saturation);
+    public function setSaturation(float $saturation): Color {
         if($saturation < 0.0 or $saturation > 1.0) {
             throw new InvalidArgumentException('Saturation must be a float between 0.0 and 1.0 (inclusive).');
         }
 
         $this->saturation = $saturation;
+
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getBrightness() {
+    public function getBrightness(): float {
         return $this->brightness;
     }
 
     /**
      * @param  float $brightness
+     *
      * @return Color
+     *
      * @throws InvalidArgumentException
      */
-    public function setBrightness($brightness) {
-        $brightness = floatval($brightness);
+    public function setBrightness(float $brightness): Color {
         if($brightness < 0.0 or $brightness > 1.0) {
             throw new InvalidArgumentException('Brightness must be a float between 0.0 and 1.0 (inclusive).');
         }
 
         $this->brightness = $brightness;
+
         return $this;
     }
 
 	/**
 	 * @return array
-     * @throws InvalidArgumentException
 	 */
-	public function render() {
-        $hue = $this->getHue();
-        $saturation = $this->getSaturation();
-        $brightness = $this->getBrightness();
-
-        $rendered = [
-            'hue' => $hue,
-            'saturation' => $saturation,
-            'brightness' => $brightness,
+	public function render(): array {
+        return [
+	        'hue'        => $this->getHue(),
+	        'saturation' => $this->getSaturation(),
+	        'brightness' => $this->getBrightness(),
         ];
-
-        return $rendered;
 	}
 }

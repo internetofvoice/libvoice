@@ -25,10 +25,11 @@ class Directive {
 
 
 	/**
-	 * @param array $directiveData
+	 * @param  array $directiveData
+	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($directiveData) {
+	public function __construct(array $directiveData) {
 		if(!isset($directiveData['header'])) {
 			throw new InvalidArgumentException('Missing header data.');
 		}
@@ -37,7 +38,7 @@ class Directive {
 			throw new InvalidArgumentException('Missing payload data.');
 		}
 
-		$this->header = new Header($directiveData['header']);
+		$this->header  = new Header($directiveData['header']);
 		$this->payload = new Payload($directiveData['payload'], $this->getHeader()->getNamespace(), $this->getHeader()->getName());
 
 		if(isset($directiveData['endpoint'])) {
@@ -49,21 +50,21 @@ class Directive {
 	/**
 	 * @return Header
 	 */
-	public function getHeader() {
+	public function getHeader(): Header {
 		return $this->header;
 	}
 
 	/**
 	 * @return Payload
 	 */
-	public function getPayload() {
+	public function getPayload(): Payload {
 		return $this->payload;
 	}
 
 	/**
-	 * @return Endpoint
+	 * @return null|Endpoint
 	 */
-	public function getEndpoint() {
+	public function getEndpoint(): ?Endpoint {
 		return $this->endpoint;
 	}
 }

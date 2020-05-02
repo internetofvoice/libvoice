@@ -12,26 +12,27 @@ use \InvalidArgumentException;
  */
 class Header {
 	/** @var string $namespace */
-	protected $namespace;
+	protected $namespace = '';
 
 	/** @var string $name */
-	protected $name;
+	protected $name = '';
 
 	/** @var string $payloadVersion */
-	protected $payloadVersion;
+	protected $payloadVersion = '';
 
 	/** @var string $messageId */
-	protected $messageId;
+	protected $messageId = '';
 
 	/** @var string $correlationToken */
-	protected $correlationToken;
+	protected $correlationToken = '';
 
 
 	/**
-	 * @param array $headerData
+	 * @param  array $headerData
+	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct($headerData) {
+	public function __construct(array $headerData) {
 		if(!isset($headerData['namespace'])) {
 			throw new InvalidArgumentException('Missing namespace.');
 		}
@@ -48,10 +49,10 @@ class Header {
 			throw new InvalidArgumentException('Missing messageId.');
 		}
 
-		$this->namespace = $headerData['namespace'];
-		$this->name = $headerData['name'];
+		$this->namespace      = $headerData['namespace'];
+		$this->name           = $headerData['name'];
 		$this->payloadVersion = $headerData['payloadVersion'];
-		$this->messageId = $headerData['messageId'];
+		$this->messageId      = $headerData['messageId'];
 
 		if(isset($headerData['correlationToken'])) {
 			$this->correlationToken = $headerData['correlationToken'];
@@ -62,35 +63,35 @@ class Header {
 	/**
 	 * @return string
 	 */
-	public function getNamespace() {
+	public function getNamespace(): string {
 		return $this->namespace;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPayloadVersion() {
+	public function getPayloadVersion(): string {
 		return $this->payloadVersion;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getMessageId() {
+	public function getMessageId(): string {
 		return $this->messageId;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getCorrelationToken() {
+	public function getCorrelationToken(): string {
 		return $this->correlationToken;
 	}
 }

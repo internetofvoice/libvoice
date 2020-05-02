@@ -11,7 +11,10 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class TextField {
+	/** @var array VALID_TYPES */
 	const VALID_TYPES = ['PlainText', 'RichText'];
+
+	/** @var int TEXT_LENGTH */
 	const TEXT_LENGTH = 8000;
 
 	/** @var string $type */
@@ -25,7 +28,7 @@ class TextField {
 	 * @param string $text
 	 * @param string $type
 	 */
-	public function __construct($text, $type = 'PlainText') {
+	public function __construct(string $text, string $type = 'PlainText') {
 		$this->setText($text);
 		$this->setType($type ?: 'PlainText');
 	}
@@ -34,7 +37,7 @@ class TextField {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
@@ -43,7 +46,7 @@ class TextField {
 	 *
 	 * @return TextField
 	 */
-	public function setType($type) {
+	public function setType(string $type): TextField {
 		if(!in_array($type, self::VALID_TYPES)) {
 			throw new InvalidArgumentException('Type must be one of ' . implode(', ', self::VALID_TYPES));
 		}
@@ -56,7 +59,7 @@ class TextField {
 	/**
 	 * @return string
 	 */
-	public function getText() {
+	public function getText(): string {
 		return $this->text;
 	}
 
@@ -65,8 +68,8 @@ class TextField {
 	 *
 	 * @return TextField
 	 */
-	public function setText($text) {
-		$this->text = mb_substr($text, 0, self::TEXT_LENGTH, 'UTF-8');;
+	public function setText(string $text): TextField {
+		$this->text = mb_substr($text, 0, self::TEXT_LENGTH, 'UTF-8');
 
 		return $this;
 	}
@@ -75,12 +78,10 @@ class TextField {
 	/**
 	 * @return array
 	 */
-	public function render() {
-		$result = [
+	public function render(): array {
+		return [
 			'type' => $this->getType(),
 			'text' => $this->getText(),
 		];
-
-		return $result;
 	}
 }

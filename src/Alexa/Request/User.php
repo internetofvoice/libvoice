@@ -24,7 +24,7 @@ class User {
 	/**
 	 * @param   array $userData
 	 */
-	public function __construct($userData) {
+	public function __construct(array $userData) {
 		$this->userId = $userData['userId'];
 
 		if (isset($userData['accessToken'])) {
@@ -40,21 +40,21 @@ class User {
 	/**
 	 * @return string
 	 */
-	public function getUserId() {
+	public function getUserId(): string {
 		return $this->userId;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getAccessToken() {
+	public function getAccessToken(): string {
 		return $this->accessToken;
 	}
 
 	/**
 	 * @return Permissions
 	 */
-	public function getPermissions() {
+	public function getPermissions(): Permissions {
 		return $this->permissions;
 	}
 }

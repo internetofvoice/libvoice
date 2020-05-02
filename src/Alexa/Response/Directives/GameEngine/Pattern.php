@@ -11,6 +11,7 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class Pattern {
+	/** @var array ACTIONS */
 	const ACTIONS = ['down', 'up', 'silence'];
 
 	/** @var array $gadgetIds */
@@ -29,7 +30,7 @@ class Pattern {
 	/**
 	 * @param string $action
 	 */
-	public function __construct($action = '') {
+	public function __construct(string $action = '') {
 		$this->setAction($action);
 	}
 
@@ -37,7 +38,7 @@ class Pattern {
 	/**
 	 * @return array
 	 */
-	public function getGadgetIds() {
+	public function getGadgetIds(): array {
 		return $this->gadgetIds;
 	}
 
@@ -46,7 +47,7 @@ class Pattern {
 	 *
 	 * @return Pattern
 	 */
-	public function setGadgetIds($gadgetIds) {
+	public function setGadgetIds(array $gadgetIds): Pattern {
 		$this->gadgetIds = [];
 		foreach($gadgetIds as $gadgetId) {
 			$this->addGadgetId($gadgetId);
@@ -60,7 +61,7 @@ class Pattern {
 	 *
 	 * @return Pattern
 	 */
-	public function addGadgetId($gadgetId) {
+	public function addGadgetId(string $gadgetId): Pattern {
 		array_push($this->gadgetIds, $gadgetId);
 
 		return $this;
@@ -69,7 +70,7 @@ class Pattern {
 	/**
 	 * @return array
 	 */
-	public function getColors() {
+	public function getColors(): array {
 		return $this->colors;
 	}
 
@@ -78,7 +79,7 @@ class Pattern {
 	 *
 	 * @return Pattern
 	 */
-	public function setColors($colors) {
+	public function setColors(array $colors): Pattern {
 		$this->colors = [];
 		foreach($colors as $color) {
 			$this->addColor($color);
@@ -93,7 +94,7 @@ class Pattern {
 	 * @return Pattern
 	 * @throws InvalidArgumentException
 	 */
-	public function addColor($color) {
+	public function addColor(string $color): Pattern {
 		if(!preg_match('/^[0-9a-fA-F]{6}$/', $color)) {
 			throw new InvalidArgumentException('Color must be a hexadecimal RGB value without hash symbol (i.e. 33CC66)');
 		}
@@ -106,7 +107,7 @@ class Pattern {
 	/**
 	 * @return string
 	 */
-	public function getAction() {
+	public function getAction(): string {
 		return $this->action;
 	}
 
@@ -116,7 +117,7 @@ class Pattern {
 	 * @return Pattern
 	 * @throws InvalidArgumentException
 	 */
-	public function setAction($action) {
+	public function setAction(string $action): Pattern {
 		if(!empty($action) && !in_array($action, self::ACTIONS)) {
 			throw new InvalidArgumentException('Action must be one of ' . implode(', ', self::ACTIONS) . ' or an empty string.');
 		}
@@ -129,7 +130,7 @@ class Pattern {
 	/**
 	 * @return int
 	 */
-	public function getRepeat() {
+	public function getRepeat(): int {
 		return $this->repeat;
 	}
 
@@ -138,7 +139,7 @@ class Pattern {
 	 *
 	 * @return Pattern
 	 */
-	public function setRepeat($repeat) {
+	public function setRepeat(int $repeat): Pattern {
 		$this->repeat = intval(abs($repeat));
 
 		return $this;
@@ -148,7 +149,7 @@ class Pattern {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$rendered = [];
 
 		if($gadgetIds = $this->getGadgetIds()) {

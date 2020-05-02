@@ -18,7 +18,7 @@ class StopInputHandler extends AbstractDirective {
 	/**
 	 * @param string $originatingRequestId
 	 */
-	public function __construct($originatingRequestId) {
+	public function __construct(string $originatingRequestId) {
 		parent::__construct();
 
 		$this->type = 'GameEngine.StopInputHandler';
@@ -29,7 +29,7 @@ class StopInputHandler extends AbstractDirective {
 	/**
 	 * @return string
 	 */
-	public function getOriginatingRequestId() {
+	public function getOriginatingRequestId(): string {
 		return $this->originatingRequestId;
 	}
 
@@ -38,7 +38,7 @@ class StopInputHandler extends AbstractDirective {
 	 *
 	 * @return StopInputHandler
 	 */
-	public function setOriginatingRequestId($originatingRequestId) {
+	public function setOriginatingRequestId(string $originatingRequestId): StopInputHandler {
 		$this->originatingRequestId = $originatingRequestId;
 
 		return $this;
@@ -48,12 +48,10 @@ class StopInputHandler extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
-		$rendered = [
+	public function render(): array {
+		return [
 			'type'                 => $this->getType(),
 			'originatingRequestId' => $this->getOriginatingRequestId(),
 		];
-
-		return $rendered;
 	}
 }

@@ -22,7 +22,7 @@ class Display {
 	/**
 	 * @param array $displayData
 	 */
-	public function __construct($displayData) {
+	public function __construct(array $displayData) {
 		if(isset($displayData['templateVersion'])) {
 			$this->templateVersion = $displayData['templateVersion'];
 		}
@@ -40,21 +40,21 @@ class Display {
 	/**
 	 * @return string
 	 */
-	public function getTemplateVersion() {
+	public function getTemplateVersion(): string {
 		return $this->templateVersion;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getMarkupVersion() {
+	public function getMarkupVersion(): string {
 		return $this->markupVersion;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string {
 		return $this->token;
 	}
 }

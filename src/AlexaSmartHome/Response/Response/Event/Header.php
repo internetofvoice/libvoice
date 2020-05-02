@@ -15,22 +15,22 @@ class Header {
 	protected $namespace = 'Alexa';
 
 	/** @var string $name */
-	protected $name;
+	protected $name = '';
 
 	/** @var string $payloadVersion */
 	protected $payloadVersion = '3';
 
 	/** @var string $messageId */
-	protected $messageId;
+	protected $messageId = '';
 
     /** @var string $correlationToken */
-	protected $correlationToken;
+	protected $correlationToken = '';
 
 
 	/**
 	 * @param array $headerData
 	 */
-	public function __construct($headerData = []) {
+	public function __construct(array $headerData = []) {
 		if(isset($headerData['namespace'])) {
 			$this->setNamespace($headerData['namespace']);
 		}
@@ -54,10 +54,10 @@ class Header {
 
 
 	/**
-     * @param RequestHeader $requestHeader
-     * @param bool $overrideMessageId
+	 * @param RequestHeader $requestHeader
+	 * @param bool          $overrideMessageId
      */
-    public function createFromRequestHeader($requestHeader, $overrideMessageId = true) {
+    public function createFromRequestHeader(RequestHeader $requestHeader, bool $overrideMessageId = true) {
         $this->setNamespace($requestHeader->getNamespace());
         $this->setName($requestHeader->getName());
         $this->setPayloadVersion($requestHeader->getPayloadVersion());
@@ -69,64 +69,72 @@ class Header {
     /**
      * @return string
      */
-    public function getNamespace() {
+    public function getNamespace(): string {
         return $this->namespace;
     }
 
     /**
-     * @param string $namespace
+     * @param  string $namespace
+     *
      * @return Header
      */
-    public function setNamespace($namespace) {
+    public function setNamespace(string $namespace): Header {
         $this->namespace = $namespace;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getName() {
+    public function getName(): string {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param  string $name
+     *
      * @return Header
      */
-    public function setName($name) {
+    public function setName(string $name): Header {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getPayloadVersion() {
+    public function getPayloadVersion(): string {
         return $this->payloadVersion;
     }
 
     /**
-     * @param string $payloadVersion
+     * @param  string $payloadVersion
+     *
      * @return Header
      */
-    public function setPayloadVersion($payloadVersion) {
+    public function setPayloadVersion(string $payloadVersion): Header {
         $this->payloadVersion = $payloadVersion;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getMessageId() {
+    public function getMessageId(): string {
         return $this->messageId;
     }
 
     /**
-     * @param string $messageId
+     * @param  string $messageId
+     *
      * @return Header
      */
-    public function setMessageId($messageId) {
+    public function setMessageId(string $messageId): Header {
         $this->messageId = $messageId;
+
         return $this;
     }
 
@@ -137,7 +145,7 @@ class Header {
      * @author  Andrew Moore
      * @see     http://php.net/manual/de/function.uniqid.php#94959
      */
-    public function createMessageId() {
+    public function createMessageId(): string {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             // 32 bits for "time_low"
             mt_rand(0, 0xffff), mt_rand(0, 0xffff),
@@ -161,16 +169,18 @@ class Header {
     /**
      * @return string
      */
-    public function getCorrelationToken() {
+    public function getCorrelationToken(): string {
         return $this->correlationToken;
     }
 
     /**
-     * @param string $correlationToken
+     * @param  string $correlationToken
+     *
      * @return Header
      */
-    public function setCorrelationToken($correlationToken) {
+    public function setCorrelationToken(string $correlationToken): Header {
         $this->correlationToken = $correlationToken;
+
         return $this;
     }
 
@@ -178,7 +188,7 @@ class Header {
     /**
      * @return  array
      */
-    function render() {
+    function render(): array {
         $rendered = [
 	        'namespace'      => $this->getNamespace(),
 	        'name'           => $this->getName(),
@@ -186,7 +196,7 @@ class Header {
 	        'messageId'      => $this->getMessageId(),
         ];
 
-        if(!is_null($this->getCorrelationToken())) {
+        if($this->getCorrelationToken()) {
             $rendered['correlationToken'] = $this->getCorrelationToken();
         }
 

@@ -23,7 +23,7 @@ class Value {
 	 * @param string $id
 	 * @param string $name
 	 */
-	public function __construct($id, $name) {
+	public function __construct(string $id, string $name) {
 		$this->setId($id);
 		$this->setName($name);
 	}
@@ -32,7 +32,7 @@ class Value {
 	/**
 	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string {
 		return $this->id;
 	}
 
@@ -41,7 +41,7 @@ class Value {
 	 *
 	 * @return Value
 	 */
-	public function setId($id) {
+	public function setId(string $id): Value {
 		$this->id = $id;
 
 		return $this;
@@ -50,7 +50,7 @@ class Value {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
@@ -59,7 +59,7 @@ class Value {
 	 *
 	 * @return Value
 	 */
-	public function setName($name) {
+	public function setName(string $name): Value {
 		$this->name = $name;
 
 		return $this;
@@ -68,7 +68,7 @@ class Value {
 	/**
 	 * @return array
 	 */
-	public function getSynonyms() {
+	public function getSynonyms(): array {
 		return $this->synonyms;
 	}
 
@@ -77,7 +77,7 @@ class Value {
 	 *
 	 * @return Value
 	 */
-	public function setSynonyms($synonyms) {
+	public function setSynonyms(array $synonyms): Value {
 		$this->synonyms = [];
 		foreach($synonyms as $synonym) {
 			$this->addSynonym($synonym);
@@ -91,7 +91,7 @@ class Value {
 	 *
 	 * @return Value
 	 */
-	public function addSynonym($synonym) {
+	public function addSynonym(string $synonym): Value {
 		array_push($this->synonyms, $synonym);
 
 		return $this;
@@ -101,9 +101,9 @@ class Value {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
-			'id' => $this->getId(),
+			'id'   => $this->getId(),
 			'name' => [
 				'value' => $this->getName(),
 			],

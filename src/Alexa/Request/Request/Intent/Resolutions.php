@@ -16,7 +16,7 @@ class Resolutions {
 	/**
 	 * @param array $data
 	 */
-	public function __construct($data = []) {
+	public function __construct(array $data = []) {
 		if(isset($data['resolutionsPerAuthority'])) {
 			foreach($data['resolutionsPerAuthority'] as $resolutionsPerAuthority) {
 				array_push($this->resolutionsPerAuthority, new ResolutionPerAuthority($resolutionsPerAuthority));
@@ -28,7 +28,7 @@ class Resolutions {
 	/**
 	 * @return ResolutionPerAuthority[]
 	 */
-	public function getResolutionsPerAuthority() {
+	public function getResolutionsPerAuthority(): array {
 		return $this->resolutionsPerAuthority;
 	}
 
@@ -37,7 +37,7 @@ class Resolutions {
 	 *
 	 * @return Resolutions
 	 */
-	public function setResolutionsPerAuthority($resolutionsPerAuthority) {
+	public function setResolutionsPerAuthority(array $resolutionsPerAuthority): Resolutions {
 		$this->resolutionsPerAuthority = [];
 		foreach($resolutionsPerAuthority as $resolutionPerAuthority) {
 			$this->addResolutionPerAuthority($resolutionPerAuthority);
@@ -51,7 +51,7 @@ class Resolutions {
 	 *
 	 * @return Resolutions
 	 */
-	public function addResolutionPerAuthority($resolutionPerAuthority) {
+	public function addResolutionPerAuthority(ResolutionPerAuthority $resolutionPerAuthority): Resolutions {
 		array_push($this->resolutionsPerAuthority, $resolutionPerAuthority);
 
 		return $this;
@@ -61,7 +61,7 @@ class Resolutions {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [];
 
 		$resolutionsPerAuthority = $this->getResolutionsPerAuthority();

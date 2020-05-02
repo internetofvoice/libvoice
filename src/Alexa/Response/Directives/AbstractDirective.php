@@ -12,7 +12,8 @@ abstract class AbstractDirective {
 	/** @var string $type */
 	protected $type;
 
-
+	/**
+	 */
 	public function __construct() {
 	}
 
@@ -20,12 +21,12 @@ abstract class AbstractDirective {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
 	 * @return array
 	 */
-	abstract function render();
+	abstract function render(): array;
 }

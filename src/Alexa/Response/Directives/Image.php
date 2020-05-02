@@ -10,36 +10,38 @@ namespace InternetOfVoice\LibVoice\Alexa\Response\Directives;
  */
 class Image {
 	/** @var string $contentDescription */
-	protected $contentDescription;
+	protected $contentDescription = '';
 
-	/** @var string $imageXSmall */
-	protected $imageXSmall;
-
-	/** @var string $imageSmall */
-	protected $imageSmall;
-
-	/** @var string $imageMedium */
-	protected $imageMedium;
-
-	/** @var string $imageLarge */
-	protected $imageLarge;
-
-	/** @var string $imageXLarge */
-	protected $imageXLarge;
+	/** @var ImageVariant[] $images */
+	protected $images = [];
 
 
 	/**
+	 * @param string $url
+	 * @param string $size
+	 * @param int    $widthPixels
+	 * @param int    $heightPixels
 	 * @param string $contentDescription
 	 */
-	public function __construct($contentDescription) {
+	public function __construct(
+		string $url = '',
+		string $size = '',
+		int $widthPixels = 0,
+		int $heightPixels = 0,
+		string $contentDescription = ''
+	) {
 		$this->setContentDescription($contentDescription);
+
+		if(!empty($url)) {
+			$this->setImage($url, $size, $widthPixels, $heightPixels);
+		}
 	}
 
 
 	/**
 	 * @return string
 	 */
-	public function getContentDescription() {
+	public function getContentDescription(): string {
 		return $this->contentDescription;
 	}
 
@@ -48,129 +50,85 @@ class Image {
 	 *
 	 * @return Image
 	 */
-	public function setContentDescription($contentDescription) {
+	public function setContentDescription(string $contentDescription): Image {
 		$this->contentDescription = $contentDescription;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getImageXSmall() {
-		return $this->imageXSmall;
-	}
-
-	/**
-	 * @param  string $imageXSmall  URL of X_SMALL image
+	 * @param  string $url
+	 * @param  string $size
+	 * @param  int    $widthPixels
+	 * @param  int    $heightPixels
 	 *
 	 * @return Image
 	 */
-	public function setImageXSmall($imageXSmall) {
-		$this->imageXSmall = $imageXSmall;
+	public function setImage(string $url, string $size = '', int $widthPixels = 0, int $heightPixels = 0): Image {
+		$this->setImageVariant(new ImageVariant($url, $size, $widthPixels, $heightPixels));
 
 		return $this;
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getImageSmall() {
-		return $this->imageSmall;
-	}
-
-	/**
-	 * @param  string $imageSmall   URL of SMALL image
+	 * @param  ImageVariant $imageVariant
 	 *
 	 * @return Image
 	 */
-	public function setImageSmall($imageSmall) {
-		$this->imageSmall = $imageSmall;
+	public function setImageVariant(ImageVariant $imageVariant): Image {
+		$size = $imageVariant->getSize() ?? 'UNDEFINED';
+		$this->images[$size] = $imageVariant;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getImageMedium() {
-		return $this->imageMedium;
-	}
-
-	/**
-	 * @param  string $imageMedium  URL of MEDIUM image
+	 * @param  string $size
 	 *
-	 * @return Image
+	 * @return null|ImageVariant
 	 */
-	public function setImageMedium($imageMedium) {
-		$this->imageMedium = $imageMedium;
+	public function getImage(string $size): ?ImageVariant {
+		$size = $size ?? 'UNDEFINED';
+		if(!array_key_exists($size, $this->images)) {
+			return null;
+		}
 
-		return $this;
+		return $this->images[$size];
 	}
 
 	/**
-	 * @return string
+	 * @return ImageVariant[]
 	 */
-	public function getImageLarge() {
-		return $this->imageLarge;
-	}
-
-	/**
-	 * @param  string $imageLarge   URL of LARGE image
-	 *
-	 * @return Image
-	 */
-	public function setImageLarge($imageLarge) {
-		$this->imageLarge = $imageLarge;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getImageXLarge() {
-		return $this->imageXLarge;
-	}
-
-	/**
-	 * @param  string $imageXLarge  URL of X_LARGE image
-	 *
-	 * @return Image
-	 */
-	public function setImageXLarge($imageXLarge) {
-		$this->imageXLarge = $imageXLarge;
-
-		return $this;
+	public function getImages(): array {
+		return $this->images;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
-			'contentDescription' => $this->getContentDescription(),
-			'sources' => [],
+			'sources' => []
 		];
 
-		if($this->getImageXSmall()) {
-			array_push($result['sources'], ['size' => 'X_SMALL', 'url' => $this->getImageXSmall()]);
+		if($this->getContentDescription()) {
+			$result['contentDescription'] = $this->getContentDescription();
 		}
 
-		if($this->getImageSmall()) {
-			array_push($result['sources'], ['size' => 'SMALL', 'url' => $this->getImageSmall()]);
-		}
+		// Take either the only one image with unspecified size, or all with a defined size
+		$undefined = $this->getImage('');
+		$images    = $this->getImages();
 
-		if($this->getImageMedium()) {
-			array_push($result['sources'], ['size' => 'MEDIUM', 'url' => $this->getImageMedium()]);
-		}
+		if($undefined && count($images) === 1) {
+			array_push($result['sources'], $undefined->render());
+		} else {
+			foreach($images as $image) {
+				if(empty($image->getSize())) {
+					continue;
+				}
 
-		if($this->getImageLarge()) {
-			array_push($result['sources'], ['size' => 'LARGE', 'url' => $this->getImageLarge()]);
-		}
-
-		if($this->getImageXLarge()) {
-			array_push($result['sources'], ['size' => 'X_LARGE', 'url' => $this->getImageXLarge()]);
+				array_push($result['sources'], $image->render());
+			}
 		}
 
 		return $result;

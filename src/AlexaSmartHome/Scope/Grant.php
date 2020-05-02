@@ -10,16 +10,16 @@ namespace InternetOfVoice\LibVoice\AlexaSmartHome\Scope;
  */
 class Grant {
 	/** @var string $type */
-	protected $type;
+	protected $type = '';
 
 	/** @var string $code */
-	protected $code;
+	protected $code = '';
 
 
 	/**
 	 * @param array $grantData
 	 */
-	public function __construct($grantData) {
+	public function __construct(array $grantData) {
 		if(isset($grantData['type'])) {
 			$this->type = $grantData['type'];
 		}
@@ -33,14 +33,14 @@ class Grant {
 	/**
 	 * @return string
 	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getCode() {
+	public function getCode(): string {
 		return $this->code;
 	}
 
@@ -48,13 +48,14 @@ class Grant {
 	/**
 	 * @return  array
 	 */
-	function render() {
+	function render(): array {
 		$rendered = [];
-		if(!is_null($this->getType())) {
+
+		if($this->getType()) {
 			$rendered['type'] = $this->getType();
 		}
 
-		if(!is_null($this->getCode())) {
+		if($this->getCode()) {
 			$rendered['code'] = $this->getCode();
 		}
 

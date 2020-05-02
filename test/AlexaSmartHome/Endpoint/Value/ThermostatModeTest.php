@@ -43,6 +43,6 @@ class ThermostatModeTest extends TestCase {
 	 */
 	public function testMissingValue() {
 		$this->expectException(InvalidArgumentException::class);
-		new ThermostatMode();
+		new ThermostatMode('', '');
 	}
 }

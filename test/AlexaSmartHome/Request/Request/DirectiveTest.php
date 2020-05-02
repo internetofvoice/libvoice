@@ -23,7 +23,7 @@ class DirectiveTest extends TestCase {
 		$this->assertEquals('Alexa.Discovery', $directive->getHeader()->getNamespace());
 		$this->assertEquals('Discover', $directive->getHeader()->getName());
 		$this->assertEquals('3', $directive->getHeader()->getPayloadVersion());
-		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $directive->getHeader()->getMessageId());
+		$this->assertMatchesRegularExpression('/^[0-9a-zA-Z-]{36}$/', $directive->getHeader()->getMessageId());
 
         $this->assertEquals('BearerToken', $directive->getPayload()->getScope()->getType());
         $this->assertEquals('access-token-send-by-skill', $directive->getPayload()->getScope()->getToken());

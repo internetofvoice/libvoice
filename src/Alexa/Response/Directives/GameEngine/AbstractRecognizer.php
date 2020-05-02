@@ -19,7 +19,7 @@ abstract class AbstractRecognizer {
 	/**
 	 * @param string $id
 	 */
-	public function __construct($id) {
+	public function __construct(string $id) {
 		$this->setId($id);
 	}
 
@@ -27,7 +27,7 @@ abstract class AbstractRecognizer {
 	/**
 	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string {
 		return $this->id;
 	}
 
@@ -36,7 +36,7 @@ abstract class AbstractRecognizer {
 	 *
 	 * @return AbstractRecognizer
 	 */
-	public function setId($id) {
+	public function setId(string $id): AbstractRecognizer {
 		$this->id = $id;
 
 		return $this;
@@ -46,7 +46,7 @@ abstract class AbstractRecognizer {
 	/**
 	 * @return string
 	 */
-	public function getType(){
+	public function getType(): string {
 		return $this->type;
 	}
 
@@ -54,5 +54,5 @@ abstract class AbstractRecognizer {
 	/**
 	 * @return array
 	 */
-	abstract function render();
+	abstract function render(): array ;
 }

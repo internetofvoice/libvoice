@@ -11,12 +11,19 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class Event {
+	/** @var array REPORTS */
 	const REPORTS = ['history', 'matches', 'nothing'];
 
+	/** @var int MIN_MAXIMUM_INVOCATIONS */
 	const MIN_MAXIMUM_INVOCATIONS = 1;
+
+	/** @var int MAX_MAXIMUM_INVOCATIONS */
 	const MAX_MAXIMUM_INVOCATIONS = 2048;
 
+	/** @var int MIN_TRIGGER_TIME_MILLISECONDS */
 	const MIN_TRIGGER_TIME_MILLISECONDS = 0;
+
+	/** @var int MAX_TRIGGER_TIME_MILLISECONDS */
 	const MAX_TRIGGER_TIME_MILLISECONDS = 300000;
 
 	/** @var string $id */
@@ -47,7 +54,7 @@ class Event {
 	 * @param bool   $shouldEndInputHandler
 	 * @param string $reports
 	 */
-	public function __construct($id, $meets, $shouldEndInputHandler, $reports) {
+	public function __construct(string $id, array $meets, bool $shouldEndInputHandler, string $reports) {
 		$this->setId($id);
 		$this->setMeets($meets);
 		$this->setShouldEndInputHandler($shouldEndInputHandler);
@@ -58,7 +65,7 @@ class Event {
 	/**
 	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string {
 		return $this->id;
 	}
 
@@ -67,7 +74,7 @@ class Event {
 	 *
 	 * @return Event
 	 */
-	public function setId($id) {
+	public function setId(string $id): Event {
 		$this->id = $id;
 
 		return $this;
@@ -76,7 +83,7 @@ class Event {
 	/**
 	 * @return array
 	 */
-	public function getMeets() {
+	public function getMeets(): array {
 		return $this->meets;
 	}
 
@@ -85,7 +92,7 @@ class Event {
 	 *
 	 * @return Event
 	 */
-	public function setMeets($meets) {
+	public function setMeets(array $meets): Event {
 		$this->meets = [];
 		foreach($meets as $meet) {
 			$this->addMeet($meet);
@@ -99,7 +106,7 @@ class Event {
 	 *
 	 * @return Event
 	 */
-	public function addMeet($meet) {
+	public function addMeet(string $meet): Event {
 		array_push($this->meets, $meet);
 
 		return $this;
@@ -108,7 +115,7 @@ class Event {
 	/**
 	 * @return array
 	 */
-	public function getFails() {
+	public function getFails(): array {
 		return $this->fails;
 	}
 
@@ -117,7 +124,7 @@ class Event {
 	 *
 	 * @return Event
 	 */
-	public function setFails($fails) {
+	public function setFails(array $fails): Event {
 		$this->fails = [];
 		foreach($fails as $fail) {
 			$this->addFail($fail);
@@ -131,7 +138,7 @@ class Event {
 	 *
 	 * @return Event
 	 */
-	public function addFail($fail) {
+	public function addFail(string $fail): Event {
 		array_push($this->fails, $fail);
 
 		return $this;
@@ -140,7 +147,7 @@ class Event {
 	/**
 	 * @return string
 	 */
-	public function getReports() {
+	public function getReports(): string {
 		return $this->reports;
 	}
 
@@ -149,7 +156,7 @@ class Event {
 	 *
 	 * @return Event
 	 */
-	public function setReports($reports) {
+	public function setReports(string $reports): Event {
 		if(!empty($reports) && !in_array($reports, self::REPORTS)) {
 			throw new InvalidArgumentException('Reports must be one of ' . implode(', ', self::REPORTS) . ' or an empty string.');
 		}
@@ -162,7 +169,7 @@ class Event {
 	/**
 	 * @return bool
 	 */
-	public function getShouldEndInputHandler() {
+	public function getShouldEndInputHandler(): bool {
 		return $this->shouldEndInputHandler;
 	}
 
@@ -171,7 +178,7 @@ class Event {
 	 *
 	 * @return Event
 	 */
-	public function setShouldEndInputHandler($shouldEndInputHandler) {
+	public function setShouldEndInputHandler(bool $shouldEndInputHandler): Event {
 		$this->shouldEndInputHandler = boolval($shouldEndInputHandler);
 
 		return $this;
@@ -180,7 +187,7 @@ class Event {
 	/**
 	 * @return int
 	 */
-	public function getMaximumInvocations() {
+	public function getMaximumInvocations(): int {
 		return $this->maximumInvocations;
 	}
 
@@ -190,7 +197,7 @@ class Event {
 	 * @return Event
 	 * @throws InvalidArgumentException
 	 */
-	public function setMaximumInvocations($maximumInvocations) {
+	public function setMaximumInvocations(int $maximumInvocations): Event {
 		if(!is_int($maximumInvocations) || $maximumInvocations < self::MIN_MAXIMUM_INVOCATIONS || $maximumInvocations > self::MAX_MAXIMUM_INVOCATIONS) {
 			if($maximumInvocations != -1) {
 				throw new InvalidArgumentException('MaximumInvocations must be a number between ' . self::MIN_MAXIMUM_INVOCATIONS . ' and ' . self::MAX_MAXIMUM_INVOCATIONS . ' or -1 to disable.');
@@ -205,7 +212,7 @@ class Event {
 	/**
 	 * @return int
 	 */
-	public function getTriggerTimeMilliseconds() {
+	public function getTriggerTimeMilliseconds(): int {
 		return $this->triggerTimeMilliseconds;
 	}
 
@@ -215,7 +222,7 @@ class Event {
 	 * @return Event
 	 * @throws InvalidArgumentException
 	 */
-	public function setTriggerTimeMilliseconds($triggerTimeMilliseconds) {
+	public function setTriggerTimeMilliseconds(int $triggerTimeMilliseconds): Event {
 		if(!is_int($triggerTimeMilliseconds) || $triggerTimeMilliseconds < self::MIN_TRIGGER_TIME_MILLISECONDS || $triggerTimeMilliseconds > self::MAX_TRIGGER_TIME_MILLISECONDS) {
 			if($triggerTimeMilliseconds != -1) {
 				throw new InvalidArgumentException('TriggerTimeMilliseconds must be a number between ' . self::MIN_TRIGGER_TIME_MILLISECONDS . ' and ' . self::MAX_TRIGGER_TIME_MILLISECONDS . ' or -1 to disable.');
@@ -232,7 +239,7 @@ class Event {
 	 * @return array
 	 * @throws InvalidArgumentException
 	 */
-	public function render() {
+	public function render(): array {
 		if($this->getMaximumInvocations() != -1 && $this->getTriggerTimeMilliseconds() != -1) {
 			throw new InvalidArgumentException('Setting maximumInvocations and triggerTimeMilliseconds simultaneously is not allowed.');
 		}

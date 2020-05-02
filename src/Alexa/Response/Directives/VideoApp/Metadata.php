@@ -10,17 +10,17 @@ namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\VideoApp;
  */
 class Metadata {
 	/** @var string $title */
-	protected $title;
+	protected $title = '';
 
 	/** @var string $subtitle */
-	protected $subtitle;
+	protected $subtitle = '';
 
 
 	/**
 	 * @param string $title
 	 * @param string $subtitle
 	 */
-	public function __construct($title = '', $subtitle = '') {
+	public function __construct(string $title = '', string $subtitle = '') {
 		$this->setTitle($title);
 		$this->setSubtitle($subtitle);
 	}
@@ -29,7 +29,7 @@ class Metadata {
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle(): string {
 		return $this->title;
 	}
 
@@ -38,7 +38,7 @@ class Metadata {
 	 *
 	 * @return Metadata
 	 */
-	public function setTitle($title) {
+	public function setTitle(string $title): Metadata {
 		$this->title = $title;
 
 		return $this;
@@ -47,7 +47,7 @@ class Metadata {
 	/**
 	 * @return string
 	 */
-	public function getSubtitle() {
+	public function getSubtitle(): string {
 		return $this->subtitle;
 	}
 
@@ -56,7 +56,7 @@ class Metadata {
 	 *
 	 * @return Metadata
 	 */
-	public function setSubtitle($subtitle) {
+	public function setSubtitle(string $subtitle): Metadata {
 		$this->subtitle = $subtitle;
 
 		return $this;
@@ -66,7 +66,7 @@ class Metadata {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [];
 		if($this->getTitle()) {
 			$result['title'] = $this->getTitle();

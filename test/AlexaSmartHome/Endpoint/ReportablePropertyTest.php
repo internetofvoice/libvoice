@@ -7,6 +7,7 @@ use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\ReportableProperty;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Value\Temperature;
 use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
+use \TypeError;
 
 /**
  * Class ReportablePropertyTest
@@ -69,8 +70,7 @@ class ReportablePropertyTest extends TestCase {
 	 * @group smarthome
 	 */
 	public function testInvalidDate() {
-		$this->expectException(InvalidArgumentException::class);
-		new ReportableProperty('Alexa.PowerController', 'powerState', 'ON', '2017-01-01 00:00:00');
+		$this->expectException(TypeError::class);
+		new ReportableProperty('Alexa.PowerController', 'powerState', 'ON', 'INVALID_DATE');
 	}
 }
-

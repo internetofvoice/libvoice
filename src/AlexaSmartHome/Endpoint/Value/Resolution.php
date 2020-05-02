@@ -12,16 +12,17 @@ use \InvalidArgumentException;
  */
 class Resolution {
     /** @var int $width */
-    protected $width;
+    protected $width = 0;
 
     /** @var int $height */
-    protected $height;
+    protected $height = 0;
+
 
     /**
      * @param int $width
      * @param int $height
      */
-    public function __construct($width = null, $height = null) {
+    public function __construct(int $width, int $height) {
         $this->setWidth($width);
         $this->setHeight($height);
     }
@@ -29,20 +30,22 @@ class Resolution {
     /**
      * @return Resolution
      */
-    public static function create() {
-        return new Resolution();
+    public static function create(): Resolution {
+        return new Resolution(0, 0);
     }
 
 	/**
 	 * @param  array $data
+	 *
 	 * @return Resolution
+	 *
 	 * @throws InvalidArgumentException
 	 */
-	public static function createFromArray($data) {
-		$width = isset($data['width']) ? $data['width'] : null;
-		$height = isset($data['height']) ? $data['height'] : null;
+	public static function createFromArray(array $data) {
+		$width  = isset($data['width']) ? $data['width'] : 0;
+		$height = isset($data['height']) ? $data['height'] : 0;
 
-		if(is_null($width) or is_null($height)) {
+		if(!$width or !$height) {
 			throw new InvalidArgumentException('Width and height must be given.');
 		}
 
@@ -52,31 +55,34 @@ class Resolution {
     /**
      * @return int
      */
-    public function getWidth() {
+    public function getWidth(): int {
         return $this->width;
     }
 
     /**
-     * @param int $width
+     * @param  int $width
+     *
      * @return Resolution
      */
-    public function setWidth($width) {
+    public function setWidth(int $width): Resolution {
         $this->width = intval($width);
+
         return $this;
     }
 
     /**
      * @return int
      */
-    public function getHeight() {
+    public function getHeight(): int {
         return $this->height;
     }
 
     /**
-     * @param int $height
+     * @param  int $height
+     *
      * @return Resolution
      */
-    public function setHeight($height) {
+    public function setHeight(int $height): Resolution {
         $this->height = intval($height);
         return $this;
     }
@@ -84,17 +90,11 @@ class Resolution {
 
 	/**
 	 * @return array
-     * @throws InvalidArgumentException
 	 */
-	public function render() {
-        $width = $this->getWidth();
-        $height = $this->getHeight();
-
-        $rendered = [
-            'width' => $width,
-            'height' => $height,
+	public function render(): array {
+        return [
+	        'width'  => $this->getWidth(),
+	        'height' => $this->getHeight(),
         ];
-
-        return $rendered;
 	}
 }

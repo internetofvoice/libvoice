@@ -21,7 +21,7 @@ class PlaybackStopped extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		if(isset($requestData['token'])) {
@@ -37,14 +37,14 @@ class PlaybackStopped extends AbstractRequest {
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string  {
 		return $this->token;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getOffsetInMilliseconds() {
+	public function getOffsetInMilliseconds(): int {
 		return $this->offsetInMilliseconds;
 	}
 }

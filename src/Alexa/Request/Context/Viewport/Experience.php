@@ -25,7 +25,7 @@ class Experience {
 	/**
 	 * @param array $viewportData
 	 */
-	public function __construct($viewportData) {
+	public function __construct(array $viewportData) {
 		if(isset($viewportData['arcMinuteWidth'])) {
 			$this->arcMinuteWidth = intval($viewportData['arcMinuteWidth']);
 		}
@@ -47,28 +47,28 @@ class Experience {
 	/**
 	 * @return int
 	 */
-	public function getArcMinuteWidth() {
+	public function getArcMinuteWidth(): int {
 		return $this->arcMinuteWidth;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getArcMinuteHeight() {
+	public function getArcMinuteHeight(): int  {
 		return $this->arcMinuteHeight;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function canRotate() {
+	public function canRotate(): bool {
 		return $this->canRotate;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function canResize() {
+	public function canResize(): bool {
 		return $this->canResize;
 	}
 }

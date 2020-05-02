@@ -11,6 +11,7 @@ use \InvalidArgumentException;
  * @license http://opensource.org/licenses/MIT
  */
 class Intent {
+	/** @var array VALID_CONFIRMATION_STATUS */
 	const VALID_CONFIRMATION_STATUS = ['NONE', 'CONFIRMED', 'DENIED'];
 
 	/** @var string $name */
@@ -26,7 +27,7 @@ class Intent {
 	/**
 	 * @param array $intentData
 	 */
-	public function __construct($intentData = []) {
+	public function __construct(array $intentData = []) {
 		if(isset($intentData['name'])) {
 			$this->name = $intentData['name'];
 		}
@@ -46,7 +47,7 @@ class Intent {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
@@ -55,7 +56,7 @@ class Intent {
 	 *
 	 * @return Intent
 	 */
-	public function setName($name) {
+	public function setName(string $name): Intent {
 		$this->name = $name;
 
 		return $this;
@@ -64,7 +65,7 @@ class Intent {
 	/**
 	 * @return string
 	 */
-	public function getConfirmationStatus() {
+	public function getConfirmationStatus(): string {
 		return $this->confirmationStatus;
 	}
 
@@ -73,7 +74,7 @@ class Intent {
 	 *
 	 * @return Intent
 	 */
-	public function setConfirmationStatus($confirmationStatus) {
+	public function setConfirmationStatus(string $confirmationStatus): Intent {
 		if(!in_array($confirmationStatus, self::VALID_CONFIRMATION_STATUS)) {
 			throw new InvalidArgumentException('Intent confirmationStatus must be one of ' . implode(', ', self::VALID_CONFIRMATION_STATUS));
 		}
@@ -86,7 +87,7 @@ class Intent {
 	/**
 	 * @return Slot[]
 	 */
-	public function getSlots() {
+	public function getSlots(): array {
 		return $this->slots;
 	}
 
@@ -95,7 +96,7 @@ class Intent {
 	 *
 	 * @return array
 	 */
-	public function getSlotsAsArray() {
+	public function getSlotsAsArray(): array {
 		$slots = [];
 		foreach($this->getSlots() as $name => $slot) {
 			$slots[$name] = $slot->getValue();
@@ -107,9 +108,9 @@ class Intent {
 	/**
 	 * @param string $name
 	 *
-	 * @return Slot
+	 * @return null|Slot
 	 */
-	public function getSlot($name) {
+	public function getSlot(string $name): ?Slot {
 		return isset($this->slots[$name]) ? $this->slots[$name] : null;
 	}
 
@@ -118,7 +119,7 @@ class Intent {
 	 *
 	 * @return Intent
 	 */
-	public function setSlots($slots) {
+	public function setSlots(array $slots): Intent {
 		$this->slots = [];
 		foreach($slots as $slot) {
 			$this->addSlot($slot);
@@ -132,7 +133,7 @@ class Intent {
 	 *
 	 * @return Intent
 	 */
-	public function addSlot($slot) {
+	public function addSlot(Slot $slot): Intent {
 		$this->slots[$slot->getName()] = $slot;
 
 		return $this;
@@ -142,7 +143,7 @@ class Intent {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'name'               => $this->getName(),
 			'confirmationStatus' => $this->getConfirmationStatus(),

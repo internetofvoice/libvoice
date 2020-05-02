@@ -57,12 +57,12 @@ class AlexaRequest {
 	 * @throws Exception
 	 */
 	public function __construct(
-	    $rawData,
-        $validAppIds,
-        $signatureCertChainUrl,
-        $signature,
-        $checkTimestamp = true,
-        $checkCertificate = true
+	    string $rawData,
+        array $validAppIds,
+        string $signatureCertChainUrl,
+        string $signature,
+        bool $checkTimestamp = true,
+        bool $checkCertificate = true
     ) {
 		// Request data
 		$this->data = json_decode($rawData, true);
@@ -119,7 +119,7 @@ class AlexaRequest {
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	private function createRequestFromType() {
+	private function createRequestFromType(): void {
 		if (!isset($this->data['request']['type'])) {
 			throw new InvalidArgumentException('AlexaRequest requires a Request type.');
 		}
@@ -225,35 +225,35 @@ class AlexaRequest {
 	/**
 	 * @return array
 	 */
-	public function getData() {
+	public function getData(): array {
 		return $this->data;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getVersion() {
+	public function getVersion(): string {
 		return $this->version;
 	}
 
 	/**
 	 * @return Session
 	 */
-	public function getSession() {
+	public function getSession(): Session {
 		return $this->session;
 	}
 
 	/**
 	 * @return Context
 	 */
-	public function getContext() {
+	public function getContext(): Context {
 		return $this->context;
 	}
 
 	/**
 	 * @return AbstractRequest
 	 */
-	public function getRequest() {
+	public function getRequest(): AbstractRequest {
 		return $this->request;
 	}
 
@@ -262,7 +262,7 @@ class AlexaRequest {
 	 *
 	 * @return Application
 	 */
-	public function getApplication() {
+	public function getApplication(): Application {
 		if (!is_null($this->session)) {
 			return $this->session->getApplication();
 		} else {
@@ -275,7 +275,7 @@ class AlexaRequest {
 	 *
 	 * @return User
 	 */
-	public function getUser() {
+	public function getUser(): User {
 		if (!is_null($this->session)) {
 			return $this->session->getUser();
 		} else {
@@ -288,7 +288,7 @@ class AlexaRequest {
 	 *
 	 * @return Intent
 	 */
-	public function getIntent() {
+	public function getIntent(): Intent {
 		if($this->getRequest()->getType() != 'IntentRequest') {
 			throw new InvalidArgumentException('This request is not an IntentRequest.');
 		}

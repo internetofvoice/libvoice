@@ -3,6 +3,7 @@
 namespace Tests\Alexa\Response\Directives;
 
 use \InternetOfVoice\LibVoice\Alexa\Response\Directives\TextContent;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\TextField;
 use \PHPUnit\Framework\TestCase;
 
 
@@ -17,7 +18,11 @@ class TextContentTest extends TestCase {
 	 * @group custom-skill
 	 */
 	public function testTextContent() {
-		$entity = new TextContent('MyText1', 'RichText', 'MyText2', 'PlainText', 'MyText3', 'PlainText');
+		$entity = new TextContent('MyText1', 'RichText');
+		$entity
+			->setSecondaryText(new TextField('MyText2', 'PlainText'))
+			->setTertiaryText(new TextField('MyText3', 'PlainText'))
+		;
 
 		$expect = [
 			'primaryText' => [

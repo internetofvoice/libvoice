@@ -22,28 +22,16 @@ class TextContent {
 	/**
 	 * @param string $text1
 	 * @param string $type1
-	 * @param string $text2
-	 * @param string $type2
-	 * @param string $text3
-	 * @param string $type3
 	 */
-	public function __construct($text1 = '', $type1 = null, $text2 = null, $type2 = null, $text3 = null, $type3 = null) {
+	public function __construct(string $text1 = '', string $type1 = 'PlainText') {
 		$this->setPrimaryText(new TextField($text1, $type1));
-
-		if($text2) {
-			$this->setSecondaryText(new TextField($text2, $type2));
-		}
-
-		if($text3) {
-			$this->setTertiaryText(new TextField($text3, $type3));
-		}
 	}
 
 
 	/**
 	 * @return TextField
 	 */
-	public function getPrimaryText() {
+	public function getPrimaryText(): TextField {
 		return $this->primaryText;
 	}
 
@@ -52,16 +40,16 @@ class TextContent {
 	 *
 	 * @return TextContent
 	 */
-	public function setPrimaryText($primaryText) {
+	public function setPrimaryText(TextField $primaryText): TextContent {
 		$this->primaryText = $primaryText;
 
 		return $this;
 	}
 
 	/**
-	 * @return TextField
+	 * @return null|TextField
 	 */
-	public function getSecondaryText() {
+	public function getSecondaryText(): ?TextField {
 		return $this->secondaryText;
 	}
 
@@ -70,16 +58,16 @@ class TextContent {
 	 *
 	 * @return TextContent
 	 */
-	public function setSecondaryText($secondaryText) {
+	public function setSecondaryText(TextField $secondaryText): TextContent {
 		$this->secondaryText = $secondaryText;
 
 		return $this;
 	}
 
 	/**
-	 * @return TextField
+	 * @return null|TextField
 	 */
-	public function getTertiaryText() {
+	public function getTertiaryText(): ?TextField {
 		return $this->tertiaryText;
 	}
 
@@ -88,7 +76,7 @@ class TextContent {
 	 *
 	 * @return TextContent
 	 */
-	public function setTertiaryText($tertiaryText) {
+	public function setTertiaryText(TextField $tertiaryText): TextContent {
 		$this->tertiaryText = $tertiaryText;
 
 		return $this;
@@ -97,7 +85,7 @@ class TextContent {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'primaryText' => $this->getPrimaryText()->render(),
 		];

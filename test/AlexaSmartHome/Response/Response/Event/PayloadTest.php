@@ -27,8 +27,8 @@ class PayloadTest extends TestCase {
 
 		$expect = [
 			'endpoints' => [['endpointId' => null]],
-			'type' => 'type',
-			'message' => 'message',
+			'type'      => 'type',
+			'message'   => 'message',
 		];
 
 		$this->assertEquals($expect, $payload->render());
@@ -43,9 +43,9 @@ class PayloadTest extends TestCase {
 
 		$expect = [
 			'endpoints' => [['endpointId' => null]],
-			'type' => 'type',
-			'message' => 'message',
-			'value' => 1,
+			'type'      => 'type',
+			'message'   => 'message',
+			'value'     => 1,
 		];
 
 		$this->assertEquals($expect, $payload->render());
@@ -72,24 +72,24 @@ class PayloadTest extends TestCase {
 		$payload->setValues(['brightness' => 50]);
 		$payload->addValue('array', [1, 2, 3]);
 		$payload->addValue('temperature', new Temperature(20, 'CELSIUS'));
-		$payload->addValue('colors', [new Color(), new Color()]);
+		$payload->addValue('colors', [new Color(0, 0, 0), new Color(1.0, 1.0, 1.0)]);
 
 		$expect = [
-			'brightness' => 50,
-			'array' => [1, 2, 3],
+			'brightness'  => 50,
+			'array'       => [1, 2, 3],
 			'temperature' => [
-				'value' => 20,
-				'scale' => 'CELSIUS'
+				'value'     => 20,
+				'scale'     => 'CELSIUS'
 			],
-			'colors' => [
+			'colors'      => [
 				[
-					'hue' => 0.0,
+					'hue'        => 0.0,
 					'saturation' => 0.0,
-					'brightness' => 0.0
+					'brightness' => 0.0,
 				], [
-					'hue' => 0.0,
-					'saturation' => 0.0,
-					'brightness' => 0.0
+					'hue'        => 1.0,
+					'saturation' => 1.0,
+					'brightness' => 1.0,
 				]
 			]
 		];

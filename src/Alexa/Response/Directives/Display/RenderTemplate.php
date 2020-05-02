@@ -18,7 +18,7 @@ class RenderTemplate extends AbstractDirective {
 	/**
 	 * @param AbstractTemplate $template
 	 */
-	public function __construct($template) {
+	public function __construct(AbstractTemplate $template) {
 		parent::__construct();
 
 		$this->type = 'Display.RenderTemplate';
@@ -29,7 +29,7 @@ class RenderTemplate extends AbstractDirective {
 	/**
 	 * @return AbstractTemplate
 	 */
-	public function getTemplate() {
+	public function getTemplate(): AbstractTemplate {
 		return $this->template;
 	}
 
@@ -38,7 +38,7 @@ class RenderTemplate extends AbstractDirective {
 	 *
 	 * @return RenderTemplate
 	 */
-	public function setTemplate($template) {
+	public function setTemplate(AbstractTemplate $template): RenderTemplate {
 		$this->template = $template;
 
 		return $this;
@@ -48,12 +48,10 @@ class RenderTemplate extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
-		$result = [
+	public function render(): array {
+		return [
 			'type'     => $this->getType(),
 			'template' => $this->getTemplate()->render(),
 		];
-
-		return $result;
 	}
 }

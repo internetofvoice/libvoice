@@ -57,7 +57,7 @@ class System {
 	/**
 	 * @param array $systemData
 	 */
-	public function __construct($systemData) {
+	public function __construct(array $systemData) {
 		if (isset($systemData['application'])) {
 			$this->application = new Application($systemData['application']);
 		}
@@ -111,84 +111,84 @@ class System {
 	/**
 	 * @return Application
 	 */
-	public function getApplication() {
+	public function getApplication(): Application {
 		return $this->application;
 	}
 
 	/**
 	 * @return User
 	 */
-	public function getUser() {
+	public function getUser(): User {
 		return $this->user;
 	}
 
 	/**
 	 * @return Device
 	 */
-	public function getDevice() {
+	public function getDevice(): Device {
 		return $this->device;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getApiEndpoint() {
+	public function getApiEndpoint(): string {
 		return $this->apiEndpoint;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getApiAccessToken() {
+	public function getApiAccessToken(): string {
 		return $this->apiAccessToken;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function supportsAlexaCameraPhotoCaptureController() {
+	public function supportsAlexaCameraPhotoCaptureController(): bool {
 		return $this->supportsAlexaCameraPhotoCaptureController;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function supportsAlexaCameraVideoCaptureController() {
+	public function supportsAlexaCameraVideoCaptureController(): bool {
 		return $this->supportsAlexaCameraVideoCaptureController;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function supportsAlexaPresentationAPL() {
+	public function supportsAlexaPresentationAPL(): bool {
 		return $this->supportsAlexaPresentationAPL;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function supportsAudioPlayer() {
+	public function supportsAudioPlayer(): bool {
 		return $this->supportsAudioPlayer;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function supportsDisplay() {
+	public function supportsDisplay(): bool {
 		return $this->supportsDisplay;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function supportsGeolocation() {
+	public function supportsGeolocation(): bool {
 		return $this->supportsGeolocation;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function supportsVideoApp() {
+	public function supportsVideoApp(): bool {
 		return $this->supportsVideoApp;
 	}
 

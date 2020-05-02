@@ -2,6 +2,8 @@
 
 namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
 
+use InternetOfVoice\LibVoice\Alexa\Request\Request\Intent\Intent;
+
 /**
  * Class ConfirmIntent
  *
@@ -10,9 +12,9 @@ namespace InternetOfVoice\LibVoice\Alexa\Response\Directives\Dialog;
  */
 class ConfirmIntent extends AbstractDialog {
 	/**
-	 * @param $updatedIntent
+	 * @param Intent $updatedIntent
 	 */
-	public function __construct($updatedIntent) {
+	public function __construct(Intent $updatedIntent) {
 		parent::__construct($updatedIntent);
 
 		$this->type = 'Dialog.ConfirmIntent';

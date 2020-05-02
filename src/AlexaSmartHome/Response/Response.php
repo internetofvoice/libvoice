@@ -3,6 +3,7 @@
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response;
 
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event;
+use InvalidArgumentException;
 
 /**
  * Class Response
@@ -18,43 +19,51 @@ class Response {
 	protected $context;
 
 	/**
-	 * @param Event $event
+	 * @param Event   $event
+	 * @param Context $context
 	 */
-	public function __construct($event = null, $context = null) {
-		$this->setEvent($event);
-		$this->setContext($context);
+	public function __construct(Event $event = null, Context $context = null) {
+		if(!is_null($event)) {
+			$this->setEvent($event);
+		}
+
+		if(!is_null($context)) {
+			$this->setContext($context);
+		}
 	}
 
 
     /**
-     * @return  Event
+     * @return  null|Event
      */
-    public function getEvent() {
+    public function getEvent(): ?Event {
         return $this->event;
     }
 
     /**
      * @param   Event $event
+     *
      * @return  Response
      */
-    public function setEvent($event) {
+    public function setEvent(Event $event): Response {
         $this->event = $event;
+
         return $this;
     }
 
 	/**
-	 * @return Context
+	 * @return null|Context
 	 */
-	public function getContext() {
+	public function getContext(): ?Context {
 		return $this->context;
 	}
 
 	/**
-	 * @param Context $context
+	 * @param  Context $context
 	 *
 	 * @return Response
 	 */
-	public function setContext($context) {
+	public function setContext(Context $context): Response {
 		$this->context = $context;
 
 		return $this;
@@ -62,9 +71,14 @@ class Response {
 
 
     /**
-     * @return  array
+     * @return array
+     * @throws InvalidArgumentException
      */
-    function render() {
+    function render(): array {
+	    if(is_null($this->getEvent())) {
+		    throw new InvalidArgumentException('Missing event.');
+	    }
+
         $rendered = [
             'event' => $this->getEvent()->render(),
         ];

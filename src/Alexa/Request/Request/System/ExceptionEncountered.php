@@ -23,7 +23,7 @@ class ExceptionEncountered extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		if(isset($requestData['error'])) {
@@ -39,14 +39,14 @@ class ExceptionEncountered extends AbstractRequest {
 	/**
 	 * @return Error
 	 */
-	public function getError() {
+	public function getError(): Error {
 		return $this->error;
 	}
 
 	/**
 	 * @return Cause
 	 */
-	public function getCause() {
+	public function getCause(): Cause {
 		return $this->cause;
 	}
 }

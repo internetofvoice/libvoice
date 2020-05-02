@@ -26,7 +26,7 @@ class Play extends AbstractDirective {
 	 * @param string    $playBehavior
 	 * @param AudioItem $audioItem
 	 */
-	public function __construct($playBehavior, $audioItem) {
+	public function __construct(string $playBehavior, AudioItem $audioItem) {
 		parent::__construct();
 
 		$this->type = 'AudioPlayer.Play';
@@ -38,7 +38,7 @@ class Play extends AbstractDirective {
 	/**
 	 * @return string
 	 */
-	public function getPlayBehavior() {
+	public function getPlayBehavior(): string {
 		return $this->playBehavior;
 	}
 
@@ -48,7 +48,7 @@ class Play extends AbstractDirective {
 	 * @return Play
 	 * @throws InvalidArgumentException
 	 */
-	public function setPlayBehavior($playBehavior) {
+	public function setPlayBehavior(string $playBehavior): Play {
 		if(!in_array($playBehavior, self::PLAY_BEHAVIORS)) {
 			throw new InvalidArgumentException('PlayBehavior must be one of ' . implode(', ', self::PLAY_BEHAVIORS));
 		}
@@ -61,7 +61,7 @@ class Play extends AbstractDirective {
 	/**
 	 * @return AudioItem
 	 */
-	public function getAudioItem() {
+	public function getAudioItem(): AudioItem {
 		return $this->audioItem;
 	}
 
@@ -70,7 +70,7 @@ class Play extends AbstractDirective {
 	 *
 	 * @return Play
 	 */
-	public function setAudioItem($audioItem) {
+	public function setAudioItem(AudioItem $audioItem): Play {
 		$this->audioItem = $audioItem;
 
 		return $this;
@@ -80,7 +80,7 @@ class Play extends AbstractDirective {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'type'         => $this->getType(),
 			'playBehavior' => $this->getPlayBehavior(),

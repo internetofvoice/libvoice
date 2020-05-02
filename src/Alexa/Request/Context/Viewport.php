@@ -42,7 +42,7 @@ class Viewport {
 	/**
 	 * @param array $viewportData
 	 */
-	public function __construct($viewportData) {
+	public function __construct(array $viewportData) {
 		if(isset($viewportData['experiences'])) {
 			foreach($viewportData['experiences'] as $experience) {
 				array_push($this->experiences, new Experience($experience));
@@ -86,63 +86,63 @@ class Viewport {
 	/**
 	 * @return Experience[]
 	 */
-	public function getExperiences() {
+	public function getExperiences(): array {
 		return $this->experiences;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getShape() {
+	public function getShape(): string {
 		return $this->shape;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getPixelWidth() {
+	public function getPixelWidth(): int {
 		return $this->pixelWidth;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getPixelHeight() {
+	public function getPixelHeight(): int {
 		return $this->pixelHeight;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getDpi() {
+	public function getDpi(): int {
 		return $this->dpi;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getCurrentPixelWidth() {
+	public function getCurrentPixelWidth(): int {
 		return $this->currentPixelWidth;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getCurrentPixelHeight() {
+	public function getCurrentPixelHeight(): int {
 		return $this->currentPixelHeight;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getTouch() {
+	public function getTouch(): array {
 		return $this->touch;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getKeyboard() {
+	public function getKeyboard(): array {
 		return $this->keyboard;
 	}
 }

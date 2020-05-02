@@ -7,6 +7,10 @@ use \InternetOfVoice\LibVoice\Alexa\Response\Card\AskForPermissionsConsent as As
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\LinkAccount as LinkAccountCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Simple as SimpleCard;
 use \InternetOfVoice\LibVoice\Alexa\Response\Card\Standard as StandardCard;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\AudioItem;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\ClearQueue;
+use \InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Play;
+use InternetOfVoice\LibVoice\Alexa\Response\Directives\AudioPlayer\Stop;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\PlainText;
 use \InternetOfVoice\LibVoice\Alexa\Response\OutputSpeech\SSML;
 
@@ -39,7 +43,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function respond($text) {
+	public function respond(string $text): AlexaResponse {
 		$this->getResponse()->setOutputSpeech(new PlainText($text));
 
 		return $this;
@@ -52,7 +56,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function respondSSML($ssml) {
+	public function respondSSML(string $ssml): AlexaResponse {
 		$this->getResponse()->setOutputSpeech(new SSML($ssml));
 
 		return $this;
@@ -65,7 +69,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function setPlayBehavior($playBehavior) {
+	public function setPlayBehavior(string $playBehavior): AlexaResponse {
 		$this->getResponse()->getOutputSpeech()->setPlayBehavior($playBehavior);
 
 		return $this;
@@ -79,7 +83,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function withCard($title, $content) {
+	public function withCard(string $title, string $content): AlexaResponse {
 		return $this->withSimpleCard($title, $content);
 	}
 
@@ -91,7 +95,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function withSimpleCard($title, $content) {
+	public function withSimpleCard(string $title, string $content): AlexaResponse {
 		$this->getResponse()->setCard(new SimpleCard($title, $content));
 
 		return $this;
@@ -107,7 +111,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function withStandardCard($title, $text, $smallImageUrl, $largeImageUrl) {
+	public function withStandardCard(string $title, string $text, string $smallImageUrl, string $largeImageUrl): AlexaResponse {
 		$this->getResponse()->setCard(new StandardCard($title, $text, $smallImageUrl, $largeImageUrl));
 
 		return $this;
@@ -120,7 +124,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function withAskForPermissionsConsentCard($permissions) {
+	public function withAskForPermissionsConsentCard(array $permissions): AlexaResponse {
 		$this->getResponse()->setCard(new AskForPermissionsConsentCard($permissions));
 
 		return $this;
@@ -131,7 +135,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function withLinkAccount() {
+	public function withLinkAccount(): AlexaResponse {
 		$this->getResponse()->setCard(new LinkAccountCard());
 
 		return $this;
@@ -144,7 +148,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function reprompt($text) {
+	public function reprompt(string $text): AlexaResponse {
 		$this->getResponse()->setReprompt(new Reprompt('PlainText', $text));
 
 		return $this;
@@ -157,7 +161,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function repromptSSML($ssml) {
+	public function repromptSSML(string $ssml): AlexaResponse {
 		$this->getResponse()->setReprompt(new Reprompt('SSML', $ssml));
 
 		return $this;
@@ -170,8 +174,46 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function canFulfill($canFulfill) {
+	public function canFulfill(string $canFulfill): AlexaResponse {
 		$this->getResponse()->setCanFulfillIntent(new CanFulfillIntent($canFulfill));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut ro Response->addDirective(new Play())
+	 *
+	 * @param  string    $playBehavior
+	 * @param  AudioItem $audioItem
+	 *
+	 * @return AlexaResponse
+	 */
+	public function audioPlay(string $playBehavior, AudioItem $audioItem): AlexaResponse {
+		$this->getResponse()->addDirective(new Play($playBehavior, $audioItem));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut ro Response->addDirective(new ClearQueue())
+	 *
+	 * @param  string $clearBehavior
+	 *
+	 * @return AlexaResponse
+	 */
+	public function audioClearQueue(string $clearBehavior): AlexaResponse {
+		$this->getResponse()->addDirective(new ClearQueue($clearBehavior));
+
+		return $this;
+	}
+
+	/**
+	 * Shortcut ro Response->addDirective(new Stop())
+	 *
+	 * @return AlexaResponse
+	 */
+	public function audioStop() {
+		$this->getResponse()->addDirective(new Stop());
 
 		return $this;
 	}
@@ -183,7 +225,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function endSession($shouldEndSession) {
+	public function endSession(bool $shouldEndSession): AlexaResponse {
 		$this->getResponse()->setShouldEndSession($shouldEndSession);
 
 		return $this;
@@ -193,7 +235,7 @@ class AlexaResponse {
 	/**
 	 * @return string
 	 */
-	public function getVersion() {
+	public function getVersion():string {
 		return $this->version;
 	}
 
@@ -202,7 +244,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function setVersion($version) {
+	public function setVersion(string $version): AlexaResponse {
 		$this->version = $version;
 
 		return $this;
@@ -211,7 +253,7 @@ class AlexaResponse {
 	/**
 	 * @return array
 	 */
-	public function getSessionAttributes() {
+	public function getSessionAttributes():array {
 		return $this->sessionAttributes;
 	}
 
@@ -220,7 +262,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function setSessionAttributes($sessionAttributes) {
+	public function setSessionAttributes(array $sessionAttributes): AlexaResponse {
 		$this->sessionAttributes = $sessionAttributes;
 
 		return $this;
@@ -232,7 +274,7 @@ class AlexaResponse {
 	 *
 	 * @return mixed
 	 */
-	public function getSessionAttribute($key, $default = false) {
+	public function getSessionAttribute(string $key, $default = false) {
 		return isset($this->sessionAttributes[$key]) ? $this->sessionAttributes[$key] : $default;
 	}
 
@@ -242,7 +284,7 @@ class AlexaResponse {
 	 *
 	 * @return AlexaResponse
 	 */
-	public function setSessionAttribute($key, $value) {
+	public function setSessionAttribute(string $key, $value): AlexaResponse {
 		$this->sessionAttributes[$key] = $value;
 
 		return $this;
@@ -251,14 +293,14 @@ class AlexaResponse {
 	/**
 	 * @return Response
 	 */
-	public function getResponse() {
+	public function getResponse(): Response {
 		return $this->response;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render():array {
 		$rendered = array();
 
 		$rendered['version']           = $this->getVersion();

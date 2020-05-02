@@ -26,7 +26,7 @@ class PlaybackFailed extends AbstractRequest {
 	/**
 	 * @param array $requestData
 	 */
-	public function __construct($requestData) {
+	public function __construct(array $requestData) {
 		parent::__construct($requestData);
 
 		if(isset($requestData['token'])) {
@@ -46,21 +46,21 @@ class PlaybackFailed extends AbstractRequest {
 	/**
 	 * @return string
 	 */
-	public function getToken() {
+	public function getToken(): string {
 		return $this->token;
 	}
 
 	/**
 	 * @return Error
 	 */
-	public function getError() {
+	public function getError(): Error {
 		return $this->error;
 	}
 
 	/**
 	 * @return AudioPlayer
 	 */
-	public function getCurrentPlaybackState() {
+	public function getCurrentPlaybackState(): AudioPlayer {
 		return $this->currentPlaybackState;
 	}
 }

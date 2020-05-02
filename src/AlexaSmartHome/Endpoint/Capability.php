@@ -31,14 +31,15 @@ class Capability extends Relation {
     /**
      * Capability constructor
      *
-     * @param string $interface
-     * @param array  $properties
-     * @param bool   $proactivelyReported
-     * @param bool   $retrievable
-     * @param array  $extraProperties
+     * @param  string $interface
+     * @param  array  $properties
+     * @param  bool   $proactivelyReported
+     * @param  bool   $retrievable
+     * @param  array  $extraProperties
+     *
      * @throws InvalidArgumentException
      */
-    public function __construct($interface, $properties = [], $proactivelyReported = false, $retrievable = false, $extraProperties = null) {
+    public function __construct(string $interface, array $properties = [], bool $proactivelyReported = false, bool $retrievable = false, array $extraProperties = []) {
         $this->setInterface($interface);
         $this->setVersion($this->getApiVersion());
         $this->setProperties($properties, $proactivelyReported, $retrievable);
@@ -49,71 +50,77 @@ class Capability extends Relation {
     /**
      * @return string
      */
-    public function getType() {
+    public function getType(): string {
         return $this->type;
     }
 
     /**
-     * @param string $type
+     * @param  string $type
+     *
      * @return Capability
      */
-    public function setType($type) {
+    public function setType(string $type): Capability {
         $this->type = $type;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getInterface() {
+    public function getInterface(): string {
         return $this->interface;
     }
 
     /**
-     * @param string $interface
+     * @param  string $interface
+     *
      * @return Capability
      * @throws InvalidArgumentException
      */
-    public function setInterface($interface) {
+    public function setInterface(string $interface): Capability {
         if(!$this->isInterfaceAvailable($interface)) {
             throw new InvalidArgumentException('Unknown interface: ' . $interface);
         }
 
         $this->interface = $interface;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getVersion() {
+    public function getVersion(): string {
         return $this->version;
     }
 
     /**
-     * @param string $version
+     * @param  string $version
+     *
      * @return Capability
      */
-    public function setVersion($version) {
+    public function setVersion(string $version): Capability {
         $this->version = $version;
         return $this;
     }
 
     /**
-     * @return DiscoverableProperties
+     * @return null|DiscoverableProperties
      */
-    public function getProperties() {
+    public function getProperties(): ?DiscoverableProperties {
         return $this->properties;
     }
 
     /**
-     * @param array $properties
-     * @param bool  $proactivelyReported
-     * @param bool  $retrievable
+     * @param  array $properties
+     * @param  bool  $proactivelyReported
+     * @param  bool  $retrievable
+     *
      * @return Capability
      * @throws InvalidArgumentException
      */
-    public function setProperties($properties, $proactivelyReported, $retrievable) {
+    public function setProperties(array $properties, bool $proactivelyReported, bool $retrievable) {
         $interface = $this->getInterface();
 
         if(is_array($properties) && count($properties)) {
@@ -133,15 +140,16 @@ class Capability extends Relation {
     /**
      * @return array
      */
-    public function getExtraProperties() {
+    public function getExtraProperties(): array {
         return $this->extraProperties;
     }
 
     /**
      * @param  array $extraProperties
+     *
      * @return Capability
      */
-    public function setExtraProperties($extraProperties) {
+    public function setExtraProperties(array $extraProperties): Capability {
         if(is_array($extraProperties) && count($extraProperties)) {
             foreach($extraProperties as $key => $value) {
                 $this->addExtraProperty($key, $value);
@@ -153,22 +161,20 @@ class Capability extends Relation {
 
     /**
      * @param  string $key
-     * @param  mixed $value
+     * @param  mixed  $value
+     *
      * @return Capability
      * @throws InvalidArgumentException
      */
-    public function addExtraProperty($key, $value) {
-        $interface = $this->getInterface();
-        $valid = $this->getExtraPropertiesFor($interface);
+    public function addExtraProperty(string $key, $value): Capability {
+	    $interface = $this->getInterface();
+	    $valid     = $this->getExtraPropertiesFor($interface);
         if(!array_key_exists($key, $valid)) {
             throw new InvalidArgumentException('Invalid extra property ' . $key . ' for interface: ' . $interface);
         }
 
-        if(is_null($this->extraProperties))  {
-            $this->extraProperties = [];
-        }
-
         $this->extraProperties[$key] = $value;
+
         return $this;
     }
 
@@ -176,11 +182,11 @@ class Capability extends Relation {
     /**
      * @return array
      */
-    public function render() {
+    public function render(): array {
         $rendered = [
-            'type' => $this->getType(),
-            'interface' => $this->getInterface(),
-            'version' => $this->getVersion(),
+	        'type'      => $this->getType(),
+	        'interface' => $this->getInterface(),
+	        'version'   => $this->getVersion(),
         ];
 
         if(!is_null($this->getProperties())) {
@@ -210,5 +216,4 @@ class Capability extends Relation {
 
         return $rendered;
     }
-
 }

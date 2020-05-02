@@ -2,7 +2,7 @@
 
 namespace InternetOfVoice\LibVoice\AlexaSmartHome\Response;
 
-use InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
+use \InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint\Endpoint;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload;
@@ -18,17 +18,14 @@ class AlexaResponse {
 	/** @var Response $response */
 	protected $response;
 
-	/** @var Context $context */
-	protected $context;
-
 
 	/**
 	 * @param Response $response
-	 * @param Context $context
 	 */
-	public function __construct($response = null, $context = null) {
-		$this->setResponse($response);
-		$this->setContext($context);
+	public function __construct(Response $response = null) {
+		if(!is_null($response)) {
+			$this->setResponse($response);
+		}
 	}
 
 	/**
@@ -37,14 +34,17 @@ class AlexaResponse {
      * Supported templates: Discovery, StateReport, Response
      *
      * @param  string $template
+	 *
 	 * @return AlexaResponse
      * @throws InvalidArgumentException
 	 */
-	public static function create($template = 'Response') {
+	public static function create(string $template = 'Response'): AlexaResponse {
 	    $return = null;
 
 	    switch ($template) {
-            case 'Discovery':
+		    case 'Authorization':
+		    case 'Discovery':
+		    case 'Error':
                 $return = new AlexaResponse(
                     new Response(
                         new Event(
@@ -56,6 +56,7 @@ class AlexaResponse {
             break;
 
             case 'StateReport':
+		    case 'Response':
                 $return = new AlexaResponse(
                     new Response(
                         new Event(
@@ -67,41 +68,6 @@ class AlexaResponse {
                     )
                 );
             break;
-
-            case 'Response':
-                $return = new AlexaResponse(
-                    new Response(
-                        new Event(
-                            new Header(),
-                            new Payload(),
-                            new Endpoint()
-                        ),
-	                    new Context()
-                    )
-                );
-            break;
-
-		    case 'Authorization':
-			    $return = new AlexaResponse(
-				    new Response(
-					    new Event(
-						    new Header(),
-						    new Payload()
-					    )
-				    )
-			    );
-		    break;
-
-		    case 'Error':
-			    $return = new AlexaResponse(
-				    new Response(
-					    new Event(
-						    new Header(),
-						    new Payload()
-					    )
-				    )
-			    );
-		    break;
 
             default:
                 throw new InvalidArgumentException('Unsupported AlexaResponse template: ' . $template);
@@ -113,78 +79,62 @@ class AlexaResponse {
 
 
 	/**
-     * @return Response
+     * @return null|Response
      */
-    public function getResponse() {
+    public function getResponse(): ?Response {
         return $this->response;
     }
 
     /**
-     * @param Response $response
+     * @param  Response $response
+     *
      * @return AlexaResponse
      */
-    public function setResponse($response) {
+    public function setResponse(Response $response): AlexaResponse {
         $this->response = $response;
+
         return $this;
     }
-
-    /**
-     * @return Context
-     */
-    public function getContext() {
-        return $this->context;
-    }
-
-    /**
-     * @param Context $context
-     * @return AlexaResponse
-     */
-    public function setContext($context) {
-        $this->context = $context;
-        return $this;
-    }
-
 
 	/**
 	 * Shortcut to Event Header
 	 *
-	 * @return Header
+	 * @return null|Header
 	 */
-    public function getHeader() {
+    public function getHeader(): ?Header {
 		return $this->getResponse()->getEvent()->getHeader();
     }
 
 	/**
 	 * Shortcut to Event Payload
 	 *
-	 * @return Payload
+	 * @return null|Payload
 	 */
-	public function getPayload() {
+	public function getPayload(): ?Payload {
 		return $this->getResponse()->getEvent()->getPayload();
 	}
 
     /**
      * Shortcut to Event Endpoint
      *
-     * @return Endpoint
+     * @return null|Endpoint
      */
-    public function getEndpoint() {
+    public function getEndpoint(): ?Endpoint {
         return $this->getResponse()->getEvent()->getEndpoint();
     }
 
 
     /**
-     * @return  array
+     * @return array
+     * @throws InvalidArgumentException
      */
-    function render() {
-        $rendered = [
+    function render(): array {
+	    if(is_null($this->getResponse())) {
+		    throw new InvalidArgumentException('Missing response.');
+	    }
+
+        return [
             'response' => $this->getResponse()->render(),
         ];
-
-        if(!is_null($this->getContext())) {
-        	$rendered['context'] = $this->getContext()->render();
-        }
-
-        return $rendered;
     }
 }

@@ -10,6 +10,7 @@ use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Header;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Response\Event\Payload;
 use \InternetOfVoice\LibVoice\AlexaSmartHome\Response\Context;
+use \InvalidArgumentException;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -57,4 +58,14 @@ class ResponseTest extends TestCase {
 
 		$this->assertEquals($expect, $response->render());
 	}
+
+	/**
+	 * @group smarthome
+	 */
+	public function testAlexaResponseMissingEvent() {
+		$response = new Response();
+		$this->expectException(InvalidArgumentException::class);
+		$response->render();
+	}
+
 }

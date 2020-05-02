@@ -23,7 +23,7 @@ class HeaderTest extends TestCase {
 		$this->assertEquals('Alexa.Discovery', $header->getNamespace());
 		$this->assertEquals('Discover', $header->getName());
 		$this->assertEquals('3', $header->getPayloadVersion());
-		$this->assertRegExp('/^[0-9a-zA-Z-]{36}$/', $header->getMessageId());
+		$this->assertMatchesRegularExpression('/^[0-9a-zA-Z-]{36}$/', $header->getMessageId());
 	}
 
 	/**

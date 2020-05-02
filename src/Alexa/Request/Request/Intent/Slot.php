@@ -32,7 +32,7 @@ class Slot {
 	/**
 	 * @param array $slotData
 	 */
-	public function __construct($slotData = []) {
+	public function __construct(array $slotData = []) {
 		if(isset($slotData['name'])) {
 			$this->name = $slotData['name'];
 		}
@@ -58,7 +58,7 @@ class Slot {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string  {
 		return $this->name;
 	}
 
@@ -67,7 +67,7 @@ class Slot {
 	 *
 	 * @return Slot
 	 */
-	public function setName($name) {
+	public function setName(string $name): Slot {
 		$this->name = $name;
 
 		return $this;
@@ -85,7 +85,7 @@ class Slot {
 	 *
 	 * @return Slot
 	 */
-	public function setValue($value) {
+	public function setValue($value): Slot {
 		$this->value = $value;
 
 		return $this;
@@ -94,7 +94,7 @@ class Slot {
 	/**
 	 * @return string
 	 */
-	public function getConfirmationStatus() {
+	public function getConfirmationStatus(): string  {
 		return $this->confirmationStatus;
 	}
 
@@ -104,7 +104,7 @@ class Slot {
 	 * @return Slot
 	 * @throws InvalidArgumentException
 	 */
-	public function setConfirmationStatus($confirmationStatus) {
+	public function setConfirmationStatus(string $confirmationStatus): Slot {
 		if(!in_array($confirmationStatus, self::VALID_CONFIRMATION_STATUS)) {
 			throw new InvalidArgumentException('Slot confirmationStatus must be one of ' . implode(', ', self::VALID_CONFIRMATION_STATUS));
 		}
@@ -117,7 +117,7 @@ class Slot {
 	/**
 	 * @return string
 	 */
-	public function getSource() {
+	public function getSource(): string  {
 		return $this->source;
 	}
 
@@ -126,7 +126,7 @@ class Slot {
 	 *
 	 * @return Slot
 	 */
-	public function setSource($source) {
+	public function setSource(string $source): Slot {
 		$this->source = $source;
 
 		return $this;
@@ -135,7 +135,7 @@ class Slot {
 	/**
 	 * @return Resolutions
 	 */
-	public function getResolutions() {
+	public function getResolutions(): Resolutions {
 		return $this->resolutions;
 	}
 
@@ -144,7 +144,7 @@ class Slot {
 	 *
 	 * @return Slot
 	 */
-	public function setResolutions($resolutions) {
+	public function setResolutions(Resolutions$resolutions): Slot {
 		$this->resolutions = $resolutions;
 
 		return $this;
@@ -154,7 +154,7 @@ class Slot {
 	/**
 	 * @return array
 	 */
-	public function render() {
+	public function render(): array {
 		$result = [
 			'name'               => $this->getName(),
 			'value'              => $this->getValue(),
