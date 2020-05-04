@@ -4,6 +4,7 @@ namespace InternetOfVoice\LibVoice\AlexaSmartHome\Endpoint;
 
 use \DateTime;
 use \DateTimeZone;
+use \Exception;
 use \InvalidArgumentException;
 
 /**
@@ -36,6 +37,8 @@ class ReportableProperty extends Relation {
 	 * @param mixed     $value
 	 * @param DateTime  $timeOfSample (UTC / "Zulu Time")
 	 * @param int       $uncertaintyInMilliseconds
+	 *
+	 * @throws Exception
 	 */
 	public function __construct(string $namespace, string $name, $value, DateTime $timeOfSample = null, int $uncertaintyInMilliseconds = null) {
 		$this->setNamespace($namespace);

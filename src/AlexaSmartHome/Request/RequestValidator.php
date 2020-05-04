@@ -4,6 +4,7 @@ namespace InternetOfVoice\LibVoice\AlexaSmartHome\Request;
 
 use \DateTime;
 use \DateTimeZone;
+use \Exception;
 use \InvalidArgumentException;
 
 /**
@@ -38,6 +39,7 @@ class RequestValidator {
 	 *
 	 * @return bool
 	 * @throws InvalidArgumentException
+	 * @throws Exception
 	 */
 	public static function validateTimestamp(string $timestamp, string $timezone = 'UTC'): bool {
 		$time = new DateTime($timestamp); // may throw an exception for an unknown timestamp format

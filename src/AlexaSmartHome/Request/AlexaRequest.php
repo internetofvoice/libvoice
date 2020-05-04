@@ -34,6 +34,7 @@ class AlexaRequest {
 	 * @param  bool   $validateTimestamp
 	 *
 	 * @throws InvalidArgumentException
+	 * @throws Exception
 	 */
 	public function __construct(string $rawData, string $signature = '', string $secret = '', bool $validateSignature = true, bool $validateTimestamp = true) {
 		$data = json_decode($rawData, true);
